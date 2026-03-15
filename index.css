@@ -4,6 +4,7 @@
     --link-color: #58A6FF;
     --card-bg: #161b22;
     --card-bg-hover: #1C2128;
+    --button-color: #8957E5;
     color-scheme: dark;
 }
 
@@ -29,6 +30,15 @@ html,body {
     padding-right: 4px;
 }
 
+.nav-btn {
+    background-color: var(--button-color);
+    border-radius: 12px;
+    display: inline-block;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
 .nav-link {
     text-decoration: none;
     color: var(--link-color);
@@ -45,7 +55,7 @@ html,body {
 }
 
 .main {
-    padding: 10px;
+    padding: 20px;
     margin: 0px;
     color: var(--text-color);
 }
@@ -65,6 +75,13 @@ html,body {
 .text-link {
     color: var(--link-color);
     text-decoration: none;
+}
+
+.article {
+    margin: 0px;
+    padding: 7px;
+    line-height: 1.6;
+    font-size: 1.1rem;
 }
 
 .card-grid {

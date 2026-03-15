@@ -50,6 +50,18 @@ html,body {
     color: var(--text-color);
 }
 
+.menu {
+    margin: 0px;
+    padding: 0px;
+    border: #0D1117 solid 1px;
+    border-radius: 12px;
+}
+
+.menu-item {
+    padding: 0px;
+    list-style: none;
+}
+
 .text-link {
     color: var(--link-color);
     text-decoration: none;

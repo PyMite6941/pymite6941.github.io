@@ -89,6 +89,16 @@ html,body {
     font-variation-settings: "GRAD" 0;
 }
 
+.article-stuff {
+    font-size: 0.75rem;
+    color: #8B949E;
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 10px;
+    font-style: normal;
+    font-variation-settings: "GRAD" 0;
+}
+
 .card-grid {
     padding: 20px;
     display: grid;

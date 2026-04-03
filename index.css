@@ -8,6 +8,17 @@
 	color-scheme: dark;
 }
 
+@media (max-width: 540px) {
+	.hero-section {
+		margin-top: 20%;
+		margin-bottom: 20%;
+	}
+
+	.card-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
 html,
 body {
 	margin: 0px;
@@ -33,6 +44,7 @@ body {
 
 .nav-btn {
 	background-color: var(--button-color);
+	color: #ffff;
 	border-radius: 12px;
 	display: inline-block;
 	font-weight: bold;

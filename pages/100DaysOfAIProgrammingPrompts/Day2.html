@@ -48,27 +48,40 @@
 			>
 		</div>
 		<header class="hero-section">
-			<h1>Markdown to HTML Converter</h1>
-			<h3>A simple Markdown to HTML converter built in Go</h3>
+			<h1>Day 2</h1>
+			<h3>A Basic Input/Output Program in Rust</h3>
 		</header>
 		<article class="main">
-			<div id="top"></div>
 			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
 			<br />
+			<iframe
+				src="https://play.rust-lang.org/?version=stable&mode=debug&edition=2024&gist=4d307730bf1e42e185b4fd5409821c86"
+				width="100%"
+				height="500px"
+				style="border: 1px solid #ccc">
+			</iframe>
 			<br />
-			<a
-				class="text-link"
-				href="https://github.com/PyMite6941/Create-HTML-with-an-MD-file"
-				>Visit the GitHub Repo</a
-			>
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					use std::io;<br /><br />
+					fn main() {<br />
+					&nbsp;println!("This is my first program in rust.");<br />
+					&nbsp;println!("Type something random");<br />
+					&nbsp;let mut input = String::new();<br />
+					&nbsp;io::stdin().read_line(&mut input);<br />
+					&nbsp;println!("You typed: {}", input.trim());<br />
+					}
+				</code>
+			</div>
 			<br />
 			<h2 style="text-align: center">Description</h2>
 			<br />
-			<h3></h3>
-			<a
-				class="text-link"
-				href="#top"
-				>Back to top</a
+			<h3
+				>This is my first Rust program. Despite it being basic it helped me to
+				understand I/O in Rust better. This reminded me of C++ and how the
+				functions and I/O works.</h3
 			>
 			<br />
 		</article>

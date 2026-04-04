@@ -1,0 +1,52 @@
+[
+	{
+		"name": "Elena Rodriguez",
+		"age": 34,
+		"job_title": "Senior Software Engineer",
+		"salary": 125000,
+		"currency": "USD",
+		"employment_type": "Full-time",
+		"skills": ["Python", "Cloud Architecture", "Leadership"],
+		"remote": true
+	},
+	{
+		"name": "Marcus Chen",
+		"age": 29,
+		"job_title": "Creative Director",
+		"salary": 98000,
+		"currency": "USD",
+		"employment_type": "Full-time",
+		"skills": ["Brand Strategy", "Adobe Suite", "Copywriting"],
+		"remote": false
+	},
+	{
+		"name": "Sarah Jenkins",
+		"age": 27,
+		"job_title": "Data Analyst",
+		"salary": 82000,
+		"currency": "USD",
+		"employment_type": "Contract",
+		"skills": ["SQL", "Tableau", "Statistical Modeling"],
+		"remote": true
+	},
+	{
+		"name": "Amara Okonjo",
+		"age": 41,
+		"job_title": "HR Operations Manager",
+		"salary": 91500,
+		"currency": "USD",
+		"employment_type": "Full-time",
+		"skills": ["Conflict Resolution", "Workday", "Onboarding"],
+		"remote": false
+	},
+	{
+		"name": "Lukas Schmidt",
+		"age": 31,
+		"job_title": "Product Designer",
+		"salary": 105000,
+		"currency": "USD",
+		"employment_type": "Full-time",
+		"skills": ["Figma", "User Research", "Prototyping"],
+		"remote": true
+	}
+]

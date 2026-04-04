@@ -9,13 +9,24 @@
 }
 
 @media (max-width: 540px) {
+	.nav-list, .nav-btn {
+	 display: none;
+	}
+	
 	.hero-section {
 		margin-top: 20%;
 		margin-bottom: 20%;
+		font-size: 25px;
 	}
 
 	.card-grid {
 		grid-template-columns: 1fr;
+	}
+}
+
+@media (min-width: 541px) {
+	.nav-list, .nav-btn {
+	 display: block;
 	}
 }
 

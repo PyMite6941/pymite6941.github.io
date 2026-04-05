@@ -5,14 +5,18 @@
 	--card-bg: #161b22;
 	--card-bg-hover: #1c2128;
 	--button-color: #8957e5;
+	--border-color: #3e4451;
 	color-scheme: dark;
 }
 
 @media (max-width: 540px) {
-	.nav-list, .nav-btn {
-	 display: none;
+	.nav-list {
+		display: none;
 	}
-	
+	.nav-btn {
+		display: none;
+	}
+
 	.hero-section {
 		margin-top: 20%;
 		margin-bottom: 20%;
@@ -25,8 +29,11 @@
 }
 
 @media (min-width: 541px) {
-	.nav-list, .nav-btn {
-	 display: block;
+	.nav-list {
+		display: inline-flex;
+	}
+	.nav-btn {
+		display: inline-block;
 	}
 }
 
@@ -38,9 +45,16 @@ body {
 }
 
 .nav {
+	top: 0px;
+	z-index: 100;
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
+	display: flex;
+	justify-content: space-between;
+	background-color: var(--bg-color);
+	border-bottom: 1px solid var(--border-color);
+	position: sticky;
 }
 
 .nav-list {
@@ -69,19 +83,23 @@ body {
 }
 
 .hero-section {
+	background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
 	width: 100%;
-	margin: 0px;
+	height: 80%;
+	margin: 80px 24px;
 	padding: 0px;
 	text-align: center;
 	color: var(--text-color);
 	margin-top: 10%;
 	margin-bottom: 10%;
+	border-bottom: 1px solid var(--border-color);
 }
 
-.main {
+main {
 	padding: 20px;
 	margin: 0px;
 	color: var(--text-color);
+	border-bottom: 1px solid var(--border-color);
 }
 
 .menu {
@@ -101,32 +119,23 @@ body {
 	text-decoration: none;
 }
 
-.article {
+main article {
 	margin: 0px;
 	padding: 7px;
 	line-height: 1.6;
 	font-size: 1.1rem;
 	font-family: 'Google Sans', sans-serif;
 	font-optical-sizing: auto;
-	font-weight: 12px;
+	font-weight: 12;
 	font-style: normal;
 	font-variation-settings: 'GRAD' 0;
-}
-
-.article-stuff {
-	font-size: 0.75rem;
 	color: #8b949e;
-	font-family: 'Google Sans', sans-serif;
-	font-optical-sizing: auto;
-	font-weight: 10px;
-	font-style: normal;
-	font-variation-settings: 'GRAD' 0;
 }
 
 .card-grid {
 	padding: 20px;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	gap: 20px;
 }
 
@@ -135,8 +144,8 @@ body {
 	background-color: var(--card-bg);
 	border-radius: 12px;
 	transition:
-		transform 0.2 ease,
-		box-shadow 0.2 ease;
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -186,8 +195,7 @@ body {
 	background-color: #21252b;
 	color: #abb2bf;
 	border-radius: 8px;
-	border-color: #3e4451;
-	border-width: 1px;
+	border: 1px solid var(--border-color);
 }
 
 .foot {

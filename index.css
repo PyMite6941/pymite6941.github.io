@@ -9,7 +9,22 @@
 	color-scheme: dark;
 }
 
-@media (max-width: 540px) {
+@media (min-width: 1025px) {
+	.nav-list {
+		display: inline-flex;
+	}
+	.nav-btn {
+		display: inline-block;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+	.card-grid {
+		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+	}
+}
+
+@media (min-width: 480px) {
 	.nav-list {
 		display: none;
 	}
@@ -25,15 +40,6 @@
 
 	.card-grid {
 		grid-template-columns: 1fr;
-	}
-}
-
-@media (min-width: 541px) {
-	.nav-list {
-		display: inline-flex;
-	}
-	.nav-btn {
-		display: inline-block;
 	}
 }
 

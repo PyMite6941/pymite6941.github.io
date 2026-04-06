@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			description="Day 4 of the 100 Days of AI-Generated Programming Prompts and it's the day for JavaScript, so I improved my chess website." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Matt G | Portfolio Website</title>
+	</head>
+	<body>
+		<div class="nav">
+			<ul class="nav-list">
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../../index.html"
+						>Home</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../about-me.html"
+						>About Me</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../projects.html"
+						>Projects</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../the-dev-docs.html"
+						>The Dev Docs</a
+					></li
+				>
+			</ul>
+			<a
+				class="nav-btn"
+				href="mailto:greshamd27@gmail.com"
+				>Contact me</a
+			>
+		</div>
+		<header class="hero-section">
+			<h1>Day 2</h1>
+			<h3>A Basic Input/Output Program in Rust</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<br />
+			<py-terminal autoscroll="true"></py-terminal>
+			<!-- prettier-ignore -->
+			<script
+				type="py"
+				terminal>
+                import asyncio
+                from js import window
+                import time
+                def timer(func):
+                    def wrapper(*args, **kwargs):
+                        start = time.time()
+                        result = func(*args,**kwargs)
+                        end = time.time()
+                        print(f"{func.__name__} took {end-start} seconds")
+                        return result
+                    return wrapper
+                @timer
+                def factorial(num):
+                    if num == 0:
+                        return 0
+                    elif num == 1:
+                        return 1
+                    return factorial(num-1)+factorial(num-2)
+
+                asyncio.run(print(factorial(num=int(window.prompt("Enter a number to find the factorial of: ")))))
+			</script>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>This is a program that calculates factorials using recursion [a new
+				style I have been learning about] and pyscript.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					import time<br />
+					def timer(func):<br />
+					&nbsp;def wrapper(*args, **kwargs):<br />
+					&nbsp;&nbsp;start = time.time()<br />
+					&nbsp;&nbsp;result = func(*args,**kwargs)<br />
+					&nbsp;&nbsp;end = time.time()<br />
+					&nbsp;&nbsp;print(f"{func.__name__} took {end-start} seconds")<br />
+					&nbsp;&nbsp;return result<br />
+					&nbsp;return wrapper<br />
+					@timer<br />
+					def factorial(num):<br />
+					&nbsp;if num == 0:<br />
+					&nbsp;&nbsp;return 0<br />
+					&nbsp;elif num == 1:<br />
+					&nbsp;&nbsp;return 1<br />
+					&nbsp;return factorial(num-1)+factorial(num-2)<br />
+					print(factorial(3))<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day4.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<footer class="foot">
+			<p>
+				<a
+					class="text-link"
+					href="https://github.com/PyMite6941"
+					>My GitHub</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../the-dev-docs.html"
+					>The Dev Docs</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../../assets/documents/matt_gresham_resume.pdf"
+					>View my resume</a
+				>
+			</p>
+			<p style="text-align: center; font-size: 14px">
+				&copy; 2026 Matt Gresham. All rights reserved.
+			</p>
+		</footer>
+	</body>
+</html>

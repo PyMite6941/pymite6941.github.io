@@ -92,20 +92,76 @@ body {
 	background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
 	width: 100%;
 	height: 80%;
-	margin: 80px 24px;
-	padding: 0px;
+	padding: 60px 0;
+	min-height: 400px;
 	text-align: center;
 	color: var(--text-color);
 	margin-top: 10%;
-	margin-bottom: 10%;
+	margin-bottom: 0px;
 	border-bottom: 1px solid var(--border-color);
 }
 
-main {
+.sidenav {
+	margin-top: 0;
 	padding: 20px;
+	width: 200px;
+	min-width: 200px;
+	position: sticky;
+	top: 140px;
+	left: 0px;
+	z-index: 1;
+	background-color: var(--bg-color);
+	overflow-x: hidden;
+	padding: 8px 0;
+	overflow-y: auto;
+}
+
+main {
 	margin: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+	display: flex;
+	margin-top: 0;
+	padding-top: 0px;
+	align-items: flex-start;
+	flex-direction: column;
 	color: var(--text-color);
 	border-bottom: 1px solid var(--border-color);
+}
+
+.contact-me input {
+	padding: 10px;
+	margin: 10px 0px;
+	border: 1px solid var(--border-color);
+	border-radius: 6px;
+	background-color: var(--card-bg);
+	color: var(--text-color);
+}
+
+.contact-me label {
+	display: block;
+	margin-top: 10px;
+}
+
+.contact-me textarea {
+	padding: 10px;
+	margin: 10px 0px;
+	border: 1px solid var(--border-color);
+	border-radius: 6px;
+	background-color: var(--card-bg);
+	color: var(--text-color);
+	width: 100%;
+	height: 150px;
+}
+
+.contact-me button {
+	padding: 10px 20px;
+	background-color: var(--button-color);
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-top: 10px;
 }
 
 .menu {
@@ -118,6 +174,7 @@ main {
 .menu-item {
 	padding: 0px;
 	list-style: none;
+	line-height: 2;
 }
 
 .text-link {
@@ -143,6 +200,7 @@ main article {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	gap: 20px;
+	flex: 1;
 }
 
 .card-container {
@@ -207,4 +265,11 @@ main article {
 .foot {
 	margin: 0px;
 	padding: 20px;
+}
+
+.foot p {
+	color: #8b949e;
+	font-size: 0.9rem;
+	line-height: 1.4;
+	text-align: center;
 }

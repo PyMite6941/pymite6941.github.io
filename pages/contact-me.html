@@ -5,13 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="The Dev Docs — Matt Gresham's articles on programming languages, tools, and lessons learned from real projects." />
+			content="Contact Matt Gresham — send a message directly from the portfolio." />
 		<link
 			rel="stylesheet"
 			type="text/css"
 			href="../index.css" />
 
-		<title>Matt G | The Dev Docs</title>
+		<title>Matt G | Contact</title>
 	</head>
 	<body>
 		<div class="nav">
@@ -52,48 +52,32 @@
 			>
 		</div>
 		<header class="hero-section">
-			<h1>The Dev Docs</h1>
-			<h3>Information I've gathered on programming from experience</h3>
+			<h1>Matt G</h1>
+			<h3>Contact Me</h3>
 		</header>
 		<main>
-			<section class="card-grid">
-				<div class="card-container">
-					<div class="card-header">
-						<span
-							class="tag"
-							style="color: #431da2"
-							>Python</span
-						>
-						<span
-							class="tag"
-							style="color: #58a6ff"
-							>Learning</span
-						>
-						<h3>How I would learn Programming in 2026</h3>
-					</div>
-					<p>Published: Mar. 17th, 2026</p>
-					<br />
-					<a class="text-link" href="dev-docs/learn-programming2026.html">View the article</a>
-				</div>
-				<div class="card-container">
-					<div class="card-header">
-						<span
-							class="tag"
-							style="color: #e08103"
-							>Claude Code</span
-						>
-						<span
-							class="tag"
-							style="color: #58a6ff"
-							>Learning</span
-						>
-						<h3>How I Learn from Claude Code</h3>
-					</div>
-					<p>Published: April 6th, 2026</p>
-					<br />
-					<a class="text-link" href="dev-docs/how-I-learn-from-claude.html">View the article</a>
-				</div>
-			</section>
+			<form class="contact-me">
+				<label for="name">Name:</label><br />
+				<input
+					type="text"
+					id="name"
+					name="name"
+					required /><br />
+				<label for="email">Email:</label><br />
+				<input
+					type="email"
+					id="email"
+					name="email"
+					required /><br />
+				<label for="message">Message:</label><br />
+				<textarea
+					id="message"
+					name="message"
+					rows="5"
+					required></textarea
+				><br />
+				<button type="submit">Send</button>
+			</form>
 		</main>
 		<footer class="foot">
 			<p>

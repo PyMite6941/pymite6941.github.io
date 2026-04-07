@@ -2,12 +2,18 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Projects by Matt Gresham — The Finance Kit, Connect 4 Bot, Chess Website, Markdown to HTML Converter, and more." />
 		<link
 			rel="stylesheet"
 			type="text/css"
 			href="../index.css" />
 
-		<title>Matt G | Portfolio Website</title>
+		<title>Matt G | Projects</title>
 	</head>
 	<body>
 		<div class="nav">
@@ -43,7 +49,7 @@
 			</ul>
 			<a
 				class="nav-btn"
-				href="mailto:greshamd27@gmail.com"
+				href="./contact-me.html"
 				>Contact me</a
 			>
 		</div>
@@ -51,9 +57,45 @@
 			<h1>Matt G</h1>
 			<h3>My Projects</h3>
 		</header>
-		<article class="main">
+		<main>
+			<div class="sidenav">
+				<article
+					>Python:
+					<input
+						type="checkbox"
+						class="checkbox"
+						onclick="filterProjects('Python')" /><br />
+					Go:
+					<input
+						type="checkbox"
+						class="checkbox"
+						onclick="filterProjects('Go')" /><br />
+					Rust:
+					<input
+						type="checkbox"
+						class="checkbox"
+						onclick="filterProjects('Rust')" /><br />
+					React:
+					<input
+						type="checkbox"
+						class="checkbox"
+						onclick="filterProjects('React')" /><br />
+					Full Stack Development:
+					<input
+						type="checkbox"
+						class="checkbox"
+						onclick="filterProjects('Full Stack Development')" /><br />
+					Web Development:
+					<input
+						type="checkbox"
+						class="checkbox"
+						onclick="filterProjects('Web Development')" />
+				</article>
+			</div>
 			<div id="top"></div>
-			<section class="card-grid">
+			<section
+				class="card-grid"
+				style="margin-left: 240px">
 				<div class="card-container">
 					<div class="card-header">
 						<span
@@ -199,6 +241,11 @@
 					<div class="card-header">
 						<span
 							class="tag"
+							style="color: #e20d0d"
+							>React</span
+						>
+						<span
+							class="tag"
 							style="color: #43bda2"
 							>Full Stack Development</span
 						>
@@ -206,11 +253,6 @@
 							class="tag"
 							style="color: #11d978"
 							>Web Development</span
-						>
-						<span
-							class="tag"
-							style="color: #e20d0d"
-							>React</span
 						>
 						<h3>Chess Website</h3>
 					</div>
@@ -272,7 +314,7 @@
 				>Back to top</a
 			>
 			<br />
-		</article>
+		</main>
 		<footer class="foot">
 			<p>
 				<a

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 7 of the 100 Days of AI-Generated Programming Prompts — a SQL CSV Tool." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Day 6 | 100 Days of AI Prompts | Matt G</title>
+	</head>
+	<body>
+		<div class="nav">
+			<ul class="nav-list">
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../../index.html"
+						>Home</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../about-me.html"
+						>About Me</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../projects.html"
+						>Projects</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../the-dev-docs.html"
+						>The Dev Docs</a
+					></li
+				>
+			</ul>
+			<a
+				class="nav-btn"
+				href="../contact-me.html"
+				>Contact me</a
+			>
+		</div>
+		<header class="hero-section">
+			<h1>Day 7</h1>
+			<h3>A SQL CSV Tool</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<br />
+			<py-terminal autoscroll="true"></py-terminal>
+			<!-- prettier-ignore -->
+			<script
+				type="py"
+				terminal>
+                import asyncio
+                import csv
+                while True:
+                    print("SQL CSV tool\nEnter help for more information\nEnter exit to quit\n")
+                    print("Enter the SQL query to execute:")
+                    command = input("> ")
+                    if command.lower() == "exit":
+                        break
+                    elif command.lower() == "help":
+                        print("This tool allows you to execute SQL queries and export the results to a CSV file.\nTo use the tool, simply enter your SQL query and press Enter.\nThe default path for the csv file is a dummy CSV file.\nThe results will be saved to a file named 'output.csv' in the current directory.")
+                    elif command.strip() == "":
+                        print("Please enter a valid SQL query.")
+                        continue
+                    else:
+                        phrases = command.strip().split()
+                        phrases = [phrase.lower().strip(',') for phrase in phrases]
+                        if len(phrases) < 4 or phrases[0] != "select":
+                            print("Only SELECT queries are allowed. Please enter a valid SQL query.")
+                            continue
+                        else:
+                            select_index = phrases.index("select")
+                            from_index = phrases.index("from")
+                            where_index = phrases.index("where") if "where" in phrases else None
+                            total_selected = from_index - select_index - 1
+                            selected_columns = phrases[select_index + 1:from_index]
+                            total_from = phrases[from_index + 1:where_index] if where_index is not None else phrases[from_index + 1:]
+                            if total_selected == 0:
+                                print("Please specify at least one column to select.")
+                                continue
+                            if total_from == 0:
+                                total_from = ["../assets/test-data/departments.csv"]
+                            if where_index is not None:
+                                total_where = len(phrases) - where_index - 1
+                                if total_where == 0:
+                                    print("Please specify a condition for the WHERE clause.")
+                                    continue
+                                else:
+                                    where_condition = phrases[where_index + 1:]
+                            with open(total_from[0], mode='r') as file:
+                                reader = csv.DictReader(file)
+                                results = []
+                                for row in reader:
+                                    if where_index is not None:
+                                        condition = " ".join(where_condition)
+                                        if eval(condition, {}, row):
+                                            results.append({col: row[col] for col in selected_columns})
+                                    else:
+                                        results.append({col: row[col] for col in selected_columns})
+                            print(results)
+			</script>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<h3
+				>This is a python program that filters through CSV data using SQL-based
+				queries.</h3
+			>
+			<br />
+			<div class="code-segment">
+				<code>
+					import csv<br />
+					while True:<br />
+					&nbsp;print("SQL CSV tool\nEnter help for more information\nEnter exit
+					to quit\n")<br />
+					&nbsp;print("Enter the SQL query to execute:")<br />
+					&nbsp;command = input("> ")<br />
+					&nbsp;if command.lower() == "exit":<br />
+					&nbsp;&nbsp;break<br />
+					&nbsp;elif command.lower() == "help":<br />
+					&nbsp;&nbsp;print("This tool allows you to execute SQL queries and
+					export the results to a CSV file.\nTo use the tool, simply enter your
+					SQL query and press Enter.\nThe default path for the csv file is a
+					dummy CSV file.\nThe results will be saved to a file named
+					'output.csv' in the current directory.")<br />
+					&nbsp;elif command.strip() == "":<br />
+					&nbsp;&nbsp;print("Please enter a valid SQL query.")<br />
+					&nbsp;&nbsp;continue<br />
+					&nbsp;else:<br />
+					&nbsp;&nbsp;phrases = command.strip().split()<br />
+					&nbsp;&nbsp;phrases = [phrase.lower().strip(',') for phrase in
+					phrases]<br />
+					&nbsp;&nbsp;if len(phrases) < 4 or phrases[0] != "select":<br />
+					&nbsp;&nbsp;&nbsp;print("Only SELECT queries are allowed. Please enter
+					a valid SQL query.")<br />
+					&nbsp;&nbsp;&nbsp;continue<br />
+					&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;select_index = phrases.index("select")<br />
+					&nbsp;&nbsp;&nbsp;from_index = phrases.index("from")<br />
+					&nbsp;&nbsp;&nbsp;where_index = phrases.index("where") if "where" in
+					phrases else None<br />
+					&nbsp;&nbsp;&nbsp;total_selected = from_index - select_index - 1<br />
+					&nbsp;&nbsp;&nbsp;selected_columns = phrases[select_index +
+					1:from_index]<br />
+					&nbsp;&nbsp;&nbsp;total_from = phrases[from_index + 1:where_index] if
+					where_index is not None else phrases[from_index + 1:]<br />
+					&nbsp;&nbsp;&nbsp;if total_selected == 0:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;print("Please specify at least one column to
+					select.")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;continue<br />
+					&nbsp;&nbsp;&nbsp;if total_from == 0:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;total_from =
+					["../assets/test-data/departments.csv"]<br />
+					&nbsp;&nbsp;&nbsp;if where_index is not None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;total_where = len(phrases) - where_index -
+					1<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if total_where == 0:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Please specify a condition for
+					the WHERE clause.")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where_condition = phrases[where_index +
+					1:]<br />
+					&nbsp;&nbsp;&nbsp;with open(total_from[0], mode='r') as file:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;reader = csv.DictReader(file)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;results = []<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;for row in reader:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if where_index is not None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition = "
+					".join(where_condition)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if eval(condition, {}, row):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;results.append({col:
+					row[col] for col in selected_columns})<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;results.append({col: row[col] for col in
+					selected_columns})<br />
+					&nbsp;&nbsp;&nbsp;print(results)<br />
+				</code>
+				<p
+					>The test data is
+					<a href="/assets/test-data/departments.csv">here</a> if you want to
+					view it.</p
+				>
+				<br />
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day6.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<footer class="foot">
+			<p>
+				<a
+					class="text-link"
+					href="https://github.com/PyMite6941"
+					>My GitHub</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../the-dev-docs.html"
+					>The Dev Docs</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../../assets/documents/matt_gresham_resume.pdf"
+					>View my resume</a
+				>
+			</p>
+			<p style="text-align: center; font-size: 14px">
+				&copy; 2026 Matt Gresham. All rights reserved.
+			</p>
+		</footer>
+	</body>
+</html>

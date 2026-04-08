@@ -24,7 +24,7 @@
 	}
 }
 
-@media (min-width: 480px) {
+@media (max-width: 480px) {
 	.nav-list {
 		display: none;
 	}
@@ -124,7 +124,7 @@ main {
 	margin-top: 0;
 	padding-top: 0px;
 	align-items: flex-start;
-	flex-direction: column;
+	flex-direction: row;
 	color: var(--text-color);
 	border-bottom: 1px solid var(--border-color);
 }

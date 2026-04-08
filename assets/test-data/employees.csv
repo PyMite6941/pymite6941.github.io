@@ -1,0 +1,26 @@
+employee_id,name,department_id,job_title,salary,hire_date,city,status
+1,Alice Morgan,1,Software Engineer,92000,2021-03-15,Austin,active
+2,Ben Carter,2,Product Manager,105000,2019-07-22,New York,active
+3,Carmen Diaz,1,Senior Engineer,118000,2018-01-10,Austin,active
+4,David Kim,3,Data Analyst,78000,2022-06-01,Chicago,active
+5,Elena Pham,2,UX Designer,85000,2020-11-30,New York,active
+6,Frank Liu,4,Accountant,72000,2017-09-14,Chicago,active
+7,Grace Okafor,1,Junior Engineer,67000,2023-02-20,Austin,active
+8,Henry Santos,3,Data Scientist,110000,2019-04-05,Remote,active
+9,Isla Brown,4,Finance Manager,95000,2016-12-01,Chicago,active
+10,James Park,2,Product Manager,108000,2020-08-17,New York,active
+11,Karen West,1,Software Engineer,88000,2021-10-09,Remote,active
+12,Leo Nguyen,3,Data Analyst,80000,2022-01-25,Austin,active
+13,Maya Singh,5,HR Specialist,65000,2023-07-11,New York,active
+14,Noah Adams,1,Senior Engineer,122000,2015-05-30,Austin,active
+15,Olivia Chen,5,Recruiter,60000,2024-01-08,Remote,active
+16,Paul Rivera,2,UX Designer,87000,2021-06-14,Chicago,active
+17,Quinn Taylor,4,Accountant,70000,2022-09-03,New York,active
+18,Rachel Moore,3,Data Scientist,115000,2018-11-19,Remote,active
+19,Samuel Lee,1,Junior Engineer,64000,2023-11-27,Austin,active
+20,Tara Wilson,5,HR Manager,90000,2017-03-22,Chicago,active
+21,Umar Hassan,2,Product Analyst,82000,2020-04-16,New York,active
+22,Vera Brooks,1,Software Engineer,94000,2021-08-05,Remote,active
+23,Will Jensen,4,CFO,160000,2013-02-28,Chicago,active
+24,Xia Huang,3,Data Analyst,76000,2023-05-14,Austin,inactive
+25,Yara Ellis,5,HR Specialist,63000,2022-12-01,New York,inactive

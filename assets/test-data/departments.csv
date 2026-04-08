@@ -1,0 +1,6 @@
+department_id,department_name,manager_id,budget,location
+1,Engineering,3,850000,Austin
+2,Product,2,620000,New York
+3,Data,8,540000,Remote
+4,Finance,23,310000,Chicago
+5,Human Resources,20,280000,New York

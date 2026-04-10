@@ -7,13 +7,13 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Day 8 of the 100 Days of AI-Generated Programming Prompts — a Go program that analyzes Git commit history." />
+			content="Day 9 of the 100 Days of AI-Generated Programming Prompts — a Rust regex pattern matcher using the regex crate." />
 		<link
 			rel="stylesheet"
 			type="text/css"
 			href="../../index.css" />
 
-		<title>Day 8 | 100 Days of AI Prompts | Matt G</title>
+		<title>Day 9 | 100 Days of AI Prompts | Matt G</title>
 	</head>
 	<body>
 		<div class="nav">
@@ -54,69 +54,56 @@
 			>
 		</div>
 		<header class="hero-section">
-			<h1>Day 8</h1>
-			<h3>A Go Git Commit Analyzer</h3>
+			<h1>Day 9</h1>
+			<h3>A Rust Regex Pattern Matcher</h3>
 		</header>
 		<main>
 			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
-			<p>This program uses <code>exec.Command("git", "log", ...)</code> to read your local git history, so it must be run locally — it cannot run in the browser.</p>
-			<p>Clone the repo and run <code>go run main.go</code> in a directory with git history.</p>
+			<p>This program uses the <code>regex</code> crate and reads from stdin, so it must be run locally — it cannot run in the browser.</p>
+			<p>Add <code>regex = "1"</code> to your <code>Cargo.toml</code> dependencies, then run <code>cargo run</code>.</p>
 			<br />
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article
-				>This is a program that looks to see who committed the most changes to a
-				Git repository.</article
+				>This is an interactive Rust program that lets you enter a regex pattern
+				and a string to test it against. It uses the <code>regex</code> crate to
+				compile the pattern and prints whether the text matches, then asks if you
+				want to try another — looping until you say no.</article
 			>
 			<br />
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
 			<br />
 			<div class="code-segment">
 				<code>
-					package main<br />
-					import (<br />
-					&nbsp;"encoding/json"<br />
-					&nbsp;"fmt"<br />
-					&nbsp;"os/exec"<br />
-					&nbsp;"strings"<br />
-					)<br />
-					func main() {<br />
-					&nbsp;counts := map[string]int{}<br />
-					&nbsp;cmd :=
-					exec.Command("git","log","--format=%an|%ad|%s","--date=short")<br />
-					&nbsp;output, err := cmd.Output()<br />
-					&nbsp;if err != nil {<br />
-					&nbsp;&nbsp;fmt.Println("Error executing git log:", err)<br />
-					&nbsp;&nbsp;return<br />
-					&nbsp;}<br />
-					&nbsp;words := strings.Split(string(output), "\n")<br />
-					&nbsp;for _, word := range words {<br />
-					&nbsp;&nbsp;if word != "" {<br />
-					&nbsp;&nbsp;&nbsp;parts := strings.Split(word, "|")<br />
-					&nbsp;&nbsp;&nbsp;author := parts[0]<br />
-					&nbsp;&nbsp;&nbsp;counts[author]++<br />
+					use regex::Regex;<br />
+					use std::io;<br />
+					fn main() {<br />
+					&nbsp;loop {<br />
+					&nbsp;&nbsp;let mut pattern_input = String::new();<br />
+					&nbsp;&nbsp;println!("Enter a regex pattern:");<br />
+					&nbsp;&nbsp;io::stdin().read_line(&mut pattern_input).expect("Failed to read line");<br />
+					&nbsp;&nbsp;let pattern = pattern_input.trim();<br />
+					&nbsp;&nbsp;let re = Regex::new(pattern).unwrap();<br />
+					&nbsp;&nbsp;let mut text_input = String::new();<br />
+					&nbsp;&nbsp;println!("Enter text to match against the pattern:");<br />
+					&nbsp;&nbsp;io::stdin().read_line(&mut text_input).expect("Failed to read line");<br />
+					&nbsp;&nbsp;let text = text_input.trim();<br />
+					&nbsp;&nbsp;println!("{}", re.is_match(text));<br />
+					&nbsp;&nbsp;println!("Do you want to try another pattern? (y/n)");<br />
+					&nbsp;&nbsp;let mut continue_input = String::new();<br />
+					&nbsp;&nbsp;io::stdin().read_line(&mut continue_input).expect("Failed to read line");<br />
+					&nbsp;&nbsp;if continue_input.trim().to_lowercase() != "y" {<br />
+					&nbsp;&nbsp;&nbsp;break;<br />
 					&nbsp;&nbsp;}<br />
 					&nbsp;}<br />
-					&nbsp;jsonData,err := json.MarshalIndent(counts,""," ")<br />
-					&nbsp;if err != nil {<br />
-					&nbsp;&nbsp;fmt.Println("Error marshalling JSON:", err)<br />
-					&nbsp;&nbsp;return<br />
-					&nbsp;}<br />
-					&nbsp;fmt.Println(counts)<br />
 					}<br />
 				</code>
 			</div>
 			<br />
 			<a
 				class="text-link"
-				href="Day7.html"
+				href="Day8.html"
 				>Previous Day</a
-			>
-			<br />
-			<a
-				class="text-link"
-				href="Day9.html"
-				>Next Day</a
 			>
 			<br />
 		</main>

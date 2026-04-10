@@ -58,17 +58,26 @@
 			<h3>A Rust Regex Pattern Matcher</h3>
 		</header>
 		<main>
-			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
-			<p>This program uses the <code>regex</code> crate and reads from stdin, so it must be run locally — it cannot run in the browser.</p>
-			<p>Add <code>regex = "1"</code> to your <code>Cargo.toml</code> dependencies, then run <code>cargo run</code>.</p>
+			<h2 style="text-align: center; font-size: 30px"
+				>Unfortunately, you can't run this in the browser here</h2
+			>
+			<p
+				>This program uses the <code>regex</code> crate and reads from stdin, so
+				it must be run locally — it cannot run in the browser.</p
+			>
+			<p
+				>Add <code>regex = "1"</code> to your
+				<code>Cargo.toml</code> dependencies, then run
+				<code>cargo run</code>.</p
+			>
 			<br />
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article
 				>This is an interactive Rust program that lets you enter a regex pattern
 				and a string to test it against. It uses the <code>regex</code> crate to
-				compile the pattern and prints whether the text matches, then asks if you
-				want to try another — looping until you say no.</article
+				compile the pattern and prints whether the text matches, then asks if
+				you want to try another — looping until you say no.</article
 			>
 			<br />
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
@@ -81,17 +90,20 @@
 					&nbsp;loop {<br />
 					&nbsp;&nbsp;let mut pattern_input = String::new();<br />
 					&nbsp;&nbsp;println!("Enter a regex pattern:");<br />
-					&nbsp;&nbsp;io::stdin().read_line(&mut pattern_input).expect("Failed to read line");<br />
+					&nbsp;&nbsp;io::stdin().read_line(&mut pattern_input).expect("Failed
+					to read line");<br />
 					&nbsp;&nbsp;let pattern = pattern_input.trim();<br />
 					&nbsp;&nbsp;let re = Regex::new(pattern).unwrap();<br />
 					&nbsp;&nbsp;let mut text_input = String::new();<br />
 					&nbsp;&nbsp;println!("Enter text to match against the pattern:");<br />
-					&nbsp;&nbsp;io::stdin().read_line(&mut text_input).expect("Failed to read line");<br />
+					&nbsp;&nbsp;io::stdin().read_line(&mut text_input).expect("Failed to
+					read line");<br />
 					&nbsp;&nbsp;let text = text_input.trim();<br />
 					&nbsp;&nbsp;println!("{}", re.is_match(text));<br />
 					&nbsp;&nbsp;println!("Do you want to try another pattern? (y/n)");<br />
 					&nbsp;&nbsp;let mut continue_input = String::new();<br />
-					&nbsp;&nbsp;io::stdin().read_line(&mut continue_input).expect("Failed to read line");<br />
+					&nbsp;&nbsp;io::stdin().read_line(&mut continue_input).expect("Failed
+					to read line");<br />
 					&nbsp;&nbsp;if continue_input.trim().to_lowercase() != "y" {<br />
 					&nbsp;&nbsp;&nbsp;break;<br />
 					&nbsp;&nbsp;}<br />

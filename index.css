@@ -124,7 +124,7 @@ main {
 	margin-top: 0;
 	padding-top: 0px;
 	align-items: flex-start;
-	flex-direction: row;
+	flex-direction: column;
 	color: var(--text-color);
 	border-bottom: 1px solid var(--border-color);
 }

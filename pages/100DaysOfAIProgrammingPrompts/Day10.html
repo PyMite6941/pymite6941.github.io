@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 10 of the 100 Days of AI-Generated Programming Prompts — a Go CLI tool that reads and edits .env files." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Day 10 | 100 Days of AI Prompts | Matt G</title>
+	</head>
+	<body>
+		<div class="nav">
+			<ul class="nav-list">
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../../index.html"
+						>Home</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../about-me.html"
+						>About Me</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../projects.html"
+						>Projects</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../the-dev-docs.html"
+						>The Dev Docs</a
+					></li
+				>
+			</ul>
+			<a
+				class="nav-btn"
+				href="../contact-me.html"
+				>Contact me</a
+			>
+		</div>
+		<header class="hero-section">
+			<h1>Day 10</h1>
+			<h3>A Go .env File Manager</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px"
+				>Unfortunately, you can't run this in the browser here</h2
+			>
+			<p
+				>This program reads from the filesystem, so it must be run locally — it
+				cannot run in the browser.</p
+			>
+			<p
+				>Run <code>go run main.go</code> in a directory that contains
+				<code>.env</code> files.</p
+			>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>This is a Go CLI tool that manages <code>.env</code> files in the
+				current directory. It presents a menu to read all .env file contents
+				or update a specific key's value, and handles the case where multiple
+				.env files are present by prompting you to choose one.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					package main<br />
+					import (<br />
+					&nbsp;"fmt"<br />
+					&nbsp;"os"<br />
+					&nbsp;"strings"<br />
+					)<br />
+					func contains(slice []string, item string) bool {<br />
+					&nbsp;for _, s := range slice {<br />
+					&nbsp;&nbsp;if s == item {<br />
+					&nbsp;&nbsp;&nbsp;return true<br />
+					&nbsp;&nbsp;}<br />
+					&nbsp;}<br />
+					&nbsp;return false<br />
+					}<br />
+					func updateEnvFile(file string, key string) bool {<br />
+					&nbsp;data, err := os.ReadFile(file)<br />
+					&nbsp;if err != nil {<br />
+					&nbsp;&nbsp;fmt.Println("Error reading file")<br />
+					&nbsp;&nbsp;os.Exit(1)<br />
+					&nbsp;}<br />
+					&nbsp;lines := strings.Split(string(data), "\n")<br />
+					&nbsp;for i, line := range lines {<br />
+					&nbsp;&nbsp;if strings.HasPrefix(line, key+"=") {<br />
+					&nbsp;&nbsp;&nbsp;fmt.Println("New value:")<br />
+					&nbsp;&nbsp;&nbsp;var newValue string<br />
+					&nbsp;&nbsp;&nbsp;fmt.Scanln(&newValue)<br />
+					&nbsp;&nbsp;&nbsp;lines[i] = key + "=" + newValue<br />
+					&nbsp;&nbsp;&nbsp;result := strings.Join(lines, "\n")<br />
+					&nbsp;&nbsp;&nbsp;err := os.WriteFile(file, []byte(result), 0644)<br />
+					&nbsp;&nbsp;&nbsp;if err != nil {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;fmt.Println("Error writing file")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;os.Exit(1)<br />
+					&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;fmt.Println("Updated successfully")<br />
+					&nbsp;&nbsp;&nbsp;return true<br />
+					&nbsp;&nbsp;}<br />
+					&nbsp;}<br />
+					&nbsp;return false<br />
+					}<br />
+					func main() {<br />
+					&nbsp;for {<br />
+					&nbsp;&nbsp;fmt.Println("What to do with the .env files?\n1. Read all
+					of them\n2. Change a line\n3. Exit")<br />
+					&nbsp;&nbsp;var input string<br />
+					&nbsp;&nbsp;fmt.Scanln(&input)<br />
+					&nbsp;&nbsp;if input == "1" {<br />
+					&nbsp;&nbsp;&nbsp;fmt.Println("Reading all .env files...")<br />
+					&nbsp;&nbsp;&nbsp;files, err := os.ReadDir(".")<br />
+					&nbsp;&nbsp;&nbsp;if err != nil {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;fmt.Println("Error reading directory")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;os.Exit(1)<br />
+					&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;for _,file := range files {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if (strings.HasSuffix(file.Name(), ".env"))
+					{<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data, err := os.ReadFile(file.Name())<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if err != nil {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fmt.Println("Error reading
+					file")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.Exit(1)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fmt.Printf("Contents of %s:\n%s\n",
+					file.Name(), string(data))<br />
+					&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;} else if input == "2" {<br />
+					&nbsp;&nbsp;&nbsp;fmt.Println("What element to change?")<br />
+					&nbsp;&nbsp;&nbsp;fmt.Scanln(&input)<br />
+					&nbsp;&nbsp;&nbsp;files, err := os.ReadDir(".")<br />
+					&nbsp;&nbsp;&nbsp;if err != nil {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;fmt.Println("Error reading directory")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;os.Exit(1)<br />
+					&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;var envFiles []string<br />
+					&nbsp;&nbsp;&nbsp;for _,file := range files {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if (strings.HasSuffix(file.Name(), ".env"))
+					{<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;envFiles = append(envFiles,
+					file.Name())<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;var file string<br />
+					&nbsp;&nbsp;&nbsp;if len(envFiles) > 1 {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;fmt.Println("Multiple .env files found, please
+					specify which one to change")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;fmt.Scanln(&file)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if !contains(envFiles, file) {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fmt.Println("File not found")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.Exit(1)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;} else if len(envFiles) == 1 {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;file = envFiles[0]<br />
+					&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;updateEnvFile(file, input)<br />
+					&nbsp;&nbsp;} else if input == "3" {<br />
+					&nbsp;&nbsp;&nbsp;fmt.Println("Exiting...")<br />
+					&nbsp;&nbsp;&nbsp;os.Exit(0)<br />
+					&nbsp;&nbsp;}<br />
+					&nbsp;}<br />
+					}<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day9.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<footer class="foot">
+			<p>
+				<a
+					class="text-link"
+					href="https://github.com/PyMite6941"
+					>My GitHub</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../the-dev-docs.html"
+					>The Dev Docs</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../../assets/documents/matt_gresham_resume.pdf"
+					>View my resume</a
+				>
+			</p>
+			<p style="text-align: center; font-size: 14px">
+				&copy; 2026 Matt Gresham. All rights reserved.
+			</p>
+		</footer>
+	</body>
+</html>

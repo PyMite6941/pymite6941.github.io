@@ -1,6 +1,5 @@
 (function () {
-	const s = document.currentScript;
-	const depth = parseInt(s.dataset.depth || '0', 10);
+	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{
 			home: 'index.html',
@@ -37,27 +36,27 @@
 	inject(
 		'site-nav',
 		`<div class="nav">
-			<ul class="nav-list">
-				<li class="nav-item"><a class="nav-link" href="${p.home}">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
-				<li class="nav-item"><a class="nav-link" href="${p.projects}">Projects</a></li>
-				<li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
-			</ul>
-			<a class="nav-btn" href="${p.contact}">Contact me</a>
-		</div>`,
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link" href="${p.home}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.projects}">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
+            </ul>
+            <a class="nav-btn" href="${p.contact}">Contact me</a>
+        </div>`,
 	);
 
 	inject(
 		'site-footer',
 		`<footer class="foot">
-			<p>
-				<a class="text-link" href="https://github.com/PyMite6941">My GitHub</a>
-				<br /><br />
-				<a class="text-link" href="${p.devdocs}">The Dev Docs</a>
-				<br /><br />
-				<a class="text-link" href="${p.resume}">View my resume</a>
-			</p>
-			<p style="text-align: center; font-size: 14px">&copy; 2026 Matt Gresham. All rights reserved.</p>
-		</footer>`,
+            <p>
+                <a class="text-link" href="https://github.com/PyMite6941">My GitHub</a>
+                <br /><br />
+                <a class="text-link" href="${p.devdocs}">The Dev Docs</a>
+                <br /><br />
+                <a class="text-link" href="${p.resume}">View my resume</a>
+            </p>
+            <p style="text-align: center; font-size: 14px">&copy; 2026 Matt Gresham. All rights reserved.</p>
+        </footer>`,
 	);
 })();

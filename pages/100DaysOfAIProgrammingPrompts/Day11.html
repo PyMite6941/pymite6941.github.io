@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 11 of the 100 Days of AI-Generated Programming Prompts — a Python server log analyzer using regex and requests." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Day 11 | 100 Days of AI Prompts | Matt G</title>
+	</head>
+	<body>
+		<div class="nav">
+			<ul class="nav-list">
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../../index.html"
+						>Home</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../about-me.html"
+						>About Me</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../projects.html"
+						>Projects</a
+					></li
+				>
+				<li class="nav-item"
+					><a
+						class="nav-link"
+						href="../the-dev-docs.html"
+						>The Dev Docs</a
+					></li
+				>
+			</ul>
+			<a
+				class="nav-btn"
+				href="../contact-me.html"
+				>Contact me</a
+			>
+		</div>
+		<header class="hero-section">
+			<h1>Day 11</h1>
+			<h3>A Python Server Log Analyzer</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>You may need to wait or refresh to let it load</p>
+			<br />
+			<py-terminal autoscroll="true"></py-terminal>
+			<!-- prettier-ignore -->
+			<script type="py" terminal>
+import re
+import requests
+pattern = r'(?P<ip>\S+) - - \[(?P<date>\S+) (?P<time>\S+)\] "(?P<method>\S+) (?P<endpoint>\S+) (?P<protocol>\S+)" (?P<status>\d{3}) (?P<size>\d+)'
+url = "https://pymite6941.github.io/portfolio-website/assets/test-data/server.log"
+response = requests.get(url)
+def check_pattern(key:str,value:str):
+    for line in response.text.splitlines():
+        match = re.search(pattern, line)
+        if match:
+            if match.group(key) == value:
+                print(line)
+while True:
+    if response.status_code != 200:
+        print("Failed to retrieve log data")
+        break
+    print("What is the desired action?\n1. Find any logins with a certain error code\n2. Find any logins with a certain IP address\n3. Find any logins from a certain time period\n4. Find any login based on method\n5. Exit")
+    choice = int(input("> "))
+    if choice == 1:
+        error_code = input("What error code are you looking for?\n> ")
+        check_pattern("status", error_code)
+    elif choice == 2:
+        ip_address = input("What IP address are you looking for?\n> ")
+        check_pattern("ip", ip_address)
+    elif choice == 3:
+        start_time = input("What is the start time? (format: dd/Mon/yyyy:HH:mm:ss)\n> ")
+        end_time = input("What is the end time? (format: dd/Mon/yyyy:HH:mm:ss)\n> ")
+        for line in response.text.splitlines():
+            match = re.search(pattern, line)
+            if match:
+                log_time = match.group("date") + " " + match.group("time")
+                if start_time <= log_time <= end_time:
+                    print(line)
+    elif choice == 4:
+        method = input("What method are you looking for? (e.g. GET, POST)\n> ")
+        check_pattern("method", method)
+    elif choice == 5:
+        break
+			</script>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>This is a Python program that fetches a server log file over HTTP and
+				lets you search through it interactively. It uses regex named capture
+				groups to parse each log line into fields (IP, date, time, method,
+				endpoint, status code, response size), then filters entries by whichever
+				field you choose.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					import re<br />
+					import requests<br />
+					pattern = r'(?P&lt;ip&gt;\S+) - - \[(?P&lt;date&gt;\S+) (?P&lt;time&gt;\S+)\] "(?P&lt;method&gt;\S+) (?P&lt;endpoint&gt;\S+) (?P&lt;protocol&gt;\S+)" (?P&lt;status&gt;\d{3}) (?P&lt;size&gt;\d+)'<br />
+					url = "https://pymite6941.github.io/portfolio-website/assets/test-data/server.log"<br />
+					response = requests.get(url)<br />
+					def check_pattern(key:str,value:str):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;for line in response.text.splitlines():<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;match = re.search(pattern, line)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if match:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if match.group(key) == value:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(line)<br />
+					while True:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if response.status_code != 200:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Failed to retrieve log data")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;print("What is the desired action?...")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;choice = int(input("&gt; "))<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if choice == 1:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_code = input("What error code are you looking for?\n&gt; ")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;check_pattern("status", error_code)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;elif choice == 2:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ip_address = input("What IP address are you looking for?\n&gt; ")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;check_pattern("ip", ip_address)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;elif choice == 3:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_time = input("What is the start time? (format: dd/Mon/yyyy:HH:mm:ss)\n&gt; ")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end_time = input("What is the end time? (format: dd/Mon/yyyy:HH:mm:ss)\n&gt; ")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for line in response.text.splitlines():<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;match = re.search(pattern, line)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if match:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log_time = match.group("date") + " " + match.group("time")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if start_time &lt;= log_time &lt;= end_time:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(line)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;elif choice == 4:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method = input("What method are you looking for? (e.g. GET, POST)\n&gt; ")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;check_pattern("method", method)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;elif choice == 5:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day10.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<footer class="foot">
+			<p>
+				<a
+					class="text-link"
+					href="https://github.com/PyMite6941"
+					>My GitHub</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../the-dev-docs.html"
+					>The Dev Docs</a
+				>
+				<br />
+				<br />
+				<a
+					class="text-link"
+					href="../../assets/documents/matt_gresham_resume.pdf"
+					>View my resume</a
+				>
+			</p>
+			<p style="text-align: center; font-size: 14px">
+				&copy; 2026 Matt Gresham. All rights reserved.
+			</p>
+		</footer>
+	</body>
+</html>

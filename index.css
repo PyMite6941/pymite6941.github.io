@@ -103,7 +103,6 @@ body {
 
 .sidenav {
 	margin-top: 0;
-	padding: 20px;
 	width: 200px;
 	min-width: 200px;
 	position: sticky;
@@ -189,7 +188,7 @@ main article {
 	font-size: 1.1rem;
 	font-family: 'Google Sans', sans-serif;
 	font-optical-sizing: auto;
-	font-weight: 12;
+	font-weight: 400;
 	font-style: normal;
 	font-variation-settings: 'GRAD' 0;
 	color: #8b949e;

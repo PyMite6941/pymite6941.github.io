@@ -9,7 +9,7 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Day 14 of the 100 Days of AI-Generated Programming Prompts — a Rust program that encrypts a message using a key." />
+			content="Day 14 of the 100 Days of AI-Generated Programming Prompts — a Rust program that encrypts a message using XOR with a key." />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -27,51 +27,79 @@
 			<h3>A Rust Message Encryptor</h3>
 		</header>
 		<main>
-			<h2 style="text-align: center; font-size: 30px"
-				>Unfortunately, you can't run this in the browser here</h2
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>
+				The program is embedded below via the Rust Playground. Before running,
+				click the <strong>Stdin</strong> tab inside the embed and enter your
+				message on the first line and your key on the second line.
+			</p>
+			<br />
+			<iframe
+				src="https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&code=use%20std%3A%3Aio%3B%0A%0Afn%20main%28%29%20%7B%0A%20%20%20%20println%21%28%22Enter%20the%20message%20to%20encrypt%3A%22%29%3B%0A%20%20%20%20let%20mut%20message%20%3D%20String%3A%3Anew%28%29%3B%0A%20%20%20%20io%3A%3Astdin%28%29.read_line%28%26mut%20message%29.expect%28%22Failed%20to%20read%22%29%3B%0A%20%20%20%20let%20message%20%3D%20message.trim_end%28%29%3B%0A%0A%20%20%20%20println%21%28%22Enter%20the%20encryption%20key%3A%22%29%3B%0A%20%20%20%20let%20mut%20key%20%3D%20String%3A%3Anew%28%29%3B%0A%20%20%20%20io%3A%3Astdin%28%29.read_line%28%26mut%20key%29.expect%28%22Failed%20to%20read%22%29%3B%0A%20%20%20%20let%20key%20%3D%20key.trim_end%28%29%3B%0A%0A%20%20%20%20if%20key.is_empty%28%29%20%7B%0A%20%20%20%20%20%20%20%20eprintln%21%28%22Key%20cannot%20be%20empty.%22%29%3B%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20let%20message_bytes%20%3D%20message.as_bytes%28%29%3B%0A%20%20%20%20let%20key_bytes%20%3D%20key.as_bytes%28%29%3B%0A%20%20%20%20let%20encrypted%3A%20Vec%3Cu8%3E%20%3D%20message_bytes%0A%20%20%20%20%20%20%20%20.iter%28%29%0A%20%20%20%20%20%20%20%20.enumerate%28%29%0A%20%20%20%20%20%20%20%20.map%28%7C%28i%2C%20%26b%29%7C%20b%20%5E%20key_bytes%5Bi%20%25%20key_bytes.len%28%29%5D%29%0A%20%20%20%20%20%20%20%20.collect%28%29%3B%0A%0A%20%20%20%20let%20hex%3A%20String%20%3D%20encrypted.iter%28%29.map%28%7Cb%7C%20format%21%28%22%7B%3A02x%7D%22%2C%20b%29%29.collect%28%29%3B%0A%20%20%20%20println%21%28%22Encrypted%20%28hex%29%3A%20%7B%7D%22%2C%20hex%29%3B%0A%7D%0A"
+				width="100%"
+				height="600px"
+				style="border: 1px solid var(--border-color); border-radius: 8px"
+				title="Rust Message Encryptor — Rust Playground"
+				loading="lazy">
+				Your browser does not support iframes. Visit the project directly:
+				<a
+					class="text-link"
+					href="https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&code=use%20std%3A%3Aio%3B%0A%0Afn%20main%28%29%20%7B%0A%20%20%20%20println%21%28%22Enter%20the%20message%20to%20encrypt%3A%22%29%3B%0A%20%20%20%20let%20mut%20message%20%3D%20String%3A%3Anew%28%29%3B%0A%20%20%20%20io%3A%3Astdin%28%29.read_line%28%26mut%20message%29.expect%28%22Failed%20to%20read%22%29%3B%0A%20%20%20%20let%20message%20%3D%20message.trim_end%28%29%3B%0A%0A%20%20%20%20println%21%28%22Enter%20the%20encryption%20key%3A%22%29%3B%0A%20%20%20%20let%20mut%20key%20%3D%20String%3A%3Anew%28%29%3B%0A%20%20%20%20io%3A%3Astdin%28%29.read_line%28%26mut%20key%29.expect%28%22Failed%20to%20read%22%29%3B%0A%20%20%20%20let%20key%20%3D%20key.trim_end%28%29%3B%0A%0A%20%20%20%20if%20key.is_empty%28%29%20%7B%0A%20%20%20%20%20%20%20%20eprintln%21%28%22Key%20cannot%20be%20empty.%22%29%3B%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20let%20message_bytes%20%3D%20message.as_bytes%28%29%3B%0A%20%20%20%20let%20key_bytes%20%3D%20key.as_bytes%28%29%3B%0A%20%20%20%20let%20encrypted%3A%20Vec%3Cu8%3E%20%3D%20message_bytes%0A%20%20%20%20%20%20%20%20.iter%28%29%0A%20%20%20%20%20%20%20%20.enumerate%28%29%0A%20%20%20%20%20%20%20%20.map%28%7C%28i%2C%20%26b%29%7C%20b%20%5E%20key_bytes%5Bi%20%25%20key_bytes.len%28%29%5D%29%0A%20%20%20%20%20%20%20%20.collect%28%29%3B%0A%0A%20%20%20%20let%20hex%3A%20String%20%3D%20encrypted.iter%28%29.map%28%7Cb%7C%20format%21%28%22%7B%3A02x%7D%22%2C%20b%29%29.collect%28%29%3B%0A%20%20%20%20println%21%28%22Encrypted%20%28hex%29%3A%20%7B%7D%22%2C%20hex%29%3B%0A%7D%0A"
+					>Open in Rust Playground</a
+				>
+			</iframe>
+			<br />
+			<a
+				class="text-link"
+				href="https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&code=use%20std%3A%3Aio%3B%0A%0Afn%20main%28%29%20%7B%0A%20%20%20%20println%21%28%22Enter%20the%20message%20to%20encrypt%3A%22%29%3B%0A%20%20%20%20let%20mut%20message%20%3D%20String%3A%3Anew%28%29%3B%0A%20%20%20%20io%3A%3Astdin%28%29.read_line%28%26mut%20message%29.expect%28%22Failed%20to%20read%22%29%3B%0A%20%20%20%20let%20message%20%3D%20message.trim_end%28%29%3B%0A%0A%20%20%20%20println%21%28%22Enter%20the%20encryption%20key%3A%22%29%3B%0A%20%20%20%20let%20mut%20key%20%3D%20String%3A%3Anew%28%29%3B%0A%20%20%20%20io%3A%3Astdin%28%29.read_line%28%26mut%20key%29.expect%28%22Failed%20to%20read%22%29%3B%0A%20%20%20%20let%20key%20%3D%20key.trim_end%28%29%3B%0A%0A%20%20%20%20if%20key.is_empty%28%29%20%7B%0A%20%20%20%20%20%20%20%20eprintln%21%28%22Key%20cannot%20be%20empty.%22%29%3B%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20let%20message_bytes%20%3D%20message.as_bytes%28%29%3B%0A%20%20%20%20let%20key_bytes%20%3D%20key.as_bytes%28%29%3B%0A%20%20%20%20let%20encrypted%3A%20Vec%3Cu8%3E%20%3D%20message_bytes%0A%20%20%20%20%20%20%20%20.iter%28%29%0A%20%20%20%20%20%20%20%20.enumerate%28%29%0A%20%20%20%20%20%20%20%20.map%28%7C%28i%2C%20%26b%29%7C%20b%20%5E%20key_bytes%5Bi%20%25%20key_bytes.len%28%29%5D%29%0A%20%20%20%20%20%20%20%20.collect%28%29%3B%0A%0A%20%20%20%20let%20hex%3A%20String%20%3D%20encrypted.iter%28%29.map%28%7Cb%7C%20format%21%28%22%7B%3A02x%7D%22%2C%20b%29%29.collect%28%29%3B%0A%20%20%20%20println%21%28%22Encrypted%20%28hex%29%3A%20%7B%7D%22%2C%20hex%29%3B%0A%7D%0A"
+				>Open in full page</a
 			>
-			<p
-				>This program reads input from the terminal, so it must be run
-				locally — it cannot run in the browser.</p
-			>
-			<p>Run <code>cargo run</code> to start.</p>
+			<br />
 			<br />
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article
 				>A Rust CLI program that takes a message and a key and encrypts the
-				message using the key. A good exercise for learning how Rust handles
-				strings, user input, and basic cryptography logic.</article
+				message using XOR — a simple symmetric cipher where each byte of the
+				message is XOR'd with the corresponding byte of the key (cycling the
+				key if it's shorter than the message). The result is printed as a hex
+				string. A good exercise for learning how Rust handles strings, iterators,
+				and byte-level operations.</article
 			>
 			<br />
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
 			<br />
 			<div class="code-segment">
 				<code>
-					use std::io;
-
-fn main() {
-    println!("What message should be encrypted?");
-    let mut message = String::new();
-    io::stdin().read_line(&mut message).expect("Failed to read");
-    println!("What is the key to encrypt by?");
-    let mut key = String::new();
-    io::stdin().read_line(&mut key).expect("Failed to read");
-    let mut message_bytes = message.as_bytes();
-    let mut key_bytes = key.as_bytes();
-    let mut encrypted: Vec<u8> = Vec::new();
-    let mut i = 0;
-    loop {
-        if i >= message_bytes.len() {
-            break;
-        }
-        let encrypted_bytes = message_bytes[i] ^ key_bytes[i % key_bytes.len()];
-        encrypted.push(encrypted_bytes);
-        i += 1;
-    }
-    println!("{}",encrypted);
-}
-
+					use std::io;<br />
+					<br />
+					fn main() {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;println!("Enter the message to encrypt:");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let mut message = String::new();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;io::stdin().read_line(&amp;mut message).expect("Failed to read");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let message = message.trim_end();<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;println!("Enter the encryption key:");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let mut key = String::new();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;io::stdin().read_line(&amp;mut key).expect("Failed to read");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let key = key.trim_end();<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if key.is_empty() {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eprintln!("Key cannot be empty.");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let message_bytes = message.as_bytes();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let key_bytes = key.as_bytes();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let encrypted: Vec&lt;u8&gt; = message_bytes<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.iter()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.enumerate()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.map(|(i, &amp;b)| b ^ key_bytes[i % key_bytes.len()])<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.collect();<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let hex: String = encrypted.iter().map(|b| format!("{:02x}", b)).collect();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;println!("Encrypted (hex): {}", hex);<br />
+					}<br />
 				</code>
 			</div>
 			<br />
@@ -79,6 +107,12 @@ fn main() {
 				class="text-link"
 				href="Day13.html"
 				>Previous Day</a
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day15.html"
+				>Next Day</a
 			>
 			<br />
 		</main>

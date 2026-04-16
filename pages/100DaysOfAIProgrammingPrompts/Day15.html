@@ -1,0 +1,296 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 15 of the 100 Days of AI-Generated Programming Prompts — an interactive Binary Search Tree in Python with insert, search, delete, and in-order traversal." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Day 15 | 100 Days of AI Prompts | Matt G</title>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 15</h1>
+			<h3>A Python Binary Search Tree</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>
+				Type commands into the terminal below to interact with a live Binary
+				Search Tree. Supported commands:
+				<strong>insert &lt;n&gt;</strong>, <strong>search &lt;n&gt;</strong>,
+				<strong>delete &lt;n&gt;</strong>, <strong>show</strong> (prints
+				in-order), <strong>quit</strong>.
+			</p>
+			<br />
+			<py-terminal></py-terminal>
+			<!-- prettier-ignore -->
+			<script type="py" terminal>
+			class Node:
+				def __init__(self, value):
+					self.value = value
+					self.left = None
+					self.right = None
+
+			class BinarySearchTree:
+				def __init__(self):
+					self.root = None
+
+				def _insert(self, node, value):
+					if value < node.value:
+						if node.left is None:
+							node.left = Node(value)
+						else:
+							self._insert(node.left, value)
+					else:
+						if node.right is None:
+							node.right = Node(value)
+						else:
+							self._insert(node.right, value)
+
+				def insert(self, value):
+					if self.root is None:
+						self.root = Node(value)
+					else:
+						self._insert(self.root, value)
+
+				def search(self, node, value):
+					if node is None:
+						return False
+					if value == node.value:
+						return True
+					if value < node.value:
+						return self.search(node.left, value)
+					else:
+						return self.search(node.right, value)
+
+				def _min_value(self, node):
+					current = node
+					while current.left is not None:
+						current = current.left
+					return current
+
+				def delete(self, node, value):
+					if node is None:
+						return node
+					if value < node.value:
+						node.left = self.delete(node.left, value)
+					elif value > node.value:
+						node.right = self.delete(node.right, value)
+					else:
+						if node.left is None:
+							return node.right
+						elif node.right is None:
+							return node.left
+						temp = self._min_value(node.right)
+						node.value = temp.value
+						node.right = self.delete(node.right, temp.value)
+					return node
+
+				def in_order(self, node, result=None):
+					if result is None:
+						result = []
+					if node:
+						self.in_order(node.left, result)
+						result.append(node.value)
+						self.in_order(node.right, result)
+					return result
+
+			bst = BinarySearchTree()
+
+			print("Binary Search Tree Demo")
+			print("Commands: insert <n>, search <n>, delete <n>, show, quit")
+			print()
+
+			while True:
+				cmd = input("> ").strip()
+				if not cmd:
+					continue
+				parts = cmd.split()
+				action = parts[0].lower()
+
+				if action == "quit":
+					print("Goodbye!")
+					break
+				elif action in ("insert", "search", "delete") and len(parts) == 2:
+					try:
+						val = int(parts[1])
+					except ValueError:
+						print("Please enter an integer value.")
+						continue
+					if action == "insert":
+						bst.insert(val)
+						print(f"Inserted {val}.")
+					elif action == "search":
+						found = bst.search(bst.root, val)
+						print(f"{val} {'found' if found else 'not found'}.")
+					else:
+						bst.root = bst.delete(bst.root, val)
+						print(f"Deleted {val}.")
+				elif action == "show":
+					result = bst.in_order(bst.root)
+					print(f"In-order: {result}" if result else "Tree is empty.")
+				else:
+					print("Unknown command. Try: insert <n>, search <n>, delete <n>, show, quit")
+			</script>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>A Python implementation of a Binary Search Tree (BST) — a node-based
+				data structure where each node holds a value and two children, with the
+				left child always smaller and the right child always larger. The tree
+				supports four core operations: <strong>insert</strong> (add a new value
+				while maintaining BST ordering), <strong>search</strong> (locate a value
+				in O(log n) average time), <strong>delete</strong> (remove a node while
+				preserving the BST property using in-order successor replacement), and
+				<strong>in-order traversal</strong> (return all values in sorted order).
+				A solid exercise in recursive thinking and pointer
+				manipulation.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					class Node:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, value):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.value = value<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.left = None<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.right = None<br />
+					<br />
+					class BinarySearchTree:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.root = None<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def _insert(self, node, value):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if value &lt;
+					node.value:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+					node.left is None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.left
+					= Node(value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._insert(node.left,
+					value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+					node.right is None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.right
+					= Node(value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._insert(node.right,
+					value)<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def insert(self, value):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.root is
+					None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.root
+					= Node(value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._insert(self.root,
+					value)<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def search(self, node, value):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if node is None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					False<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if value ==
+					node.value:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					True<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if value &lt;
+					node.value:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					self.search(node.left, value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					self.search(node.right, value)<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def _min_value(self, node):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current = node<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while current.left is
+					not None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current
+					= current.left<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return current<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def delete(self, node, value):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if node is None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					node<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if value &lt;
+					node.value:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.left
+					= self.delete(node.left, value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif value &gt;
+					node.value:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.right
+					= self.delete(node.right, value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+					node.left is None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					node.right<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif
+					node.right is None:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					node.left<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temp
+					= self._min_value(node.right)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.value
+					= temp.value<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.right
+					= self.delete(node.right, temp.value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return node<br />
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;def in_order(self, node, result=None):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if result is None:
+					result = []<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if node:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.in_order(node.left,
+					result)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result.append(node.value)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.in_order(node.right,
+					result)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return result<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day14.html"
+				>Previous Day</a
+			>
+			<br />
+			<!-- TODO: uncomment when Day16 exists
+			<a
+				class="text-link"
+				href="Day16.html"
+				>Next Day</a
+			>
+			<br />
+			-->
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

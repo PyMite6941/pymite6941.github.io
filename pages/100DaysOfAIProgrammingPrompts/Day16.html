@@ -1,0 +1,160 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 16 of the 100 Days of AI-Generated Programming Prompts — a stack-based Reverse Polish Notation (RPN) calculator in Python." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Day 16 | 100 Days of AI Prompts | Matt G</title>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 16</h1>
+			<h3>A Stack-Based RPN Calculator in Python</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>
+				Enter expressions in
+				<strong>Reverse Polish Notation</strong> (postfix). Operands go first,
+				operator last. Examples: <code>3 4 +</code> → 7,
+				<code>5 1 2 + 4 * + 3 -</code> → 14. Type <strong>quit</strong> to exit.
+			</p>
+			<br />
+			<py-terminal></py-terminal>
+			<!-- prettier-ignore -->
+			<script type="py" terminal>
+def evaluate_rpn(expression):
+    stack = []
+    tokens = expression.split()
+    operators = {
+        '+': lambda a, b: a + b,
+        '-': lambda a, b: a - b,
+        '*': lambda a, b: a * b,
+        '/': lambda a, b: a / b,
+    }
+    for token in tokens:
+        if token in operators:
+            if len(stack) < 2:
+                return None, "Error: not enough operands."
+            b = stack.pop()
+            a = stack.pop()
+            if token == '/' and b == 0:
+                return None, "Error: division by zero."
+            stack.append(operators[token](a, b))
+        else:
+            try:
+                stack.append(float(token))
+            except ValueError:
+                return None, f"Error: unknown token '{token}'."
+    if len(stack) != 1:
+        return None, "Error: invalid expression."
+    result = stack[0]
+    return (int(result) if result == int(result) else result), None
+
+print("RPN Calculator")
+print("Operators: + - * /")
+print("Example: 3 4 + 2 *  →  14")
+print()
+
+while True:
+    expr = input("> ").strip()
+    if not expr:
+        continue
+    if expr.lower() == "quit":
+        print("Goodbye!")
+        break
+    result, error = evaluate_rpn(expr)
+    if error:
+        print(error)
+    else:
+        print(f"= {result}")
+			</script>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>A Python calculator that evaluates expressions written in
+				<strong>Reverse Polish Notation</strong> (RPN), also called postfix
+				notation. Instead of writing <code>3 + 4</code>, you write
+				<code>3 4 +</code> — operands come before the operator. The
+				implementation uses a <strong>stack</strong>: numbers are pushed onto it
+				as they're read, and each operator pops two values, computes the result,
+				and pushes it back. RPN eliminates the need for parentheses and operator
+				precedence rules entirely, and is the evaluation model used internally
+				by most compilers and interpreters. A clean illustration of how a stack
+				turns a seemingly tricky parsing problem into a simple linear
+				scan.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					def evaluate_rpn(expression):<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;stack = []<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;tokens = expression.split()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;operators = {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+': lambda a, b: a + b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'-': lambda a, b: a - b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'*': lambda a, b: a * b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'/': lambda a, b: a / b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;for token in tokens:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if token in operators:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b = stack.pop()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = stack.pop()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if token == '/' and b == 0:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return None, "Error: division by zero."<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack.append(operators[token](a, b))<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack.append(float(token))<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;result = stack[0]<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;return (int(result) if result == int(result) else result), None<br />
+					<br />
+					while True:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;expr = input("&gt; ").strip()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if expr.lower() == "quit": break<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;result, error = evaluate_rpn(expr)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;print(error if error else f"= {result}")<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day15.html"
+				>Previous Day</a
+			>
+			<br />
+			<!-- TODO: uncomment when Day17 exists
+			<a
+				class="text-link"
+				href="Day17.html"
+				>Next Day</a
+			>
+			<br />
+			-->
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

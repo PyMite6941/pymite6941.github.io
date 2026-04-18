@@ -1,0 +1,131 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 17 of the 100 Days of AI-Generated Programming Prompts — Conway's Game of Life in Rust, rendered in the terminal with block characters." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+
+		<title>Day 17 | 100 Days of AI Prompts | Matt G</title>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 17</h1>
+			<h3>Conway's Game of Life in Rust</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>
+				The simulation runs in the Rust Playground below. Click
+				<strong>Run</strong> to start it — the grid will evolve each generation
+				using block characters. Best viewed in the playground's output pane.
+			</p>
+			<br />
+			<iframe
+				src="https://play.rust-lang.org/?version=stable&mode=debug&edition=2024&code=use+std%3A%3A%7Bthread%2C+time%3A%3ADuration%7D%3B%0D%0A%0D%0Afn+print_grid%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%29+%7B%0D%0A++++for+row+in+grid+%7B%0D%0A++++++++for+%26cell+in+row+%7B%0D%0A++++++++++++if+cell+%7B%0D%0A++++++++++++++++print%21%28%22%E2%96%88%22%29%3B%0D%0A++++++++++++%7D+else+%7B%0D%0A++++++++++++++++print%21%28%22+%22%29%3B%0D%0A++++++++++++%7D%0D%0A++++++++%7D%0D%0A++++++++println%21%28%29%3B%0D%0A++++%7D%0D%0A%7D%0D%0A%0D%0Afn+count_neighbours%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%2C+x%3Ausize%2C+y%3Ausize%29+-%3E+usize+%7B%0D%0A++++let+height+%3D+grid.len%28%29%3B%0D%0A++++let+width+%3D+grid%5B0%5D.len%28%29%3B%0D%0A++++let+mut+count+%3D+0%3B%0D%0A++++if+x+%2B+1+%3C+height+%26%26+grid%5Bx%2B1%5D%5By%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+y+%2B+1+%3C+width+%26%26+grid%5Bx%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%2B+1+%3C+height+%26%26+y+%2B+1+%3C+width+%26%26+grid%5Bx%2B1%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+y+%2B+1+%3C+width+%26%26+grid%5Bx-1%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%2B+1+%3C+height+%26%26+y+%3E+0+%26%26+grid%5Bx%2B1%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+grid+%5Bx-1%5D%5By%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+y+%3E+0+%26%26+grid+%5Bx%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+y+%3E+0+%26%26+grid%5Bx-1%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D%0D%0A++++count%0D%0A%7D%0D%0A%0D%0Afn+next_generation%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%29+-%3E+Vec%3CVec%3Cbool%3E%3E+%7B%0D%0A++++let+height+%3D+grid.len%28%29%3B%0D%0A++++let+width+%3D+grid%5B0%5D.len%28%29%3B%0D%0A++++let+mut+new_grid+%3D+vec%21%5Bvec%21%5Bfalse%3B+width%5D%3B+height%5D%3B%0D%0A++++for+y+in+0..height+%7B%0D%0A++++++++for+x+in+0..width+%7B%0D%0A++++++++++++let+neighbours+%3D+count_neighbours%28grid%2Cy%2Cx%29%3B%0D%0A++++++++++++let+alive+%3D+grid%5By%5D%5Bx%5D%3B%0D%0A++++++++++++if+alive+%26%26+%28neighbours+%3D%3D+2+%7C%7C+neighbours+%3D%3D+3%29+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+true%3B%0D%0A++++++++++++%7D+else+if+%21alive+%26%26+neighbours+%3D%3D+3+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+true%3B%0D%0A++++++++++++%7D+else+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+false%3B%0D%0A++++++++++++%7D%0D%0A++++++++%7D%0D%0A++++%7D%0D%0A++++new_grid%0D%0A%7D%0D%0A%0D%0Afn+main%28%29+%7B%0D%0A++++let+width+%3D+30%3B%0D%0A++++let+height+%3D+50%3B%0D%0A++++let+mut+grid+%3D+vec%21%5Bvec%21%5Bfalse%3B+width%5D%3B+height%5D%3B%0D%0A++++grid%5B10%5D%5B10%5D+%3D+true%3B%0D%0A++++grid%5B1%5D%5B0%5D+%3D+true%3B%0D%0A++++grid%5B3%5D%5B8%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B14%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B15%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B16%5D+%3D+true%3B%0D%0A++++loop+%7B%0D%0A++++++++print%21%28%22%5Cx1B%5B2J%5Cx1B%5BH%22%29%3B%0D%0A++++++++print_grid%28%26grid%29%3B%0D%0A++++++++thread%3A%3Asleep%28Duration%3A%3Afrom_millis%28200%29%29%3B%0D%0A++++++++grid+%3D+next_generation%28%26grid%29%3B%0D%0A++++%7D%0D%0A%7D%0D%0A"
+				width="100%"
+				height="600px"
+				style="border: 1px solid var(--border-color); border-radius: 8px"
+				title="Conway's Game of Life — Rust Playground"
+				loading="lazy">
+				Your browser does not support iframes. Visit the project directly:
+				<a
+					class="text-link"
+					href="https://play.rust-lang.org/?version=stable&mode=debug&edition=2024&code=use+std%3A%3A%7Bthread%2C+time%3A%3ADuration%7D%3B%0D%0A%0D%0Afn+print_grid%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%29+%7B%0D%0A++++for+row+in+grid+%7B%0D%0A++++++++for+%26cell+in+row+%7B%0D%0A++++++++++++if+cell+%7B%0D%0A++++++++++++++++print%21%28%22%E2%96%88%22%29%3B%0D%0A++++++++++++%7D+else+%7B%0D%0A++++++++++++++++print%21%28%22+%22%29%3B%0D%0A++++++++++++%7D%0D%0A++++++++%7D%0D%0A++++++++println%21%28%29%3B%0D%0A++++%7D%0D%0A%7D%0D%0A%0D%0Afn+count_neighbours%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%2C+x%3Ausize%2C+y%3Ausize%29+-%3E+usize+%7B%0D%0A++++let+height+%3D+grid.len%28%29%3B%0D%0A++++let+width+%3D+grid%5B0%5D.len%28%29%3B%0D%0A++++let+mut+count+%3D+0%3B%0D%0A++++if+x+%2B+1+%3C+height+%26%26+grid%5Bx%2B1%5D%5By%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+y+%2B+1+%3C+width+%26%26+grid%5Bx%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%2B+1+%3C+height+%26%26+y+%2B+1+%3C+width+%26%26+grid%5Bx%2B1%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+y+%2B+1+%3C+width+%26%26+grid%5Bx-1%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%2B+1+%3C+height+%26%26+y+%3E+0+%26%26+grid%5Bx%2B1%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+grid%5Bx-1%5D%5By%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+y+%3E+0+%26%26+grid%5Bx%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+y+%3E+0+%26%26+grid%5Bx-1%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D%0D%0A++++count%0D%0A%7D%0D%0A%0D%0Afn+next_generation%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%29+-%3E+Vec%3CVec%3Cbool%3E%3E+%7B%0D%0A++++let+height+%3D+grid.len%28%29%3B%0D%0A++++let+width+%3D+grid%5B0%5D.len%28%29%3B%0D%0A++++let+mut+new_grid+%3D+vec%21%5Bvec%21%5Bfalse%3B+width%5D%3B+height%5D%3B%0D%0A++++for+y+in+0..height+%7B%0D%0A++++++++for+x+in+0..width+%7B%0D%0A++++++++++++let+neighbours+%3D+count_neighbours%28grid%2Cy%2Cx%29%3B%0D%0A++++++++++++let+alive+%3D+grid%5By%5D%5Bx%5D%3B%0D%0A++++++++++++if+alive+%26%26+%28neighbours+%3D%3D+2+%7C%7C+neighbours+%3D%3D+3%29+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+true%3B%0D%0A++++++++++++%7D+else+if+%21alive+%26%26+neighbours+%3D%3D+3+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+true%3B%0D%0A++++++++++++%7D+else+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+false%3B%0D%0A++++++++++++%7D%0D%0A++++++++%7D%0D%0A++++%7D%0D%0A++++new_grid%0D%0A%7D%0D%0A%0D%0Afn+main%28%29+%7B%0D%0A++++let+width+%3D+30%3B%0D%0A++++let+height+%3D+50%3B%0D%0A++++let+mut+grid+%3D+vec%21%5Bvec%21%5Bfalse%3B+width%5D%3B+height%5D%3B%0D%0A++++grid%5B10%5D%5B10%5D+%3D+true%3B%0D%0A++++grid%5B1%5D%5B0%5D+%3D+true%3B%0D%0A++++grid%5B3%5D%5B8%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B14%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B15%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B16%5D+%3D+true%3B%0D%0A++++loop+%7B%0D%0A++++++++print%21%28%22%5Cx1B%5B2J%5Cx1B%5BH%22%29%3B%0D%0A++++++++print_grid%28%26grid%29%3B%0D%0A++++++++thread%3A%3Asleep%28Duration%3A%3Afrom_millis%28200%29%29%3B%0D%0A++++++++grid+%3D+next_generation%28%26grid%29%3B%0D%0A++++%7D%0D%0A%7D%0D%0A"
+					>Open in Rust Playground</a
+				>
+			</iframe>
+			<br />
+			<a
+				class="text-link"
+				href="https://play.rust-lang.org/?version=stable&mode=debug&edition=2024&code=use+std%3A%3A%7Bthread%2C+time%3A%3ADuration%7D%3B%0D%0A%0D%0Afn+print_grid%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%29+%7B%0D%0A++++for+row+in+grid+%7B%0D%0A++++++++for+%26cell+in+row+%7B%0D%0A++++++++++++if+cell+%7B%0D%0A++++++++++++++++print%21%28%22%E2%96%88%22%29%3B%0D%0A++++++++++++%7D+else+%7B%0D%0A++++++++++++++++print%21%28%22+%22%29%3B%0D%0A++++++++++++%7D%0D%0A++++++++%7D%0D%0A++++++++println%21%28%29%3B%0D%0A++++%7D%0D%0A%7D%0D%0A%0D%0Afn+count_neighbours%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%2C+x%3Ausize%2C+y%3Ausize%29+-%3E+usize+%7B%0D%0A++++let+height+%3D+grid.len%28%29%3B%0D%0A++++let+width+%3D+grid%5B0%5D.len%28%29%3B%0D%0A++++let+mut+count+%3D+0%3B%0D%0A++++if+x+%2B+1+%3C+height+%26%26+grid%5Bx%2B1%5D%5By%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+y+%2B+1+%3C+width+%26%26+grid%5Bx%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%2B+1+%3C+height+%26%26+y+%2B+1+%3C+width+%26%26+grid%5Bx%2B1%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+y+%2B+1+%3C+width+%26%26+grid%5Bx-1%5D%5By%2B1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%2B+1+%3C+height+%26%26+y+%3E+0+%26%26+grid%5Bx%2B1%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+grid%5Bx-1%5D%5By%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+y+%3E+0+%26%26+grid%5Bx%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D+if+x+%3E+0+%26%26+y+%3E+0+%26%26+grid%5Bx-1%5D%5By-1%5D+%7B%0D%0A++++++++count+%2B%3D+1%3B%0D%0A++++%7D%0D%0A++++count%0D%0A%7D%0D%0A%0D%0Afn+next_generation%28grid%3A+%26Vec%3CVec%3Cbool%3E%3E%29+-%3E+Vec%3CVec%3Cbool%3E%3E+%7B%0D%0A++++let+height+%3D+grid.len%28%29%3B%0D%0A++++let+width+%3D+grid%5B0%5D.len%28%29%3B%0D%0A++++let+mut+new_grid+%3D+vec%21%5Bvec%21%5Bfalse%3B+width%5D%3B+height%5D%3B%0D%0A++++for+y+in+0..height+%7B%0D%0A++++++++for+x+in+0..width+%7B%0D%0A++++++++++++let+neighbours+%3D+count_neighbours%28grid%2Cy%2Cx%29%3B%0D%0A++++++++++++let+alive+%3D+grid%5By%5D%5Bx%5D%3B%0D%0A++++++++++++if+alive+%26%26+%28neighbours+%3D%3D+2+%7C%7C+neighbours+%3D%3D+3%29+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+true%3B%0D%0A++++++++++++%7D+else+if+%21alive+%26%26+neighbours+%3D%3D+3+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+true%3B%0D%0A++++++++++++%7D+else+%7B%0D%0A++++++++++++++++new_grid%5By%5D%5Bx%5D+%3D+false%3B%0D%0A++++++++++++%7D%0D%0A++++++++%7D%0D%0A++++%7D%0D%0A++++new_grid%0D%0A%7D%0D%0A%0D%0Afn+main%28%29+%7B%0D%0A++++let+width+%3D+30%3B%0D%0A++++let+height+%3D+50%3B%0D%0A++++let+mut+grid+%3D+vec%21%5Bvec%21%5Bfalse%3B+width%5D%3B+height%5D%3B%0D%0A++++grid%5B10%5D%5B10%5D+%3D+true%3B%0D%0A++++grid%5B1%5D%5B0%5D+%3D+true%3B%0D%0A++++grid%5B3%5D%5B8%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B14%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B15%5D+%3D+true%3B%0D%0A++++grid%5B15%5D%5B16%5D+%3D+true%3B%0D%0A++++loop+%7B%0D%0A++++++++print%21%28%22%5Cx1B%5B2J%5Cx1B%5BH%22%29%3B%0D%0A++++++++print_grid%28%26grid%29%3B%0D%0A++++++++thread%3A%3Asleep%28Duration%3A%3Afrom_millis%28200%29%29%3B%0D%0A++++++++grid+%3D+next_generation%28%26grid%29%3B%0D%0A++++%7D%0D%0A%7D%0D%0A"
+				>Open in full page</a
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>Conway's Game of Life — a zero-player cellular automaton devised by
+				mathematician John Conway in 1970. The grid starts with a handful of
+				live cells and evolves each generation by four simple rules: a live cell
+				with 2 or 3 neighbours survives; a dead cell with exactly 3 neighbours
+				becomes alive; all other cells die or stay dead. Despite those four
+				rules, the system produces staggering complexity — stable blocks,
+				oscillators, gliders that move across the grid indefinitely. This
+				implementation represents the grid as a
+				<code>Vec&lt;Vec&lt;bool&gt;&gt;</code>, counts each cell's 8
+				neighbours with bounds checks, and renders live cells as
+				<code>█</code> block characters, clearing the terminal between
+				generations using ANSI escape codes.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					use std::{thread, time::Duration};<br />
+					<br />
+					fn print_grid(grid: &amp;Vec&lt;Vec&lt;bool&gt;&gt;) {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;for row in grid {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for &amp;cell in row { print!("{}", if cell { "█" } else { " " }); }<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println!();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					}<br />
+					<br />
+					fn next_generation(grid: &amp;Vec&lt;Vec&lt;bool&gt;&gt;) -&gt; Vec&lt;Vec&lt;bool&gt;&gt; {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let (height, width) = (grid.len(), grid[0].len());<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let mut new_grid = vec![vec![false; width]; height];<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;for y in 0..height {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for x in 0..width {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let n = count_neighbours(grid, y, x);<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_grid[y][x] = matches!((grid[y][x], n), (true, 2) | (true, 3) | (false, 3));<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;new_grid<br />
+					}<br />
+					<br />
+					fn main() {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let mut grid = vec![vec![false; 30]; 50];<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;grid[15][14] = true; grid[15][15] = true; grid[15][16] = true;<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;loop {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print!("\x1B[2J\x1B[H");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_grid(&amp;grid);<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thread::sleep(Duration::from_millis(200));<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid = next_generation(&amp;grid);<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+					}<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day16.html"
+				>Previous Day</a
+			>
+			<br />
+			<!-- TODO: uncomment when Day18 exists
+			<a
+				class="text-link"
+				href="Day18.html"
+				>Next Day</a
+			>
+			<br />
+			-->
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

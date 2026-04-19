@@ -1,0 +1,114 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Markdown Previewer — a live React app that renders Markdown to HTML in real time with full GFM support." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+		<style>
+			.iframe-wrapper {
+				width: 100%;
+				border-radius: 10px;
+				overflow: hidden;
+				border: 1px solid var(--border-color);
+				box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+			}
+
+			.iframe-wrapper iframe {
+				display: block;
+				width: 100%;
+				height: 640px;
+				border: none;
+			}
+
+			.open-link {
+				display: inline-block;
+				margin-top: 12px;
+				font-size: 14px;
+			}
+		</style>
+		<title>Markdown Previewer | Matt G</title>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Markdown Previewer</h1>
+			<h3>Live Markdown-to-HTML rendering in React</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>
+				Type Markdown on the left and see the rendered HTML update live on the
+				right. Supports full <strong>CommonMark</strong> plus
+				<strong>GFM</strong> extensions: tables, strikethrough, task lists, and
+				autolinks.
+			</p>
+			<br />
+			<div class="iframe-wrapper">
+				<iframe
+					src="https://markdown-previewer-five-lac.vercel.app/"
+					title="Markdown Previewer"
+					loading="lazy">
+					Your browser does not support iframes.
+					<a
+						class="text-link"
+						href="https://markdown-previewer-five-lac.vercel.app/"
+						>Open the Markdown Previewer directly</a
+					>
+				</iframe>
+			</div>
+			<a
+				class="text-link open-link"
+				href="https://markdown-previewer-five-lac.vercel.app/"
+				target="_blank"
+				rel="noopener noreferrer"
+				>Open in full page ↗</a
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				A real-time Markdown previewer built with React 19 and Vite. The
+				interface splits the screen into two equal panes — a monospace textarea
+				on the left and a live HTML preview on the right — with the header
+				taking the top 15% of the viewport. Markdown is parsed by
+				<code>react-markdown</code> v10 with the <code>remark-gfm</code> plugin,
+				adding GitHub Flavored Markdown on top of CommonMark: tables with
+				alternating row shading, strikethrough text, interactive task-list
+				checkboxes, and bare URL autolinks. The preview panel styles all
+				standard elements — headings, blockquotes, fenced code blocks, inline
+				code, lists, and horizontal rules — using CSS variables so the theme
+				adapts automatically to the user's light/dark preference.
+			</article>
+			<br />
+			<a
+				class="text-link"
+				href="https://github.com/PyMite6941"
+				>Visit my GitHub</a
+			>
+			<br />
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

@@ -9,7 +9,7 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Day 13 of the 100 Days of AI-Generated Programming Prompts — a Go web spider that crawls and indexes pages for the Magellan search engine." />
+			content="Day 13 of the 30 Days of AI-Generated Programming Prompts — a Go web spider that crawls and indexes pages for the Magellan search engine." />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -18,7 +18,7 @@
 			src="../../assets/js/site-style.js"
 			defer></script>
 
-		<title>Day 13 | 100 Days of AI Prompts | Matt G</title>
+		<title>Day 13 | 30 Days of AI Prompts | Matt G</title>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -69,17 +69,20 @@
 					&nbsp;&nbsp;return<br />
 					&nbsp;}<br />
 					&nbsp;defer db.Close()<br />
-					&nbsp;db.Exec(`CREATE VIRTUAL TABLE IF NOT EXISTS pages USING fts5(url UNINDEXED, title, snippet)`)<br />
+					&nbsp;db.Exec(`CREATE VIRTUAL TABLE IF NOT EXISTS pages USING fts5(url
+					UNINDEXED, title, snippet)`)<br />
 					&nbsp;data, err := os.ReadFile("starter_websites.json")<br />
 					&nbsp;if err != nil {<br />
-					&nbsp;&nbsp;fmt.Println("Error loading starter_websites.json:", err)<br />
+					&nbsp;&nbsp;fmt.Println("Error loading starter_websites.json:",
+					err)<br />
 					&nbsp;&nbsp;return<br />
 					&nbsp;}<br />
 					&nbsp;var starters struct {<br />
 					&nbsp;&nbsp;Websites []string `json:"websites"`<br />
 					&nbsp;}<br />
 					&nbsp;if err := json.Unmarshal(data, &amp;starters); err != nil {<br />
-					&nbsp;&nbsp;fmt.Println("Error parsing starter_websites.json:", err)<br />
+					&nbsp;&nbsp;fmt.Println("Error parsing starter_websites.json:",
+					err)<br />
 					&nbsp;&nbsp;return<br />
 					&nbsp;}<br />
 					&nbsp;queue := append([]string{}, starters.Websites...)<br />
@@ -104,7 +107,8 @@
 					&nbsp;&nbsp;lines := strings.Split(string(body), "\n")<br />
 					&nbsp;&nbsp;for _, line := range lines {<br />
 					&nbsp;&nbsp;&nbsp;if strings.Contains(line, "href=\"") {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;start := strings.Index(line, "href=\"") + len("href=\"")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;start := strings.Index(line, "href=\"") +
+					len("href=\"")<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;relEnd := strings.Index(line[start:], "\"")<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;if relEnd == -1 {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br />
@@ -113,21 +117,27 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;link := line[start:end]<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;base, _ := url.Parse(pageURL)<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;parsed, err := base.Parse(link)<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;if err == nil &amp;&amp; (parsed.Scheme == "http" || parsed.Scheme == "https") {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue = append(queue, parsed.String())<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;if err == nil &amp;&amp; (parsed.Scheme ==
+					"http" || parsed.Scheme == "https") {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue = append(queue,
+					parsed.String())<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;if strings.Contains(line, "&lt;title&gt;") {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;start := strings.Index(line, "&lt;title&gt;") + len("&lt;title&gt;")<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;relEnd := strings.Index(line[start:], "&lt;/title&gt;")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;start := strings.Index(line, "&lt;title&gt;")
+					+ len("&lt;title&gt;")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;relEnd := strings.Index(line[start:],
+					"&lt;/title&gt;")<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;if relEnd == -1 {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;end := relEnd + start<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;title := line[start:end]<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;if title != "" {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.Exec(`INSERT INTO pages (url, title, snippet) VALUES (?, ?, ?)`, pageURL, title, "")<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fmt.Printf("Saved: %s — %s\n", pageURL, title)<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.Exec(`INSERT INTO pages (url, title,
+					snippet) VALUES (?, ?, ?)`, pageURL, title, "")<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fmt.Printf("Saved: %s — %s\n", pageURL,
+					title)<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;}<br />

@@ -9,7 +9,7 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Day 16 of the 100 Days of AI-Generated Programming Prompts — a stack-based Reverse Polish Notation (RPN) calculator in Python." />
+			content="Day 16 of the 30 Days of AI-Generated Programming Prompts — a stack-based Reverse Polish Notation (RPN) calculator in Python." />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -24,7 +24,7 @@
 			type="module"
 			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
 
-		<title>Day 16 | 100 Days of AI Prompts | Matt G</title>
+		<title>Day 16 | 30 Days of AI Prompts | Matt G</title>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -115,22 +115,33 @@ while True:
 					&nbsp;&nbsp;&nbsp;&nbsp;stack = []<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;tokens = expression.split()<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;operators = {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+': lambda a, b: a + b,<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'-': lambda a, b: a - b,<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'*': lambda a, b: a * b,<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'/': lambda a, b: a / b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+': lambda a, b: a +
+					b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'-': lambda a, b: a -
+					b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'*': lambda a, b: a *
+					b,<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'/': lambda a, b: a /
+					b,<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;for token in tokens:<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if token in operators:<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b = stack.pop()<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = stack.pop()<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if token == '/' and b == 0:<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return None, "Error: division by zero."<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack.append(operators[token](a, b))<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if token in
+					operators:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b
+					= stack.pop()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a
+					= stack.pop()<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+					token == '/' and b == 0:<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+					None, "Error: division by zero."<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack.append(operators[token](a,
+					b))<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack.append(float(token))<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;result = stack[0]<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;return (int(result) if result == int(result) else result), None<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;return (int(result) if result == int(result)
+					else result), None<br />
 					<br />
 					while True:<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;expr = input("&gt; ").strip()<br />

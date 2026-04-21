@@ -1,0 +1,91 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 19 of the 30 Days of AI-Generated Programming Prompts — a Python Image Stenography Tool for encrypting messages." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Day 19 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 19</h1>
+			<h3>A Python Image Stenography for Encrypting Messages</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px"
+				>Unfortunately, you can't run this in the browser here</h2
+			>
+			<p
+				>This program reads from the filesystem, so it must be run locally — it
+				cannot run in the browser.</p
+			>
+			<p
+				>Run <code>python main.py</code> in a directory that contains at least
+				one image file.</p
+			>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>This is a stenography tool that I started developing. This taught me
+				how to interact and store messages in simple images.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					from PIL import Image<br />
+					photo_name = "photo.png"<br />
+					message = "This is a secret!"<br />
+					img = Image.open(photo_name)<br />
+					pixels = img.load()<br />
+					width,height = img.size<br />
+					x,y = 0,0<br />
+					for i in range(len(message)):<br />
+					&nbsp;r,g,b = pixels[x,y]<br />
+					&nbsp;char = ord(message[i])<br />
+					&nbsp;new_b = (b&~1) | (char & 1)<br />
+					&nbsp;pixels[x,y] = (r,g,new_b)<br />
+					&nbsp;x += 1<br />
+					&nbsp;if x >= width:<br />
+					&nbsp;&nbsp;x = 0<br />
+					&nbsp;&nbsp;y += 1<br />
+					&nbsp;&nbsp;if y >= height:<br />
+					&nbsp;&nbsp;&nbsp;break<br />
+					img.save(photo_name)<br />
+					print(f"Message hidden in {photo_name}")<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day18.html"
+				>Previous Day</a
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day20.html"
+				>Next Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

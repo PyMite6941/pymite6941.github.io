@@ -9,7 +9,7 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Day 14 of the 100 Days of AI-Generated Programming Prompts — a Rust program that encrypts a message using XOR with a key." />
+			content="Day 14 of the 30 Days of AI-Generated Programming Prompts — a Rust program that encrypts a message using XOR with a key." />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -18,7 +18,7 @@
 			src="../../assets/js/site-style.js"
 			defer></script>
 
-		<title>Day 14 | 100 Days of AI Prompts | Matt G</title>
+		<title>Day 14 | 30 Days of AI Prompts | Matt G</title>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -61,10 +61,10 @@
 			<article
 				>A Rust CLI program that takes a message and a key and encrypts the
 				message using XOR — a simple symmetric cipher where each byte of the
-				message is XOR'd with the corresponding byte of the key (cycling the
-				key if it's shorter than the message). The result is printed as a hex
-				string. A good exercise for learning how Rust handles strings, iterators,
-				and byte-level operations.</article
+				message is XOR'd with the corresponding byte of the key (cycling the key
+				if it's shorter than the message). The result is printed as a hex
+				string. A good exercise for learning how Rust handles strings,
+				iterators, and byte-level operations.</article
 			>
 			<br />
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
@@ -76,28 +76,34 @@
 					fn main() {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;println!("Enter the message to encrypt:");<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let mut message = String::new();<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;io::stdin().read_line(&amp;mut message).expect("Failed to read");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;io::stdin().read_line(&amp;mut
+					message).expect("Failed to read");<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let message = message.trim_end();<br />
 					<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;println!("Enter the encryption key:");<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let mut key = String::new();<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;io::stdin().read_line(&amp;mut key).expect("Failed to read");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;io::stdin().read_line(&amp;mut
+					key).expect("Failed to read");<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let key = key.trim_end();<br />
 					<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;if key.is_empty() {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eprintln!("Key cannot be empty.");<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eprintln!("Key cannot
+					be empty.");<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let message_bytes = message.as_bytes();<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let key_bytes = key.as_bytes();<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;let encrypted: Vec&lt;u8&gt; = message_bytes<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let encrypted: Vec&lt;u8&gt; =
+					message_bytes<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.iter()<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.enumerate()<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.map(|(i, &amp;b)| b ^ key_bytes[i % key_bytes.len()])<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.map(|(i, &amp;b)| b ^
+					key_bytes[i % key_bytes.len()])<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.collect();<br />
 					<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;let hex: String = encrypted.iter().map(|b| format!("{:02x}", b)).collect();<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let hex: String = encrypted.iter().map(|b|
+					format!("{:02x}", b)).collect();<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;println!("Encrypted (hex): {}", hex);<br />
 					}<br />
 				</code>

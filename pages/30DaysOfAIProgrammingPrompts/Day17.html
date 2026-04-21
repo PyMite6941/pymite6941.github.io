@@ -9,7 +9,7 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Day 17 of the 100 Days of AI-Generated Programming Prompts — Conway's Game of Life in Rust, rendered in the terminal with block characters." />
+			content="Day 17 of the 30 Days of AI-Generated Programming Prompts — Conway's Game of Life in Rust, rendered in the terminal with block characters." />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -18,7 +18,7 @@
 			src="../../assets/js/site-style.js"
 			defer></script>
 
-		<title>Day 17 | 100 Days of AI Prompts | Matt G</title>
+		<title>Day 17 | 30 Days of AI Prompts | Matt G</title>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -67,10 +67,10 @@
 				rules, the system produces staggering complexity — stable blocks,
 				oscillators, gliders that move across the grid indefinitely. This
 				implementation represents the grid as a
-				<code>Vec&lt;Vec&lt;bool&gt;&gt;</code>, counts each cell's 8
-				neighbours with bounds checks, and renders live cells as
-				<code>█</code> block characters, clearing the terminal between
-				generations using ANSI escape codes.</article
+				<code>Vec&lt;Vec&lt;bool&gt;&gt;</code>, counts each cell's 8 neighbours
+				with bounds checks, and renders live cells as <code>█</code> block
+				characters, clearing the terminal between generations using ANSI escape
+				codes.</article
 			>
 			<br />
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
@@ -81,18 +81,24 @@
 					<br />
 					fn print_grid(grid: &amp;Vec&lt;Vec&lt;bool&gt;&gt;) {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;for row in grid {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for &amp;cell in row { print!("{}", if cell { "█" } else { " " }); }<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for &amp;cell in row {
+					print!("{}", if cell { "█" } else { " " }); }<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println!();<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					}<br />
 					<br />
-					fn next_generation(grid: &amp;Vec&lt;Vec&lt;bool&gt;&gt;) -&gt; Vec&lt;Vec&lt;bool&gt;&gt; {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;let (height, width) = (grid.len(), grid[0].len());<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;let mut new_grid = vec![vec![false; width]; height];<br />
+					fn next_generation(grid: &amp;Vec&lt;Vec&lt;bool&gt;&gt;) -&gt;
+					Vec&lt;Vec&lt;bool&gt;&gt; {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let (height, width) = (grid.len(),
+					grid[0].len());<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;let mut new_grid = vec![vec![false; width];
+					height];<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;for y in 0..height {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for x in 0..width {<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let n = count_neighbours(grid, y, x);<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_grid[y][x] = matches!((grid[y][x], n), (true, 2) | (true, 3) | (false, 3));<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let
+					n = count_neighbours(grid, y, x);<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_grid[y][x]
+					= matches!((grid[y][x], n), (true, 2) | (true, 3) | (false, 3));<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;new_grid<br />
@@ -100,12 +106,14 @@
 					<br />
 					fn main() {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;let mut grid = vec![vec![false; 30]; 50];<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;grid[15][14] = true; grid[15][15] = true; grid[15][16] = true;<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;grid[15][14] = true; grid[15][15] = true;
+					grid[15][16] = true;<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;loop {<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print!("\x1B[2J\x1B[H");<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_grid(&amp;grid);<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thread::sleep(Duration::from_millis(200));<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid = next_generation(&amp;grid);<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid =
+					next_generation(&amp;grid);<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 					}<br />
 				</code>

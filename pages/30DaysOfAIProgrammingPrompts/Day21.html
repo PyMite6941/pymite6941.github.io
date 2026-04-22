@@ -1,0 +1,94 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 21 of the 30 Days of AI-Generated Programming Prompts — a Rust URL security scanner that validates HTTPS URLs." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Day 21 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 21</h1>
+			<h3>A Rust URL Security Scanner</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px"
+				>Unfortunately, you can't run this in the browser here</h2
+			>
+			<p
+				>This program reads from stdin and uses the <code>url</code> crate, so
+				it must be run locally — it cannot run in the browser.</p
+			>
+			<p
+				>Run <code>cargo run</code> in the project directory and enter a URL when
+				prompted.</p
+			>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>A Rust CLI tool that validates a user-provided URL and enforces HTTPS.
+				It parses the input with the <code>url</code> crate, rejects any URL that
+				does not use the HTTPS scheme, and prints a confirmation or error
+				message.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<code>
+					use std::io::{self, Write};<br />
+					use url::Url;<br />
+					<br />
+					struct Args {<br />
+					&nbsp;url: String,<br />
+					}<br />
+					<br />
+					fn process_url(url: String) -&gt; Result&lt;Url, String&gt; {<br />
+					&nbsp;let parsed = Url::parse(&amp;url)<br />
+					&nbsp;&nbsp;.map_err(|e| format!("Invalid URL: {}", e))?;<br />
+					&nbsp;if parsed.scheme() != "https" {<br />
+					&nbsp;&nbsp;return Err("Security Error: HTTPS not used".to_string());<br />
+					&nbsp;}<br />
+					&nbsp;Ok(parsed)<br />
+					}<br />
+					<br />
+					fn main() {<br />
+					&nbsp;println!("Enter the URL to scan: ");<br />
+					&nbsp;io::stdout().flush().unwrap();<br />
+					&nbsp;let mut url = String::new();<br />
+					&nbsp;io::stdin().read_line(&amp;mut url).expect("Failed to read line");<br />
+					&nbsp;let args = Args { url: url.trim().to_string() };<br />
+					&nbsp;match process_url(args.url.clone()) {<br />
+					&nbsp;&nbsp;Ok(valid_url) =&gt; println!("Scanning URL: {}", valid_url),<br />
+					&nbsp;&nbsp;Err(e) =&gt; println!("Error: {}", e),<br />
+					&nbsp;}<br />
+					}<br />
+				</code>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day20.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

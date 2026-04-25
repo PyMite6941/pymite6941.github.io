@@ -1,0 +1,84 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 23 of the 30 Days of AI-Generated Programming Prompts — a Bash quick-commit alias called gq." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Day 23 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 23</h1>
+			<h3>A Bash Quick-Commit Alias</h3>
+		</header>
+		<main>
+			<h2 style="text-align: center; font-size: 30px"
+				>Unfortunately, you can't run this in the browser here</h2
+			>
+			<p
+				>This is a shell script and must be run locally on a Unix-based system —
+				it cannot run in the browser.</p
+			>
+			<p
+				>Save it as <code>gq</code> somewhere on your <code>$PATH</code>, run
+				<code>chmod +x gq</code>, then use it as
+				<code>gq 'your commit message'</code>.</p
+			>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				>A Bash script that wraps the three most common git steps — stage all,
+				commit, and confirm — into a single command. Pass the commit message as
+				the first argument and <code>gq</code> handles the rest. If no message is
+				provided it prints usage and exits cleanly.</article
+			>
+			<br />
+			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
+			<br />
+			<div class="code-segment">
+				<pre style="margin: 0; overflow-x: auto"><code>#!/bin/bash
+
+message=$1
+
+if [ -z "$message" ]; then
+    echo "Usage: gq 'commit message here'"
+    exit 1
+else
+    git add .
+    git commit -m "$message"
+    echo "Committing: $message"
+fi</code></pre>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="Day22.html"
+				>Previous Day</a
+			>
+			&nbsp;|&nbsp;
+			<a
+				class="text-link"
+				href="Day24.html"
+				>Next Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

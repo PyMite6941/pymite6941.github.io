@@ -1,9 +1,7 @@
-function filterMechanics() {
+function filterProjects() {
 	const active = Array.from(
-		document
-			.querySelectorAll('#filter-panel .checkbox:checked')
-			.map((cb) => cb.dataset.filter),
-	);
+		document.querySelectorAll('#filter-panel .checkbox:checked'),
+	).map((cb) => cb.dataset.filter);
 	document.querySelectorAll('.card-container[data-tags]').forEach((card) => {
 		if (active.length === 0) {
 			card.style.display = '';

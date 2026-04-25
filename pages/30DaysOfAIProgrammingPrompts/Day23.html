@@ -52,18 +52,20 @@
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
 			<br />
 			<div class="code-segment">
-				<pre style="margin: 0; overflow-x: auto"><code>#!/bin/bash
-
-message=$1
-
-if [ -z "$message" ]; then
-    echo "Usage: gq 'commit message here'"
-    exit 1
-else
-    git add .
-    git commit -m "$message"
-    echo "Committing: $message"
-fi</code></pre>
+				<code>
+					#!/bin/bash<br />
+					<br />
+					message=$1<br />
+					<br />
+					if [ -z "$message" ]; then<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;echo "Usage: gq 'commit message here'"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;exit 1<br />
+					else<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;git add .<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;git commit -m "$message"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;echo "Committing: $message"<br />
+					fi
+				</code>
 			</div>
 			<br />
 			<a

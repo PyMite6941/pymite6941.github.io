@@ -51,41 +51,43 @@
 			<h3 style="text-align: center; font-size: 30px">View the source code</h3>
 			<br />
 			<div class="code-segment">
-				<pre style="margin: 0; overflow-x: auto"><code>#!/bin/bash
-
-echo "Setup Project Directories Program"
-echo
-echo "What is the name of your project?"
-read -p "&gt; " name
-echo "What is the project language?"
-read -p "&gt; " language
-
-if [ "$language" = "python" ]; then
-    mkdir "$name"
-    cd "$name" || exit
-    git init
-    cat &gt; main.py &lt;&lt; 'EOF'
-print('Hello, World!')
-EOF
-    python main.py
-elif [ "$language" = "go" ]; then
-    mkdir "$name"
-    cd "$name" || exit
-    git init
-    go mod init "$name"
-    touch main.go
-    code main.go
-elif [ "$language" = "react" ]; then
-    npx create-react-app "$name"
-    cd "$name" || exit
-    code .
-elif [ "$language" = "rust" ]; then
-    cargo new "$name"
-    cd "$name/src" || exit
-    code main.rs
-else
-    echo "Language not supported"
-fi</code></pre>
+				<code>
+					#!/bin/bash<br />
+					<br />
+					echo "Setup Project Directories Program"<br />
+					echo<br />
+					echo "What is the name of your project?"<br />
+					read -p "&gt; " name<br />
+					echo "What is the project language?"<br />
+					read -p "&gt; " language<br />
+					<br />
+					if [ "$language" = "python" ]; then<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;mkdir "$name"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;cd "$name" || exit<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;git init<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;cat &gt; main.py &lt;&lt; 'EOF'<br />
+					print('Hello, World!')<br />
+					EOF<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;python main.py<br />
+					elif [ "$language" = "go" ]; then<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;mkdir "$name"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;cd "$name" || exit<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;git init<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;go mod init "$name"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;touch main.go<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;code main.go<br />
+					elif [ "$language" = "react" ]; then<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;npx create-react-app "$name"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;cd "$name" || exit<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;code .<br />
+					elif [ "$language" = "rust" ]; then<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;cargo new "$name"<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;cd "$name/src" || exit<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;code main.rs<br />
+					else<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;echo "Language not supported"<br />
+					fi
+				</code>
 			</div>
 			<br />
 			<a

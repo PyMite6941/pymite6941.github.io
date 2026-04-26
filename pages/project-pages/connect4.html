@@ -39,10 +39,9 @@
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article
-				>Programming for NOAI is complicated unless you have practice projects.
-				This bot uses a depth-first search algorithm to evaluate Connect 4 game
-				states and make decisions, and uses pixel-based board reading to
-				interface with the actual game on screen.</article
+				><strong style="color: var(--text-color);">Context:</strong> The NOAI competition requires implementing game-playing AI from scratch — no ML libraries, pure algorithm design. I needed a practice project that forced me to implement real search and evaluation logic.<br /><br />
+				<strong style="color: var(--text-color);">Challenges:</strong> Writing a DFS-based minimax evaluator that's fast enough to be playable in real time. A transposition table and symmetry caching were added to avoid re-evaluating equivalent board states. I also had to build a pixel-based board reader to interface with the game running on screen, without any game API.<br /><br />
+				<strong style="color: var(--text-color);">Result:</strong> A fully functioning Connect 4 AI that plays strong moves in real time, reading live game state from the screen via pixel detection. The minimax + transposition table combination keeps decision time under a second per move.</article
 			>
 		</main>
 		<div id="site-footer"></div>

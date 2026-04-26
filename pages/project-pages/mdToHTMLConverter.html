@@ -40,9 +40,9 @@
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article
-				>This is a simple Markdown to HTML converter built in Go. It is one of
-				my first projects in Go and processes Markdown files to produce clean
-				HTML output.</article
+				><strong style="color: var(--text-color);">Context:</strong> Writing raw HTML for documentation is tedious. I wanted a CLI tool that lets me write Markdown and get clean HTML pages out — and I wanted to build it in Go to learn the language's standard library.<br /><br />
+				<strong style="color: var(--text-color);">Challenges:</strong> Parsing Markdown correctly across headings, code blocks, inline code, links, and nested lists without pulling in an external parsing library. The main challenge was handling edge cases in the line-by-line parsing logic without a formal grammar.<br /><br />
+				<strong style="color: var(--text-color);">Result:</strong> A working CLI tool that converts Markdown files into styled HTML — handles all standard elements including headings, code blocks, lists, and links. Serves as the foundation for generating this portfolio's Dev Docs pages.</article
 			>
 			<br />
 			<a

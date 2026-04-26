@@ -48,14 +48,9 @@
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article
-				>I wanted to build something that actually did something useful, so I
-				made a search engine. Magellan has two parts — a Go spider that crawls
-				websites and stores what it finds in an SQLite database, and a React
-				frontend that lets you search through it. It's named after the explorer
-				because it goes out and finds things. I built the spider first as a
-				standalone tool and then wired up the React side to make it actually
-				usable. It's not Google, but it works and I learned a lot building
-				it.</article
+				><strong style="color: var(--text-color);">Context:</strong> I wanted a search tool that could index any set of pages from a seed URL and let me query them without relying on an external search API. The goal was to understand how web indexing actually works under the hood.<br /><br />
+				<strong style="color: var(--text-color);">Challenges:</strong> Building the Go spider as a standalone CLI first, then designing the data layer so the React frontend could query SQLite efficiently. The main design decision was keeping the spider and frontend completely decoupled — the spider writes to a local database, and the frontend reads from it independently.<br /><br />
+				<strong style="color: var(--text-color);">Result:</strong> A two-part system: a Go spider that crawls from a seed URL and indexes content into SQLite, and a React frontend deployed on Vercel that searches the index in the browser. Both repos are public and independently usable.</article
 			>
 		</main>
 		<div id="site-footer"></div>

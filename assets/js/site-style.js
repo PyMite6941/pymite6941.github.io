@@ -59,4 +59,9 @@
             <p style="text-align: center; font-size: 14px">&copy; 2026 Matt Gresham. All rights reserved.</p>
         </footer>`,
 	);
+
+	var base = depth === 0 ? '' : depth === 1 ? '../' : '../../';
+	var ee = document.createElement('script');
+	ee.src = base + 'assets/js/easter-eggs.js';
+	document.head.appendChild(ee);
 })();

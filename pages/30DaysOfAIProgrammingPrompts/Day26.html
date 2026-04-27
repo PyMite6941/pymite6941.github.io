@@ -1,0 +1,226 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 26 of the 30 Days of AI-Generated Programming Prompts — Easter egg addons: confetti displays and a secret fun terminal." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+		<title>Day 26 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+		<style>
+			.demo-btn {
+				background-color: var(--button-color);
+				color: #fff;
+				border: none;
+				border-radius: 8px;
+				padding: 10px 22px;
+				font-size: 1rem;
+				cursor: pointer;
+				margin-top: 8px;
+			}
+			.demo-btn:hover {
+				opacity: 0.85;
+			}
+			.terminal-box {
+				background-color: #0d1117;
+				border: 1px solid var(--border-color);
+				border-radius: 8px;
+				padding: 16px;
+				font-family: 'Courier New', monospace;
+				font-size: 0.9rem;
+				color: #abb2bf;
+				max-width: 600px;
+				margin-top: 12px;
+			}
+			.terminal-output {
+				min-height: 120px;
+				max-height: 260px;
+				overflow-y: auto;
+				margin-bottom: 10px;
+				white-space: pre-wrap;
+			}
+			.terminal-input-row {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.terminal-prompt {
+				color: #8957e5;
+				user-select: none;
+			}
+			.terminal-input {
+				flex: 1;
+				background: transparent;
+				border: none;
+				outline: none;
+				color: #e6edf3;
+				font-family: 'Courier New', monospace;
+				font-size: 0.9rem;
+			}
+			.t-success {
+				color: #11d978;
+			}
+			.t-warn {
+				color: #e2a20d;
+			}
+			.t-err {
+				color: #e2490d;
+			}
+		</style>
+		<script>
+			document.addEventListener('keydown', function (e) {
+				if (e.ctrlKey && e.key === '~') {
+					terminal.classList.toggle('hidden');
+				}
+			});
+			input.addEventListener('keydown', function (e) {
+				if (e.key === 'Enter') {
+					const command = input.value.trim();
+					handleCommand(command);
+					input.value = '';
+				}
+			});
+			function handleCommand(cmd) {
+				if (cmd === 'help') {
+					printToTerminal(
+						'Avaiable commands: help, about, projects, skills, matrix, exit',
+					);
+				} else if (cmd === 'about') {
+					printToTerminal(
+						'Hello! I am Matt Gresham, a CS Student and a full-stack developer.',
+					);
+				} else if (cmd === 'projects') {
+					printToTerminal(
+						'I make many projects about many topics in many programming languages, my favorite language is python.',
+					);
+				} else if (cmd === 'matrix') {
+					printMatrixStuff();
+				} else if (cmd === 'exit') {
+					const element = document.getElementById('terminal');
+					element.style.display = 'none';
+				} else {
+					printToTerminal('Command not found: ' + cmd);
+				}
+			}
+			function printToTerminal(text) {
+				const line = document.createElement('p');
+				line.textContent = text;
+				output.appendChild(line);
+			}
+			function printMatrixStuff() {}
+		</script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 26</h1>
+			<h3>Easter Egg Addons — Confetti &amp; Secret Terminal</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+
+			<h3>Confetti</h3>
+			<p>Click the button to fire a confetti burst.</p>
+			<button
+				class="demo-btn"
+				onclick="fireConfetti()"
+				>Launch Confetti</button
+			>
+			<br /><br />
+
+			<h3>Secret Terminal</h3>
+			<p
+				>A self-contained fun terminal — no server, no file access, no real
+				commands. Just good vibes. Type
+				<span class="code-segment">help</span> to get started.</p
+			>
+			<div
+				id="terminal"
+				class="terminal hidden">
+				<div style="display: flex">
+					<span class="prompt">visitor@matt:$&nbsp;</span>
+					<input
+						id="terminal-input"
+						type="text"
+						autofocus />
+					<div id="output"></div>
+				</div>
+			</div>
+
+			<br />
+			<a
+				class="text-link"
+				href="https://github.com/PyMite6941"
+				>Visit my GitHub</a
+			>
+			<br />
+
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Context:</strong> Portfolios
+				are usually all business. I wanted to add a couple of easter eggs that
+				reward curious visitors — a confetti burst and a fake terminal that
+				feels like hacking into something without actually doing anything
+				dangerous.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong> Making the
+				confetti feel good required tuning the spread, angle, and gravity
+				parameters in canvas-confetti. The terminal needed a command dispatcher
+				that was easy to extend while keeping all responses purely client-side —
+				no fetch calls, no eval, no actual shell access.<br /><br />
+				<strong style="color: var(--text-color)">Result:</strong> Two standalone
+				easter egg modules. The confetti fires on demand. The terminal handles a
+				set of fun commands and responds in character — fast, purely in-browser,
+				and completely sandboxed.</article
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day25.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+
+		<script>
+			function fireConfetti() {
+				confetti({
+					particleCount: 160,
+					spread: 80,
+					origin: { y: 0.6 },
+					colors: ['#8957e5', '#61afef', '#11d978', '#e2490d', '#e6edf3'],
+				});
+				setTimeout(() => {
+					confetti({
+						particleCount: 60,
+						angle: 60,
+						spread: 55,
+						origin: { x: 0, y: 0.7 },
+					});
+					confetti({
+						particleCount: 60,
+						angle: 120,
+						spread: 55,
+						origin: { x: 1, y: 0.7 },
+					});
+				}, 250);
+			}
+		</script>
+	</body>
+</html>

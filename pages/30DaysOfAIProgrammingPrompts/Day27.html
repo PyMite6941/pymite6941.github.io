@@ -24,69 +24,87 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Day 27</h1>
-			<h3><!-- project subtitle goes here --></h3>
+			<h3>A Minimal Programming Language — Variables, Math, and Display</h3>
 		</header>
 		<main>
 			<div id="top"></div>
 
 			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
-			<!-- Choose ONE of the following try-it blocks and delete the others -->
-
-			<!-- OPTION A: browser demo (PyScript or deployed app) -->
-			<!--
-			<p>The app runs fully in the browser.</p>
+			<p
+				>This runs as a Python CLI — clone the repo and run it locally to try it
+				out.</p
+			>
 			<br />
-			<a class="text-link" href="URL_HERE">Open in full page</a>
-			<br />
-			-->
-
-			<!-- OPTION B: server-side / desktop project (no browser demo) -->
-			<!--
-			<p>This project runs locally and cannot be embedded in the browser.
-			   Clone the repo and run it to try it out.</p>
-			<br />
-			-->
-
 			<a
 				class="text-link"
 				href="https://github.com/PyMite6941"
 				>Visit my GitHub</a
 			>
 			<br />
-
-			<h2 style="text-align: center">Description</h2>
-			<br />
-			<article>
-				<strong style="color: var(--text-color);">Context:</strong> <!-- What problem does this solve and why does it matter? -->
-				<br /><br />
-				<strong style="color: var(--text-color);">Challenges:</strong> <!-- What was technically hard? What decisions did you make and why? -->
-				<br /><br />
-				<strong style="color: var(--text-color);">Result:</strong> <!-- What did you ship? Any metrics, outcomes, or lessons? -->
-			</article>
-			<br />
-
-			<!-- Optional: source code display -->
-			<!--
 			<h2 style="text-align: center">Source Code</h2>
 			<br />
 			<div class="code-segment">
-				<pre><code>
-# paste code here
-				</code></pre>
+				<pre><code>memory = {}
+while True:
+    line = input("&gt; ")
+    words = line.split()
+    if words[0] == 'set':
+        name = words[1]
+        value = words[3]
+        memory[name] = int(value)
+    elif words[0] == 'print':
+        name = words[1]
+        print(memory[name])
+    elif words[0] == 'add':
+        var1 = words[1]
+        var2 = words[3]
+        print(memory[var1] + memory[var2])
+    elif words[0] == 'subtract':
+        var1 = words[1]
+        var2 = words[3]
+        print(memory[var1] - memory[var2])
+    elif words[0] == 'exit':
+        break
+    else:
+        print("Unknown command. Available commands:")
+        print("  set &lt;name&gt; to &lt;value&gt;       — store a variable")
+        print("  print &lt;name&gt;               — display a variable")
+        print("  add &lt;name1&gt; and &lt;name2&gt;    — add two variables")
+        print("  subtract &lt;name1&gt; and &lt;name2&gt; — subtract two variables")
+        print("  exit                       — quit")</code></pre>
 			</div>
 			<br />
-			-->
-
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color);">Context:</strong> I wanted to
+				understand what it takes to build a programming language from scratch —
+				even a very basic one. Keeping the feature set minimal meant I could
+				focus on the core loop: read a line, parse the command, execute it.<br /><br />
+				<strong style="color: var(--text-color);">Challenges:</strong> Designing
+				a readable command syntax that was still easy to parse with simple string
+				splitting. The four commands —
+				<span class="code-segment">set</span>,
+				<span class="code-segment">print</span>,
+				<span class="code-segment">add</span>,
+				<span class="code-segment">subtract</span> — all follow a consistent
+				word-position pattern so the interpreter stays straightforward.<br /><br />
+				<strong style="color: var(--text-color);">Result:</strong> A working
+				REPL-style interpreted language in one Python file. You can store integer
+				variables, display them, and do addition and subtraction between named
+				variables. Example session:<br /><br />
+				<span class="code-segment">set x to 10</span><br />
+				<span class="code-segment">set y to 5</span><br />
+				<span class="code-segment">add x and y</span> → 15<br />
+				<span class="code-segment">subtract x and y</span> → 5</article
+			>
+			<br />
 			<a
 				class="text-link"
 				href="Day26.html"
 				>Previous Day</a
 			>
 			<br />
-			<!-- Uncomment when Day28 exists:
-			<a class="text-link" href="Day28.html">Next Day</a>
-			<br />
-			-->
 		</main>
 		<div id="site-footer"></div>
 	</body>

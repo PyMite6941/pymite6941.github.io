@@ -37,58 +37,61 @@
 			<br />
 			<py-terminal autoscroll="true"></py-terminal>
 			<!-- prettier-ignore -->
-			<script
-				type="py"
-				terminal>
-                import asyncio
-                import csv
-                while True:
-                    print("SQL CSV tool\nEnter help for more information\nEnter exit to quit\n")
-                    print("Enter the SQL query to execute:")
-                    command = input("> ")
-                    if command.lower() == "exit":
-                        break
-                    elif command.lower() == "help":
-                        print("This tool allows you to execute SQL queries and export the results to a CSV file.\nTo use the tool, simply enter your SQL query and press Enter.\nThe default path for the csv file is a dummy CSV file.\nThe results will be saved to a file named 'output.csv' in the current directory.")
-                    elif command.strip() == "":
-                        print("Please enter a valid SQL query.")
-                        continue
-                    else:
-                        phrases = command.strip().split()
-                        phrases = [phrase.lower().strip(',') for phrase in phrases]
-                        if len(phrases) < 4 or phrases[0] != "select":
-                            print("Only SELECT queries are allowed. Please enter a valid SQL query.")
-                            continue
-                        else:
-                            select_index = phrases.index("select")
-                            from_index = phrases.index("from")
-                            where_index = phrases.index("where") if "where" in phrases else None
-                            total_selected = from_index - select_index - 1
-                            selected_columns = phrases[select_index + 1:from_index]
-                            total_from = phrases[from_index + 1:where_index] if where_index is not None else phrases[from_index + 1:]
-                            if total_selected == 0:
-                                print("Please specify at least one column to select.")
-                                continue
-                            if total_from == 0:
-                                total_from = ["../assets/test-data/departments.csv"]
-                            if where_index is not None:
-                                total_where = len(phrases) - where_index - 1
-                                if total_where == 0:
-                                    print("Please specify a condition for the WHERE clause.")
-                                    continue
-                                else:
-                                    where_condition = phrases[where_index + 1:]
-                            with open(total_from[0], mode='r') as file:
-                                reader = csv.DictReader(file)
-                                results = []
-                                for row in reader:
-                                    if where_index is not None:
-                                        condition = " ".join(where_condition)
-                                        if eval(condition, {}, row):
-                                            results.append({col: row[col] for col in selected_columns})
-                                    else:
-                                        results.append({col: row[col] for col in selected_columns})
-                            print(results)
+			<script type="py" terminal>
+import csv
+import io
+from pyodide.http import open_url
+
+DEFAULT_URL = "https://pymite6941.github.io/portfolio-website/assets/test-data/departments.csv"
+
+while True:
+    print("SQL CSV tool — type 'help' for info, 'exit' to quit\n")
+    command = input("> ").strip()
+    if command.lower() == "exit":
+        break
+    elif command.lower() == "help":
+        print("Usage: SELECT <col,...> FROM <url> [WHERE <col> = <value>]")
+        print(f"Default CSV: {DEFAULT_URL}\n")
+        continue
+    elif not command:
+        continue
+
+    parts = command.split()
+    pl = [p.lower().strip(',') for p in parts]
+
+    if pl[0] != "select" or "from" not in pl:
+        print("Only SELECT ... FROM ... [WHERE ...] is supported.\n")
+        continue
+
+    from_i = pl.index("from")
+    where_i = pl.index("where") if "where" in pl else None
+    columns = pl[1:from_i]
+    sources = parts[from_i + 1:where_i] if where_i is not None else parts[from_i + 1:]
+    url = sources[0] if sources else DEFAULT_URL
+
+    if not columns:
+        print("Specify at least one column.\n")
+        continue
+
+    try:
+        text = open_url(url).read()
+        reader = csv.DictReader(io.StringIO(text))
+        results = []
+        for row in reader:
+            row_lower = {k.lower(): v for k, v in row.items()}
+            if where_i is not None:
+                wp = parts[where_i + 1:]
+                if len(wp) >= 3 and row_lower.get(wp[0].lower(), "") == wp[2]:
+                    results.append({c: row_lower.get(c, "") for c in columns})
+            else:
+                results.append({c: row_lower.get(c, "") for c in columns})
+        for r in results:
+            print(r)
+        if not results:
+            print("No results.")
+    except Exception as e:
+        print(f"Error: {e}")
+    print()
 			</script>
 			<br />
 			<h2 style="text-align: center">Description</h2>

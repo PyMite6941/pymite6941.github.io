@@ -39,43 +39,50 @@
 			<py-terminal autoscroll="true"></py-terminal>
 			<!-- prettier-ignore -->
 			<script type="py" terminal>
-                import re
-                import requests
-                pattern = r'(?P<ip>\S+) - - \[(?P<date>\S+) (?P<time>\S+)\] "(?P<method>\S+) (?P<endpoint>\S+) (?P<protocol>\S+)" (?P<status>\d{3}) (?P<size>\d+)'
-                url = "https://pymite6941.github.io/portfolio-website/assets/test-data/server.log"
-                response = requests.get(url)
-                def check_pattern(key:str,value:str):
-                    for line in response.text.splitlines():
-                        match = re.search(pattern, line)
-                        if match:
-                            if match.group(key) == value:
-                                print(line)
-                while True:
-                    if response.status_code != 200:
-                        print("Failed to retrieve log data")
-                        break
-                    print("What is the desired action?\n1. Find any logins with a certain error code\n2. Find any logins with a certain IP address\n3. Find any logins from a certain time period\n4. Find any login based on method\n5. Exit")
-                    choice = int(input("> "))
-                    if choice == 1:
-                        error_code = input("What error code are you looking for?\n> ")
-                        check_pattern("status", error_code)
-                    elif choice == 2:
-                        ip_address = input("What IP address are you looking for?\n> ")
-                        check_pattern("ip", ip_address)
-                    elif choice == 3:
-                        start_time = input("What is the start time? (format: dd/Mon/yyyy:HH:mm:ss)\n> ")
-                        end_time = input("What is the end time? (format: dd/Mon/yyyy:HH:mm:ss)\n> ")
-                        for line in response.text.splitlines():
-                            match = re.search(pattern, line)
-                            if match:
-                                log_time = match.group("date") + " " + match.group("time")
-                                if start_time <= log_time <= end_time:
-                                    print(line)
-                    elif choice == 4:
-                        method = input("What method are you looking for? (e.g. GET, POST)\n> ")
-                        check_pattern("method", method)
-                    elif choice == 5:
-                        break
+import re
+from pyodide.http import open_url
+
+URL = "https://pymite6941.github.io/portfolio-website/assets/test-data/server.log"
+PATTERN = r'(?P<ip>\S+) - - \[(?P<date>\S+) (?P<time>\S+)\] "(?P<method>\S+) (?P<endpoint>\S+) (?P<protocol>\S+)" (?P<status>\d{3}) (?P<size>\d+)'
+
+try:
+    lines = open_url(URL).read().splitlines()
+    print(f"Loaded {len(lines)} log entries.\n")
+except Exception as e:
+    print(f"Failed to load log: {e}")
+    lines = []
+
+def find(key, value):
+    found = []
+    for line in lines:
+        m = re.search(PATTERN, line)
+        if m and m.group(key) == value:
+            found.append(line)
+    print('\n'.join(found) if found else "No matches.")
+
+while lines:
+    print("1. By status code  2. By IP  3. By time range  4. By method  5. Exit")
+    choice = input("> ").strip()
+    if choice == "1":
+        find("status", input("Status code: ").strip())
+    elif choice == "2":
+        find("ip", input("IP address: ").strip())
+    elif choice == "3":
+        s = input("Start (dd/Mon/yyyy:HH:mm:ss): ").strip()
+        e = input("End   (dd/Mon/yyyy:HH:mm:ss): ").strip()
+        found = []
+        for line in lines:
+            m = re.search(PATTERN, line)
+            if m and s <= m.group("date") + " " + m.group("time") <= e:
+                found.append(line)
+        print('\n'.join(found) if found else "No matches.")
+    elif choice == "4":
+        find("method", input("Method (GET/POST/...): ").strip().upper())
+    elif choice == "5":
+        break
+    else:
+        print("Invalid choice.")
+    print()
 			</script>
 			<br />
 			<h2 style="text-align: center">Description</h2>

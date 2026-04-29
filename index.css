@@ -126,9 +126,10 @@ main {
 	margin: 0px;
 	padding-left: 20px;
 	padding-right: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	display: flex;
 	margin-top: 0;
-	padding-top: 0px;
 	align-items: flex-start;
 	flex-direction: column;
 	color: var(--text-color);
@@ -266,6 +267,8 @@ main article {
 	color: #abb2bf;
 	border-radius: 8px;
 	border: 1px solid var(--border-color);
+	box-sizing: border-box;
+	align-self: stretch;
 }
 
 .code-segment pre {

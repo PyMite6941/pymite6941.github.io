@@ -38,20 +38,13 @@
 			<br />
 			<py-terminal autoscroll="true"></py-terminal>
 			<!-- prettier-ignore -->
-			<script
-				type="py"
-				terminal>
-                import asyncio
-                from js import window
-                async def main():
-                    input_text = window.prompt("Enter a sentence to be evaluated: ")
-                    results = {}
-                    words = input_text.split()
-                    for word in words:
-                        results[word] = results.get(word, 0) + 1
-                    print(results)
-
-                asyncio.run(main())
+			<script type="py" terminal>
+text = input("Enter a sentence: ")
+results = {}
+for word in text.split():
+    results[word] = results.get(word, 0) + 1
+for word, count in sorted(results.items(), key=lambda x: -x[1]):
+    print(f"  {word}: {count}")
 			</script>
 			<p>Refresh the page to try again!</p>
 			<br />

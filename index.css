@@ -268,6 +268,41 @@ main article {
 	border: 1px solid var(--border-color);
 }
 
+.code-segment pre {
+	counter-reset: line-number;
+	margin: 0;
+	padding: 0;
+}
+
+.code-segment pre code {
+	display: block;
+	padding: 0;
+}
+
+.code-segment pre .line {
+	display: block;
+	counter-increment: line-number;
+	position: relative;
+	padding-left: 3.5em;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.code-segment pre .line::before {
+	content: counter(line-number);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 2.5em;
+	text-align: right;
+	color: #495162;
+	user-select: none;
+	pointer-events: none;
+	border-right: 1px solid #3e4451;
+	padding-right: 0.5em;
+	font-size: inherit;
+}
+
 .foot {
 	margin: 0px;
 	padding: 20px;

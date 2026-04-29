@@ -1,0 +1,248 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 28 of the 30 Days of AI-Generated Programming Prompts — expanding the minimal programming language with multiply, divide, loop, ask, if, func, and call." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Day 28 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 28</h1>
+			<h3>A Minimal Programming Language — Expanded Parser</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<br />
+			<py-terminal autoscroll="true"></py-terminal>
+			<!-- prettier-ignore -->
+			<script type="py" terminal>
+memory = {}
+
+def run_cmd(words):
+    if not words:
+        return
+    cmd = words[0]
+    if cmd == 'set':
+        name = words[1]
+        raw = words[3]
+        try:
+            memory[name] = float(raw) if '.' in raw else int(raw)
+        except ValueError:
+            memory[name] = raw
+    elif cmd == 'print':
+        name = words[1]
+        if name in memory:
+            print(memory[name])
+        else:
+            print(f"Error: '{name}' not defined")
+    elif cmd == 'add':
+        print(memory[words[1]] + memory[words[3]])
+    elif cmd == 'subtract':
+        print(memory[words[1]] - memory[words[3]])
+    elif cmd == 'multiply':
+        print(memory[words[1]] * memory[words[3]])
+    elif cmd == 'divide':
+        b = memory[words[3]]
+        if b == 0:
+            print("Error: division by zero")
+        else:
+            print(memory[words[1]] / b)
+    elif cmd == 'loop':
+        n = int(words[1])
+        for _ in range(n):
+            run_cmd(words[2:])
+    elif cmd == 'ask':
+        name = words[1]
+        raw = input(f"Enter {name}: ")
+        try:
+            memory[name] = float(raw) if '.' in raw else int(raw)
+        except ValueError:
+            memory[name] = raw
+    elif cmd == 'if':
+        var, op, raw_val = words[1], words[2], words[3]
+        a = memory.get(var)
+        try:
+            b = float(raw_val) if '.' in raw_val else int(raw_val)
+        except ValueError:
+            b = raw_val
+        ops = {'==': a == b, '>': a > b, '<': a < b, '>=': a >= b, '<=': a <= b}
+        if ops.get(op, False) and len(words) > 4 and words[4] == 'then':
+            run_cmd(words[5:])
+    elif cmd == 'func':
+        name = words[1]
+        then_idx = words.index('then')
+        memory[name] = words[then_idx + 1:]
+    elif cmd == 'call':
+        name = words[1]
+        if name in memory and isinstance(memory[name], list):
+            run_cmd(memory[name])
+        else:
+            print(f"Error: '{name}' is not a function")
+    else:
+        print(f"Unknown command '{cmd}'. Type 'help'.")
+
+print("Day 28 Language — type 'help' for commands, 'exit' to quit\n")
+while True:
+    line = input("> ")
+    words = line.split()
+    if not words:
+        continue
+    if words[0] == 'exit':
+        break
+    elif words[0] == 'help':
+        print("  set <name> to <value>             — store a variable")
+        print("  print <name>                      — display a variable")
+        print("  add <n1> and <n2>                 — add two variables")
+        print("  subtract <n1> and <n2>            — subtract two variables")
+        print("  multiply <n1> and <n2>            — multiply two variables")
+        print("  divide <n1> by <n2>               — divide two variables")
+        print("  loop <count> <command...>          — repeat a command n times")
+        print("  ask <name>                        — prompt user for a value")
+        print("  if <var> == > < >= <= <val> then <cmd...>  — conditional")
+        print("  func <name> then <command...>     — store a reusable command")
+        print("  call <name>                       — run a stored command")
+        print("  exit                              — quit")
+    else:
+        run_cmd(words)
+			</script>
+			<br />
+			<h2 style="text-align: center">Source Code</h2>
+			<br />
+			<div class="code-segment">
+				<pre><code>memory = {}
+
+def run_cmd(words):
+    if not words:
+        return
+    cmd = words[0]
+    if cmd == 'set':
+        name = words[1]
+        raw = words[3]
+        try:
+            memory[name] = float(raw) if '.' in raw else int(raw)
+        except ValueError:
+            memory[name] = raw
+    elif cmd == 'print':
+        name = words[1]
+        print(memory[name] if name in memory else f"Error: '{name}' not defined")
+    elif cmd == 'add':
+        print(memory[words[1]] + memory[words[3]])
+    elif cmd == 'subtract':
+        print(memory[words[1]] - memory[words[3]])
+    elif cmd == 'multiply':
+        print(memory[words[1]] * memory[words[3]])
+    elif cmd == 'divide':
+        b = memory[words[3]]
+        if b == 0:
+            print("Error: division by zero")
+        else:
+            print(memory[words[1]] / b)
+    elif cmd == 'loop':
+        n = int(words[1])
+        for _ in range(n):
+            run_cmd(words[2:])
+    elif cmd == 'ask':
+        name = words[1]
+        raw = input(f"Enter {name}: ")
+        try:
+            memory[name] = float(raw) if '.' in raw else int(raw)
+        except ValueError:
+            memory[name] = raw
+    elif cmd == 'if':
+        var, op, raw_val = words[1], words[2], words[3]
+        a = memory.get(var)
+        try:
+            b = float(raw_val) if '.' in raw_val else int(raw_val)
+        except ValueError:
+            b = raw_val
+        ops = {'==': a == b, '&gt;': a &gt; b, '&lt;': a &lt; b, '&gt;=': a &gt;= b, '&lt;=': a &lt;= b}
+        if ops.get(op, False) and len(words) &gt; 4 and words[4] == 'then':
+            run_cmd(words[5:])
+    elif cmd == 'func':
+        name = words[1]
+        then_idx = words.index('then')
+        memory[name] = words[then_idx + 1:]
+    elif cmd == 'call':
+        name = words[1]
+        if name in memory and isinstance(memory[name], list):
+            run_cmd(memory[name])
+        else:
+            print(f"Error: '{name}' is not a function")
+    else:
+        print(f"Unknown command '{cmd}'. Type 'help'.")
+
+while True:
+    words = input("&gt; ").split()
+    if not words:
+        continue
+    if words[0] == 'exit':
+        break
+    elif words[0] == 'help':
+        print("...")
+    else:
+        run_cmd(words)</code></pre>
+			</div>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color);">Context:</strong> Day 27
+				built a minimal REPL with four commands. For Day 28 I wanted the language
+				to feel substantially more capable — not just more operators, but the
+				beginnings of control flow and reusable code.<br /><br />
+				<strong style="color: var(--text-color);">Challenges:</strong> The
+				biggest jump in complexity came from
+				<span class="code-segment">func</span> and
+				<span class="code-segment">call</span>. A function stores a tokenized
+				command as a list in memory and replays it on demand — which means
+				<span class="code-segment">run_cmd</span> had to be a proper recursive
+				function rather than inline logic.
+				<span class="code-segment">loop</span> also required recursion into
+				<span class="code-segment">run_cmd</span>, and
+				<span class="code-segment">if</span> needed careful type coercion so
+				numeric comparisons didn't silently compare a stored int against a string
+				literal.<br /><br />
+				<strong style="color: var(--text-color);">Result:</strong> The language
+				now has all four arithmetic operations, user input, loops, conditionals,
+				and named functions. Example session:<br /><br />
+				<span class="code-segment">set x to 6</span><br />
+				<span class="code-segment">multiply x and x</span> → 36<br />
+				<span class="code-segment">func greet then print x</span><br />
+				<span class="code-segment">loop 3 call greet</span> → 6 (×3)<br />
+				<span class="code-segment">if x > 5 then print x</span> → 6</article
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day27.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

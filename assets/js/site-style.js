@@ -64,4 +64,14 @@
 	var ee = document.createElement('script');
 	ee.src = base + 'assets/js/easter-eggs.js';
 	document.head.appendChild(ee);
+
+	document.querySelectorAll('.code-segment pre code').forEach(function (block) {
+		var lines = block.innerHTML.split('\n');
+		if (lines.length && lines[lines.length - 1].trim() === '') lines.pop();
+		block.innerHTML = lines
+			.map(function (line) {
+				return '<span class="line">' + line + '</span>';
+			})
+			.join('');
+	});
 })();

@@ -1,0 +1,274 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 29 of the 30 Days of AI-Generated Programming Prompts — a compiler for the Forge language that transpiles to Python." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<link
+			rel="stylesheet"
+			href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script
+			type="module"
+			src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
+		<title>Day 29 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 29</h1>
+			<h3>A Compiler for the Forge Language</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p>You may need to wait or refresh to let it load</p>
+			<br />
+			<py-terminal autoscroll="true"></py-terminal>
+			<!-- prettier-ignore -->
+			<script type="py" terminal>
+def try_num(s):
+    try:
+        return float(s) if '.' in s else int(s)
+    except ValueError:
+        return s
+
+def compile_forge(source):
+    lines = [l for l in source.splitlines() if l.strip()]
+    out = ["_mem = {}"]
+
+    def emit(words, indent=0):
+        pad = "    " * indent
+        if not words:
+            return
+        cmd = words[0]
+        if cmd == 'set':
+            val = try_num(words[3])
+            out.append(f"{pad}_mem['{words[1]}'] = {repr(val)}")
+        elif cmd == 'print':
+            out.append(f"{pad}print(_mem.get('{words[1]}', 'undefined'))")
+        elif cmd == 'add':
+            out.append(f"{pad}print(_mem['{words[1]}'] + _mem['{words[3]}'])")
+        elif cmd == 'subtract':
+            out.append(f"{pad}print(_mem['{words[1]}'] - _mem['{words[3]}'])")
+        elif cmd == 'multiply':
+            out.append(f"{pad}print(_mem['{words[1]}'] * _mem['{words[3]}'])")
+        elif cmd == 'divide':
+            out.append(f"{pad}if _mem['{words[3]}'] == 0:")
+            out.append(f"{pad}    print('Error: division by zero')")
+            out.append(f"{pad}else:")
+            out.append(f"{pad}    print(_mem['{words[1]}'] / _mem['{words[3]}'])")
+        elif cmd == 'ask':
+            out.append(f"{pad}_raw = input('Enter {words[1]}: ')")
+            out.append(f"{pad}try:")
+            out.append(f"{pad}    _mem['{words[1]}'] = float(_raw) if '.' in _raw else int(_raw)")
+            out.append(f"{pad}except ValueError:")
+            out.append(f"{pad}    _mem['{words[1]}'] = _raw")
+        elif cmd == 'loop':
+            count = words[1]
+            try:
+                out.append(f"{pad}for _i in range({int(count)}):")
+            except ValueError:
+                out.append(f"{pad}for _i in range(int(_mem.get('{count}', 0))):")
+            emit(words[2:], indent + 1)
+        elif cmd == 'if':
+            var, op, raw = words[1], words[2], words[3]
+            b = try_num(raw)
+            then_i = words.index('then')
+            out.append(f"{pad}if _mem.get('{var}') {op} {repr(b)}:")
+            emit(words[then_i + 1:], indent + 1)
+        elif cmd == 'func':
+            name = words[1]
+            then_i = words.index('then')
+            out.append(f"{pad}def _fn_{name}():")
+            emit(words[then_i + 1:], indent + 1)
+        elif cmd == 'call':
+            out.append(f"{pad}_fn_{words[1]}()")
+        else:
+            out.append(f"{pad}# unknown: {' '.join(words)}")
+
+    for line in lines:
+        emit(line.split())
+
+    return '\n'.join(out)
+
+print("Forge Compiler — enter a program, blank line to compile and run, 'exit' to quit")
+print("Commands: set, print, add, subtract, multiply, divide, loop, ask, if...then, func...then, call\n")
+
+while True:
+    print("Enter Forge source (blank line when done):")
+    forge_lines = []
+    while True:
+        ln = input("forge> ")
+        if ln.strip().lower() == 'exit':
+            forge_lines = None
+            break
+        if ln.strip() == '':
+            break
+        forge_lines.append(ln)
+
+    if forge_lines is None:
+        break
+    if not forge_lines:
+        continue
+
+    python_code = compile_forge('\n'.join(forge_lines))
+
+    print("\n-- Generated Python --")
+    print(python_code)
+    print("-- Running --")
+    exec(python_code)
+    print("-- Done --\n")
+			</script>
+			<br />
+			<h2 style="text-align: center">Source Code</h2>
+			<br />
+			<div class="code-segment">
+				<pre><code>def try_num(s):
+    try:
+        return float(s) if '.' in s else int(s)
+    except ValueError:
+        return s
+
+def compile_forge(source):
+    lines = [l for l in source.splitlines() if l.strip()]
+    out = ["_mem = {}"]
+
+    def emit(words, indent=0):
+        pad = "    " * indent
+        if not words:
+            return
+        cmd = words[0]
+        if cmd == 'set':
+            val = try_num(words[3])
+            out.append(f"{pad}_mem['{words[1]}'] = {repr(val)}")
+        elif cmd == 'print':
+            out.append(f"{pad}print(_mem.get('{words[1]}', 'undefined'))")
+        elif cmd == 'add':
+            out.append(f"{pad}print(_mem['{words[1]}'] + _mem['{words[3]}'])")
+        elif cmd == 'subtract':
+            out.append(f"{pad}print(_mem['{words[1]}'] - _mem['{words[3]}'])")
+        elif cmd == 'multiply':
+            out.append(f"{pad}print(_mem['{words[1]}'] * _mem['{words[3]}'])")
+        elif cmd == 'divide':
+            out.append(f"{pad}if _mem['{words[3]}'] == 0:")
+            out.append(f"{pad}    print('Error: division by zero')")
+            out.append(f"{pad}else:")
+            out.append(f"{pad}    print(_mem['{words[1]}'] / _mem['{words[3]}'])")
+        elif cmd == 'ask':
+            out.append(f"{pad}_raw = input('Enter {words[1]}: ')")
+            out.append(f"{pad}try:")
+            out.append(f"{pad}    _mem['{words[1]}'] = float(_raw) if '.' in _raw else int(_raw)")
+            out.append(f"{pad}except ValueError:")
+            out.append(f"{pad}    _mem['{words[1]}'] = _raw")
+        elif cmd == 'loop':
+            count = words[1]
+            try:
+                out.append(f"{pad}for _i in range({int(count)}):")
+            except ValueError:
+                out.append(f"{pad}for _i in range(int(_mem.get('{count}', 0))):")
+            emit(words[2:], indent + 1)
+        elif cmd == 'if':
+            var, op, raw = words[1], words[2], words[3]
+            b = try_num(raw)
+            then_i = words.index('then')
+            out.append(f"{pad}if _mem.get('{var}') {op} {repr(b)}:")
+            emit(words[then_i + 1:], indent + 1)
+        elif cmd == 'func':
+            name = words[1]
+            then_i = words.index('then')
+            out.append(f"{pad}def _fn_{name}():")
+            emit(words[then_i + 1:], indent + 1)
+        elif cmd == 'call':
+            out.append(f"{pad}_fn_{words[1]}()")
+
+    for line in lines:
+        emit(line.split())
+
+    return '\n'.join(out)
+
+while True:
+    forge_lines = []
+    while True:
+        ln = input("forge&gt; ")
+        if ln.strip().lower() == 'exit':
+            forge_lines = None
+            break
+        if ln.strip() == '':
+            break
+        forge_lines.append(ln)
+
+    if forge_lines is None:
+        break
+    if not forge_lines:
+        continue
+
+    python_code = compile_forge('\n'.join(forge_lines))
+    print(python_code)
+    exec(python_code)</code></pre>
+			</div>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Context:</strong> Days 27 and
+				28 built Forge as an interpreted language — each command was parsed and
+				executed immediately. For Day 29 I wanted to understand the difference
+				between an interpreter and a compiler by building the latter: instead of
+				running Forge commands directly, the compiler reads the full program
+				first, generates equivalent Python code, and then executes that
+				output.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong> The main
+				shift was moving from executing one word-list at a time to emitting
+				indented Python source. Nested constructs —
+				<span class="code-segment">loop</span>,
+				<span class="code-segment">if...then</span>, and
+				<span class="code-segment">func...then</span> — required tracking
+				indentation depth and recursing into
+				<span class="code-segment">emit()</span> rather than
+				<span class="code-segment">run_cmd()</span>. The compiler also had to
+				handle the <span class="code-segment">loop</span> count being either a
+				literal or a variable name, generating different Python for each
+				case.<br /><br />
+				<strong style="color: var(--text-color)">Result:</strong> A working
+				Forge-to-Python transpiler. You enter a multi-line Forge program, hit a
+				blank line, and the compiler prints the generated Python before running
+				it — so you can see exactly what the compiler decided to produce.
+				Example:<br /><br />
+				<span class="code-segment">set x to 4</span><br />
+				<span class="code-segment">func double then multiply x and x</span
+				><br />
+				<span class="code-segment">loop 2 call double</span><br />
+				generates and runs the full Python equivalent, outputting 16
+				twice.</article
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day28.html"
+				>Previous Day</a
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day30.html"
+				>Next Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

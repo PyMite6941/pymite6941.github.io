@@ -1,0 +1,82 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Day 30 of the 30 Days of AI-Generated Programming Prompts — ForgeOS, a simulated WebOS with a Forge REPL, embedded project browser, and hidden easter eggs." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Day 30 | 30 Days of AI Prompts | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Day 30</h1>
+			<h3>ForgeOS — A Simulated WebOS</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<p
+				>ForgeOS runs as a full-screen web app — open it in a new tab for the
+				best experience.</p
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Context:</strong> Days 27–29
+				built the Forge language from a four-command interpreter to a full
+				Forge-to-Python compiler. For the final day I wanted to wrap the whole
+				thing in something that felt like a product — not just a terminal, but
+				an operating system. ForgeOS is a simulated desktop environment that
+				runs entirely in the browser: draggable windows, a taskbar with a live
+				clock, multiple app types, and a full Forge REPL reimplemented in
+				JavaScript.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong>
+				Re-implementing the Forge interpreter in JavaScript meant thinking
+				carefully about the <span class="code-segment">ask</span> command, which
+				blocks for input in Python but needs to be handled as stateful async
+				flow in a web terminal. The solution was a global
+				<span class="code-segment">askingFor</span> flag — when set, the next
+				input line goes to that variable rather than the interpreter. Draggable
+				windows required tracking mouse offsets and cleaning up event listeners
+				to avoid accumulating handlers. The
+				<span class="code-segment">matrix</span> easter egg needed careful
+				canvas timing so it could be layered over the OS without disrupting
+				window state.<br /><br />
+				<strong style="color: var(--text-color)">Result:</strong> A full
+				simulated OS with three core apps (Terminal, My Sites, About), multiple
+				hidden commands (<span class="code-segment">matrix</span>,
+				<span class="code-segment">hack nasa</span>,
+				<span class="code-segment">sudo rm -rf /</span>,
+				<span class="code-segment">whoami</span>), a clock easter egg that
+				unlocks a Vault window, and a Konami code trigger. All windows are
+				draggable, minimizable, and maximizable. The Forge REPL supports all
+				nine commands from Days 27–29 — plus the hidden ones.</article
+			>
+			<br />
+			<a
+				class="text-link"
+				href="Day29.html"
+				>Previous Day</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

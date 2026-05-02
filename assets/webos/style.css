@@ -1,0 +1,27 @@
+.desktop {
+	background-image: url('photos/abstract.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.desktop-taskbar {
+	top: 0;
+	left: 0;
+	width: 100vh;
+	height: 10%;
+	background-color: #2a232a;
+}
+
+.desktop-grid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid: 10px;
+	padding: 5px;
+}
+
+.icon {
+	display: flex;
+	flex-direction: column;
+}

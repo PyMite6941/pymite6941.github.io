@@ -28,10 +28,12 @@
 			<div class="desktop-taskbar">
 				<img
 					src="photos/termainl-icon.png"
-					alt="terminal" />
+					alt="terminal"
+					onclick="showWindow('terminal')" />
 				<img
 					src="photos/web-browser-icon.png"
-					alt="web browser" />
+					alt="web browser"
+					onclick="showWindow('web browser')" />
 				<img
 					src="photos/chess-icon.png"
 					alt="chess" />
@@ -56,6 +58,19 @@
 				style="top: 100px; left: 100px">
 				<div class="window-header">
 					<span class="title">Terminal - User</span>
+					<div class="controls">
+						<button class="minimize">-</button>
+						<button class="close">x</button>
+					</div>
+				</div>
+				<div class="window-body"></div>
+			</div>
+			<div
+				class="window"
+				id="web search"
+				style="top: 100px; left: 100px">
+				<div class="window-header">
+					<span class="title">Magellan Search</span>
 					<div class="controls">
 						<button class="minimize">-</button>
 						<button class="close">x</button>

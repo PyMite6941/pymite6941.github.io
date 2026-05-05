@@ -1,0 +1,84 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="ForgeOS — a simulated desktop OS in the browser with draggable windows, a Forge REPL, and hidden easter eggs. Built in JavaScript as the Day 30 capstone of the 30 Days of AI Prompts challenge." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>ForgeOS | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>ForgeOS</h1>
+			<h3>A simulated desktop OS that runs entirely in the browser</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<br />
+			<p>ForgeOS runs as a full-screen web app — open it in a new tab for the best experience.</p>
+			<br />
+			<a
+				class="text-link"
+				href="../../assets/forgeos/forgeos.html"
+				>Open ForgeOS</a
+			>
+			<br />
+			<br />
+			<a
+				class="text-link"
+				href="../30DaysOfAIProgrammingPrompts/Day30.html"
+				>View Day 30 write-up</a
+			>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Context:</strong> Days 27–29
+				of the 30 Days challenge built the Forge language — from a four-command
+				interpreter to a full Forge-to-Python compiler. For the final day I
+				wanted to wrap the whole thing in something that felt like a product —
+				not just a terminal, but an operating system.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong>
+				Re-implementing the Forge interpreter in JavaScript required handling the
+				<span class="code-segment">ask</span> command as stateful async flow
+				rather than a blocking call. Draggable windows required tracking mouse
+				offsets and cleaning up event listeners to avoid accumulating handlers.
+				The <span class="code-segment">matrix</span> easter egg needed careful
+				canvas timing to layer over the OS without disrupting window state.<br /><br />
+				<strong style="color: var(--text-color)">Result:</strong> A full
+				simulated OS with three core apps (Terminal, My Sites, About), a live
+				taskbar clock, multiple hidden commands
+				(<span class="code-segment">matrix</span>,
+				<span class="code-segment">hack nasa</span>,
+				<span class="code-segment">sudo rm -rf /</span>,
+				<span class="code-segment">whoami</span>), a clock easter egg that
+				unlocks a Vault window, and a Konami code trigger. All windows are
+				draggable, minimizable, and maximizable. Built in JavaScript/HTML/CSS as
+				the Day 30 capstone of the 30 Days of AI Prompts challenge.</article
+			>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

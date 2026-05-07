@@ -7,6 +7,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
 			content="Connect 4 Bot — a Python AI built with DFS to play Connect 4, created as a practice project for the NOAI competition." />
@@ -55,6 +56,42 @@
 				transposition table combination keeps decision time under a second per
 				move.</article
 			>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add screenshots: save images to assets/img/projects/connect4/ and replace the placeholder div with <img src="../../assets/img/projects/connect4/screenshot.png" alt="..." /> -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Bot making a move in real time</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Pixel-based board detection</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problems Solved</h3>
+					<p>The NOAI competition requires game-playing AI built from scratch — no ML libraries. I needed a practice project that forced a real implementation of search and board evaluation, plus a way to interface with the game running on screen without any game API.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Errors &amp; Fixes</h3>
+					<p>The initial DFS was too slow for real-time play at competitive depth — adding a transposition table and symmetry caching cut per-move decision time to under a second. Pixel detection coordinates were hardcoded and broke at different screen resolutions; fixed by adding a calibration step on startup.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>Minimax with transposition tables, board symmetry pruning, and how to profile and speed up Python search code. Also learned pixel-based game state reading — capturing screen regions, converting to a grid, and mapping colors to board positions.</p>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
 		</main>
 		<div id="site-footer"></div>
 	</body>

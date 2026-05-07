@@ -7,6 +7,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
 			content="Magellan — a React search engine app deployed on Vercel, built to navigate and discover content in the browser." />
@@ -62,6 +63,42 @@
 				SQLite, and a React frontend deployed on Vercel that searches the index
 				in the browser. Both repos are public and independently usable.</article
 			>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add screenshots: save images to assets/img/projects/magellan/ and replace the placeholder div with <img src="../../assets/img/projects/magellan/screenshot.png" alt="..." /> -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>React search frontend</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Go spider crawling output</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problems Solved</h3>
+					<p>I wanted to understand how web indexing works end-to-end without delegating to a third-party search API. The goal was to build every layer — crawling, indexing, and querying — from scratch so nothing was a black box.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Errors &amp; Fixes</h3>
+					<p>The spider followed redirect loops and re-crawled the same URLs indefinitely — fixed with a visited-URL hash set. The React frontend couldn't query local SQLite directly; solved by migrating from local SQLite to Turso (libSQL) over HTTP, which the browser could reach.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>Go's net/http and golang.org/x/net/html for crawling, SQLite schema design for full-text search, and how to architect a decoupled spider + frontend system where each part is independently usable. Also learned the Turso/libSQL HTTP API for browser-accessible databases.</p>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
 		</main>
 		<div id="site-footer"></div>
 	</body>

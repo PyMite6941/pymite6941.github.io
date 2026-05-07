@@ -7,6 +7,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
 			content="Markdown to HTML Converter — a Go CLI tool that converts Markdown files into HTML pages." />
@@ -55,6 +56,35 @@
 				Serves as the foundation for generating this portfolio's Dev Docs
 				pages.</article
 			>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add screenshots: save images to assets/img/projects/md-converter/ and replace the placeholder div with <img src="../../assets/img/projects/md-converter/screenshot.png" alt="..." /> -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>CLI converting a Markdown file</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Generated HTML output</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problems Solved</h3>
+					<p>Writing raw HTML for documentation by hand was tedious and error-prone. I needed a CLI that accepted Markdown as input and output styled HTML pages — and building it in Go was a chance to learn the standard library on a real task.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Errors &amp; Fixes</h3>
+					<p>The line-by-line parser broke on nested lists and code blocks that contained blank lines — it would close the block early and emit malformed HTML. Fixed by adding a state machine that tracked open block contexts across lines instead of processing each line independently.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>Go's bufio.Scanner, string manipulation with the strings package, and CLI flag design with os.Args. More broadly, how stateful line parsing works and why a formal grammar is worth the extra effort on complex inputs.</p>
+				</div>
+			</div>
 			<br />
 			<a
 				class="text-link"

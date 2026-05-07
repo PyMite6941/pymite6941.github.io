@@ -7,6 +7,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
 			content="The Finance Kit — a Python full-stack app for tracking expenses, income, and budgets. Built with Streamlit." />
@@ -60,6 +61,42 @@
 				tax estimates. Started as a school submission; evolved into a
 				production-ready app.</article
 			>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add screenshots: save images to assets/img/projects/finance-kit/ and replace the placeholder div with <img src="../../assets/img/projects/finance-kit/screenshot.png" alt="..." /> -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Streamlit web dashboard</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>CLI mode</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problems Solved</h3>
+					<p>Most finance apps are overkill or locked behind subscriptions. I needed a single tool that tracked expenses, income, subscriptions, and estimated taxes — and that I'd actually use daily without paying a monthly fee.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Errors &amp; Fixes</h3>
+					<p>Streamlit Cloud deployment failed because transitive dependencies weren't pinned — fixed by running pip freeze and committing every version to requirements.txt. Backend API calls from the frontend triggered CORS errors until I added explicit response headers to all endpoints.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>How to architect a clean Streamlit frontend/backend split so the data layer can be reused outside the UI. Streamlit Cloud's build pipeline, the importance of dependency pinning in production, and how multi-page Streamlit apps are structured.</p>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
 		</main>
 		<div id="site-footer"></div>
 	</body>

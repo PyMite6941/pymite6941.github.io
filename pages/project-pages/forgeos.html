@@ -7,6 +7,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
 			content="ForgeOS — a simulated desktop OS in the browser with draggable windows, a Forge REPL, and hidden easter eggs. Built in JavaScript as the Day 30 capstone of the 30 Days of AI Prompts challenge." />
@@ -71,6 +72,35 @@
 				draggable, minimizable, and maximizable. Built in JavaScript/HTML/CSS as
 				the Day 30 capstone of the 30 Days of AI Prompts challenge.</article
 			>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add screenshots: save images to assets/img/projects/forgeos/ and replace the placeholder div with <img src="../../assets/img/projects/forgeos/screenshot.png" alt="..." /> -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>ForgeOS desktop with windows open</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Forge REPL terminal in action</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problems Solved</h3>
+					<p>Days 27–29 built the Forge language but it lived as a plain terminal script. For the capstone I wanted to ship it as something that felt like a real product — a simulated OS that showcased the language inside a full desktop environment.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Errors &amp; Fixes</h3>
+					<p>The <code>ask</code> command in Python blocks on input(), but in a browser there's no blocking — solved with a global <code>askingFor</code> flag that routes the next input line to the waiting variable instead of the interpreter. Drag event listeners accumulated on re-opened windows causing a memory leak; fixed by calling removeEventListener in the mouseup handler.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>Browser event model — the mousedown/mousemove/mouseup drag pattern and why cleanup matters. Async state machines in JavaScript, canvas layering for the matrix easter egg, and what it takes to reimplement a language interpreter in a different language (Python → JS).</p>
+				</div>
+			</div>
 			<br />
 			<a
 				class="text-link"

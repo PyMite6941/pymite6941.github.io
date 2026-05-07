@@ -1,0 +1,92 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Study Assistant — an AI-powered RAG study tool built with Python, ChromaDB, and Ollama. Ingests your notes and helps you learn faster." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Study Assistant | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Study Assistant</h1>
+			<h3>An AI-powered RAG tool that helps you study your own notes</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<br />
+			<p>Study Assistant runs locally — clone the repo and follow the setup instructions to get started.</p>
+			<br />
+			<a
+				class="text-link"
+				href="https://github.com/pymite6941/study-assistant"
+				>View on GitHub</a
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Inspiration:</strong> Built
+				out of frustration with tools like Quizlet and NotebookLM. I have ADHD
+				and strongly detest studying, so I wanted a tool that could ingest my
+				own notes and help me learn material to a depth that those tools
+				don't reach — and do it faster.<br /><br />
+				<strong style="color: var(--text-color)">What it does:</strong> Accepts
+				Markdown files, PDFs, and images as input and uses a local RAG pipeline
+				to extract and index the content. You can then query your notes
+				conversationally — the assistant retrieves the most relevant chunks from
+				ChromaDB and responds using a local Ollama model. Available as both a
+				CLI and a Streamlit Web UI. The Web UI additionally supports direct
+				camera uploads for photographing physical notes.<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Python is the core language. ChromaDB handles the vector database layer
+				for semantic retrieval. Ollama runs the local LLM inference so nothing
+				leaves your machine. Streamlit powers the Web UI.<br /><br />
+				<strong style="color: var(--text-color)">Status:</strong> Actively in
+				development. Submitted to the 2026 Hack America Hackathon. Follow the
+				GitHub repo for updates.</article
+			>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Existing study tools don't understand your specific notes — they're generic. This tool ingests your own material and queries it semantically, so the answers are grounded in what you actually need to learn.</p>
+				</div>
+				<div class="dev-note">
+					<h3>New Tech Learned</h3>
+					<p>ChromaDB for vector storage and semantic retrieval, and Ollama for running local LLM inference without any API cost or data leaving the machine. Both will also be used to improve the Finance Kit in the future.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>More input formats, a better chunking strategy for long PDFs, and possibly a CLI-side camera capture feature to match the Web UI. Check the GitHub repo for the latest.</p>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

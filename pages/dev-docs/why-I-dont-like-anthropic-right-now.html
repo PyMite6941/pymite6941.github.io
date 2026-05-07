@@ -9,13 +9,13 @@
 			content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="How Matt Gresham would learn programming in 2026 — language recommendations, learning order, and what to skip." />
+			content="Why Matt Gresham is frustrated with Anthropic's token limits — and what alternatives he recommends." />
 		<link
 			rel="stylesheet"
 			type="text/css"
 			href="../../index.css" />
 
-		<title>How I Would Learn Programming in 2026 | Matt G</title>
+		<title>Why I Don't Like Anthropic Right Now | Matt G</title>
 		<script
 			src="../../assets/js/site-style.js"
 			defer></script>
@@ -27,109 +27,45 @@
 			<h3>I think the title's straight forward enough</h3>
 		</header>
 		<main>
-			<article>Published: April 30th, 2026</article>
-			<br />
-			<div>
-				<article
-					>Recently I've startedd using Claude Code more to work on this website
-					quickly and I was able to have it add good styling that I couldn't
-					understand how to create. However something frustrating that I've
-					experienced recently is how different the Pro Plan in Claude's
-					supported plans has had its tokens shrink so quickly. In February 2026
-					I was able to setup a bunch fo projects and use the agents to research
-					universities that I could apply to, but I can't do that
-					anymore.</article
-				>
-			</div>
-			<section class="menu">
-				<h2>Contents:</h2>
-				<ul>
-					<li class="menu-item"
-						><a
-							class="text-link"
-							href="#the-dillema"
-							>The Dillema</a
-						></li
-					>
-					<li class="menu-item"
-						><a
-							class="text-link"
-							href="#the-fix"
-							>How I plan to fix this issue</a
-						></li
-					>
-					<li class="menu-item"
-						><a
-							class="text-link"
-							href="#conclusion"
-							>What I recommend for people to pursue</a
-						></li
-					>
-				</ul>
-			</section>
-			<div id="the-dillema">
-				<article
-					>The cause of this issue, from what I can tell, is that Anthropic is
-					growing so fast that Anthropic is not able [or not willing] to keep
-					the same standards the Pro Plan had in January 2026 compared to three
-					or four months later. In fact a basic use of claude.ai has me use 2%
-					of my tokens while a Claude Code prompt has the possiblity of using
-					close to 12% of my tokens per prompt if action is taken.<br />What's
-					even worse than just a session limit is that there is now a weekly
-					limit which is less than the total tokens available from about 4 or 5
-					session usages combined which is just unrealistic. In fact I almost
-					maxed out two session usages in my Pro Plan and I was over my 75%
-					weekly token usage.<br />For me this is an issue because this is the
-					only way that I can debug my code and I am willing to pay money for
-					this tool since it is so usefulf or me, and even beyond debugging.
-					However I think this is a great case of a company getting too greedy
-					and overlooking the possibilities that the industry has.</article
-				>
-				<br />
-				<br />
-			</div>
-			<div id="the-fix"
-				><article
-					>If you do not know AI is quite good at training AI like humans are
-					quite talented at teaching humans. Maybe you see where I am going with
-					this. Recently I have started trying to find a cost-effective
-					alternative to Claude since it is so expensive for so little and I got
-					two ideas that I would recommend. Let me share them with you.
+			<div class="blog-body">
+				<span class="article-stuff">Published: April 30th, 2026</span>
+
+				<p>Recently I've started using Claude Code more to work on this website quickly and I was able to have it add good styling that I couldn't understand how to create. However something frustrating that I've experienced recently is how different the Pro Plan in Claude's supported plans has had its tokens shrink so quickly. In February 2026 I was able to setup a bunch of projects and use the agents to research universities that I could apply to, but I can't do that anymore.</p>
+
+				<section class="menu">
+					<h2>Contents:</h2>
 					<ul>
-						<li class="menu-item">Use Gemini API from Google Cloud</li>
-						<li class="menu-item"
-							>Train a local model to take Claude's place</li
-						>
+						<li class="menu-item"><a class="text-link" href="#the-dillema">The Dilemma</a></li>
+						<li class="menu-item"><a class="text-link" href="#the-fix">How I plan to fix this issue</a></li>
+						<li class="menu-item"><a class="text-link" href="#conclusion">What I recommend for people to pursue</a></li>
 					</ul>
-					Personally I like the second option better since I do have some trust
-					issues with Google however they are both good options however one is
-					more free than others: the local model.<br /><br />The local model
-					allows for any amount of tokens to be processed for free and without
-					WiFi as long as your PC is good enough to support it. There are so
-					many models that can be downloaded from Ollama and Huggingface that
-					can be used but I will recommend the April 2026 releases of the
-					Qwen2.5 Coder AI just because that is what I'm using. If your PC is a
-					weak laptop [ASUS, HP, etc] then the Qwen2.5 Coder 3B is a great
-					alternative however the best one to use is the Qwen2.5 Coder 7B since
-					it has better initial training however it takes up more power.<br />This
-					next step either requires good amounts of resources to train your
-					local ML or just connect an AI like Claude Code or Gemini CLI to train
-					the models, just make sure to create a training MD file objectives
-					using another AI engine so the AI can properly write everything for
-					the training process.<br /><br />If this seems too complex then no big
-					deal, just get the free Gemini API and hook it up to a Python Script
-					or use an alternative AI engine like Deepseek [not permanently free,
-					good starting benefits] or Mistral.</article
-				></div
-			>
-			<div id="conclusion"
-				><article
-					>If you want a completely local and private AI model to use for
-					programming then the second option is a must for you however if you
-					want the luxury of cloud computing then Gemini API [even any other
-					free AI API that is relatively smart] is the choice for you.</article
-				></div
-			>
+				</section>
+
+				<div id="the-dillema">
+					<h2>The Dilemma</h2>
+					<p>The cause of this issue, from what I can tell, is that Anthropic is growing so fast that it is not able [or not willing] to keep the same standards the Pro Plan had in January 2026 compared to three or four months later. In fact a basic use of claude.ai has me use 2% of my tokens while a Claude Code prompt has the possibility of using close to 12% of my tokens per prompt if action is taken.</p>
+					<p>What's even worse than just a session limit is that there is now a weekly limit which is less than the total tokens available from about 4 or 5 session usages combined — which is just unrealistic. In fact I almost maxed out two session usages in my Pro Plan and I was over my 75% weekly token usage.</p>
+					<p>For me this is an issue because this is the only way that I can debug my code and I am willing to pay money for this tool since it is so useful for me, and even beyond debugging. However I think this is a great case of a company getting too greedy and overlooking the possibilities that the industry has.</p>
+				</div>
+
+				<div id="the-fix">
+					<h2>How I Plan to Fix This Issue</h2>
+					<p>If you do not know, AI is quite good at training AI like humans are quite talented at teaching humans. Maybe you see where I am going with this. Recently I have started trying to find a cost-effective alternative to Claude since it is so expensive for so little, and I got two ideas that I would recommend.</p>
+					<ul>
+						<li>Use the Gemini API from Google Cloud</li>
+						<li>Train a local model to take Claude's place</li>
+					</ul>
+					<p>Personally I like the second option better since I do have some trust issues with Google — however they are both good options, and one is more free than the other: the local model.</p>
+					<p>The local model allows for any amount of tokens to be processed for free and without WiFi as long as your PC is good enough to support it. There are so many models that can be downloaded from Ollama and Huggingface, but I will recommend the April 2026 releases of the Qwen2.5 Coder AI since that is what I'm using. If your PC is a weak laptop [ASUS, HP, etc] then the Qwen2.5 Coder 3B is a great alternative, however the best one to use is the Qwen2.5 Coder 7B since it has better initial training — though it takes up more power.</p>
+					<p>This next step either requires good amounts of resources to train your local ML model, or you can connect an AI like Claude Code or Gemini CLI to train it for you. Just make sure to create a training MD file with objectives using another AI engine so the AI can properly write everything for the training process.</p>
+					<p>If this seems too complex then no big deal — just get the free Gemini API and hook it up to a Python script, or use an alternative AI engine like Deepseek [not permanently free, but good starting benefits] or Mistral.</p>
+				</div>
+
+				<div id="conclusion">
+					<h2>What I Recommend for People to Pursue</h2>
+					<p>If you want a completely local and private AI model to use for programming then the second option is a must for you. However if you want the luxury of cloud computing then the Gemini API [or any other free AI API that is relatively smart] is the choice for you.</p>
+				</div>
+			</div>
 		</main>
 		<div id="site-footer"></div>
 	</body>

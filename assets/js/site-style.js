@@ -8,6 +8,7 @@
 			devdocs: 'pages/the-dev-docs.html',
 			contact: 'pages/contact-me.html',
 			resume: 'assets/documents/matt_gresham_resume.pdf',
+			store: 'https://web-store-4la.pages.dev/',
 		},
 		{
 			home: '../index.html',
@@ -16,6 +17,7 @@
 			devdocs: 'the-dev-docs.html',
 			contact: 'contact-me.html',
 			resume: '../assets/documents/matt_gresham_resume.pdf',
+			store: 'https://web-store-4la.pages.dev/',
 		},
 		{
 			home: '../../index.html',
@@ -24,6 +26,7 @@
 			devdocs: '../the-dev-docs.html',
 			contact: '../contact-me.html',
 			resume: '../../assets/documents/matt_gresham_resume.pdf',
+			store: 'https://web-store-4la.pages.dev/',
 		},
 	];
 	const p = PATHS[Math.min(depth, 2)];

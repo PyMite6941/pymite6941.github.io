@@ -44,6 +44,7 @@
                 <li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.projects}">Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
+				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
             </ul>
             <a class="nav-btn" href="${p.contact}">Contact me</a>
         </div>`,
@@ -58,6 +59,8 @@
                 <a class="text-link" href="${p.devdocs}">The Dev Docs</a>
                 <br /><br />
                 <a class="text-link" href="${p.resume}">View my resume</a>
+				<br /><br />
+				<a class="text-link" href="${p.store}">Visit my Store</a> 
             </p>
             <p style="text-align: center; font-size: 14px">&copy; 2026 Matt Gresham. All rights reserved.</p>
         </footer>`,

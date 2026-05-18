@@ -1,0 +1,201 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Hack America 2026 — Matt Gresham's submission: Study Assistant, an AI-powered RAG study tool built with Python, ChromaDB, and Ollama." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Hack America 2026 | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Hack America 2026</h1>
+			<h3
+				>Submission: Study Assistant — AI-powered RAG tool for studying your own
+				notes</h3
+			>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">The Submission</h2>
+			<br />
+			<p style="color: #8b949e; line-height: 1.6; font-size: 0.95rem">
+				I submitted
+				<strong style="color: var(--text-color)">Study Assistant</strong> to the
+				2026 Hack America Hackathon. A project I built for myself first and
+				foremost — I put a lot of time into it, from easy installation to
+				performance on low-end hardware, and expanded it to support cloud models
+				(Groq, ChatGPT, Anthropic) alongside local Ollama inference.
+			</p>
+			<br />
+			<a
+				class="text-link"
+				href="https://github.com/pymite6941/study-assistant"
+				>View on GitHub</a
+			>
+			<br />
+			<a
+				class="text-link"
+				href="../project-pages/study-assistant.html"
+				>View Project Page</a
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">Setup</h2>
+			<br />
+			<article
+				>A <code>setup.sh</code> script handles everything on Linux, macOS, and
+				Windows. First grant execute permission, then run it:<br /><br />
+				<strong style="color: var(--text-color)">Windows (PowerShell):</strong
+				><br
+			/></article>
+			<div class="code-segment">
+				<pre><code><span class="line">chmod +x setup.sh</span>
+<span class="line">bash setup.sh</span></code></pre>
+			</div>
+			<article
+				><strong style="color: var(--text-color)">macOS / Linux:</strong><br
+			/></article>
+			<div class="code-segment">
+				<pre><code><span class="line">chmod +x setup.sh</span>
+<span class="line">./setup.sh</span></code></pre>
+			</div>
+			<article
+				>The script creates a <code>.venv</code> virtual environment
+				automatically. Activate it, then run the program:<br /><br />
+				<strong style="color: var(--text-color)">Windows:</strong><br
+			/></article>
+			<div class="code-segment">
+				<pre><code><span class="line">.venv/bin/Activate.ps1</span>
+<span class="line">python run.py</span></code></pre>
+			</div>
+			<article
+				><strong style="color: var(--text-color)">macOS / Linux:</strong><br
+			/></article>
+			<div class="code-segment">
+				<pre><code><span class="line">source .venv/bin/activate</span>
+<span class="line">python run.py</span></code></pre>
+			</div>
+			<article
+				>No GPU? No problem — skip Ollama and use an API key from Groq,
+				Anthropic, or another provider. Run the CLI or Web UI settings and
+				select the proper key to save.</article
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">About the Project</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Inspiration:</strong> Built
+				out of frustration with tools like Quizlet and NotebookLM. I have ADHD
+				and strongly detest studying, so I wanted a tool that could ingest my
+				own notes and help me learn material to a depth those tools don't reach
+				— and do it faster.<br /><br />
+				<strong style="color: var(--text-color)">What it does:</strong> Accepts
+				Markdown files, PDFs, and images as input and uses a local RAG pipeline
+				to extract and index the content. You can then query your notes
+				conversationally — the assistant retrieves the most relevant chunks from
+				ChromaDB and responds using a local Ollama model (or a cloud model of
+				your choice). Available as both a CLI and a Streamlit Web UI. The Web UI
+				additionally supports direct camera uploads for photographing physical
+				notes.<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Python is the core language. ChromaDB handles the vector database layer
+				for semantic retrieval. Ollama runs local LLM inference so nothing
+				leaves your machine. Streamlit powers the Web UI and unlocks the camera
+				upload feature.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong> Staying
+				motivated on a project longer than a week is always a challenge. The
+				temptation to let AI write everything was real — I used it only for
+				debugging and learning how ChromaDB works under the hood.<br /><br />
+				<strong style="color: var(--text-color)">What I learned:</strong>
+				ChromaDB's vector storage and query model, and how to run local LLM
+				inference via Ollama — both of which I plan to bring into the Finance
+				Kit.<br /><br />
+				<strong style="color: var(--text-color)">Status:</strong> Actively in
+				development. Check the GitHub repo for updates.</article
+			>
+			<br />
+			<h2 style="text-align: center">Features</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Chat</h3>
+					<p
+						>Query your notes in natural language. The LLM answers from your
+						ChromaDB content and saves artifacts like flashcards and quizzes for
+						later review.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>Add Content</h3>
+					<p
+						>Upload files or take a photo directly in the Streamlit UI to add to
+						ChromaDB. Without this, the knowledge base never grows.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>Setup Script</h3>
+					<p
+						>One shell script initialises the entire project — virtual
+						environment, dependencies, everything. No manual pip installs or
+						config fiddling.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>Config.toml</h3>
+					<p
+						>Stores API keys for cloud AI engines securely. Switching providers
+						is a single setting change via the CLI or Web UI.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>Auto-Update</h3>
+					<p
+						>Checks for updates from the GitHub repo so you never have to
+						manually reinstall. Available in both the CLI and the Web UI.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>Cloud Model Support</h3>
+					<p
+						>Groq, ChatGPT, Anthropic, and more — for machines without a GPU or
+						strong CPU. Fully interchangeable with Ollama via the settings
+						interface.</p
+					>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="../hackathons.html"
+				>← Back to Hackathons</a
+			>
+			&nbsp;&nbsp;
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

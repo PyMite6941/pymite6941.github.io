@@ -61,6 +61,46 @@
 				since.</article
 			>
 			<br />
+			<h2 style="text-align: center">How It's Built</h2>
+			<br />
+			<div class="ascii-diagram">  React Component Tree
+  ══════════════════════
+
+  main.jsx
+    └── &lt;BrowserRouter&gt;
+          └── &lt;App /&gt;
+                └── &lt;Routes&gt;
+                      ├── "/"       → &lt;Home /&gt;
+                      │               hero + nav links
+                      └── "/play"   → &lt;Play /&gt;
+                            └── &lt;Chessboard /&gt;  (react-chessboard-ui)
+                                  │
+                                  │  onPieceDrop(src, tgt)
+                                  │  validate → update FEN → re-render
+                                  ▼
+                            game state (FEN string in useState)
+<span class="diagram-caption">React Router v6 separates Home and Play. All game state lives in Play and flows down to the board.</span></div>
+			<br />
+			<div class="ascii-diagram">  FEN String — What It Encodes
+  ══════════════════════════════
+
+  rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+  │                                                │ │    │  │ │
+  │  piece placement (rank 8 → rank 1)             │ │    │  │ └─ full move
+  │  uppercase=White  lowercase=Black              │ │    │  └─── half move clock
+  │  digits=empty squares                          │ │    └─────── en passant target
+  │                                                │ └──────────── castling rights
+  │                                                └────────────── active colour (w/b)
+
+  On every piece drop:
+  ────────────────────
+  old FEN + move → validate legality → new FEN → setState
+
+  Stale FEN bug: async setState meant onPieceDrop read
+  the old FEN, allowed illegal moves through.
+  Fix: read FEN from a ref, not from state.
+<span class="diagram-caption">FEN is the single source of truth — no separate piece array, no board matrix.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/chess-website/ and replace the placeholder div with <img src="../../assets/img/projects/chess-website/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

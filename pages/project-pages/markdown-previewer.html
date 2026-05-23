@@ -96,6 +96,56 @@
 				adapts automatically to the user's light/dark preference.
 			</article>
 			<br />
+			<h2 style="text-align: center">How It Works</h2>
+			<br />
+			<div class="ascii-diagram">  Markdown → HTML Pipeline  (remark / rehype)
+  ═════════════════════════════════════════════
+
+  Raw Markdown string (textarea value)
+          │
+          ▼
+  ┌───────────────┐
+  │  remark-parse │  text → MDAST (Markdown AST)
+  └───────┬───────┘  Heading, Paragraph, Code, List...
+          │
+          ▼
+  ┌───────────────┐
+  │  remark-gfm   │  extend AST with GFM nodes:
+  └───────┬───────┘  Table, Strikethrough, TaskListItem, Autolink
+          │
+          ▼
+  ┌───────────────┐
+  │ remark-rehype │  MDAST → HAST (Hypertext AST)
+  └───────┬───────┘  element{tag, props, children}, text, root
+          │
+          ▼
+  ┌───────────────┐
+  │ rehype-react  │  HAST → React elements
+  └───────┬───────┘
+          │
+          ▼
+  Live preview pane  — re-renders on every keystroke
+<span class="diagram-caption">No raw innerHTML — the remark/rehype pipeline produces React elements, so XSS is not possible.</span></div>
+			<br />
+			<div class="ascii-diagram">  Split-Pane Layout
+  ══════════════════
+
+  ┌────────────────────────────────────────┐  ▲
+  │              Header                    │  │ 15vh
+  ├────────────────────┬───────────────────┤  ▼
+  │   Textarea         │   Preview pane    │  ▲
+  │   (monospace)      │   (styled HTML)   │  │
+  │   50% width        │   50% width       │  │ 85vh
+  │   overflow-y: auto │   overflow-y: auto│  ▼
+  └────────────────────┴───────────────────┘
+
+  CSS variable scoping bug (fixed):
+  ─────────────────────────────────
+  :root vars defined globally     →  work in textarea  ✓
+  react-markdown renders into div →  vars not inherited ✗
+  fix: pass vars as inline style on the preview div     ✓
+<span class="diagram-caption">Both panes scroll independently. CSS variables had to be explicitly forwarded into the preview container.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/markdown-previewer/ and replace the placeholder div with <img src="../../assets/img/projects/markdown-previewer/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

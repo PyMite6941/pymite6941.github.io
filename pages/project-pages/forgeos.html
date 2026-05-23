@@ -73,6 +73,84 @@
 				the Day 30 capstone of the 30 Days of AI Prompts challenge.</article
 			>
 			<br />
+			<h2 style="text-align: center">How It Works</h2>
+			<br />
+			<div class="ascii-diagram">  Forge Language — Interpreter Pipeline
+  ════════════════════════════════════════
+
+  user types:  "let x = 10 + 5"
+                      │
+                      ▼
+  ┌───────────────────────────────┐
+  │           Lexer               │
+  │  tokenise input string        │
+  │  "let" "x" "=" "10" "+" "5"  │
+  └───────────────┬───────────────┘
+                  │  token list
+                  ▼
+  ┌───────────────────────────────┐
+  │           Parser              │
+  │  Assign(                      │
+  │    id   = "x",                │
+  │    expr = BinOp(Num(10),      │
+  │                 +,            │
+  │                 Num(5))       │
+  │  )                            │
+  └───────────────┬───────────────┘
+                  │  AST
+                  ▼
+  ┌───────────────────────────────┐
+  │        Interpreter            │
+  │  walk AST, evaluate nodes     │
+  │  BinOp → 10 + 5 = 15         │
+  │  Assign → env["x"] = 15      │
+  └───────────────┬───────────────┘
+                  ▼
+  output to terminal widget
+
+  Supported constructs:
+  ──────────────────────
+  let x = expr          variable assignment
+  print expr            output
+  ask "prompt" → var    async input (stateful flag)
+  if / else             conditionals
+  loop N times          counted iteration
+<span class="diagram-caption">Interpreter written in Python originally, then ported to JavaScript for the browser — same grammar, different host language.</span></div>
+			<br />
+			<div class="ascii-diagram">  Window Manager — Drag Event Flow
+  ═══════════════════════════════════
+
+  mousedown on title bar
+          │
+          ▼
+  record offset:
+    offsetX = event.clientX - window.offsetLeft
+    offsetY = event.clientY - window.offsetTop
+  attach mousemove + mouseup to document
+          │
+          ▼  on every mousemove
+  window.style.left = event.clientX - offsetX + "px"
+  window.style.top  = event.clientY - offsetY + "px"
+          │
+          ▼  on mouseup
+  removeEventListener("mousemove", onDrag)    ◄── CRITICAL
+  removeEventListener("mouseup",   onRelease) ◄── skip this and
+                                                   handlers stack on
+                                                   every re-open → leak
+
+  ask command — async input workaround:
+  ──────────────────────────────────────
+  Python input() blocks the thread.
+  Browser JS is single-threaded — no blocking.
+
+  Fix: global askingFor flag
+    interpreter hits "ask" node
+      → set askingFor = "varName", return early
+    user presses Enter in terminal
+      → if askingFor: env[askingFor] = value
+        askingFor = null, resume interpreter
+<span class="diagram-caption">The async ask workaround was the hardest part of porting Forge from Python to JavaScript.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/forgeos/ and replace the placeholder div with <img src="../../assets/img/projects/forgeos/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

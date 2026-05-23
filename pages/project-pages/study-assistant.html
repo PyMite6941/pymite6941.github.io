@@ -75,6 +75,53 @@
 				GitHub repo for updates.</article
 			>
 			<br />
+			<h2 style="text-align: center">How the RAG Pipeline Works</h2>
+			<br />
+			<div class="ascii-diagram">  RAG Pipeline — Study Assistant
+  ════════════════════════════════
+
+  INGEST (run once per document)           QUERY (run each conversation turn)
+
+  ┌──────────────────┐                     ┌──────────────────┐
+  │   Your Notes     │                     │   Your Question  │
+  │  .md / PDF / img │                     │  "Explain X to   │
+  │  (or camera snap)│                     │   me simply"     │
+  └────────┬─────────┘                     └────────┬─────────┘
+           │                                        │
+           ▼                                        ▼
+  ┌────────────────┐                      ┌─────────────────┐
+  │    Chunker     │                      │   Embed Query   │
+  │ split text     │                      │ text → vector   │
+  │ into segments  │                      │ [...0.2, 0.8..]  │
+  └────────┬───────┘                      └────────┬────────┘
+           │                                       │
+           ▼                                       │
+  ┌─────────────────────────────────────────────────────────┐
+  │                       ChromaDB                          │
+  │                    (Vector Store)                       │
+  │                                                         │
+  │  chunk₁ → [0.1, 0.7, ...]   ◄── cosine similarity ────►│◄──┘
+  │  chunk₂ → [0.3, 0.2, ...]       picks top-K chunks     │
+  │  chunk₃ → [0.8, 0.1, ...]                               │
+  └──────────────────────────────┬──────────────────────────┘
+                                 │  top-K relevant chunks
+                                 ▼
+                       ┌─────────────────┐
+                       │   Ollama / LLM  │  (or Groq / Anthropic
+                       │                 │   if no local GPU)
+                       │  prompt =       │
+                       │  context chunks │
+                       │  + your query   │
+                       └────────┬────────┘
+                                │
+                                ▼
+                       ┌─────────────────┐
+                       │     Answer      │
+                       │  grounded in    │
+                       │  your own notes │
+                       └─────────────────┘
+<span class="diagram-caption">Nothing leaves your machine when using Ollama. Cloud models (Groq, Anthropic) are opt-in for low-end hardware.</span></div>
+			<br />
 			<h2 style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">

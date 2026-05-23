@@ -57,6 +57,64 @@
 				pages.</article
 			>
 			<br />
+			<h2 style="text-align: center">How the Parser Works</h2>
+			<br />
+			<div class="ascii-diagram">  Markdown Parser — Line-by-Line State Machine  (Go)
+  ═════════════════════════════════════════════════════
+
+  file.md  →  bufio.Scanner  →  one line at a time
+                                        │
+                          ┌─────────────▼─────────────┐
+                          │        PARSER STATE        │
+                          │                            │
+                          │  ┌─────────────────────┐  │
+                          │  │       NORMAL         │  │
+                          │  └──────────┬──────────┘  │
+                          │             │              │
+                          │   line starts with:        │
+                          │                            │
+                          │   "#"    → emit &lt;h1&gt;–&lt;h6&gt;  │
+                          │                            │
+                          │   "```"  → CODE_BLOCK  ────┤
+                          │            collect lines   │
+                          │            until next "```"│◄── blank line inside?
+                          │            emit &lt;pre&gt;&lt;code&gt;│    stay in state (fix)
+                          │                            │
+                          │   "- "/"* " → LIST         │
+                          │            emit &lt;li&gt;       │
+                          │            track &lt;ul&gt; open │
+                          │                            │
+                          │   text   → emit &lt;p&gt;        │
+                          └────────────────────────────┘
+                                        │
+                                        ▼
+                               emit HTML tokens
+                                        │
+                                        ▼
+                          ┌─────────────────────────┐
+                          │     output file.html     │
+                          │  + injected CSS          │
+                          └─────────────────────────┘
+<span class="diagram-caption">The state machine was the key fix — a stateless processor closed code blocks on blank lines, producing malformed HTML.</span></div>
+			<br />
+			<div class="ascii-diagram">  Inline Transforms — Applied Within Each Line
+  ═══════════════════════════════════════════════
+
+  input:  "See **bold** and `code` and [link](url)"
+          │
+          ▼  strings.Replace passes (in order):
+
+  "**text**"  →  &lt;strong&gt;text&lt;/strong&gt;
+  "*text*"    →  &lt;em&gt;text&lt;/em&gt;
+  "`code`"    →  &lt;code&gt;code&lt;/code&gt;
+  "[t](url)"  →  &lt;a href="url"&gt;t&lt;/a&gt;
+
+  output: "See &lt;strong&gt;bold&lt;/strong&gt; and
+           &lt;code&gt;code&lt;/code&gt; and &lt;a href="url"&gt;link&lt;/a&gt;"
+
+  Applied after block detection decides the wrapper tag.
+<span class="diagram-caption">Order of transforms matters — bold before italic prevents ** from being partially consumed.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/md-converter/ and replace the placeholder div with <img src="../../assets/img/projects/md-converter/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

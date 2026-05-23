@@ -64,6 +64,65 @@
 				in the browser. Both repos are public and independently usable.</article
 			>
 			<br />
+			<h2 style="text-align: center">How It Works</h2>
+			<br />
+			<div class="ascii-diagram">  Go Spider — BFS Web Crawl
+  ════════════════════════════
+
+  seed URL
+      │
+      ▼
+  ┌──────────────┐
+  │  URL Queue   │◄──────────────────────────────┐
+  └──────┬───────┘                                │
+         │  dequeue next URL                       │
+         ▼                                         │
+  ┌────────────────┐  in visited set?              │
+  │  visited set   │──────► skip                  │
+  │  (hash map)    │                               │
+  └──────┬─────────┘  new URL                      │
+         │                                         │
+         ▼                                         │
+  ┌──────────────────┐                             │
+  │  net/http GET    │  follow redirects once      │
+  └──────┬───────────┘                             │
+         │                                         │
+         ▼                                         │
+  ┌────────────────────────────────┐               │
+  │   golang.org/x/net/html        │               │
+  │   parse HTML tree              │               │
+  │   extract: title, body text    │               │
+  │   extract: all &lt;a href=...&gt;     │───────────────┘
+  └──────────────┬─────────────────┘  enqueue new links
+                 │
+                 ▼
+  ┌──────────────────────┐
+  │   SQLite (local)     │  INSERT pages(url, title, body)
+  │   → upload_db.py     │  push magellan.sq3 → Turso
+  └──────────────────────┘
+<span class="diagram-caption">Visited-URL hash set was the key fix — without it the spider followed redirect loops indefinitely.</span></div>
+			<br />
+			<div class="ascii-diagram">  React Frontend — Search Query Flow
+  ═════════════════════════════════════
+
+  user types in search box
+          │  onChange → debounced fetch
+          ▼
+  Turso HTTP API  (libSQL over HTTPS — reachable from browser)
+          │
+          │  SELECT url, title, body FROM pages
+          │  WHERE  body  LIKE '%query%'
+          │     OR  title LIKE '%query%'
+          ▼
+  result rows → render as card list
+
+  Why Turso instead of local SQLite?
+  ────────────────────────────────────
+  Browser JS cannot open a local .db file.
+  Turso exposes SQLite over a REST/HTTP API
+  that the browser can reach with fetch().
+<span class="diagram-caption">Spider and frontend are fully decoupled — either part can be replaced independently.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/magellan/ and replace the placeholder div with <img src="../../assets/img/projects/magellan/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

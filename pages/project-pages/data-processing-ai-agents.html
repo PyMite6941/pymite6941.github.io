@@ -1,0 +1,134 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Data Processing AI Agents — a multi-agent AI system for automated data processing, submitted to the International AI Agents Hackathon 2026." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Data Processing AI Agents | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Data Processing AI Agents</h1>
+			<h3>Multi-agent AI system for automated data processing</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<br />
+			<a
+				class="text-link"
+				href="https://data-processing-ai-agents.vercel.app/"
+				>View Live Site</a
+			>
+			&nbsp;&nbsp;
+			<a
+				class="text-link"
+				href="https://github.com/pymite6941/data-processing-ai-agents"
+				>View on GitHub</a
+			>
+			<br />
+			<p style="color: #8b949e; font-size: 0.95rem; margin-top: 8px">
+				Hackathon code submission: <strong style="color: var(--text-color)">backend/bots.py</strong>
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Context:</strong> Built as a
+				submission to the International AI Agents Hackathon 2026. The challenge
+				was to design autonomous, multi-step AI agent systems — programs that can
+				plan, use tools, and complete tasks without constant human input.<br /><br />
+				<strong style="color: var(--text-color)">What it does:</strong> A
+				multi-agent system that automates data processing tasks. Agents coordinate
+				to ingest, analyse, and output structured results — the core logic lives
+				in <code>backend/bots.py</code>, with a frontend deployed on Vercel.<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Python for the agent backend, drawing on prior multi-agent architecture
+				experience from Pixel-APEX and Study Assistant. Deployed with a web
+				frontend on Vercel.<br /><br />
+				<strong style="color: var(--text-color)">Status:</strong> Submitted to
+				the International AI Agents Hackathon 2026. See the
+				<a class="text-link" href="../hackathons/international-ai-agents-2026.html"
+					>hackathon page</a
+				> for competition details.</article
+			>
+			<br />
+			<h2 style="text-align: center">How the Agents Work</h2>
+			<br />
+			<div class="ascii-diagram">  Multi-Agent Data Processing Pipeline
+  ══════════════════════════════════════
+
+  ┌──────────────────────────────────────┐
+  │            Input Data                │
+  │     (raw datasets / user query)      │
+  └──────────────────┬───────────────────┘
+                     │
+                     ▼
+  ┌──────────────────────────────────────┐
+  │          Orchestrator Agent          │
+  │  - receives task                     │
+  │  - breaks it into subtasks           │
+  │  - routes to specialist agents       │
+  └───────┬──────────────────────┬───────┘
+          │                      │
+          ▼                      ▼
+  ┌───────────────┐    ┌───────────────────┐
+  │  Data Agent   │    │  Analysis Agent   │
+  │  ingest &      │    │  process results  │
+  │  clean data   │    │  find patterns    │
+  └───────┬───────┘    └────────┬──────────┘
+          │                     │
+          └──────────┬──────────┘
+                     │
+                     ▼
+  ┌──────────────────────────────────────┐
+  │           Output Agent               │
+  │  format and return structured result │
+  └──────────────────────────────────────┘
+
+  Core code: backend/bots.py
+  Frontend:  Vercel deployment
+<span class="diagram-caption">Agents coordinate without human intervention — each handles one stage, the orchestrator routes between them.</span></div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Manual data processing is repetitive and error-prone. Autonomous agents can ingest, clean, and analyse data end-to-end without needing step-by-step human direction.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Tech Stack</h3>
+					<p>Python for the agent backend (<code>backend/bots.py</code>), with a web frontend deployed on Vercel. Multi-agent coordination draws on architecture patterns from prior AI projects.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>Designing agents that hand off tasks to each other cleanly — the orchestrator pattern, how to structure subtask routing, and keeping agent responsibilities narrow enough to be reliable.</p>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

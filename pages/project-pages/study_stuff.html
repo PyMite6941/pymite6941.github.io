@@ -44,6 +44,66 @@
 				<strong style="color: var(--text-color);">Result:</strong> A set of browser-playable Python tools covering math and physics topics — all running client-side via PyScript. No server, no install.</article
 			>
 			<br />
+			<h2 style="text-align: center">How PyScript Works</h2>
+			<br />
+			<div class="ascii-diagram">  PyScript — Python Execution in the Browser
+  ════════════════════════════════════════════
+
+  ┌──────────────────────────────────────────────┐
+  │                  Browser                     │
+  │                                              │
+  │  page loads  &lt;script type="module"           │
+  │              src="core.js"&gt;                  │
+  │                     │                        │
+  │                     ▼                        │
+  │        ┌────────────────────────┐            │
+  │        │        Pyodide         │            │
+  │        │  CPython compiled to   │            │
+  │        │  WebAssembly (WASM)    │            │
+  │        └────────────┬───────────┘            │
+  │                     │                        │
+  │                     ▼                        │
+  │        ┌────────────────────────┐            │
+  │        │  &lt;script type="py"     │            │
+  │        │          terminal&gt;     │            │
+  │        │  your Python runs      │            │
+  │        │  inside the WASM VM    │            │
+  │        └────────────┬───────────┘            │
+  │                     │  stdout / stdin         │
+  │                     ▼                        │
+  │        ┌────────────────────────┐            │
+  │        │     &lt;py-terminal&gt;      │            │
+  │        │  DOM widget wired to   │            │
+  │        │  Python stdin/stdout   │            │
+  │        └────────────────────────┘            │
+  └──────────────────────────────────────────────┘
+
+  Sandbox — what WASM blocks:        What works fine:
+  ──────────────────────────────     ──────────────────────────
+  ✗  requests / urllib               ✓  math, random, statistics
+  ✗  subprocess                      ✓  input() with terminal attr
+  ✗  open() / file I/O               ✓  print, loops, classes
+  ✗  os.system()                     ✓  js module (call browser APIs)
+<span class="diagram-caption">Pyodide compiles CPython to WASM — real Python in the browser, no server required.</span></div>
+			<br />
+			<div class="ascii-diagram">  Prettier + PyScript — The Indentation Trap
+  ═════════════════════════════════════════════
+
+  BEFORE Prettier:              AFTER Prettier (broken):
+  ─────────────────             ────────────────────────
+  &lt;script type="py"             &lt;script type="py"
+          terminal&gt;                     terminal&gt;
+  x = int(input())                  x = int(input())
+  print(x * 2)                      print(x * 2)
+  &lt;/script&gt;                    &lt;/script&gt;
+
+  Python sees leading spaces → IndentationError at runtime.
+
+  Fix: add  &lt;!-- prettier-ignore --&gt;  immediately before
+  every  &lt;script type="py"&gt;  tag.
+  Closing &lt;/script&gt; must also be at column zero.
+<span class="diagram-caption">Hardest bug to diagnose — code looked fine in the editor but crashed at runtime with no obvious cause.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/study-tools/ and replace the placeholder div with <img src="../../assets/img/projects/study-tools/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

@@ -62,6 +62,63 @@
 				production-ready app.</article
 			>
 			<br />
+			<h2 style="text-align: center">How the App is Structured</h2>
+			<br />
+			<div class="ascii-diagram">  The Finance Kit — Architecture
+  ════════════════════════════════
+
+  ┌──────────────────────────────────────────────────────┐
+  │                       run.py                         │
+  │                    (entry point)                     │
+  │         questionary prompt → CLI or Web UI?          │
+  └──────────────────────┬───────────────────────────────┘
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+   ┌────────────────┐    ┌──────────────────────────┐
+   │    CLI Mode    │    │        Web UI Mode        │
+   │ cli/cli_app.py │    │  streamlit run            │
+   │                │    │  app/Dashboard.py         │
+   └───────┬────────┘    └────────────┬─────────────┘
+           │                          │
+           │             ┌────────────┴────────────┐
+           │             ▼                         ▼
+           │      Dashboard.py              pages/ (6 pages)
+           │                         Add / Edit / Delete Material
+           │                         View Expenses
+           │                         View Income
+           │                         View Subscriptions
+           │
+           └─────────────────┬───────────────────────┘
+                             ▼
+                   ┌──────────────────┐
+                   │  core_stuff.py   │  ← single data layer
+                   │  reads / writes  │     shared by CLI + UI
+                   │    data.json     │
+                   └──────────────────┘
+<span class="diagram-caption">Both modes share the same backend — swapping the UI never touches the data layer.</span></div>
+			<br />
+			<div class="ascii-diagram">  Data Flow — Adding an Expense
+  ═══════════════════════════════
+
+  User fills form  →  Streamlit session_state holds draft
+          │
+          ▼  on submit
+  core_stuff.py: load_data()
+          │  read data.json → dict
+          ▼
+  append new entry to dict["expenses"]
+          │
+          ▼
+  core_stuff.py: save_data()
+          │  write dict → data.json
+          ▼
+  Streamlit reruns → updated View Expenses page
+
+  Tax estimate  →  sum(income) × tax_rate(bracket)
+  Budget check  →  sum(expenses_this_month) &gt; budget_limit?
+<span class="diagram-caption">All reads and writes go through core_stuff.py — the UI never touches data.json directly.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/finance-kit/ and replace the placeholder div with <img src="../../assets/img/projects/finance-kit/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

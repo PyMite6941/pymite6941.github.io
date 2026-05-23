@@ -57,6 +57,73 @@
 				move.</article
 			>
 			<br />
+			<h2 style="text-align: center">How the Algorithm Works</h2>
+			<br />
+			<div class="ascii-diagram">                         Minimax Search Tree (Connect 4)
+                         ════════════════════════════
+
+                              ┌──────────────┐
+                              │  ROOT STATE  │  ← MAX turn (Bot chooses)
+                              └──────┬───────┘
+                      ┌─────────────┼─────────────┐
+                      ▼             ▼             ▼
+                  [col 3]       [col 4]       [col 5]   … all legal moves
+                  MIN           MIN           MIN        ← Human responds
+                  / \           / \           / \
+               MAX MAX       MAX MAX       MAX MAX       ← Bot replies
+                │   │         │   │         │   │
+               +10  -4        +2  +8        -∞  +6       ← eval scores
+
+  MIN nodes pick the lowest child (human picks worst for bot).
+  MAX nodes pick the highest child (bot picks best for itself).
+
+  Root backs up:  col 3 → -4   col 4 → +2   col 5 → -∞
+  Bot plays:      col 4  (highest backed-up value)
+
+  ─────────────────────────────────────────────────────
+  Optimisations applied in this project:
+
+    Transposition table  — cache board hash → score so duplicate
+                           states reached via different move orders
+                           are never re-evaluated.
+
+    Symmetry cache       — board mirrored horizontally is equivalent;
+                           halves the effective branching factor.
+
+    Depth limit          — search stops at depth N and calls the
+                           static eval function instead of expanding
+                           further. Keeps move time &lt; 1 second.
+<span class="diagram-caption">Minimax with transposition table and symmetry pruning. Bot plays MAX, human plays MIN.</span></div>
+			<br />
+			<h2 style="text-align: center">Board State Reading</h2>
+			<br />
+			<div class="ascii-diagram">  Pixel-Based Board Detection
+  ════════════════════════════
+
+  ┌─────────────────────────────────────┐
+  │           Screen Region             │
+  │  ┌───┬───┬───┬───┬───┬───┬───┐     │
+  │  │ . │ . │ R │ . │ Y │ . │ . │ row0│
+  │  ├───┼───┼───┼───┼───┼───┼───┤     │
+  │  │ . │ Y │ R │ Y │ R │ . │ . │ row1│
+  │  ├───┼───┼───┼───┼───┼───┼───┤     │
+  │  │ R │ Y │ Y │ R │ Y │ R │ Y │ row2│
+  │  └───┴───┴───┴───┴───┴───┴───┘     │
+  └─────────────────────────────────────┘
+           │
+           │  sample pixel at centre of each cell
+           ▼
+  ┌─────────────────────────────────────┐
+  │  colour → piece map                 │
+  │  (R, G, B) near red   →  BOT        │
+  │  (R, G, B) near yellow →  HUMAN     │
+  │  otherwise             →  EMPTY     │
+  └─────────────────────────────────────┘
+           │
+           ▼
+  int board[6][7]  →  passed to minimax
+<span class="diagram-caption">Calibration step on startup maps pixel coordinates to grid cells, fixing resolution dependence.</span></div>
+			<br />
 			<h2 style="text-align: center">In Action</h2>
 			<!-- To add screenshots: save images to assets/img/projects/connect4/ and replace the placeholder div with <img src="../../assets/img/projects/connect4/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">

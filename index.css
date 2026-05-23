@@ -306,6 +306,34 @@ main article {
 	font-size: inherit;
 }
 
+.ascii-diagram {
+	font-family: 'Consolas', 'Courier New', monospace;
+	font-size: 0.85rem;
+	line-height: 1.6;
+	background-color: #161b22;
+	color: #c9d1d9;
+	border: 1px solid var(--border-color);
+	border-left: 3px solid var(--button-color);
+	border-radius: 8px;
+	padding: 20px 24px;
+	overflow-x: auto;
+	white-space: pre;
+	margin: 8px 0;
+	width: 100%;
+	box-sizing: border-box;
+	align-self: stretch;
+}
+
+.ascii-diagram .diagram-caption {
+	display: block;
+	font-size: 0.75rem;
+	color: #8b949e;
+	font-style: italic;
+	margin-top: 14px;
+	white-space: normal;
+	font-family: 'Google Sans', sans-serif;
+}
+
 .foot {
 	margin: 0px;
 	padding: 20px;

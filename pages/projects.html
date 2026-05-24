@@ -34,6 +34,7 @@
 			<h3>My Projects</h3>
 		</header>
 		<main style="flex-direction: row">
+			<div id="top"></div>
 			<div
 				class="sidenav"
 				id="filter-panel">
@@ -73,10 +74,21 @@
 						type="checkbox"
 						class="checkbox"
 						data-filter="Web Development"
+						onclick="filterProjects()" /><br />
+					AI:
+					<input
+						type="checkbox"
+						class="checkbox"
+						data-filter="AI"
+						onclick="filterProjects()" /><br />
+					Cybersecurity:
+					<input
+						type="checkbox"
+						class="checkbox"
+						data-filter="Cybersecurity"
 						onclick="filterProjects()" />
 				</article>
 			</div>
-			<div id="top"></div>
 			<section
 				class="card-grid"
 				style="margin-left: 240px">

@@ -252,7 +252,7 @@
       var raw = input.value.trim();
       input.value = '';
       if (!raw) return;
-      appendLine('<span class="mg-t-hi">visitor@matt-g $</span> ' + raw);
+      appendLine('<span class="mg-t-hi">visitor@matt-g $</span> ' + raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'));
       var fn = COMMANDS[raw.toLowerCase()];
       if (fn) {
         var result = fn();

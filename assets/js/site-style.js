@@ -63,6 +63,8 @@
             <p>
                 <a class="text-link" href="https://github.com/PyMite6941">My GitHub</a>
                 <br /><br />
+                <a class="text-link" href="https://www.youtube.com/@MattGresham-e9z">My YouTube</a>
+                <br /><br />
                 <a class="text-link" href="${p.devdocs}">The Dev Docs</a>
                 <br /><br />
                 <a class="text-link" href="${p.resume}">View my resume</a>

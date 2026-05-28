@@ -7,6 +7,8 @@
 			about: 'pages/about-me.html',
 			projects: 'pages/projects.html',
 			hackathons: 'pages/hackathons.html',
+			ailab: 'pages/ai-lab.html',
+			forothers: 'pages/client-work.html',
 			devdocs: 'pages/the-dev-docs.html',
 			contact: 'pages/contact-me.html',
 			resume: 'assets/documents/matt_gresham_resume.html',
@@ -18,6 +20,8 @@
 			about: 'about-me.html',
 			projects: 'projects.html',
 			hackathons: 'hackathons.html',
+			ailab: 'ai-lab.html',
+			forothers: 'client-work.html',
 			devdocs: 'the-dev-docs.html',
 			contact: 'contact-me.html',
 			resume: '../assets/documents/matt_gresham_resume.html',
@@ -29,6 +33,8 @@
 			about: '../about-me.html',
 			projects: '../projects.html',
 			hackathons: '../hackathons.html',
+			ailab: '../ai-lab.html',
+			forothers: '../client-work.html',
 			devdocs: '../the-dev-docs.html',
 			contact: '../contact-me.html',
 			resume: '../../assets/documents/matt_gresham_resume.html',
@@ -50,10 +56,15 @@
                 <li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.projects}">Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.hackathons}">Hackathons</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.ailab}">AI Lab</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.forothers}">Built for Others</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
 				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
             </ul>
-            <a class="nav-btn" href="${p.contact}">Contact me</a>
+            <div style="display:flex;gap:8px;align-items:center;padding-right:12px">
+                <button class="pdf-btn" onclick="window.print()" title="Save page as PDF">&#8659; PDF</button>
+                <a class="nav-btn" href="${p.contact}">Contact me</a>
+            </div>
         </div>`,
 	);
 

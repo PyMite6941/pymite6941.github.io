@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Fitness AI Agents — multi-agent coaching system powered by Strava data, ChromaDB, and local LLMs." />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>Fitness AI Agents | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Fitness AI Agents</h1>
+			<h3>A multi-agent coaching system trained on your own Strava data</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<p style="color: #8b949e; font-size: 0.95rem">
+				This project is in active development — check back for a demo and GitHub link soon.
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it does:</strong> Connects
+				to your Strava account and pulls your full activity history — runs, rides,
+				strength sessions. That data is chunked and stored in ChromaDB so you can
+				query it conversationally. Ask "how has my average pace improved over the
+				last 3 months?" or "suggest a workout for tomorrow based on my recent
+				training load" and get answers grounded in your real data.
+				<br /><br />
+				<strong style="color: var(--text-color)">Architecture:</strong> A
+				multi-agent pipeline where a router agent decides which specialist to
+				dispatch — a retrieval agent for historical data lookups, a planning agent
+				for workout suggestions, and a trend agent for progress analysis. Each
+				agent runs against the same ChromaDB store.
+				<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Python core. Strava API for activity ingestion. ChromaDB for vector
+				storage and semantic retrieval. Ollama for local inference. Streamlit
+				for the dashboard UI.
+			</article>
+			<br />
+			<h2 style="text-align: center">Architecture</h2>
+			<br />
+			<div class="ascii-diagram">  Fitness AI Agents — Data Flow
+  ══════════════════════════════
+
+  Strava API  ──►  Activity Ingester  ──►  ChromaDB (vector store)
+                   (chunk + embed)          runs / rides / sessions
+
+                                                    │
+                                               semantic search
+                                                    │
+  Your Question  ──►  Router Agent  ──►  Specialist Agent
+  "How fast am I                         ┌─ Retrieval Agent
+   getting?"                             ├─ Planning Agent
+                                         └─ Trend Agent
+                                                    │
+                                            Ollama / Groq
+                                                    │
+                                         ┌──────────────────┐
+                                         │  Grounded Answer  │
+                                         │  (your real data) │
+                                         └──────────────────┘</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Strava shows your stats but doesn't reason about them. This system
+					treats your training history as a knowledge base and lets you have a
+					genuine conversation about your fitness — not just dashboards.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>Multi-agent routing means each specialist stays focused and small.
+					ChromaDB semantic search finds relevant past activities even when you
+					phrase the question differently each time.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>Deployment on Streamlit Cloud with OAuth for Strava login, and a
+					planning agent that factors in rest days, target races, and weekly
+					mileage limits.</p>
+				</div>
+			</div>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

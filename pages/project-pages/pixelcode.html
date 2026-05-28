@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="PixelCode — a self-hosted AI coding assistant built on FastAPI and Ollama. Works like Claude Code but runs free on your own infrastructure." />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>PixelCode | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>PixelCode</h1>
+			<h3>A self-hosted AI coding assistant that costs $0 to run</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<a class="text-link" href="https://github.com/PyMite6941" target="_blank">View on GitHub</a>
+			<br /><br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">Motivation:</strong> Claude Code,
+				Cursor, and GitHub Copilot all cost money. PixelCode does the same job —
+				read, write, run, review, debug, and refactor code across any language —
+				and costs $0 permanently because you own the entire stack.
+				<br /><br />
+				<strong style="color: var(--text-color)">What it does:</strong> Provides
+				a rich CLI interface backed by a FastAPI server. The assistant can read
+				files, write files, list directories, run terminal commands, and remember
+				past sessions via persistent conversation memory. Runs fully offline via
+				Ollama, or on free cloud APIs (Groq, Gemini, OpenRouter) when you need
+				more power.
+				<br /><br />
+				<strong style="color: var(--text-color)">Provider chain:</strong> Requests
+				route through Groq → Gemini → OpenRouter → Ollama in order of preference.
+				If one provider is rate-limited or unavailable, the next one picks up
+				automatically — so the assistant is always responsive.
+				<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong> Python
+				is the core language. FastAPI handles the backend API layer. Ollama runs
+				local LLM inference (DeepSeek Coder or CodeLlama). The CLI uses
+				<code>rich</code> for styled terminal output. Memory is stored as
+				plain files so sessions persist across restarts.
+			</article>
+			<br />
+			<h2 style="text-align: center">Architecture</h2>
+			<br />
+			<div class="ascii-diagram">  PixelCode — Provider Chain & Tool Architecture
+  ══════════════════════════════════════════════
+
+  CLI (cli.py)                 FastAPI Backend
+  ──────────────               ───────────────
+  rich terminal UI  ◄────────► message router
+  conversation loop            tool dispatcher
+  session memory               provider chain:
+                                 1. Groq (fast, free tier)
+                                 2. Gemini (generous quota)
+                                 3. OpenRouter (fallback)
+                                 4. Ollama (fully offline)
+
+  Tools available to the model:
+  ┌──────────────┬─────────────────────────────────────┐
+  │ read_file()  │ Auto-routes PDF/Excel/CSV to readers │
+  │ write_file() │ Write plain text to any path         │
+  │ list_dir()   │ Directory listing with file sizes    │
+  │ run_cmd()    │ Execute terminal commands            │
+  └──────────────┴─────────────────────────────────────┘
+
+  Memory layer: plain files in memory/ — persists across sessions</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Paid AI coding tools lock you into subscriptions. PixelCode gives you
+					the same agentic loop — read code, reason, write, test — using Ollama
+					for offline inference or free cloud APIs, with no recurring cost.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>The provider chain means the assistant never goes silent due to rate
+					limits. Tool dispatch lets the model interact with the real filesystem
+					and terminal, not just text — the same capability that makes Claude Code
+					useful.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>Browser UI via Open WebUI integration, better memory summarization
+					for long sessions, and automatic context injection from
+					<code>CLAUDE.md</code>-style project files.</p>
+				</div>
+			</div>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

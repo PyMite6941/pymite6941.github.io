@@ -91,6 +91,11 @@
 	ee.src = base + 'assets/js/easter-eggs.js';
 	document.head.appendChild(ee);
 
+	var chat = document.createElement('script');
+	chat.src = base + 'assets/js/chatbot.js';
+	chat.defer = true;
+	document.head.appendChild(chat);
+
 	document.querySelectorAll('.code-segment pre code').forEach(function (block) {
 		var lines = block.innerHTML.split('\n');
 		if (lines.length && lines[lines.length - 1].trim() === '') lines.pop();

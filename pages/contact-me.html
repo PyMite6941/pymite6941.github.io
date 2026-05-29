@@ -101,6 +101,22 @@
 			.contact-alt a:hover {
 				text-decoration: underline;
 			}
+			.fs-success {
+				display: none;
+				background: #0f3a1f;
+				border: 1px solid #3fb95060;
+				color: #3fb950;
+				border-radius: 8px;
+				padding: 14px 18px;
+				font-size: 14px;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+			.fs-field-error {
+				color: #f85149;
+				font-size: 12px;
+				margin-top: 3px;
+			}
 			@media (max-width: 480px) {
 				.contact-card {
 					padding: 24px 20px;
@@ -122,20 +138,26 @@
 				<div class="contact-card">
 					<h2>Send a message</h2>
 					<p class="subtitle">I'll get back to you within 24 hours.</p>
-					<form action="https://formspree.io/f/xqegrqdb" method="POST">
+					<div class="fs-success" data-fs-success>
+						&#10003; Message sent — I'll be in touch soon.
+					</div>
+					<form id="contact-form">
 						<div class="form-group">
 							<label for="name">Name</label>
-							<input type="text" id="name" name="name" placeholder="Your name" required />
+							<input type="text" id="name" name="name" placeholder="Your name" data-fs-field required />
+							<span class="fs-field-error" data-fs-error="name"></span>
 						</div>
 						<div class="form-group">
 							<label for="email">Email</label>
-							<input type="email" id="email" name="email" placeholder="you@example.com" required />
+							<input type="email" id="email" name="email" placeholder="you@example.com" data-fs-field required />
+							<span class="fs-field-error" data-fs-error="email"></span>
 						</div>
 						<div class="form-group">
 							<label for="message">Message</label>
-							<textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+							<textarea id="message" name="message" placeholder="What's on your mind?" data-fs-field required></textarea>
+							<span class="fs-field-error" data-fs-error="message"></span>
 						</div>
-						<button type="submit" class="submit-btn">Send Message</button>
+						<button type="submit" class="submit-btn" data-fs-submit-btn>Send Message</button>
 					</form>
 				</div>
 				<p class="contact-alt">
@@ -144,5 +166,10 @@
 			</div>
 		</main>
 		<div id="site-footer"></div>
+		<script>
+			window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+			formspree('initForm', { formElement: '#contact-form', formId: 'xqegrqdb' });
+		</script>
+		<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 	</body>
 </html>

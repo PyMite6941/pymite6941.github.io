@@ -72,33 +72,49 @@ export default {
 			{ role: 'user', content: message.slice(0, 1000) },
 		];
 
-		let upstream;
-		try {
-			upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-				method: 'POST',
-				headers: {
-					'Authorization': 'Bearer ' + env.OPENROUTER_API_KEY,
-					'Content-Type': 'application/json',
-					'HTTP-Referer': 'https://pymite6941.is-a.dev',
-					'X-Title': 'Matt Gresham Portfolio',
-				},
-				body: JSON.stringify({
-					model: 'google/gemma-3-27b-it:free',
-					max_tokens: 512,
-					messages,
-				}),
-			});
-		} catch {
-			return new Response('Failed to reach upstream', { status: 502, headers: CORS });
+		const MODELS = [
+			'google/gemma-4-26b-a4b-it:free',
+			'openai/gpt-oss-20b:free',
+			'nvidia/nemotron-3-super-120b-a12b:free',
+		];
+
+		let reply;
+		let lastError;
+		for (const model of MODELS) {
+			let upstream;
+			try {
+				upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+					method: 'POST',
+					headers: {
+						'Authorization': 'Bearer ' + env.OPENROUTER_API_KEY,
+						'Content-Type': 'application/json',
+						'HTTP-Referer': 'https://pymite6941.is-a.dev',
+						'X-Title': 'Matt Gresham Portfolio',
+					},
+					body: JSON.stringify({ model, max_tokens: 512, messages }),
+				});
+			} catch {
+				lastError = 'Network error';
+				continue;
+			}
+			let data;
+			try {
+				data = await upstream.json();
+			} catch {
+				lastError = 'bad JSON from upstream';
+				continue;
+			}
+			if (!upstream.ok || data.error) {
+				lastError = data.error ? data.error.message : upstream.status;
+				continue;
+			}
+			reply = data.choices[0].message.content;
+			break;
 		}
 
-		if (!upstream.ok) {
-			const err = await upstream.text();
-			return new Response('Upstream error: ' + err, { status: 502, headers: CORS });
+		if (!reply) {
+			return new Response('All models unavailable: ' + lastError, { status: 502, headers: CORS });
 		}
-
-		const data = await upstream.json();
-		const reply = data.choices[0].message.content;
 
 		return new Response(JSON.stringify({ reply }), {
 			headers: { ...CORS, 'Content-Type': 'application/json' },

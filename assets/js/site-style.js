@@ -62,7 +62,6 @@
 				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
             </ul>
             <div style="display:flex;gap:8px;align-items:center;padding-right:12px">
-                <button class="pdf-btn" onclick="window.print()" title="Save page as PDF">&#8659; PDF</button>
                 <a class="nav-btn" href="${p.contact}">Contact me</a>
             </div>
         </div>`,

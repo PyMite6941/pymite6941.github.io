@@ -1,11 +1,11 @@
 :root {
-	--bg-color: #1e2127;
-	--text-color: #abb2bf;
+	--bg-color: #0d1117;
+	--text-color: #e6edf3;
 	--link-color: #61afef;
-	--card-bg: #21252b;
-	--card-bg-hover: #2c313c;
-	--button-color: #c678dd;
-	--border-color: #3d424d;
+	--card-bg: #161b22;
+	--card-bg-hover: #1c2128;
+	--button-color: #8957e5;
+	--border-color: #30363d;
 	color-scheme: dark;
 }
 

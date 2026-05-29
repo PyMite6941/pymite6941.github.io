@@ -51,7 +51,7 @@
 	inject(
 		'site-nav',
 		`<div class="nav">
-            <ul class="nav-list">
+            <ul class="nav-list" id="nav-list">
                 <li class="nav-item"><a class="nav-link" href="${p.home}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.projects}">Projects</a></li>
@@ -60,12 +60,33 @@
                 <li class="nav-item"><a class="nav-link" href="${p.forothers}">Built for Others</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
 				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
+                <li class="nav-item nav-item--mobile-only"><a class="nav-link" href="${p.contact}">Contact me</a></li>
             </ul>
             <div style="display:flex;gap:8px;align-items:center;padding-right:12px">
                 <a class="nav-btn" href="${p.contact}">Contact me</a>
+                <button class="hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>`,
 	);
+
+	var hamburger = document.getElementById('nav-hamburger');
+	var navList = document.getElementById('nav-list');
+	if (hamburger && navList) {
+		hamburger.addEventListener('click', function () {
+			var open = navList.classList.toggle('nav-open');
+			hamburger.classList.toggle('nav-open', open);
+			hamburger.setAttribute('aria-expanded', open);
+		});
+		document.addEventListener('click', function (e) {
+			if (!hamburger.contains(e.target) && !navList.contains(e.target)) {
+				navList.classList.remove('nav-open');
+				hamburger.classList.remove('nav-open');
+				hamburger.setAttribute('aria-expanded', 'false');
+			}
+		});
+	}
 
 	inject(
 		'site-footer',

@@ -24,12 +24,82 @@
 	}
 }
 
+/* Hamburger button — hidden on desktop */
+.hamburger {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 22px;
+	height: 16px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	flex-shrink: 0;
+}
+.hamburger span {
+	display: block;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--text-color);
+	transition: transform 0.25s ease, opacity 0.2s ease;
+	transform-origin: center;
+}
+.hamburger.nav-open span:nth-child(1) {
+	transform: translateY(7px) rotate(45deg);
+}
+.hamburger.nav-open span:nth-child(2) {
+	opacity: 0;
+	transform: scaleX(0);
+}
+.hamburger.nav-open span:nth-child(3) {
+	transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-item--mobile-only {
+	display: none;
+}
+
 @media (max-width: 480px) {
-	.nav-list {
-		display: none;
+	.hamburger {
+		display: flex;
 	}
 	.nav-btn {
 		display: none;
+	}
+	.nav-item--mobile-only {
+		display: list-item;
+	}
+
+	/* Nav list becomes animated dropdown */
+	.nav-list {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: var(--card-bg);
+		border-bottom: 1px solid var(--border-color);
+		padding: 4px 0 8px;
+		margin: 0;
+		z-index: 99;
+		transform: translateY(-6px);
+		opacity: 0;
+		pointer-events: none;
+		transition: transform 0.25s ease, opacity 0.2s ease;
+	}
+	.nav-list.nav-open {
+		transform: translateY(0);
+		opacity: 1;
+		pointer-events: all;
+	}
+	.nav-item {
+		padding: 0;
+	}
+	.nav-link {
+		display: block;
+		padding: 11px 20px;
 	}
 
 	.hero-section {
@@ -63,6 +133,8 @@ body {
 	backdrop-filter: blur(12px);
 	border-bottom: 1px solid rgba(62, 68, 81, 0.6);
 	position: sticky;
+	/* needed so the mobile dropdown positions relative to the nav bar */
+	isolation: isolate;
 }
 
 .nav-list {

@@ -1,59 +1,147 @@
 <!doctype html>
-<html
-	lang="en"
-	data-depth="1">
+<html lang="en" data-depth="1">
 	<head>
 		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
 		<meta
 			name="description"
 			content="Contact Matt Gresham — send a message directly from the portfolio." />
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="../index.css" />
-		<script
-			src="../assets/js/site-style.js"
-			defer></script>
-
+		<link rel="stylesheet" type="text/css" href="../index.css" />
+		<script src="../assets/js/site-style.js" defer></script>
 		<title>Matt G | Contact</title>
+		<style>
+			.contact-wrapper {
+				max-width: 560px;
+				margin: 48px auto;
+				padding: 0 24px;
+			}
+			.contact-card {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				padding: 36px 40px;
+			}
+			.contact-card h2 {
+				margin: 0 0 6px 0;
+				font-size: 20px;
+				color: var(--text-color);
+			}
+			.contact-card .subtitle {
+				color: #8b949e;
+				font-size: 14px;
+				margin: 0 0 28px 0;
+				line-height: 1.5;
+			}
+			.form-group {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+				margin-bottom: 20px;
+			}
+			.form-group label {
+				font-size: 13px;
+				font-weight: 600;
+				color: var(--text-color);
+				letter-spacing: 0.3px;
+			}
+			.form-group input,
+			.form-group textarea {
+				background: #0d1117;
+				border: 1px solid var(--border-color);
+				border-radius: 8px;
+				color: var(--text-color);
+				font-size: 14px;
+				font-family: inherit;
+				padding: 10px 14px;
+				outline: none;
+				transition: border-color 0.15s;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.form-group input:focus,
+			.form-group textarea:focus {
+				border-color: var(--button-color);
+			}
+			.form-group textarea {
+				resize: vertical;
+				min-height: 130px;
+			}
+			.form-group input::placeholder,
+			.form-group textarea::placeholder {
+				color: #484f58;
+			}
+			.submit-btn {
+				width: 100%;
+				background: var(--button-color);
+				color: #fff;
+				border: none;
+				border-radius: 8px;
+				padding: 12px;
+				font-size: 15px;
+				font-weight: 600;
+				font-family: inherit;
+				cursor: pointer;
+				transition: opacity 0.15s;
+				margin-top: 4px;
+			}
+			.submit-btn:hover {
+				opacity: 0.85;
+			}
+			.contact-alt {
+				text-align: center;
+				margin-top: 20px;
+				font-size: 13px;
+				color: #8b949e;
+			}
+			.contact-alt a {
+				color: var(--link-color);
+				text-decoration: none;
+			}
+			.contact-alt a:hover {
+				text-decoration: underline;
+			}
+			@media (max-width: 480px) {
+				.contact-card {
+					padding: 24px 20px;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Matt G</h1>
 			<h3>Contact Me</h3>
+			<p style="color: #8b949e; max-width: 480px; margin: 8px auto 0; font-size: 15px">
+				Got a project, question, or just want to say hi — I read everything
+			</p>
 		</header>
 		<main>
-			<form
-				class="contact-me"
-				style="align-items: center"
-				action="https://formspree.io/f/xqegrqdb"
-				method="POST">
-				<label for="name">Name:</label><br />
-				<input
-					type="text"
-					id="name"
-					name="name"
-					required /><br />
-				<label for="email">Email:</label><br />
-				<input
-					type="email"
-					id="email"
-					name="email"
-					required /><br />
-				<label for="message">Message:</label><br />
-				<textarea
-					id="message"
-					name="message"
-					rows="5"
-					required></textarea
-				><br />
-				<button type="submit">Send</button>
-			</form>
+			<div class="contact-wrapper">
+				<div class="contact-card">
+					<h2>Send a message</h2>
+					<p class="subtitle">I'll get back to you within 24 hours.</p>
+					<form action="https://formspree.io/f/xqegrqdb" method="POST">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" id="name" name="name" placeholder="Your name" required />
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" id="email" name="email" placeholder="you@example.com" required />
+						</div>
+						<div class="form-group">
+							<label for="message">Message</label>
+							<textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+						</div>
+						<button type="submit" class="submit-btn">Send Message</button>
+					</form>
+				</div>
+				<p class="contact-alt">
+					Or email directly at <a href="mailto:greshamd27@gmail.com">greshamd27@gmail.com</a>
+				</p>
+			</div>
 		</main>
 		<div id="site-footer"></div>
 	</body>

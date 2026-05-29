@@ -123,6 +123,62 @@
 				margin-bottom: 2px;
 				font-size: 15px;
 			}
+			.example-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+				gap: 20px;
+				max-width: 900px;
+				margin: 0 auto;
+				padding: 0 24px;
+			}
+			.example-card {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				padding: 24px 26px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				transition: border-color 0.2s;
+			}
+			.example-card:hover {
+				border-color: var(--button-color);
+			}
+			.example-card-header {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: 12px;
+			}
+			.example-card h3 {
+				margin: 0;
+				font-size: 17px;
+				color: var(--text-color);
+			}
+			.example-card p {
+				color: #8b949e;
+				font-size: 14px;
+				margin: 0;
+				line-height: 1.6;
+			}
+			.example-tag {
+				display: inline-block;
+				background: #1f1535;
+				color: var(--button-color);
+				border: 1px solid #8957e540;
+				border-radius: 4px;
+				padding: 2px 8px;
+				font-size: 11px;
+				font-weight: 600;
+				white-space: nowrap;
+				flex-shrink: 0;
+			}
+			.example-stack {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+				margin-top: 4px;
+			}
 		</style>
 	</head>
 	<body>
@@ -173,6 +229,46 @@
 					<span class="work-icon">&#128274;</span>
 					<h3>Security Utilities</h3>
 					<p>Password tools, USB watchdogs, small security scripts. Practical utilities for personal or small-team use — not enterprise pentesting.</p>
+				</div>
+			</div>
+			<br /><br />
+			<h2 style="text-align: center">Selected Work</h2>
+			<br />
+			<p style="text-align: center; color: #8b949e; max-width: 600px; margin: 0 auto 28px; padding: 0 24px; font-size: 15px">
+				A sample of projects built for clients and organisations.
+			</p>
+			<div class="example-grid">
+				<div class="example-card">
+					<div class="example-card-header">
+						<h3>The Infant Cultivation Program</h3>
+						<span class="example-tag">ARG</span>
+					</div>
+					<p>
+						A fully realised alternate reality game built as a satirical "official government portal." The premise: humans are grown in greenhouses and the biological reproduction narrative is a managed cover-up. The site runs as a deadpan bureaucratic fiction across 10+ interconnected pages — FAQ, testimonials, a suppressed research library, a fake Linux terminal, intercepted radio transmissions, and a staff document archive.<br /><br />
+						Puzzle layers include a substitution cipher (Sapling Speak), a binary lock sequence hidden inside an SVG, a password buried in a classified document, and encrypted case files accessible only via terminal commands. The narrative follows Seedling-7 — a 1980 cultivar who resisted all suppression protocols and now lives in the civilian population, aware and silent.
+					</p>
+					<div class="example-stack">
+						<span class="boxes">HTML / CSS / JS</span>
+						<span class="boxes">Cloudflare Pages</span>
+						<span class="boxes">ARG Design</span>
+						<span class="boxes">Cipher / Puzzle Layer</span>
+					</div>
+					<a class="text-link" href="https://infant-cultivation.pages.dev" target="_blank" rel="noopener">Visit the site &rarr;</a>
+				</div>
+				<div class="example-card">
+					<div class="example-card-header">
+						<h3>STEAMxchange Assignment Bot</h3>
+						<span class="example-tag">Discord Bot</span>
+					</div>
+					<p>
+						Discord bot built for STEAMxchange, an organisation that coordinates student writers, designers, and QC reviewers across projects. The bot automates project assignment via Google Sheets — running ranking algorithms that match writers by topic and KPI, designers by platform, and QC controllers by speciality. Syncs with the management sheet every 15 minutes and auto-assigns every 5 minutes without manual intervention.
+					</p>
+					<div class="example-stack">
+						<span class="boxes">Python</span>
+						<span class="boxes">nextcord</span>
+						<span class="boxes">Google Sheets API</span>
+						<span class="boxes">Automation</span>
+					</div>
 				</div>
 			</div>
 			<br /><br />

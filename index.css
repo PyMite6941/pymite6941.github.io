@@ -9,7 +9,7 @@
 	color-scheme: dark;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 769px) {
 	.nav-list {
 		display: inline-flex;
 	}
@@ -60,7 +60,7 @@
 	display: none;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 	.hamburger {
 		display: flex;
 	}
@@ -101,7 +101,9 @@
 		display: block;
 		padding: 11px 20px;
 	}
+}
 
+@media (max-width: 480px) {
 	.hero-section {
 		margin-top: 0;
 		margin-bottom: 0;

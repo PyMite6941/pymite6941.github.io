@@ -17,6 +17,31 @@
 			href="../../index.css" />
 
 		<title>Connect 4 Bot | Matt G</title>
+		<style>
+			#c4-game{max-width:520px;margin:0 auto 40px;text-align:center}
+			#c4-controls{display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+			#c4-controls label{color:#8b949e;font-size:14px}
+			#c4-depth{background:var(--card-bg);border:1px solid var(--border-color,#30363d);border-radius:6px;color:var(--text-color);padding:6px 10px;font-size:14px;cursor:pointer}
+			#c4-reset{background:var(--button-color,#8957e5);border:none;border-radius:6px;color:#fff;padding:7px 16px;cursor:pointer;font-size:14px;transition:opacity .15s}
+			#c4-reset:hover{opacity:.85}
+			#c4-status{margin-bottom:14px;font-size:15px;color:#8b949e;min-height:22px}
+			#c4-wrapper{position:relative;display:inline-block}
+			#c4-cols{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr);z-index:2;border-radius:12px;overflow:hidden}
+			.c4-col-zone{transition:background .12s}
+			.c4-col-zone:hover{background:rgba(137,87,229,.12)}
+			#c4-board{display:grid;grid-template-columns:repeat(7,52px);grid-template-rows:repeat(6,52px);gap:6px;background:#1b2d42;border:2px solid #2d4a6a;border-radius:12px;padding:10px;position:relative;z-index:1;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+			.c4-cell{width:52px;height:52px;border-radius:50%;background:#0d1117;transition:background .15s}
+			.c4-human{background:#f5c518!important;box-shadow:0 0 8px #f5c51860}
+			.c4-bot{background:#e53935!important;box-shadow:0 0 8px #e5393560}
+			.c4-win{animation:c4pulse .65s ease-in-out infinite alternate}
+			@keyframes c4pulse{from{opacity:1}to{opacity:.45;transform:scale(.9)}}
+			.c4-legend{display:flex;gap:24px;justify-content:center;margin-top:12px;font-size:13px;color:#8b949e}
+			.c4-dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:middle}
+			@media(max-width:480px){
+				#c4-board{grid-template-columns:repeat(7,40px);grid-template-rows:repeat(6,40px);gap:4px;padding:8px}
+				.c4-cell{width:40px;height:40px}
+			}
+		</style>
 		<script
 			src="../../assets/js/site-style.js"
 			defer></script>
@@ -30,7 +55,26 @@
 		<main>
 			<div id="top"></div>
 			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
-			<br />
+			<div id="c4-game">
+				<div id="c4-controls">
+					<label for="c4-depth">Difficulty:</label>
+					<select id="c4-depth">
+						<option value="2">Easy</option>
+						<option value="4" selected>Medium</option>
+						<option value="6">Hard</option>
+					</select>
+					<button id="c4-reset">New Game</button>
+				</div>
+				<div id="c4-status">Your turn (yellow) — click a column</div>
+				<div id="c4-wrapper">
+					<div id="c4-cols"></div>
+					<div id="c4-board"></div>
+				</div>
+				<div class="c4-legend">
+					<span><span class="c4-dot" style="background:#f5c518"></span>You</span>
+					<span><span class="c4-dot" style="background:#e53935"></span>Bot (Minimax + Alpha-Beta)</span>
+				</div>
+			</div>
 			<br />
 			<a
 				class="text-link"
@@ -162,5 +206,199 @@
 			<br />
 		</main>
 		<div id="site-footer"></div>
+		<script>
+(function () {
+	const ROWS = 6, COLS = 7, HUMAN = 1, BOT = 2, EMPTY = 0;
+	let board, gameOver, botThinking;
+
+	const boardEl = document.getElementById("c4-board");
+	const colsEl  = document.getElementById("c4-cols");
+	const statusEl = document.getElementById("c4-status");
+	const resetBtn = document.getElementById("c4-reset");
+	const depthSel = document.getElementById("c4-depth");
+
+	function initBoard() {
+		board = Array.from({length: ROWS}, () => new Array(COLS).fill(EMPTY));
+		gameOver = false;
+		botThinking = false;
+		renderBoard();
+		setStatus("Your turn (yellow) — click a column");
+	}
+
+	function renderBoard() {
+		boardEl.innerHTML = "";
+		for (let r = 0; r < ROWS; r++) {
+			for (let c = 0; c < COLS; c++) {
+				const cell = document.createElement("div");
+				cell.className = "c4-cell";
+				cell.dataset.r = r; cell.dataset.c = c;
+				if (board[r][c] === HUMAN) cell.classList.add("c4-human");
+				if (board[r][c] === BOT)   cell.classList.add("c4-bot");
+				boardEl.appendChild(cell);
+			}
+		}
+		// rebuild column click zones
+		colsEl.innerHTML = "";
+		for (let c = 0; c < COLS; c++) {
+			const zone = document.createElement("div");
+			zone.className = "c4-col-zone";
+			zone.addEventListener("click", () => humanMove(c));
+			colsEl.appendChild(zone);
+		}
+	}
+
+	function setStatus(msg) { statusEl.textContent = msg; }
+
+	function dropPiece(col, player) {
+		for (let r = ROWS - 1; r >= 0; r--) {
+			if (board[r][col] === EMPTY) { board[r][col] = player; return r; }
+		}
+		return -1;
+	}
+
+	function undrop(col) {
+		for (let r = 0; r < ROWS; r++) {
+			if (board[r][col] !== EMPTY) { board[r][col] = EMPTY; return; }
+		}
+	}
+
+	function isColFull(col) { return board[0][col] !== EMPTY; }
+
+	function checkWin(player) {
+		// horizontal
+		for (let r = 0; r < ROWS; r++)
+			for (let c = 0; c <= COLS - 4; c++)
+				if (board[r][c]===player&&board[r][c+1]===player&&board[r][c+2]===player&&board[r][c+3]===player)
+					return [[r,c],[r,c+1],[r,c+2],[r,c+3]];
+		// vertical
+		for (let r = 0; r <= ROWS - 4; r++)
+			for (let c = 0; c < COLS; c++)
+				if (board[r][c]===player&&board[r+1][c]===player&&board[r+2][c]===player&&board[r+3][c]===player)
+					return [[r,c],[r+1,c],[r+2,c],[r+3,c]];
+		// diagonal \
+		for (let r = 0; r <= ROWS - 4; r++)
+			for (let c = 0; c <= COLS - 4; c++)
+				if (board[r][c]===player&&board[r+1][c+1]===player&&board[r+2][c+2]===player&&board[r+3][c+3]===player)
+					return [[r,c],[r+1,c+1],[r+2,c+2],[r+3,c+3]];
+		// diagonal /
+		for (let r = 3; r < ROWS; r++)
+			for (let c = 0; c <= COLS - 4; c++)
+				if (board[r][c]===player&&board[r-1][c+1]===player&&board[r-2][c+2]===player&&board[r-3][c+3]===player)
+					return [[r,c],[r-1,c+1],[r-2,c+2],[r-3,c+3]];
+		return null;
+	}
+
+	function isBoardFull() { return board[0].every((_, c) => isColFull(c)); }
+
+	function scoreWindow(window, player) {
+		const opp = player === BOT ? HUMAN : BOT;
+		const pc = window.filter(x => x === player).length;
+		const ec = window.filter(x => x === EMPTY).length;
+		const oc = window.filter(x => x === opp).length;
+		if (pc === 4) return 100;
+		if (pc === 3 && ec === 1) return 5;
+		if (pc === 2 && ec === 2) return 2;
+		if (oc === 3 && ec === 1) return -4;
+		return 0;
+	}
+
+	function evaluate() {
+		let score = 0;
+		// centre column preference
+		const centre = board.map(r => r[3]);
+		score += centre.filter(x => x === BOT).length * 3;
+		// horizontal
+		for (let r = 0; r < ROWS; r++)
+			for (let c = 0; c <= COLS-4; c++)
+				score += scoreWindow([board[r][c],board[r][c+1],board[r][c+2],board[r][c+3]], BOT);
+		// vertical
+		for (let c = 0; c < COLS; c++)
+			for (let r = 0; r <= ROWS-4; r++)
+				score += scoreWindow([board[r][c],board[r+1][c],board[r+2][c],board[r+3][c]], BOT);
+		// diagonal \
+		for (let r = 0; r <= ROWS-4; r++)
+			for (let c = 0; c <= COLS-4; c++)
+				score += scoreWindow([board[r][c],board[r+1][c+1],board[r+2][c+2],board[r+3][c+3]], BOT);
+		// diagonal /
+		for (let r = 3; r < ROWS; r++)
+			for (let c = 0; c <= COLS-4; c++)
+				score += scoreWindow([board[r][c],board[r-1][c+1],board[r-2][c+2],board[r-3][c+3]], BOT);
+		return score;
+	}
+
+	function minimax(depth, alpha, beta, maximizing) {
+		if (checkWin(BOT))   return 1000000 + depth;
+		if (checkWin(HUMAN)) return -1000000 - depth;
+		if (isBoardFull() || depth === 0) return evaluate();
+		const cols = [3,2,4,1,5,0,6].filter(c => !isColFull(c));
+		if (maximizing) {
+			let best = -Infinity;
+			for (const c of cols) {
+				dropPiece(c, BOT);
+				best = Math.max(best, minimax(depth-1, alpha, beta, false));
+				undrop(c);
+				alpha = Math.max(alpha, best);
+				if (alpha >= beta) break;
+			}
+			return best;
+		} else {
+			let best = Infinity;
+			for (const c of cols) {
+				dropPiece(c, HUMAN);
+				best = Math.min(best, minimax(depth-1, alpha, beta, true));
+				undrop(c);
+				beta = Math.min(beta, best);
+				if (alpha >= beta) break;
+			}
+			return best;
+		}
+	}
+
+	function bestBotCol() {
+		const depth = parseInt(depthSel.value, 10);
+		const cols = [3,2,4,1,5,0,6].filter(c => !isColFull(c));
+		let best = -Infinity, bestCol = cols[0];
+		for (const c of cols) {
+			dropPiece(c, BOT);
+			const score = minimax(depth-1, -Infinity, Infinity, false);
+			undrop(c);
+			if (score > best) { best = score; bestCol = c; }
+		}
+		return bestCol;
+	}
+
+	function highlightWin(cells) {
+		cells.forEach(([r, c]) => {
+			const el = boardEl.children[r * COLS + c];
+			if (el) el.classList.add("c4-win");
+		});
+	}
+
+	function humanMove(col) {
+		if (gameOver || botThinking || isColFull(col)) return;
+		const row = dropPiece(col, HUMAN);
+		if (row === -1) return;
+		renderBoard();
+		const win = checkWin(HUMAN);
+		if (win) { highlightWin(win); setStatus("You win! 🎉"); gameOver = true; return; }
+		if (isBoardFull()) { setStatus("Draw!"); gameOver = true; return; }
+		setStatus("Bot is thinking…");
+		botThinking = true;
+		setTimeout(() => {
+			const bc = bestBotCol();
+			dropPiece(bc, BOT);
+			renderBoard();
+			botThinking = false;
+			const bwin = checkWin(BOT);
+			if (bwin) { highlightWin(bwin); setStatus("Bot wins! (try again)"); gameOver = true; return; }
+			if (isBoardFull()) { setStatus("Draw!"); gameOver = true; return; }
+			setStatus("Your turn (yellow) — click a column");
+		}, 30);
+	}
+
+	resetBtn.addEventListener("click", initBoard);
+	initBoard();
+})();
+		</script>
 	</body>
 </html>

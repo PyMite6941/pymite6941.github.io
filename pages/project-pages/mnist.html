@@ -1,0 +1,429 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Handwritten Digit Classifier — a CNN trained on MNIST achieving ~99% accuracy, running live in the browser via ONNX Runtime Web." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<title>Digit Classifier | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+		<style>
+			#mnist-demo {
+				display: flex;
+				gap: 20px;
+				align-items: flex-start;
+				flex-wrap: wrap;
+				margin-top: 16px;
+			}
+			#mnist-canvas-wrap {
+				position: relative;
+				flex-shrink: 0;
+			}
+			#mnist-canvas {
+				display: block;
+				background: #0d1117;
+				border: 1px solid #30363d;
+				border-radius: 8px;
+				cursor: crosshair;
+				touch-action: none;
+			}
+			#mnist-hint {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				color: #30363d;
+				font-size: 13px;
+				pointer-events: none;
+				transition: opacity 0.2s;
+			}
+			#mnist-right {
+				display: flex;
+				flex-direction: column;
+				min-width: 160px;
+			}
+			#mnist-prediction {
+				font-size: 72px;
+				font-weight: 700;
+				color: var(--text-color);
+				line-height: 1;
+				height: 80px;
+			}
+			#mnist-confidence {
+				font-size: 13px;
+				color: #8b949e;
+				margin-bottom: 10px;
+			}
+			#mnist-bars {
+				display: flex;
+				flex-direction: column;
+				gap: 3px;
+				width: 160px;
+			}
+			.mnist-bar-row {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 11px;
+				color: #8b949e;
+			}
+			.mnist-bar-bg {
+				flex: 1;
+				background: #21262d;
+				border-radius: 2px;
+				height: 6px;
+				overflow: hidden;
+			}
+			.mnist-bar-fill {
+				height: 100%;
+				background: var(--button-color);
+				border-radius: 2px;
+				transition: width 0.2s;
+			}
+			.mnist-bar-fill.top {
+				background: #3fb950;
+			}
+			#mnist-clear,
+			#mnist-predict {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 6px;
+				color: var(--text-color);
+				padding: 6px 14px;
+				cursor: pointer;
+				font-size: 13px;
+				transition: border-color 0.15s;
+			}
+			#mnist-clear:hover,
+			#mnist-predict:hover {
+				border-color: var(--button-color);
+			}
+			#mnist-predict {
+				background: var(--button-color);
+				border-color: var(--button-color);
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Handwritten Digit Classifier</h1>
+			<h3>CNN trained on MNIST — running live in your browser</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<h2 style="text-align: center">Try it</h2>
+			<br />
+			<div
+				id="mnist-demo"
+				style="max-width: 520px; margin: 0 auto">
+				<div id="mnist-canvas-wrap">
+					<canvas
+						id="mnist-canvas"
+						width="280"
+						height="280"></canvas>
+					<div id="mnist-hint">Draw a digit (0–9)</div>
+				</div>
+				<div id="mnist-right">
+					<div id="mnist-prediction">?</div>
+					<div id="mnist-confidence"></div>
+					<div id="mnist-bars"></div>
+					<div style="display: flex; gap: 8px; margin-top: 12px">
+						<button id="mnist-clear">Clear</button>
+						<button id="mnist-predict">Predict</button>
+					</div>
+					<div
+						id="mnist-status"
+						style="font-size: 12px; color: #8b949e; margin-top: 8px"></div>
+				</div>
+			</div>
+			<br />
+
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it is:</strong> A
+				convolutional neural network trained on the MNIST dataset of 60,000
+				handwritten digit images. The model reaches ~99% test accuracy in 5
+				epochs. After training it is exported to ONNX format and loaded directly
+				in the browser using ONNX Runtime Web — no server, no API, all inference
+				happens on your device.<br /><br />
+				<strong style="color: var(--text-color)">Why it matters:</strong>
+				End-to-end ML from raw PyTorch training through ONNX export to
+				in-browser inference is the full production path for deploying models
+				without a backend. The same pipeline works for any model that can be
+				exported to ONNX.<br /><br />
+				<strong style="color: var(--text-color)">Training platform:</strong>
+				Google Colab (GPU/TPU). The script auto-detects the available
+				accelerator and adapts accordingly. Weights are exported to
+				<code>mnist_classifier.onnx</code> and hosted on HuggingFace.
+			</article>
+			<br />
+
+			<h2 style="text-align: center">CNN Architecture</h2>
+			<br />
+			<div class="ascii-diagram">
+				MNISTNet — ~93,000 parameters
+				══════════════════════════════════════════════════ Input: (1, 28, 28) ←
+				greyscale digit image │ ▼
+				┌─────────────────────────────────────────────┐ │ Conv2d(1 → 32, kernel
+				3×3, padding 1) │ │ ReLU │ │ MaxPool2d(2×2) │ │ output: (32, 14, 14) │
+				└──────────────────────┬──────────────────────┘ │ ▼
+				┌─────────────────────────────────────────────┐ │ Conv2d(32 → 64, kernel
+				3×3, padding 1) │ │ ReLU │ │ MaxPool2d(2×2) │ │ output: (64, 7, 7) │
+				└──────────────────────┬──────────────────────┘ │ ▼
+				┌─────────────────────────────────────────────┐ │ Flatten → 3,136
+				features │ │ Dropout(0.25) │ │ Linear(3136 → 128) ReLU │ │ Dropout(0.25)
+				│ │ Linear(128 → 10) │ └──────────────────────┬──────────────────────┘ │
+				▼ Output: 10 logits — one per digit class (0–9) argmax → predicted digit
+				────────────────────────────────────────────── Training: Adam, lr=1e-3,
+				CosineAnnealing LR Data: 60,000 train / 10,000 test images Accuracy:
+				~99% on test set after 5 epochs
+
+				<span class="diagram-caption"
+					>Two conv+pool blocks extract spatial features; two linear layers
+					classify. Dropout regularises to prevent overfitting on the small
+					dataset.</span
+				></div
+			>
+			<br />
+
+			<h2 style="text-align: center">Browser Inference Pipeline</h2>
+			<br />
+			<div class="ascii-diagram">
+				Canvas → Prediction Pipeline
+				══════════════════════════════════════════════════ User draws on 280×280
+				canvas │ ▼ ┌───────────────────────────────────────────┐ │ Downsample:
+				280×280 → 28×28 │ │ Average each 10×10 block of pixels │ │ (reads alpha
+				channel: stroke=1, bg=0) │ └─────────────────────┬─────────────────────┘
+				│ ▼ ┌───────────────────────────────────────────┐ │ Normalize │ │ pixel
+				= (value − 0.1307) / 0.3081 │ │ (same stats used during training) │
+				└─────────────────────┬─────────────────────┘ │ ▼
+				┌───────────────────────────────────────────┐ │ Float32Array [1, 1, 28,
+				28] │ │ fed to ONNX Runtime Web session │ │ (WASM backend — runs fully
+				in browser) │ └─────────────────────┬─────────────────────┘ │ ▼ 10
+				logits → softmax → probabilities argmax → predicted digit + confidence
+
+				<span class="diagram-caption"
+					>No server round-trip. The ONNX model is fetched once from
+					HuggingFace, then all inference runs locally in WebAssembly.</span
+				></div
+			>
+			<br />
+
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Tech Stack</h3>
+					<p
+						>PyTorch + torchvision for training, <code>onnxscript</code> for
+						ONNX export (required by PyTorch's new exporter in 2.x),
+						<code>onnxruntime-web</code> for browser inference via
+						WebAssembly.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>ONNX .data File</h3>
+					<p
+						>PyTorch 2.x's new ONNX exporter splits weights into a separate
+						<code>.onnx.data</code> file by default. The training script
+						consolidates them back into a single file using
+						<code>onnx.save_model(..., save_as_external_data=False)</code> — one
+						file is easier to upload and load from a URL.</p
+					>
+				</div>
+				<div class="dev-note">
+					<h3>WASM Paths</h3>
+					<p
+						>When loading <code>onnxruntime-web</code> as an ES module from a
+						CDN, the WASM files need to be pointed back to the CDN explicitly
+						via <code>ort.env.wasm.wasmPaths</code>. Without this the browser
+						looks for <code>.wasm</code> files next to the HTML and fails
+						silently.</p
+					>
+				</div>
+			</div>
+			<br />
+			<h2 style="text-align: center">Download</h2>
+			<br />
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>mnist_classifier.onnx</h3>
+					<p>
+						The trained CNN exported to ONNX format. Load it with
+						<code>onnxruntime</code> in Python, or drop it into any
+						ONNX-compatible runtime — the same file that runs in-browser above.
+						<br /><br />
+						<span class="boxes">ONNX</span>
+						<span class="boxes">~1.7 MB</span>
+						<br /><br />
+						<a
+							class="text-link"
+							href="../../assets/files/mnist_classifier.onnx"
+							download="mnist_classifier.onnx"
+							>&#8659; Download mnist_classifier.onnx</a
+						>
+					</p>
+				</div>
+			</div>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+
+		<script type="module">
+			const ONNX_URL =
+				'https://huggingface.co/pymite6941/mnist-classifier/resolve/main/mnist_classifier.onnx';
+
+			import * as ort from 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/ort.min.mjs';
+
+			ort.env.wasm.wasmPaths =
+				'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/';
+
+			const canvas = document.getElementById('mnist-canvas');
+			const ctx = canvas.getContext('2d');
+			const hint = document.getElementById('mnist-hint');
+			const predEl = document.getElementById('mnist-prediction');
+			const confEl = document.getElementById('mnist-confidence');
+			const barsEl = document.getElementById('mnist-bars');
+			const statusEl = document.getElementById('mnist-status');
+			const clearBtn = document.getElementById('mnist-clear');
+			const predBtn = document.getElementById('mnist-predict');
+
+			let session = null,
+				drawing = false,
+				hasMark = false;
+
+			async function loadModel() {
+				statusEl.textContent = 'Loading model…';
+				try {
+					session = await ort.InferenceSession.create(ONNX_URL);
+					statusEl.textContent = 'Model ready.';
+				} catch (e) {
+					statusEl.textContent = 'Failed to load model: ' + e.message;
+				}
+			}
+
+			function pos(e) {
+				const r = canvas.getBoundingClientRect();
+				const src = e.touches ? e.touches[0] : e;
+				return [src.clientX - r.left, src.clientY - r.top];
+			}
+			function startDraw(e) {
+				e.preventDefault();
+				drawing = true;
+				hasMark = true;
+				hint.style.opacity = '0';
+				ctx.beginPath();
+				ctx.moveTo(...pos(e));
+			}
+			function doDraw(e) {
+				e.preventDefault();
+				if (!drawing) return;
+				ctx.lineWidth = 22;
+				ctx.lineCap = 'round';
+				ctx.strokeStyle = '#ffffff';
+				ctx.lineTo(...pos(e));
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.moveTo(...pos(e));
+			}
+			function endDraw(e) {
+				e.preventDefault();
+				drawing = false;
+				if (hasMark && session) runInference();
+			}
+
+			canvas.addEventListener('mousedown', startDraw);
+			canvas.addEventListener('mousemove', doDraw);
+			canvas.addEventListener('mouseup', endDraw);
+			canvas.addEventListener('mouseleave', endDraw);
+			canvas.addEventListener('touchstart', startDraw, { passive: false });
+			canvas.addEventListener('touchmove', doDraw, { passive: false });
+			canvas.addEventListener('touchend', endDraw, { passive: false });
+
+			clearBtn.addEventListener('click', () => {
+				ctx.clearRect(0, 0, 280, 280);
+				predEl.textContent = '?';
+				confEl.textContent = '';
+				barsEl.innerHTML = '';
+				hint.style.opacity = '1';
+				hasMark = false;
+			});
+			predBtn.addEventListener('click', () => {
+				if (session && hasMark) runInference();
+			});
+
+			function preprocess() {
+				const imgData = ctx.getImageData(0, 0, 280, 280).data;
+				const input = new Float32Array(28 * 28);
+				for (let r = 0; r < 28; r++) {
+					for (let c = 0; c < 28; c++) {
+						let sum = 0;
+						for (let dr = 0; dr < 10; dr++)
+							for (let dc = 0; dc < 10; dc++) {
+								const i = ((r * 10 + dr) * 280 + (c * 10 + dc)) * 4;
+								sum += imgData[i + 3] / 255;
+							}
+						input[r * 28 + c] = (sum / 100 - 0.1307) / 0.3081;
+					}
+				}
+				return input;
+			}
+
+			function softmax(logits) {
+				const m = Math.max(...logits);
+				const exps = logits.map((x) => Math.exp(x - m));
+				const s = exps.reduce((a, b) => a + b, 0);
+				return exps.map((x) => x / s);
+			}
+
+			async function runInference() {
+				if (!session) return;
+				const input = preprocess();
+				const tensor = new ort.Tensor('float32', input, [1, 1, 28, 28]);
+				const out = await session.run({ image: tensor });
+				const probs = softmax(Array.from(out.logits.data));
+				const digit = probs.indexOf(Math.max(...probs));
+				predEl.textContent = digit;
+				confEl.textContent = (probs[digit] * 100).toFixed(1) + '% confidence';
+				barsEl.innerHTML = probs
+					.map(
+						(p, d) => `
+					<div class="mnist-bar-row">
+						<span style="width:10px">${d}</span>
+						<div class="mnist-bar-bg">
+							<div class="mnist-bar-fill ${d === digit ? 'top' : ''}" style="width:${(p * 100).toFixed(1)}%"></div>
+						</div>
+						<span>${(p * 100).toFixed(0)}%</span>
+					</div>`,
+					)
+					.join('');
+			}
+
+			loadModel();
+		</script>
+	</body>
+</html>

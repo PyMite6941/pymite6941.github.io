@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="HackMars 3.0 (Neon) — Matt Gresham's Calendar AI Assistant: a 4-agent CrewAI system that reads and acts on your Google Calendar and Gmail." />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>HackMars 3.0 | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>HackMars 3.0 — Neon</h1>
+			<h3>Submitted — Calendar AI Assistant</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">The Project</h2>
+			<br />
+			<a
+				class="text-link"
+				href="https://github.com/PyMite6941/Calendar-AI-Assistant"
+				target="_blank"
+				>View on GitHub</a
+			>
+			&nbsp;&nbsp;
+			<a
+				class="text-link"
+				href="../project-pages/calendar-ai-assistant.html"
+				>View Project Page</a
+			>
+			<br />
+			<p style="color: #8b949e; font-size: 0.95rem; margin-top: 8px">
+				Team: <strong style="color: var(--text-color)">Matt Gresham (PyMite6941)</strong>
+				&amp;
+				<strong style="color: var(--text-color)">Mackenzie (SeaMeetsSky38Times)</strong>
+			</p>
+			<br />
+			<h2 style="text-align: center">About the Project</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">Inspiration:</strong> Mackenzie
+				suggested the idea — and once we started we both got completely swept up
+				in it. We wanted to build something that actually integrates with the tools
+				people use every day, not just a toy demo. Google Calendar and Gmail are
+				where real scheduling lives, so that became the target.<br /><br />
+				<strong style="color: var(--text-color)">What it does:</strong> Calendar
+				AI Assistant connects to your Google Calendar and Gmail through OAuth,
+				then lets you talk to your schedule in plain English. Ask it to add an
+				event, summarise your week, create a todo from an email, or build an
+				optimized daily plan from a list of tasks. A 4-agent CrewAI pipeline
+				handles the request end-to-end: one agent analyses your intent, one
+				retrieves the relevant schedule data, one processes and acts on it, and
+				one verifies the result before it comes back to you. Available as both
+				a Streamlit Web UI and a CLI.<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Python core with CrewAI managing the agent pipeline. Google Calendar API
+				and Gmail API for data access, authenticated via OAuth. Streamlit for
+				the Web UI. A separate planner agent that can take a list of tasks and
+				output an optimized time-blocked schedule. Config and secrets stored in
+				TOML files; calendar events and todos persisted as JSON.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong> OAuth
+				credential handling across environments was the biggest friction point —
+				getting the token flow to work consistently for both teammates and in
+				different runtime contexts required multiple iterations. Keeping the CLI
+				and Web UI in sync as features were added was also non-trivial.<br /><br />
+				<strong style="color: var(--text-color)">What we learned:</strong>
+				Building with the Google API ecosystem end-to-end, including the OAuth
+				consent flow, scopes, and credential caching. Also learned how to
+				structure a CrewAI project so agents stay focused — overly broad agent
+				goals produce unpredictable results.<br /><br />
+				<strong style="color: var(--text-color)">What's next:</strong> Recurring
+				event support, smarter conflict detection, and potentially a reminder
+				push notification layer.
+			</article>
+			<br />
+			<h2 style="text-align: center">Agent Pipeline</h2>
+			<br />
+			<div class="ascii-diagram">  Calendar AI Assistant — CrewAI Pipeline
+  ══════════════════════════════════════════
+
+  User request (natural language)
+  e.g. "Schedule a meeting with Mackenzie Thursday at 3 PM"
+         │
+         ▼
+  ┌─────────────────────────────────────────┐
+  │  1. Intent Analyzer                     │
+  │     Identifies: calendar event / todo / │
+  │     reminder / schedule question        │
+  │     Extracts: dates, times, titles,     │
+  │     people, context                     │
+  └──────────────────┬──────────────────────┘
+                     │
+                     ▼
+  ┌─────────────────────────────────────────┐
+  │  2. Schedule Data Retriever             │
+  │     Pulls relevant events from          │
+  │     Google Calendar API                 │
+  │     Checks todos.json for conflicts     │
+  └──────────────────┬──────────────────────┘
+                     │
+                     ▼
+  ┌─────────────────────────────────────────┐
+  │  3. Schedule Processor                  │
+  │     Creates / modifies event            │
+  │     Generates todo list item            │
+  │     Answers schedule question           │
+  │     Builds optimized time-block plan    │
+  └──────────────────┬──────────────────────┘
+                     │
+                     ▼
+  ┌─────────────────────────────────────────┐
+  │  4. Response Verifier                   │
+  │     QA: accuracy, completeness,         │
+  │     consistency — catches errors        │
+  │     before response reaches user        │
+  └──────────────────┬──────────────────────┘
+                     │
+                     ▼
+  ┌─────────────────────────────────────────┐
+  │  Streamlit UI  ·  or  ·  CLI            │
+  │  Verified response returned to user     │
+  └─────────────────────────────────────────┘
+
+  Storage: calendar_events.json · todos.json · configs.toml
+  Auth:    Google OAuth (Calendar + Gmail scopes)
+<span class="diagram-caption">OAuth credentials bundled via setup.sh — handles token caching and refresh automatically across CLI and Web UI.</span></div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Tech Stack</h3>
+					<p>Python + CrewAI (agent pipeline), Google Calendar API + Gmail API (data), Streamlit (Web UI), CLI (rich terminal). Config/secrets in TOML; event/todo state in JSON.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Hardest Part</h3>
+					<p>Google OAuth across two developers and two runtime modes (CLI vs. Web UI). The token refresh logic had to be airtight — a stale token mid-pipeline breaks the whole crew. Also keeping CLI and Streamlit page feature parity as things changed.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I'd Do Differently</h3>
+					<p>Abstract the Google API calls into a single data layer early on instead of letting both the CLI and Web UI talk to the API directly. Would have made adding features much cleaner and avoided several sync bugs.</p>
+				</div>
+			</div>
+			<br />
+			<a class="text-link" href="../hackathons.html">← Back to Hackathons</a>
+			&nbsp;&nbsp;
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

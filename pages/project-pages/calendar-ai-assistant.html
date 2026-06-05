@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Calendar AI Assistant — a 4-agent CrewAI system that reads and acts on your Google Calendar and Gmail in natural language." />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>Calendar AI Assistant | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Calendar AI Assistant</h1>
+			<h3>Talk to your schedule in plain English</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<a
+				class="text-link"
+				href="https://github.com/PyMite6941/Calendar-AI-Assistant"
+				target="_blank"
+				>View on GitHub</a
+			>
+			&nbsp;&nbsp;
+			<a
+				class="text-link"
+				href="../hackathons/hackmars-3-0.html"
+				>HackMars 3.0 Submission</a
+			>
+			<br />
+			<p style="color: #8b949e; font-size: 0.95rem; margin-top: 8px">
+				Built with <strong style="color: var(--text-color)">Mackenzie (SeaMeetsSky38Times)</strong>
+				· Submitted to HackMars 3.0 (Neon)
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it does:</strong> Connects
+				to your Google Calendar and Gmail via OAuth and lets you manage your
+				schedule through natural language. Add events, query your week, turn
+				emails into todos, or generate an optimized daily time-block plan — all
+				from a single prompt. A 4-agent CrewAI pipeline (intent analyzer →
+				data retriever → processor → verifier) handles every request
+				end-to-end. Available as a Streamlit Web UI and a full CLI.<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Python core. CrewAI orchestrates the agent pipeline. Google Calendar
+				API and Gmail API provide the data layer, authenticated through OAuth
+				with automatic token caching and refresh. Streamlit powers the Web UI.
+				A dedicated planner agent converts a freeform task list into an
+				optimized, context-switch-minimizing schedule. Config and secrets live
+				in TOML files; event and todo state persists in JSON.<br /><br />
+				<strong style="color: var(--text-color)">Architecture:</strong>
+				<code>backend/agents/</code> holds all four agent and task definitions.
+				<code>backend/tools/</code> provides the calendar, todo, config, and
+				scraping utilities each agent calls. <code>frontend/</code> splits into
+				<code>cli/cli.py</code> and <code>streamlit/Page.py</code>, both backed
+				by the same <code>backend/</code> layer so features stay in sync.
+				<code>run.py</code> is the single entry point.
+			</article>
+			<br />
+			<h2 style="text-align: center">Architecture</h2>
+			<br />
+			<div class="ascii-diagram">  Calendar AI Assistant — Project Structure
+  ═══════════════════════════════════════════
+
+  run.py  ──────────────────────────────────────────────────────────
+                                                                    │
+               ┌──────────────────────┐   ┌──────────────────────┐ │
+               │  frontend/cli/       │   │  frontend/streamlit/ │◄┘
+               │    cli.py            │   │    Page.py           │
+               └──────────┬───────────┘   └──────────┬───────────┘
+                          │                          │
+                          └──────────┬───────────────┘
+                                     │  same backend
+                                     ▼
+               ┌──────────────────────────────────────────────────┐
+               │  backend/agents/                                  │
+               │    agents.py   — 4 CrewAI agents + planner       │
+               │    tasks.py    — task definitions per agent       │
+               │    crew.py     — Crew assembly + kickoff()        │
+               └──────────────────────┬───────────────────────────┘
+                                      │  tools
+                                      ▼
+               ┌──────────────────────────────────────────────────┐
+               │  backend/tools/                                   │
+               │    calendar_events.py  — Google Calendar API      │
+               │    scrape_content.py   — Gmail API                │
+               │    todo_stuff.py       — todos.json CRUD          │
+               │    config_editing.py   — configs.toml R/W         │
+               │    connect_to_ai.py    — LLM connection           │
+               └──────────────────────────────────────────────────┘
+
+  backend/auth/add_google_oauth.py  — OAuth token flow + caching
+  backend/storage/                  — calendar_events.json · todos.json
+                                      configs.toml · secrets.toml</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Calendar apps show you data but don't reason about it. This project lets you talk to your schedule the same way you'd ask a human assistant — and have it actually take action, not just display information.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>The 4-agent pipeline keeps each concern isolated: the intent agent never touches the API, the data agent never interprets intent. The verifier catches errors before they reach the user — a pattern worth reusing across agent projects.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>Recurring event support, conflict detection that reasons about travel time, and a push notification layer so the assistant can proactively remind you about upcoming schedule gaps or overloaded days.</p>
+				</div>
+			</div>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

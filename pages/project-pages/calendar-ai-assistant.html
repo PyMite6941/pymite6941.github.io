@@ -6,7 +6,7 @@
 		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
-			content="Calendar AI Assistant — a 4-agent CrewAI system that reads and acts on your Google Calendar and Gmail in natural language." />
+			content="Calendar AI Assistant — talk to your Google Calendar and Gmail in plain English. 4-agent CrewAI pipeline, 5 AI providers, Streamlit UI + CLI." />
 		<link rel="stylesheet" type="text/css" href="../../index.css" />
 		<title>Calendar AI Assistant | Matt G</title>
 		<script src="../../assets/js/site-style.js" defer></script>
@@ -33,85 +33,155 @@
 			>
 			<br />
 			<p style="color: #8b949e; font-size: 0.95rem; margin-top: 8px">
-				Built with <strong style="color: var(--text-color)">Mackenzie (SeaMeetsSky38Times)</strong>
-				· Submitted to HackMars 3.0 (Neon)
+				Built with
+				<strong style="color: var(--text-color)">Mackenzie (SeaMeetsSky38Times)</strong>
+				&nbsp;·&nbsp; Submitted to HackMars 3.0 (Neon)
 			</p>
 			<br />
 			<h2 style="text-align: center">Description</h2>
 			<br />
 			<article>
 				<strong style="color: var(--text-color)">What it does:</strong> Connects
-				to your Google Calendar and Gmail via OAuth and lets you manage your
-				schedule through natural language. Add events, query your week, turn
-				emails into todos, or generate an optimized daily time-block plan — all
-				from a single prompt. A 4-agent CrewAI pipeline (intent analyzer →
-				data retriever → processor → verifier) handles every request
-				end-to-end. Available as a Streamlit Web UI and a full CLI.<br /><br />
+				to your Google Calendar and Gmail through OAuth 2.0 and lets you manage
+				your schedule entirely in plain English. Add events, query your week,
+				turn emails into todos, and generate an optimized time-block plan from a
+				task list — all from a single chat prompt. A 4-agent CrewAI pipeline
+				handles every request: Intent Analyzer → Schedule Data Retriever →
+				Schedule Processor → Response Verifier. Available as both a Streamlit
+				Web UI (with a full calendar grid, todo list, settings, and a built-in
+				portfolio page) and a rich CLI.<br /><br />
+				<strong style="color: var(--text-color)">AI Providers:</strong> Supports
+				5 providers switchable from the Settings page —
+				<span class="boxes">OpenAI</span>
+				<span class="boxes">Groq</span>
+				<span class="boxes">Gemini</span>
+				<span class="boxes">Mistral</span>
+				<span class="boxes">Ollama</span>
+				— so it runs fully offline with Ollama or on free cloud tiers. Provider
+				and model are stored in <code>secrets.toml</code> and never hardcoded.<br /><br />
+				<strong style="color: var(--text-color)">Google Integration:</strong>
+				Reads and writes Google Calendar v3 and reads Gmail v1 via OAuth 2.0.
+				The token flow is handled by <code>backend/auth/add_google_oauth.py</code>,
+				which caches credentials with pickle and refreshes them automatically.
+				A "Connect Google Account" button lives in the Settings page; once
+				connected the Portfolio page shows live account status and upcoming
+				events pulled directly from the API.<br /><br />
 				<strong style="color: var(--text-color)">How it was built:</strong>
-				Python core. CrewAI orchestrates the agent pipeline. Google Calendar
-				API and Gmail API provide the data layer, authenticated through OAuth
-				with automatic token caching and refresh. Streamlit powers the Web UI.
-				A dedicated planner agent converts a freeform task list into an
-				optimized, context-switch-minimizing schedule. Config and secrets live
-				in TOML files; event and todo state persists in JSON.<br /><br />
-				<strong style="color: var(--text-color)">Architecture:</strong>
-				<code>backend/agents/</code> holds all four agent and task definitions.
-				<code>backend/tools/</code> provides the calendar, todo, config, and
-				scraping utilities each agent calls. <code>frontend/</code> splits into
-				<code>cli/cli.py</code> and <code>streamlit/Page.py</code>, both backed
-				by the same <code>backend/</code> layer so features stay in sync.
-				<code>run.py</code> is the single entry point.
+				Python core. CrewAI 1.1 orchestrates the agent pipeline.
+				<code>streamlit-calendar</code> renders the month/week/day grid.
+				Config in TOML; events and todos persisted as JSON; OAuth tokens in
+				pickle. A <code>run.py</code> launcher with <code>questionary</code>
+				lets you choose CLI or Streamlit on startup.
 			</article>
+			<br />
+			<h2 style="text-align: center">Streamlit App Pages</h2>
+			<br />
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Calendar</h3>
+					<p>Full <code>streamlit-calendar</code> grid with month, week, and day
+					views. Events pulled from Google Calendar via the data retriever agent
+					and rendered live. View preference saved in <code>configs.toml</code>.</p>
+				</div>
+				<div class="dev-note">
+					<h3>AI Chat (Sidebar)</h3>
+					<p>Persistent chat sidebar across all pages. Ask anything about your
+					calendar — the pipeline runs, returns a verified response, and any
+					calendar actions (add event, add todo) are applied immediately.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Todo List</h3>
+					<p>Add and delete tasks with titles and descriptions. Stored in
+					<code>todos.json</code>. The AI can generate todos from chat prompts
+					or turn Gmail threads into task items.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Settings</h3>
+					<p>Choose AI provider (OpenAI / Groq / Gemini / Mistral / Ollama),
+					set model name, enter API key, set calendar view default. Google OAuth
+					connect / disconnect button. One-click cache clear.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Portfolio (built-in)</h3>
+					<p>The app ships with its own portfolio page — shows live metrics
+					(5 providers, 2 interfaces, 4-agent pipeline), full feature list,
+					architecture diagram, tech stack, and live Google account status
+					with upcoming events.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Description</h3>
+					<p>Reads and renders <code>README.md</code> directly inside the
+					Streamlit app so the project description stays in sync with the repo
+					automatically.</p>
+				</div>
+			</div>
 			<br />
 			<h2 style="text-align: center">Architecture</h2>
 			<br />
-			<div class="ascii-diagram">  Calendar AI Assistant — Project Structure
-  ═══════════════════════════════════════════
+			<div class="ascii-diagram">  Calendar AI Assistant — Full Architecture
+  ══════════════════════════════════════════
 
-  run.py  ──────────────────────────────────────────────────────────
-                                                                    │
-               ┌──────────────────────┐   ┌──────────────────────┐ │
-               │  frontend/cli/       │   │  frontend/streamlit/ │◄┘
-               │    cli.py            │   │    Page.py           │
-               └──────────┬───────────┘   └──────────┬───────────┘
-                          │                          │
-                          └──────────┬───────────────┘
-                                     │  same backend
-                                     ▼
-               ┌──────────────────────────────────────────────────┐
-               │  backend/agents/                                  │
-               │    agents.py   — 4 CrewAI agents + planner       │
-               │    tasks.py    — task definitions per agent       │
-               │    crew.py     — Crew assembly + kickoff()        │
-               └──────────────────────┬───────────────────────────┘
-                                      │  tools
-                                      ▼
-               ┌──────────────────────────────────────────────────┐
-               │  backend/tools/                                   │
-               │    calendar_events.py  — Google Calendar API      │
-               │    scrape_content.py   — Gmail API                │
-               │    todo_stuff.py       — todos.json CRUD          │
-               │    config_editing.py   — configs.toml R/W         │
-               │    connect_to_ai.py    — LLM connection           │
-               └──────────────────────────────────────────────────┘
+  run.py  (questionary launcher)
+     ├── "Run in CLI"        →  frontend/cli/cli.py
+     └── "Run in Streamlit"  →  frontend/streamlit/Page.py
 
-  backend/auth/add_google_oauth.py  — OAuth token flow + caching
-  backend/storage/                  — calendar_events.json · todos.json
-                                      configs.toml · secrets.toml</div>
+  ┌──────────────────────────────────────────────────────┐
+  │  frontend/streamlit/Page.py                          │
+  │                                                      │
+  │  Pages: Description · Portfolio · Calendar           │
+  │          Todo List · Settings                        │
+  │                                                      │
+  │  Sidebar: AI Chat (persistent across pages)          │
+  │           user_input → connect_to_ai.py              │
+  └────────────────────────┬─────────────────────────────┘
+                           │
+                           ▼
+  ┌──────────────────────────────────────────────────────┐
+  │  backend/tools/connect_to_ai.py                      │
+  │  provider routing: OpenAI · Groq · Gemini            │
+  │                    Mistral · Ollama                   │
+  └────────────────────────┬─────────────────────────────┘
+                           │  JSON action
+        ┌──────────────────┼──────────────────┐
+        ▼                  ▼                  ▼
+  calendar_events.py   todo_stuff.py    crew.py (CrewAI)
+  Google Calendar v3   todos.json        ┌─ Intent Analyzer
+  add / read events    CRUD              ├─ Data Retriever
+                                         ├─ Schedule Processor
+                                         └─ Response Verifier
+
+  backend/auth/add_google_oauth.py
+    OAuth 2.0 flow  ·  token pickle cache  ·  auto-refresh
+    Google Calendar v3  +  Gmail v1
+
+  Storage:
+    backend/storage/calendar_events.json   ← local event cache
+    backend/storage/todos.json             ← todo list
+    backend/storage/configs.toml           ← UI preferences
+    backend/storage/secrets.toml           ← provider / API key
+<span class="diagram-caption">Both CLI and Streamlit call the same backend/ layer — no duplicated logic between interfaces.</span></div>
 			<br />
 			<h2 style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problem Solved</h3>
-					<p>Calendar apps show you data but don't reason about it. This project lets you talk to your schedule the same way you'd ask a human assistant — and have it actually take action, not just display information.</p>
+					<p>Calendar apps show data but don't reason about it. This lets you
+					talk to your schedule like a human assistant — and have it actually
+					act: create events, file todos, read your Gmail, build a time-block
+					plan from a task list.</p>
 				</div>
 				<div class="dev-note">
-					<h3>Technical Highlights</h3>
-					<p>The 4-agent pipeline keeps each concern isolated: the intent agent never touches the API, the data agent never interprets intent. The verifier catches errors before they reach the user — a pattern worth reusing across agent projects.</p>
+					<h3>Hardest Part</h3>
+					<p>Google OAuth across two developers and two runtime modes (CLI vs.
+					Streamlit). Token refresh had to be airtight — a stale token mid-
+					pipeline breaks the whole crew. Also keeping CLI and Streamlit page
+					feature parity as the project grew.</p>
 				</div>
 				<div class="dev-note">
-					<h3>What's Next</h3>
-					<p>Recurring event support, conflict detection that reasons about travel time, and a push notification layer so the assistant can proactively remind you about upcoming schedule gaps or overloaded days.</p>
+					<h3>What I'd Do Differently</h3>
+					<p>Abstract all Google API calls into a single data layer from day one
+					instead of letting both interfaces call the API directly. Would have
+					prevented several sync bugs and made adding features much cleaner.</p>
 				</div>
 			</div>
 			<br />

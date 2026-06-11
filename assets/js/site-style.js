@@ -7,8 +7,9 @@
 			about: 'pages/about-me.html',
 			projects: 'pages/projects.html',
 			hackathons: 'pages/hackathons.html',
-			ailab: 'pages/ai-lab.html',
+			ailab: 'https://ai-lab-bice.vercel.app',
 			forothers: 'pages/client-work.html',
+			dreamprojects: 'pages/dream-projects.html',
 			devdocs: 'pages/the-dev-docs.html',
 			contact: 'pages/contact-me.html',
 			resume: 'assets/documents/matt_gresham_resume.html',
@@ -20,8 +21,9 @@
 			about: 'about-me.html',
 			projects: 'projects.html',
 			hackathons: 'hackathons.html',
-			ailab: 'ai-lab.html',
+			ailab: 'https://ai-lab-bice.vercel.app',
 			forothers: 'client-work.html',
+			dreamprojects: 'dream-projects.html',
 			devdocs: 'the-dev-docs.html',
 			contact: 'contact-me.html',
 			resume: '../assets/documents/matt_gresham_resume.html',
@@ -33,8 +35,9 @@
 			about: '../about-me.html',
 			projects: '../projects.html',
 			hackathons: '../hackathons.html',
-			ailab: '../ai-lab.html',
+			ailab: 'https://ai-lab-bice.vercel.app',
 			forothers: '../client-work.html',
+			dreamprojects: '../dream-projects.html',
 			devdocs: '../the-dev-docs.html',
 			contact: '../contact-me.html',
 			resume: '../../assets/documents/matt_gresham_resume.html',
@@ -58,6 +61,7 @@
                 <li class="nav-item"><a class="nav-link" href="${p.hackathons}">Hackathons</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.ailab}">AI Lab</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.forothers}">Built for Others</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.dreamprojects}">Dream Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
 				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
                 <li class="nav-item nav-item--mobile-only"><a class="nav-link" href="${p.contact}">Contact me</a></li>

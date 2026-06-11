@@ -9,7 +9,7 @@
 	color-scheme: dark;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1101px) {
 	.nav-list {
 		display: inline-flex;
 	}
@@ -60,7 +60,7 @@
 	display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
 	.hamburger {
 		display: flex;
 	}

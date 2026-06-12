@@ -44,47 +44,29 @@ assets/
 
 **Never use absolute paths** like `/pages/...` or `/assets/...` — the site is not served from a root domain in all environments.
 
-## Nav & Footer Template
+## Nav & Footer — JS Injection Only
 
-Every page uses the same nav and footer. Copy exactly — do not omit "The Dev Docs" from the nav. Adjust `href` paths for the file's depth.
+**RULE: Never write a hardcoded `<nav>`, `<div class="nav">`, or `<footer>` on any page. Both are injected by `assets/js/site-style.js` via placeholder divs. Always use the placeholders below — nothing else.**
 
-**Depth 1 nav** (`pages/*.html`):
+Every page must have:
 ```html
-<div class="nav">
-    <ul class="nav-list">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="about-me.html">About Me</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="the-dev-docs.html">The Dev Docs</a></li>
-    </ul>
-    <a class="nav-btn" href="mailto:greshamd27@gmail.com">Contact me</a>
-</div>
+<div id="site-nav"></div>
+```
+at the top of `<body>`, and:
+```html
+<div id="site-footer"></div>
+```
+at the bottom of `<body>`, and must load `site-style.js` in `<head>`:
+
+```html
+<!-- depth 1 (pages/*.html) -->
+<script src="../assets/js/site-style.js" defer></script>
+
+<!-- depth 2 (pages/*/*.html) -->
+<script src="../../assets/js/site-style.js" defer></script>
 ```
 
-**Depth 2 nav** (`pages/*/*.html`):
-```html
-<div class="nav">
-    <ul class="nav-list">
-        <li class="nav-item"><a class="nav-link" href="../../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../about-me.html">About Me</a></li>
-        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="../the-dev-docs.html">The Dev Docs</a></li>
-    </ul>
-    <a class="nav-btn" href="mailto:greshamd27@gmail.com">Contact me</a>
-</div>
-```
-
-**Footer** (same pattern, adjust resume path for depth):
-```html
-<footer class="foot">
-    <p>
-        <a class="text-link" href="https://github.com/PyMite6941">My GitHub</a><br><br>
-        <a class="text-link" href="[the-dev-docs path]">The Dev Docs</a><br><br>
-        <a class="text-link" href="[resume path]">View my resume</a>
-    </p>
-    <p style="text-align: center; font-size: 14px">&copy; 2026 Matt Gresham. All rights reserved.</p>
-</footer>
-```
+`site-style.js` reads `data-depth` from `<html>` and resolves all paths automatically. Do not duplicate nav or footer links manually — edit `site-style.js` if the nav or footer content needs to change.
 
 ## PyScript Usage
 

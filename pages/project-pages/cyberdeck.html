@@ -1,0 +1,160 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Matt Gresham's custom cyberdeck build — a modular Raspberry Pi 5 portable computer with a sliding touchscreen, mechanical keyboard, trackball, and custom OS layer." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<title>Cyberdeck | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Cyberdeck</h1>
+			<h3>A custom portable computer built from scratch</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">The Build</h2>
+			<p style="color: #8b949e; font-size: 0.95rem; max-width: 680px">
+				Based on the open-source DFCD (DesignatedFreeCadDevice) — a modular
+				Raspberry Pi 5 cyberdeck with a sliding 10.1" touchscreen, hidden
+				mechanical keyboard, trackball, and NP-F battery. Every part is either
+				3D-printed or off-the-shelf. This is an in-progress hardware build.
+			</p>
+			<br />
+			<!-- GitHub repo link — add when repo goes public -->
+			<!-- <a class="text-link" href="https://github.com/PyMite6941/cyberdeck">View the GitHub Repo</a> -->
+			<br />
+			<h2 style="text-align: center">Hardware</h2>
+			<br />
+			<div class="ascii-diagram">  Core Components
+  ══════════════════════════════════════════
+
+  Brain       Raspberry Pi 5 8GB
+  Display     10.1" IPS touch LCD (sliding)
+  Keyboard    NOS C-450 TKL (hidden under screen)
+  Input       Trackball (Logitech Marble donor)
+  Power       NP-F battery → 7.2V → 5.1V regulated
+  Scroll      Rotary encoder handle
+
+  Custom 3D-Printed Parts
+  ══════════════════════════════════════════
+
+  Raised GFPIO lid    +12mm headroom for RTC/cabling over GPIO header
+  Screen frame        Modified — status LED between front buttons (GPIO26)
+  Comms module        Clamp-on enclosure: Pico USB bridge + NFC + LoRa (AS923)
+
+<span class="diagram-caption">Upstream hardware design: DFCD by ArcticEnrichmentCenter. Custom parts kept separate — upstream files never modified.</span></div>
+			<br />
+			<h2 style="text-align: center">Software</h2>
+			<br />
+			<div class="ascii-diagram">  OS Layer (Raspberry Pi OS 64-bit)
+  ══════════════════════════════════════════
+
+  setup.sh              one-shot idempotent installer
+  ├── boot/             systemd boot-script system (drop-in /boot.d/)
+  ├── memory/           zram swap + kernel VM tuning (no SD wear)
+  ├── theme/            green/cyan prompt, fastfetch banner, tmux, wallpaper
+  ├── ai/     (opt-in)  Claude Code + Ollama, memory-tuned for Pi 5
+  ├── extras/ (opt-in)  deck-mode, deck-vault (LUKS2), Conky bar, RTL-SDR
+  └── upgrades/(opt-in) deck-assistant, USB HID, NAS share, comms module
+
+  Apps (user workspace, separate from OS layer)
+  ══════════════════════════════════════════
+
+  Grimoire        Offline docs search engine — SQLite + BM25 FTS5,
+                  zstandard compression, ingest from DevDocs .zim files
+  Security Suite  [details to be added]
+
+<span class="diagram-caption">Every piece is a readable text file — re-flashable in minutes, editable by hand or by agents.</span></div>
+			<br />
+			<h2 style="text-align: center">Comms Module</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it is:</strong> A
+				clamp-on add-on module that attaches to the deck's rail. Houses a
+				Raspberry Pi Pico as a USB bridge between the main Pi and two radios:
+				a PN532 NFC reader and an RFM9x LoRa radio (923 MHz — AS923,
+				Thailand-legal).<br /><br />
+				<strong style="color: var(--text-color)">How it works:</strong> The
+				Pico runs CircuitPython firmware that reads both radios and exposes a
+				simple line protocol over its USB serial port. The host Pi talks to it
+				via <code>deck-comms</code> — a shell tool that finds the bridge by
+				PINGing serial ports.<br /><br />
+				<strong style="color: var(--text-color)">CAD:</strong> Custom
+				enclosure generated with Python + FreeCAD — 82×60×32 mm body with a
+				1.2 mm NFC read-through window, SMA antenna hole for LoRa, USB exit
+				slot, and M3 floor holes for the rail clamp.
+			</article>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add photos: save to assets/img/projects/cyberdeck/ and replace placeholders below -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Build photos coming soon</div>
+					<figcaption>Hardware assembly</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Build photos coming soon</div>
+					<figcaption>Custom OS — boot screen</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Build photos coming soon</div>
+					<figcaption>Comms module CAD</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Why Build This</h3>
+					<p>I wanted a computer that was entirely mine — not designed around how a manufacturer thinks I should work. A form factor I chose, hardware I can repair, and software I control down to the boot scripts. The DFCD gave me a proven mechanical base so I could focus on the OS and software side.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Hardest Part So Far</h3>
+					<p><!-- Fill in when you have more to say — e.g. GPIO clearance, 3D print fit checks, zram tuning, etc. -->Details to be added as the build progresses.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I've Learned</h3>
+					<p>Writing idempotent shell installers, systemd unit design, kernel VM tuning for RAM-backed swap, FreeCAD headless scripting for CAD measurement and part generation, CircuitPython firmware for the Pico, and parametric enclosure design. Also: 3D printing tolerances are unforgiving.</p>
+				</div>
+			</div>
+			<br />
+			<h2 style="text-align: center">Current Status</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">Done:</strong> Custom OS layer
+				(setup.sh + all opt-in layers), Grimoire app, comms module firmware +
+				CAD + host tool, raised GFPIO lid CAD, status-LED screen frame CAD,
+				build guide (PDF), bill of materials, shopping lists.<br /><br />
+				<strong style="color: var(--text-color)">Blocking physical build:</strong>
+				Cost of mechanical keyboard components, PCB fabrication for the comms
+				module, and 3D printing time for the chassis parts.<br /><br />
+				<strong style="color: var(--text-color)">GitHub repo:</strong> Coming
+				soon — will be linked here when public.
+			</article>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

@@ -40,22 +40,22 @@
 
 			<div class="dev-notes">
 				<div class="dev-note" style="width: 100%; max-width: 100%">
-					<h3>#1 — Modular Cyberdeck</h3>
+					<h3>#1 — Modular Cyberdeck <span style="color: #58a6ff; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.75px; text-transform: uppercase; margin-left: 10px">In Progress</span></h3>
 					<p style="color: #8b949e; font-size: 0.9rem; margin-bottom: 12px">
-						Hardware · Raspberry Pi · Mechanical Keyboard · DIY
+						Hardware · Raspberry Pi 5 · Python · Shell · CircuitPython
 					</p>
 					<p>
 						A fully custom, hand-built portable computer — not a laptop, not a
-						tablet, something entirely mine. Raspberry Pi brain, sliding screen,
-						full-depth mechanical keyboard, trackball, battery power, and
-						swappable modules so it adapts to whatever I'm doing. The whole
-						appeal is that it's upgradeable, repairable, and designed around how
-						<em>I</em> work — not how a manufacturer thinks I should work.
+						tablet, something entirely mine. Based on the open-source
+						<strong style="color: var(--text-color)">DFCD</strong> (DesignatedFreeCadDevice):
+						Raspberry Pi 5 8GB brain, sliding 10.1" touchscreen, hidden NOS C-450
+						TKL mechanical keyboard, Logitech Marble trackball, NP-F battery, and
+						a rotary encoder scroll handle. Every part is either 3D-printed or
+						off-the-shelf — nothing is welded or machined.
 					</p>
 					<br />
 					<p>
-						This video from Jankbu is exactly what I mean. His build is the
-						benchmark I keep coming back to:
+						The video below is the upstream build this is based on:
 					</p>
 					<br />
 					<div
@@ -82,11 +82,33 @@
 							"></iframe>
 					</div>
 					<br />
-					<p style="color: #8b949e; font-size: 0.9rem">
-						What's blocking me right now: cost of the mechanical keyboard
-						components, PCB fabrication, and the machining/3D printing work for
-						the chassis. Eventually.
+					<p><strong style="color: var(--text-color)">What's already built (software side):</strong></p>
+					<br />
+					<p style="color: #8b949e; font-size: 0.9rem; line-height: 1.8">
+						✓ Full custom OS layer for Raspberry Pi OS — idempotent installer,
+						systemd boot scripts, zram memory tuning, themed terminal<br />
+						✓ Opt-in AI layer — Claude Code + Ollama, memory-tuned for Pi 5<br />
+						✓ Opt-in extras — deck-mode (stealth/work/bright), deck-vault (LUKS2
+						encrypted container), Conky status bar, RTL-SDR radio<br />
+						✓ Grimoire — offline documentation search engine (SQLite + BM25 FTS5,
+						ingest from DevDocs .zim files)<br />
+						✓ Clamp-on Comms module — Pico USB bridge, NFC (PN532) + LoRa
+						(RFM9x, 923 MHz AS923), custom CAD enclosure, CircuitPython firmware<br />
+						✓ Custom 3D-printed parts — raised GFPIO lid, modified screen frame
+						with status LED<br />
+						✓ Full build guide (PDF), bill of materials, shopping lists (USD +
+						THB)
 					</p>
+					<br />
+					<p><strong style="color: var(--text-color)">What's blocking the physical build:</strong></p>
+					<br />
+					<p style="color: #8b949e; font-size: 0.9rem">
+						Cost of the mechanical keyboard components and the 3D printing time
+						for the chassis parts. The software and OS layers are ready — it's
+						purely a hardware/cost/time problem at this point.
+					</p>
+					<br />
+					<a class="text-link" href="./project-pages/cyberdeck.html">Full project page →</a>
 				</div>
 			</div>
 			<br />

@@ -89,7 +89,9 @@
 			<br />
 			<div class="model-tabs" id="model-tabs">
 				<button class="model-tab active" data-model="comms-body">Comms Module</button>
+				<button class="model-tab" data-model="comms-lid">Comms Module Lid</button>
 				<button class="model-tab" data-model="gfpio-lid">GFPIO Lid</button>
+				<button class="model-tab" data-model="screen-frame">Screen Frame w/ LED</button>
 			</div>
 			<model-viewer
 				id="cyberdeck-viewer"
@@ -105,16 +107,18 @@
 			(function() {
 				const viewer = document.getElementById('cyberdeck-viewer');
 				const tabs = document.querySelectorAll('#model-tabs .model-tab');
+				const base = 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/';
 				const models = {
-					'comms-body': 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/Comms%20module/Comms%20module%20body.stl',
-					'gfpio-lid': 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/Screen%20frame/GFPIO%20lid%20raised%2012mm.stl',
+					'comms-body':    base + 'Comms%20module/Comms%20module%20body.stl',
+					'comms-lid':     base + 'Comms%20module/Comms%20module%20lid.stl',
+					'gfpio-lid':     base + 'Screen%20frame/GFPIO%20lid%20raised%2012mm.stl',
+					'screen-frame':  base + 'Screen%20frame/Right%20screen%20frame%20with%20LED.stl',
 				};
 				tabs.forEach(function(tab) {
 					tab.addEventListener('click', function() {
 						tabs.forEach(function(t) { t.classList.remove('active'); });
 						tab.classList.add('active');
-						const key = tab.getAttribute('data-model');
-						viewer.setAttribute('src', models[key]);
+						viewer.setAttribute('src', models[tab.getAttribute('data-model')]);
 					});
 				});
 			})();

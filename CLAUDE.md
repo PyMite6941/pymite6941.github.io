@@ -18,6 +18,7 @@ pages/
   projects.html                                   ← depth 1
   the-dev-docs.html                               ← depth 1
   100DaysOfAIProgrammingPrompts.html              ← depth 1
+  hackathons.html                                 ← depth 1
   dev-docs/
     learn-programming2026.html                    ← depth 2
   project-pages/
@@ -25,10 +26,14 @@ pages/
     connect4.html                                 ← depth 2
     study_stuff.html                              ← depth 2
     mdToHTMLConverter.html                        ← depth 2
-  100DaysOfAIProgrammingPrompts/
+  hackathons/
+    usaii-2026.html                               ← depth 2
+    hack-america-2026.html                        ← depth 2
+ 100DaysOfAIProgrammingPrompts/
     Day1.html                                     ← depth 2
 assets/
   documents/                                      ← resume PDF lives here
+  js/                                             ← JS injection scripts
 ```
 
 **Correct relative paths by depth:**
@@ -68,6 +73,15 @@ at the bottom of `<body>`, and must load `site-style.js` in `<head>`:
 
 `site-style.js` reads `data-depth` from `<html>` and resolves all paths automatically. Do not duplicate nav or footer links manually — edit `site-style.js` if the nav or footer content needs to change.
 
+## AI Lab — External Next.js Project
+
+The AI Lab lives at `../ai-lab/` (Next.js project) and deploys to `https://ai-lab-bice.vercel.app`.
+- Project pages live at `ai-lab/app/projects/<name>/page.js`
+- Components live at `ai-lab/app/components/`
+- The nav bar in the portfolio links to the AI Lab via `site-style.js` (`ailab` path key)
+- Do NOT create local project pages in `pages/project-pages/` for AI Lab projects — put them in the `ai-lab/` Next.js app instead
+- AI Lab project pages should link back to the portfolio when referencing hackathons (use full URL: `https://pymite6941.is-a.dev/pages/...`)
+
 ## PyScript Usage
 
 PyScript 2026.3.1 is used to run Python in the browser. Pages that use it must load both assets in `<head>`:
@@ -100,20 +114,18 @@ All styles in `index.css`. Key CSS variables in `:root`:
 - `--card-bg`: `#161b22`
 - `--button-color`: `#8957e5`
 
-Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language labels on cards), `.boxes` (tech stack pills), `.article` (body text), `.code-segment` (inline code display), `.hero-section`, `.nav`, `.foot`.
+Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language labels on cards), `.boxes` (tech stack pills), `.article` (body text), `.code-segment` (inline code display), `.hero-section`, `.nav`, `.foot`, `.sidenav` (filter sidebar), `.dev-notes` / `.dev-note` (info cards), `.ascii-diagram` (architecture diagrams), `.screenshot-grid` / `.screenshot` (image galleries).
 
-## Page Types
-
-**Project index card** (`pages/projects.html`) → links to `./project-pages/<name>.html`
-
-**Project detail page** (`pages/project-pages/<name>.html`) → has "Try it!" section, GitHub link, description
-
-**Dev Docs article** (`pages/dev-docs/<name>.html`) → has table of contents with anchor links, published date in `.article-stuff`
-
-**100 Days challenge day** (`pages/100DaysOfAIProgrammingPrompts/<DayN>.html`) → has PyScript terminal demo + source code display in `.code-segment`
+**Responsive breakpoints used in `index.css`:**
+- `<=480px`: Single-column card grid, compact hero section
+- `481px-1024px`: Multi-column card grid with larger min-width
+- `<=1100px`: Hamburger nav replaces inline nav
+- `>=1101px`: Desktop nav
 
 ## Known Issues / Watch Out For
 
 - `font-weight` in `.article` and `.article-stuff` uses invalid `px` values — should be unitless (e.g. `400`)
 - Card hover `transition` is missing the `s` unit (`0.2` → `0.2s`)
 - The `pyscript.toml` at the root is an old-style config file; current pages use inline PyScript config instead
+- `.sidenav` is not responsive — on mobile it takes fixed width and can overflow. Pages with sidebars should use `flex-direction: column` on mobile
+- The hackathons page uses inline `style="margin-left: 240px"` on `.card-grid` to clear the sidebar — this breaks below 768px

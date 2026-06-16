@@ -19,6 +19,47 @@
 		<script
 			src="../../assets/js/site-style.js"
 			defer></script>
+		<script
+			type="module"
+			src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
+		<style>
+			model-viewer {
+				width: 100%;
+				height: 420px;
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				overflow: hidden;
+			}
+			.model-tabs {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				margin-bottom: 12px;
+			}
+			.model-tab {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 6px;
+				padding: 6px 14px;
+				font-size: 13px;
+				color: var(--text-color);
+				cursor: pointer;
+				transition: border-color 0.15s;
+			}
+			.model-tab.active {
+				border-color: var(--button-color);
+				background: rgba(137, 87, 229, 0.1);
+			}
+			.model-tab:hover {
+				border-color: var(--button-color);
+			}
+			@media (max-width: 480px) {
+				model-viewer {
+					height: 280px;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -36,8 +77,48 @@
 				3D-printed or off-the-shelf. This is an in-progress hardware build.
 			</p>
 			<br />
-			<!-- GitHub repo link — add when repo goes public -->
-			<!-- <a class="text-link" href="https://github.com/PyMite6941/cyberdeck">View the GitHub Repo</a> -->
+			<a
+				class="text-link"
+				href="https://github.com/PyMite6941/cyberdeck"
+				target="_blank"
+				>View the GitHub Repo</a
+			>
+			<br />
+			<br />
+			<h2 style="text-align: center">3D Model Preview</h2>
+			<br />
+			<div class="model-tabs" id="model-tabs">
+				<button class="model-tab active" data-model="comms-body">Comms Module</button>
+				<button class="model-tab" data-model="gfpio-lid">GFPIO Lid</button>
+			</div>
+			<model-viewer
+				id="cyberdeck-viewer"
+				src="https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/Comms%20module/Comms%20module%20body.stl"
+				alt="3D model of the Comms module"
+				camera-controls
+				auto-rotate
+				shadow-intensity="1"
+				exposure="0.8"
+				tone-mapping="neutral">
+			</model-viewer>
+			<script>
+			(function() {
+				const viewer = document.getElementById('cyberdeck-viewer');
+				const tabs = document.querySelectorAll('#model-tabs .model-tab');
+				const models = {
+					'comms-body': 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/Comms%20module/Comms%20module%20body.stl',
+					'gfpio-lid': 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/Screen%20frame/GFPIO%20lid%20raised%2012mm.stl',
+				};
+				tabs.forEach(function(tab) {
+					tab.addEventListener('click', function() {
+						tabs.forEach(function(t) { t.classList.remove('active'); });
+						tab.classList.add('active');
+						const key = tab.getAttribute('data-model');
+						viewer.setAttribute('src', models[key]);
+					});
+				});
+			})();
+			</script>
 			<br />
 			<h2 style="text-align: center">Hardware</h2>
 			<br />
@@ -144,8 +225,13 @@
 				<strong style="color: var(--text-color)">Blocking physical build:</strong>
 				Cost of mechanical keyboard components, PCB fabrication for the comms
 				module, and 3D printing time for the chassis parts.<br /><br />
-				<strong style="color: var(--text-color)">GitHub repo:</strong> Coming
-				soon — will be linked here when public.
+				<strong style="color: var(--text-color)">GitHub repo:</strong>
+				<a
+					class="text-link"
+					href="https://github.com/PyMite6941/cyberdeck"
+					target="_blank"
+					>github.com/PyMite6941/cyberdeck</a
+				>
 			</article>
 			<br />
 			<a

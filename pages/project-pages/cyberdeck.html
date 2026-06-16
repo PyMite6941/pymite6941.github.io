@@ -19,17 +19,18 @@
 		<script
 			src="../../assets/js/site-style.js"
 			defer></script>
-		<script
-			type="module"
-			src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 		<style>
-			model-viewer {
+			#cyberdeck-viewer {
 				width: 100%;
 				height: 420px;
 				background: var(--card-bg);
 				border: 1px solid var(--border-color);
 				border-radius: 10px;
 				overflow: hidden;
+				display: block;
 			}
 			.model-tabs {
 				display: flex;
@@ -55,7 +56,7 @@
 				border-color: var(--button-color);
 			}
 			@media (max-width: 480px) {
-				model-viewer {
+				#cyberdeck-viewer {
 					height: 280px;
 				}
 			}
@@ -93,33 +94,107 @@
 				<button class="model-tab" data-model="gfpio-lid">GFPIO Lid</button>
 				<button class="model-tab" data-model="screen-frame">Screen Frame w/ LED</button>
 			</div>
-			<model-viewer
-				id="cyberdeck-viewer"
-				src="https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/Comms%20module/Comms%20module%20body.stl"
-				alt="3D model of the Comms module"
-				camera-controls
-				auto-rotate
-				shadow-intensity="1"
-				exposure="0.8"
-				tone-mapping="neutral">
-			</model-viewer>
+			<div id="cyberdeck-viewer"></div>
+			<p id="model-status" style="color: #8b949e; font-size: 13px; margin-top: 8px; text-align: center">Loading model...</p>
 			<script>
 			(function() {
-				const viewer = document.getElementById('cyberdeck-viewer');
-				const tabs = document.querySelectorAll('#model-tabs .model-tab');
-				const base = 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/';
-				const models = {
+				var container = document.getElementById('cyberdeck-viewer');
+				var status = document.getElementById('model-status');
+				var base = 'https://raw.githubusercontent.com/PyMite6941/cyberdeck/master/hardware-custom/';
+				var models = {
 					'comms-body':    base + 'Comms%20module/Comms%20module%20body.stl',
 					'comms-lid':     base + 'Comms%20module/Comms%20module%20lid.stl',
 					'gfpio-lid':     base + 'Screen%20frame/GFPIO%20lid%20raised%2012mm.stl',
 					'screen-frame':  base + 'Screen%20frame/Right%20screen%20frame%20with%20LED.stl',
 				};
+
+				var scene, camera, renderer, controls, currentMesh;
+				var color = 0x8957e5;
+
+				function init(url) {
+					scene = new THREE.Scene();
+					scene.background = new THREE.Color(0x161b22);
+
+					camera = new THREE.PerspectiveCamera(35, container.clientWidth / 420, 0.1, 1000);
+					camera.position.set(5, 4, 8);
+
+					renderer = new THREE.WebGLRenderer({ antialias: true });
+					renderer.setSize(container.clientWidth, container.clientHeight);
+					renderer.setPixelRatio(window.devicePixelRatio);
+					container.innerHTML = '';
+					container.appendChild(renderer.domElement);
+
+					var ambient = new THREE.AmbientLight(0x404060, 0.6);
+					scene.add(ambient);
+					var dir = new THREE.DirectionalLight(0xffffff, 1);
+					dir.position.set(2, 5, 3);
+					scene.add(dir);
+					var dir2 = new THREE.DirectionalLight(0x8888ff, 0.4);
+					dir2.position.set(-3, 2, -2);
+					scene.add(dir2);
+
+					controls = new THREE.OrbitControls(camera, renderer.domElement);
+					controls.enableDamping = true;
+					controls.dampingFactor = 0.1;
+					controls.autoRotate = true;
+					controls.autoRotateSpeed = 2;
+					controls.target.set(0, 0, 0);
+
+					loadModel(url);
+					animate();
+				}
+
+				function loadModel(url) {
+					status.textContent = 'Loading model...';
+					if (currentMesh) { scene.remove(currentMesh); currentMesh = null; }
+
+					var loader = new THREE.STLLoader();
+					loader.load(url, function(geometry) {
+						geometry.computeVertexNormals();
+						var material = new THREE.MeshPhongMaterial({
+							color: color,
+							flatShading: false,
+							shininess: 30,
+						});
+						currentMesh = new THREE.Mesh(geometry, material);
+						geometry.center();
+						var box = new THREE.Box3().setFromObject(currentMesh);
+						var size = box.getSize(new THREE.Vector3()).length();
+						var scale = 3 / size;
+						currentMesh.scale.set(scale, scale, scale);
+						currentMesh.position.y = -box.getSize(new THREE.Vector3()).y * scale / 2;
+						scene.add(currentMesh);
+						status.textContent = 'Drag to rotate · Scroll to zoom';
+					}, undefined, function(err) {
+						status.textContent = 'Failed to load model: ' + (err.message || 'unknown error');
+					});
+				}
+
+				function animate() {
+					requestAnimationFrame(animate);
+					controls.update();
+					renderer.render(scene, camera);
+				}
+
+				init(models['comms-body']);
+
+				var tabs = document.querySelectorAll('#model-tabs .model-tab');
 				tabs.forEach(function(tab) {
 					tab.addEventListener('click', function() {
 						tabs.forEach(function(t) { t.classList.remove('active'); });
 						tab.classList.add('active');
-						viewer.setAttribute('src', models[tab.getAttribute('data-model')]);
+						var url = models[tab.getAttribute('data-model')];
+						if (currentMesh) { scene.remove(currentMesh); currentMesh = null; }
+						loadModel(url);
 					});
+				});
+
+				window.addEventListener('resize', function() {
+					if (renderer && container) {
+						camera.aspect = container.clientWidth / container.clientHeight;
+						camera.updateProjectionMatrix();
+						renderer.setSize(container.clientWidth, container.clientHeight);
+					}
 				});
 			})();
 			</script>

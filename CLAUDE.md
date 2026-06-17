@@ -141,4 +141,6 @@ That brief covers three active improvements:
 
 For the SEO crawl-signal scaffold, also read `todo.md`. It explains the sitemap, robots, canonical URL, structured data, and hosting follow-up work.
 
+Treat the individual project pages under `pages/project-pages/` as first-class proof pages, just as important as `pages/about-me.html` for crawling, indexing, and AI answers. Do not make Finance Kit the only project page with strong metadata, internal links, or structured data. When improving crawl signals, cover all substantive project detail pages with accurate static canonical tags, unique page titles, concise meta descriptions, and conservative `SoftwareApplication` or `CreativeWork` JSON-LD when the page facts support it.
+
 Keep those changes review-sized, use only facts already on the site or supplied by Matt, and preserve the static-site rules above.

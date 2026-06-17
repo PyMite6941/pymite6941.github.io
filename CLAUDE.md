@@ -129,3 +129,14 @@ Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language 
 - The `pyscript.toml` at the root is an old-style config file; current pages use inline PyScript config instead
 - `.sidenav` is not responsive — on mobile it takes fixed width and can overflow. Pages with sidebars should use `flex-direction: column` on mobile
 - The hackathons page uses inline `style="margin-left: 240px"` on `.card-grid` to clear the sidebar — this breaks below 768px
+
+## Current Website Improvement Brief
+
+Read `LOCAL_LLM_WEBSITE_BRIEF.md` before improving the site. It is the current implementation brief for local coding models.
+
+That brief covers three active improvements:
+- Improve the existing About page at `pages/about-me.html`. Do not create a duplicate About page.
+- Add safe page-level visitor metrics that no-op when GA4 or PostHog is absent.
+- Improve the existing Finance Kit page at `pages/project-pages/finance_kit.html` so it reads like stronger project proof.
+
+Keep those changes review-sized, use only facts already on the site or supplied by Matt, and preserve the static-site rules above.

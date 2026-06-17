@@ -7,13 +7,13 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1" />
-		<link
-			rel="icon"
-			type="image/svg+xml"
-			href="../assets/img/favicon.svg" />
-		<meta
-			name="description"
-			content="Projects by Matt Gresham — The Finance Kit, Connect 4 Bot, Chess Website, Markdown to HTML Converter, and more." />
+			<link
+				rel="icon"
+				type="image/svg+xml"
+				href="../assets/img/favicon.svg" />
+			<meta
+				name="description"
+				content="Products and projects built by Matt Gresham, including finance tools, AI agents, search projects, study tools, and browser-playable demos." />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -28,71 +28,100 @@
 			defer></script>
 	</head>
 	<body>
-		<div id="site-nav"></div>
-		<header class="hero-section">
-			<h1>Matt G</h1>
-			<h3>My Projects</h3>
-		</header>
-		<main style="flex-direction: row">
-			<div id="top"></div>
-			<div
-				class="sidenav"
-				id="filter-panel">
-				<article
-					>Python:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Python"
-						onclick="filterProjects()" /><br />
-					Go:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Go"
-						onclick="filterProjects()" /><br />
-					Rust:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Rust"
-						onclick="filterProjects()" />
-					React:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="React"
-						onclick="filterProjects()" /><br />
-					Full Stack Development:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Full Stack Development"
-						onclick="filterProjects()" /><br />
-					Web Development:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Web Development"
-						onclick="filterProjects()" /><br />
-					AI:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="AI"
-						onclick="filterProjects()" /><br />
-					Cybersecurity:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Cybersecurity"
-						onclick="filterProjects()" />
-				</article>
-			</div>
-			<div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
-			<section
-				class="card-grid"
-				style="grid-template-columns: repeat(3, 1fr)">
+			<div id="site-nav"></div>
+			<header class="hero-section">
+				<h1>Matt G</h1>
+				<h2>Products and projects I build myself</h2>
+				<p class="hero-copy">
+					A working shelf of the tools, experiments, and product ideas I create
+					and publish on this site.
+				</p>
+			</header>
+			<main class="projects-main">
+				<div id="top"></div>
+				<aside
+					class="sidenav"
+					id="filter-panel"
+					aria-label="Filter projects by technology">
+					<fieldset class="filter-fieldset">
+						<legend>Filter by tech</legend>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="Python"
+								onclick="filterProjects()" />
+							Python
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="Go"
+								onclick="filterProjects()" />
+							Go
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="Rust"
+								onclick="filterProjects()" />
+							Rust
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="React"
+								onclick="filterProjects()" />
+							React
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="Full Stack Development"
+								onclick="filterProjects()" />
+							Full Stack Development
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="Web Development"
+								onclick="filterProjects()" />
+							Web Development
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="AI"
+								onclick="filterProjects()" />
+							AI
+						</label>
+						<label class="filter-option">
+							<input
+								type="checkbox"
+								class="checkbox"
+								data-filter="Cybersecurity"
+								onclick="filterProjects()" />
+							Cybersecurity
+						</label>
+					</fieldset>
+				</aside>
+				<div class="projects-content">
+					<section class="project-showcase-intro">
+						<p>
+							This page is the central showcase for the products I create myself:
+							finance tools, AI agents, developer utilities, study apps, and
+							browser demos. Each card points to a live project page, source code,
+							or a working demo so you can inspect what I built instead of just
+							reading a summary.
+						</p>
+					</section>
+				<section class="card-grid">
 				<div
 					class="card-container"
 					data-tags="Python|Full Stack Development|Web Development">
@@ -243,12 +272,13 @@
 					<span class="boxes">Algorithms</span>
 					<span class="boxes">AI</span>
 					<br />
-					<a
-						class="text-link"
-						href="https://ai-lab-bice.vercel.app/projects/chess-ai"
-						target="_blank"
-						>View Source Code and Project</a
-					>
+						<a
+							class="text-link"
+							href="https://ai-lab-bice.vercel.app/projects/chess-ai"
+							target="_blank"
+							rel="noreferrer"
+							>View Source Code and Project</a
+						>
 				</div>
 				<div
 					class="card-container"
@@ -396,12 +426,13 @@
 					<span class="boxes">Ollama</span>
 					<span class="boxes">Streamlit</span>
 					<br />
-					<a
-						class="text-link"
-						href="https://ai-lab-bice.vercel.app/projects/study-assistant"
-						target="_blank"
-						>View Source Code and Project</a
-					>
+						<a
+							class="text-link"
+							href="https://ai-lab-bice.vercel.app/projects/study-assistant"
+							target="_blank"
+							rel="noreferrer"
+							>View Source Code and Project</a
+						>
 				</div>
 				<div
 					class="card-container"
@@ -434,12 +465,13 @@
 					<span class="boxes">AI Agents</span>
 					<span class="boxes">Web Development</span>
 					<br />
-					<a
-						class="text-link"
-						href="https://ai-lab-bice.vercel.app/projects/data-processing-ai-agents"
-						target="_blank"
-						>View Source Code and Project</a
-					>
+						<a
+							class="text-link"
+							href="https://ai-lab-bice.vercel.app/projects/data-processing-ai-agents"
+							target="_blank"
+							rel="noreferrer"
+							>View Source Code and Project</a
+						>
 				</div>
 				<div
 					class="card-container"
@@ -579,12 +611,13 @@
 					<span class="boxes">Google APIs</span>
 					<span class="boxes">Streamlit</span>
 					<br />
-					<a
-						class="text-link"
-						href="https://ai-lab-bice.vercel.app/projects/calendar-ai-assistant"
-						target="_blank"
-						>View Source Code and Project</a
-					>
+						<a
+							class="text-link"
+							href="https://ai-lab-bice.vercel.app/projects/calendar-ai-assistant"
+							target="_blank"
+							rel="noreferrer"
+							>View Source Code and Project</a
+						>
 				</div>
 				<div
 					class="card-container"
@@ -619,21 +652,25 @@
 					<span class="boxes">Supabase</span>
 					<span class="boxes">OpenRouter</span>
 					<br />
-					<a
-						class="text-link"
-						href="https://ai-lab-bice.vercel.app/projects/villages"
-						target="_blank"
-						>View Source Code and Project</a
-					>
+						<a
+							class="text-link"
+							href="https://ai-lab-bice.vercel.app/projects/villages"
+							target="_blank"
+							rel="noreferrer"
+							>View Source Code and Project</a
+						>
 				</div>
 			</section>
-			<section style="margin-top: 8px; margin-bottom: 24px; padding: 0 20px">
-				<h2 style="text-align: center; margin-bottom: 16px">GitHub Activity</h2>
-				<a href="https://github.com/pymite6941" target="_blank">
-					<img
-						src="https://ghchart.rshah.org/8957e5/pymite6941"
-						alt="Matt Gresham's GitHub contribution chart"
-						style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color)" />
+				<section class="github-activity">
+					<h2>GitHub Activity</h2>
+					<a
+						href="https://github.com/pymite6941"
+						target="_blank"
+						rel="noreferrer">
+						<img
+							src="https://ghchart.rshah.org/8957e5/pymite6941"
+							alt="Matt Gresham's GitHub contribution chart"
+							style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color)" />
 				</a>
 			</section>
 			</div>

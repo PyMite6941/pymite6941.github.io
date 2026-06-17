@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pymite6941.is-a.dev/sitemap.xml

@@ -120,6 +120,11 @@
 	chat.defer = true;
 	document.head.appendChild(chat);
 
+	var seo = document.createElement('script');
+	seo.src = base + 'assets/js/seo-schema.js';
+	seo.defer = true;
+	document.head.appendChild(seo);
+
 	document.querySelectorAll('.code-segment pre code').forEach(function (block) {
 		var lines = block.innerHTML.split('\n');
 		if (lines.length && lines[lines.length - 1].trim() === '') lines.pop();

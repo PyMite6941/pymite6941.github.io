@@ -139,4 +139,6 @@ That brief covers three active improvements:
 - Add safe page-level visitor metrics that no-op when GA4 or PostHog is absent.
 - Improve the existing Finance Kit page at `pages/project-pages/finance_kit.html` so it reads like stronger project proof.
 
+For the SEO crawl-signal scaffold, also read `todo.md`. It explains the sitemap, robots, canonical URL, structured data, and hosting follow-up work.
+
 Keep those changes review-sized, use only facts already on the site or supplied by Matt, and preserve the static-site rules above.

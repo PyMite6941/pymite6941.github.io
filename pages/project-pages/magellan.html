@@ -25,7 +25,7 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Magellan</h1>
-			<h3>A Go spider + React search engine, deployed on Vercel</h3>
+			<p class="hero-copy">A Go spider + React search engine, deployed on Vercel</p>
 		</header>
 		<main>
 			<div id="top"></div>
@@ -126,14 +126,27 @@
 <span class="diagram-caption">Spider and frontend are fully decoupled — either part can be replaced independently.</span></div>
 			<br />
 			<h2 style="text-align: center">In Action</h2>
-			<!-- To add screenshots: save images to assets/img/projects/magellan/ and replace the placeholder div with <img src="../../assets/img/projects/magellan/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<div class="proof-panel">
+						<h3>Search frontend proof points</h3>
+						<ul>
+							<li>React search UI queries indexed pages through a browser-reachable Turso endpoint.</li>
+							<li>Debounced input avoids firing a query for every keystroke.</li>
+							<li>Result cards render title, URL, and body matches from the same indexed record.</li>
+						</ul>
+					</div>
 					<figcaption>React search frontend</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<div class="proof-panel">
+						<h3>Spider pipeline proof points</h3>
+						<ul>
+							<li>Go crawler fetches pages and parses links with standard HTTP and HTML packages.</li>
+							<li>Visited-URL tracking prevents redirect loops and repeated crawls.</li>
+							<li>Crawling, indexing, and querying stay decoupled so each layer can be replaced.</li>
+						</ul>
+					</div>
 					<figcaption>Go spider crawling output</figcaption>
 				</figure>
 			</div>

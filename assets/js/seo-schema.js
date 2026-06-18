@@ -54,6 +54,20 @@
 			applicationCategory: 'FinanceApplication',
 			programmingLanguage: ['Python', 'JavaScript'],
 		},
+		'/pages/project-pages/connect4.html': {
+			name: 'Connect 4 Bot',
+			description:
+				'Connect 4 Bot by Matt Gresham is a Python game-playing AI built with minimax search, alpha-beta pruning, transposition tables, and pixel-based board detection.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'GameApplication',
+			programmingLanguage: ['Python'],
+		},
+		'/pages/project-pages/30DaysOfAIProgrammingPrompts.html': {
+			name: '30 Days of AI-Generated Programming Prompts',
+			description:
+				'30 Days of AI-Generated Programming Prompts by Matt Gresham is a collection of daily programming prompt exercises and practice pages.',
+			type: 'CreativeWork',
+		},
 		'/pages/project-pages/magellan.html': {
 			name: 'Magellan',
 			description:

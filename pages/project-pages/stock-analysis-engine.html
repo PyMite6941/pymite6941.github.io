@@ -26,7 +26,7 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Stock Analysis Engine</h1>
-			<h3>Live stock data → computed metrics → an AI analyst you can chat with — plus a fully offline mode that uses no AI</h3>
+			<p class="hero-copy">Live stock data → computed metrics → an AI analyst you can chat with — plus a fully offline mode that uses no AI</p>
 		</header>
 		<main>
 			<div id="top"></div>
@@ -131,15 +131,28 @@
 <span class="diagram-caption">The AI only ever sees the data already on screen, so its answers stay anchored to the real computed metrics.</span></div>
 			<br />
 			<h2 style="text-align: center">In Action</h2>
-			<!-- To add screenshots: save images to assets/img/projects/stock-analysis-engine/ and replace the placeholder div with <img src="../../assets/img/projects/stock-analysis-engine/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
-					<figcaption>Metrics dashboard + candlestick chart</figcaption>
+					<div class="proof-panel">
+						<h3>Metrics dashboard proof points</h3>
+						<ul>
+							<li>Live quote and history data flows through the same <span class="code-segment">core/</span> metrics package.</li>
+							<li>Total return, volatility, drawdown, RSI, SMA, and EMA are computed before the UI renders them.</li>
+							<li>CSV export and candlestick charts expose the analysis instead of hiding it behind an AI answer.</li>
+						</ul>
+					</div>
+					<figcaption>Metrics dashboard + candlestick chart proof points</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
-					<figcaption>AI analyst chat panel</figcaption>
+					<div class="proof-panel">
+						<h3>AI analyst proof points</h3>
+						<ul>
+							<li>Chat answers are grounded in the metrics already shown on the page.</li>
+							<li>Groq primary and OpenRouter fallback keep the backend resilient when one provider fails.</li>
+							<li>The offline Streamlit mode keeps the same math available with no AI or API keys.</li>
+						</ul>
+					</div>
+					<figcaption>AI analyst chat panel proof points</figcaption>
 				</figure>
 			</div>
 			<br />

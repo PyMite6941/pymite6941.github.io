@@ -11,6 +11,7 @@
 		<meta
 			name="description"
 			content="Markdown Previewer — a live React app that renders Markdown to HTML in real time with full GFM support." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/markdown-previewer.html" />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -46,7 +47,7 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Markdown Previewer</h1>
-			<h3>Live Markdown-to-HTML rendering in React</h3>
+			<p class="hero-copy">Live Markdown-to-HTML rendering in React</p>
 		</header>
 		<main>
 			<div id="top"></div>
@@ -147,14 +148,27 @@
 <span class="diagram-caption">Both panes scroll independently. CSS variables had to be explicitly forwarded into the preview container.</span></div>
 			<br />
 			<h2 style="text-align: center">In Action</h2>
-			<!-- To add screenshots: save images to assets/img/projects/markdown-previewer/ and replace the placeholder div with <img src="../../assets/img/projects/markdown-previewer/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<div class="proof-panel">
+						<h3>Editor proof points</h3>
+						<ul>
+							<li>Split-pane layout keeps Markdown input and rendered preview visible together.</li>
+							<li>Independent scrolling prevents long documents from shifting the whole page.</li>
+							<li>Vite and React keep the editor responsive while content updates live.</li>
+						</ul>
+					</div>
 					<figcaption>Split-pane editor with live preview</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<div class="proof-panel">
+						<h3>Markdown rendering proof points</h3>
+						<ul>
+							<li><span class="code-segment">react-markdown</span> handles the AST-to-React render path.</li>
+							<li><span class="code-segment">remark-gfm</span> adds tables, task lists, and strikethrough support.</li>
+							<li>Preview styling is scoped so generated content inherits the intended theme.</li>
+						</ul>
+					</div>
 					<figcaption>GFM table rendering</figcaption>
 				</figure>
 			</div>

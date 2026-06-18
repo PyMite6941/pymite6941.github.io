@@ -11,6 +11,7 @@
 		<meta
 			name="description"
 			content="Matt Gresham's custom cyberdeck build ΓÇö a modular Raspberry Pi 5 portable computer with a sliding touchscreen, mechanical keyboard, trackball, and custom OS layer." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/cyberdeck.html" />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -66,7 +67,7 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Cyberdeck</h1>
-			<h3>A custom portable computer built from scratch</h3>
+			<p class="hero-copy">A custom portable computer built from scratch</p>
 		</header>
 		<main>
 			<div id="top"></div>
@@ -111,14 +112,53 @@
 				var modelCount = 0;
 				var loadedCount = 0;
 
+				function showFallback(message) {
+					container.innerHTML =
+						'<div class="proof-panel">' +
+							'<h3>3D preview fallback</h3>' +
+							'<ul>' +
+								'<li>CAD files live in the linked cyberdeck repository for direct inspection.</li>' +
+								'<li>The page still documents the comms module, raised GFPIO lid, and screen-frame changes.</li>' +
+								'<li>Visitors without WebGL support are not left on a broken loading state.</li>' +
+							'</ul>' +
+						'</div>';
+					status.textContent = message;
+				}
+
+				function hasWebGL() {
+					try {
+						var canvas = document.createElement('canvas');
+						return !!(
+							window.WebGLRenderingContext &&
+							(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+						);
+					} catch (err) {
+						return false;
+					}
+				}
+
 				function init(urls) {
+					if (!window.THREE || !THREE.STLLoader || !THREE.OrbitControls) {
+						showFallback("3D preview unavailable because the viewer libraries did not load.");
+						return;
+					}
+					if (!hasWebGL()) {
+						showFallback("3D preview needs WebGL; CAD proof points are listed below.");
+						return;
+					}
+
 					scene = new THREE.Scene();
 					scene.background = new THREE.Color(0x161b22);
 
 					camera = new THREE.PerspectiveCamera(35, container.clientWidth / 420, 0.1, 1000);
 					camera.position.set(5, 4, 8);
 
-					renderer = new THREE.WebGLRenderer({ antialias: true });
+					try {
+						renderer = new THREE.WebGLRenderer({ antialias: true });
+					} catch (err) {
+						showFallback("3D preview needs WebGL; CAD proof points are listed below.");
+						return;
+					}
 					renderer.setSize(container.clientWidth, container.clientHeight);
 					renderer.setPixelRatio(window.devicePixelRatio);
 					container.innerHTML = "";
@@ -181,7 +221,6 @@
 							status.textContent = "Failed to load model: " + (err.message || "unknown error");
 						});
 					});
-				}
 				}
 
 				function animate() {
@@ -250,7 +289,7 @@
 
   Grimoire        Offline docs search engine ΓÇö SQLite + BM25 FTS5,
                   zstandard compression, ingest from DevDocs .zim files
-  Security Suite  [details to be added]
+  Security Suite  local tools slot for future security workflows
 
 <span class="diagram-caption">Every piece is a readable text file ΓÇö re-flashable in minutes, editable by hand or by agents.</span></div>
 			<br />
@@ -274,18 +313,38 @@
 			</article>
 			<br />
 			<h2 style="text-align: center">In Action</h2>
-			<!-- To add photos: save to assets/img/projects/cyberdeck/ and replace placeholders below -->
 			<div class="screenshot-grid">
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Build photos coming soon</div>
+					<div class="proof-panel">
+						<h3>Hardware proof points</h3>
+						<ul>
+							<li>Uses a repairable DFCD base instead of a sealed laptop form factor.</li>
+							<li>Rail-mounted comms module separates radio hardware from the main deck.</li>
+							<li>FreeCAD-generated enclosure dimensions keep the add-on reproducible.</li>
+						</ul>
+					</div>
 					<figcaption>Hardware assembly</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Build photos coming soon</div>
+					<div class="proof-panel">
+						<h3>Custom OS proof points</h3>
+						<ul>
+							<li>Readable text configuration makes the deck quick to re-flash or edit by hand.</li>
+							<li>Offline docs search is planned around SQLite FTS5 and compressed DevDocs data.</li>
+							<li>Boot and system behavior are owned in the project instead of hidden behind vendor defaults.</li>
+						</ul>
+					</div>
 					<figcaption>Custom OS ΓÇö boot screen</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Build photos coming soon</div>
+					<div class="proof-panel">
+						<h3>Comms module proof points</h3>
+						<ul>
+							<li>Raspberry Pi Pico bridges the main Pi to NFC and LoRa radios over USB serial.</li>
+							<li>Shell tooling can discover the bridge by pinging candidate serial ports.</li>
+							<li>The enclosure accounts for NFC read-through, LoRa antenna, USB exit, and rail clamp mounting.</li>
+						</ul>
+					</div>
 					<figcaption>Comms module CAD</figcaption>
 				</figure>
 			</div>
@@ -298,7 +357,7 @@
 				</div>
 				<div class="dev-note">
 					<h3>Hardest Part So Far</h3>
-					<p><!-- Fill in when you have more to say ΓÇö e.g. GPIO clearance, 3D print fit checks, zram tuning, etc. -->Details to be added as the build progresses.</p>
+					<p>The hardest part is keeping hardware, firmware, and OS choices modular enough that one part can change without forcing a full rebuild. The comms module is separate for that reason: the main deck can keep working while the radios, bridge firmware, or enclosure design evolve.</p>
 				</div>
 				<div class="dev-note">
 					<h3>What I've Learned</h3>

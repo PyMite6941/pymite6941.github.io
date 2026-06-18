@@ -26,7 +26,7 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>The Finance Kit</h1>
-			<h3>A deployed full-stack finance tracker — CLI and Streamlit web app</h3>
+			<p class="hero-copy">A deployed full-stack finance tracker — CLI and Streamlit web app</p>
 		</header>
 		<main>
 			<div id="top"></div>
@@ -127,15 +127,28 @@
 <span class="diagram-caption">All reads and writes go through core_stuff.py — the UI never touches data.json directly.</span></div>
 			<br />
 			<h2 style="text-align: center">In Action</h2>
-			<!-- To add screenshots: save images to assets/img/projects/finance-kit/ and replace the placeholder div with <img src="../../assets/img/projects/finance-kit/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
-					<figcaption>Streamlit web dashboard</figcaption>
+					<div class="proof-panel">
+						<h3>What the web dashboard proves</h3>
+						<ul>
+							<li>Streamlit interface for expense, income, subscription, and tax-estimate workflows.</li>
+							<li>Shared data layer used by both the web UI and CLI mode.</li>
+							<li>Deployed app available for live inspection from this page.</li>
+						</ul>
+					</div>
+					<figcaption>Streamlit web dashboard proof points</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
-					<figcaption>CLI mode</figcaption>
+					<div class="proof-panel">
+						<h3>What the CLI path proves</h3>
+						<ul>
+							<li>Same backend operations can run without the Streamlit interface.</li>
+							<li>Data reads and writes stay isolated in <span class="code-segment">core_stuff.py</span>.</li>
+							<li>Command-line and web modes can evolve without duplicating finance logic.</li>
+						</ul>
+					</div>
+					<figcaption>CLI mode architecture proof points</figcaption>
 				</figure>
 			</div>
 			<br />

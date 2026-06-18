@@ -11,6 +11,7 @@
 		<meta
 			name="description"
 			content="Connect 4 Bot — a Python AI built with DFS to play Connect 4, created as a practice project for the NOAI competition." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/connect4.html" />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -50,7 +51,7 @@
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Connect 4</h1>
-			<h3>Learning to create AI models that know to play games</h3>
+			<p class="hero-copy">Learning to create AI models that know to play games</p>
 		</header>
 		<main>
 			<div id="top"></div>
@@ -170,14 +171,27 @@
 <span class="diagram-caption">Calibration step on startup maps pixel coordinates to grid cells, fixing resolution dependence.</span></div>
 			<br />
 			<h2 style="text-align: center">In Action</h2>
-			<!-- To add screenshots: save images to assets/img/projects/connect4/ and replace the placeholder div with <img src="../../assets/img/projects/connect4/screenshot.png" alt="..." /> -->
 			<div class="screenshot-grid">
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<div class="proof-panel">
+						<h3>Real-time bot proof points</h3>
+						<ul>
+							<li>Minimax search evaluates future board states without machine learning libraries.</li>
+							<li>Transposition and symmetry caching keep per-move decisions fast enough for live play.</li>
+							<li>The board state feeds directly into the same search path used for move selection.</li>
+						</ul>
+					</div>
 					<figcaption>Bot making a move in real time</figcaption>
 				</figure>
 				<figure class="screenshot">
-					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<div class="proof-panel">
+						<h3>Board detection proof points</h3>
+						<ul>
+							<li>Startup calibration maps screen pixels to the 6-by-7 Connect 4 grid.</li>
+							<li>Color sampling classifies each grid cell as red, yellow, or empty.</li>
+							<li>Detection is separated from search, so either piece can be improved independently.</li>
+						</ul>
+					</div>
 					<figcaption>Pixel-based board detection</figcaption>
 				</figure>
 			</div>

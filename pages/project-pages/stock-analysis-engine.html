@@ -1,0 +1,173 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Stock Analysis Engine — a full-stack tool that turns live stock data into computed metrics, technical indicators, and an AI analyst you can chat with. FastAPI + React + an offline Streamlit mode that uses no AI." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/stock-analysis-engine.html" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Stock Analysis Engine | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Stock Analysis Engine</h1>
+			<h3>Live stock data → computed metrics → an AI analyst you can chat with — plus a fully offline mode that uses no AI</h3>
+		</header>
+		<main>
+			<div id="top"></div>
+			<h2 style="text-align: center; font-size: 30px">Try it!</h2>
+			<a
+				class="text-link"
+				href="https://stock-analysis-engine.vercel.app"
+				>Visit the Live App</a
+			>
+			<br />
+			<br />
+			<a
+				class="text-link"
+				href="https://github.com/PyMite6941/stock-analysis-engine"
+				>Visit the GitHub Repo</a
+			>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">Why I built it:</strong> My
+				grandfather got me interested in stocks and investing from a young age. He
+				was the one who first sat me down and explained what it actually means to
+				own a piece of a company — how a share price moves, why patience beats
+				panic, and how to read a market without letting it read you. That early
+				influence stuck with me, and this project is the engineering version of
+				those lessons: a tool that turns raw market data into the kind of clear,
+				honest picture he always pushed me to look for before making a
+				decision.<br /><br />
+				<strong style="color: var(--text-color)">Context:</strong> Most retail
+				stock tools either bury you in noise or hide the math behind a paywall and a
+				black-box "AI signal." I wanted the opposite — a tool where the numbers are
+				computed transparently from real data, the AI explains tradeoffs instead of
+				barking buy/sell calls, and the whole analysis still works offline with no
+				keys at all.<br /><br />
+				<strong style="color: var(--text-color)">Challenges:</strong> The hardest
+				design goal was guaranteeing that the offline Streamlit math is
+				<em>identical</em> to the online API math. I solved it by putting every
+				calculation in a shared <span class="code-segment">core/</span> package that
+				both paths import — the AI lives only in the backend and never touches the
+				numbers. Deploying a React frontend and a FastAPI backend as a single
+				same-origin Vercel project (to avoid CORS) and making stock data reliable
+				from cloud IPs were the other two real hurdles.<br /><br />
+				<strong style="color: var(--text-color)">Result:</strong> A deployed
+				full-stack analysis engine: live quotes and price history, computed risk
+				metrics, candlestick charts with technical indicators, CSV export, and a
+				data-grounded AI analyst — backed by a Groq → OpenRouter fallback chain so a
+				dead key never takes the app down. The same core math also powers a local
+				Streamlit app that needs no API keys.</article
+			>
+			<br />
+			<h2 style="text-align: center">How the App is Structured</h2>
+			<br />
+			<div class="ascii-diagram">  Stock Analysis Engine — Architecture
+  ══════════════════════════════════════
+
+  ┌──────────────────────────────────────────────────────┐
+  │                      core/  (NO AI)                   │
+  │   data.py       pluggable provider: yfinance / finnhub│
+  │   metrics.py    total return, volatility, drawdown    │
+  │   indicators.py SMA · EMA · Wilder's RSI · MA         │
+  │        single source of truth for every number        │
+  └───────────────┬───────────────────────┬──────────────┘
+                  │ imported by           │ imported by
+                  ▼                       ▼
+   ┌──────────────────────────┐   ┌──────────────────────────┐
+   │  backend/  (FastAPI)     │   │  offline/  (Streamlit)    │
+   │  serves quotes, history, │   │  same math, NO AI,        │
+   │  metrics, CSV download   │   │  no API keys needed       │
+   │  + ai.py  AI chat proxy  │   │  (local-only tool)        │
+   └────────────┬─────────────┘   └──────────────────────────┘
+                │ relative /api/...
+                ▼
+   ┌──────────────────────────┐
+   │  frontend/  (React+Vite) │
+   │  tables · candlestick    │
+   │  charts · AI chat panel  │
+   │  · CSV download button   │
+   └──────────────────────────┘
+<span class="diagram-caption">core/ is the only place numbers are computed, so the offline app and the online API can never drift apart. The AI lives only in the backend.</span></div>
+			<br />
+			<div class="ascii-diagram">  Data Flow — Analyzing a Symbol
+  ═══════════════════════════════
+
+  User enters AAPL,MSFT  →  frontend GET /api/analyze
+          │
+          ▼  backend
+  core/data.py: quotes() + history()   (yfinance or finnhub)
+          │  raw price series
+          ▼
+  core/metrics.py + indicators.py
+          │  total return · volatility · max drawdown · RSI · SMA/EMA
+          ▼
+  JSON: per-symbol metrics + summary  →  tables &amp; charts
+
+  Ask the AI a question  →  POST /api/chat
+          │  backend/ai.py grounds the prompt in the CURRENT metrics
+          ▼
+  Groq (llama-3.3-70b)  →  if down, OpenRouter fallback
+          ▼
+  Plain-spoken answer that cites the actual numbers — never a buy/sell call
+<span class="diagram-caption">The AI only ever sees the data already on screen, so its answers stay anchored to the real computed metrics.</span></div>
+			<br />
+			<h2 style="text-align: center">In Action</h2>
+			<!-- To add screenshots: save images to assets/img/projects/stock-analysis-engine/ and replace the placeholder div with <img src="../../assets/img/projects/stock-analysis-engine/screenshot.png" alt="..." /> -->
+			<div class="screenshot-grid">
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>Metrics dashboard + candlestick chart</figcaption>
+				</figure>
+				<figure class="screenshot">
+					<div class="screenshot-placeholder">Screenshots coming soon</div>
+					<figcaption>AI analyst chat panel</figcaption>
+				</figure>
+			</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problems Solved</h3>
+					<p>Retail stock tools tend to either drown you in noise or hide the math behind a black-box "AI signal." I wanted transparent, deterministic numbers, an AI that explains tradeoffs instead of giving directives, and an analysis path that still runs offline with no keys — the disciplined, evidence-first approach to investing my grandfather taught me.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Errors &amp; Fixes</h3>
+					<p>yfinance is unreliable from cloud IPs, so production silently returned empty quotes — fixed by making the data layer pluggable and switching the deployed app to a Finnhub REST provider. CORS errors between the React frontend and FastAPI backend disappeared once I deployed both as one same-origin Vercel project (static frontend + a <span class="code-segment">@vercel/python</span> function), with the frontend calling relative <span class="code-segment">/api/...</span>.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>How to architect shared business logic so two completely different frontends (a React SPA and a Streamlit app) compute identical results from one <span class="code-segment">core/</span> package. Plus implementing technical indicators from scratch with proper warm-up handling, building a multi-provider AI fallback chain over the OpenAI-compatible wire format, and shipping a hybrid Python + React app on a single Vercel deployment.</p>
+				</div>
+			</div>
+			<br />
+			<p style="text-align: center; font-size: 14px; color: var(--text-color)">Not financial advice — the AI explains tradeoffs, it doesn't give buy/sell calls.</p>
+			<br />
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

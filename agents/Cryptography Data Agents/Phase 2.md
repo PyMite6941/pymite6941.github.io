@@ -6,45 +6,48 @@
 
 ### 1. MISSION STATEMENT
 
-To act as an automated cryptographic gatekeeper within the pipeline. This agent intercepts all unstructured data packets generated during Phase 1, verifies their source origins, calculates structural hashes, and executes statistical variance tests to identify potential adversarial data poisoning attempts before the pipeline advances to active testing phases.
+To act as an automated cryptographic gatekeeper within the pipeline. This agent intercepts all unstructured data packets generated during Phase 1, verifies their source origins, computes structural hashes, and executes statistical variance tests to identify potential adversarial data-poisoning attempts before the pipeline advances to active auditing phases.
 
 ### 2. ARCHITECTURAL DATA FLOW & CONTROL PLANE
 
+```
 [Phase 01 Output Envelope]
-│
-▼
+                │
+                ▼
 ┌────────────────────────────────────────┐
-│ AGENT-02-PROV Ingestion Engine │
+│      AGENT-02-PROV Ingestion Engine     │
 ├────────────────────────────────────────┤
-│ 1. Verify Phase 01 Cryptographic Sign │
-│ 2. Compute Target Chunk SHA-256 Hashes │
-│ 3. Execute Outlier Vector Detection │
+│ 1. Verify Phase 01 Cryptographic Sign   │
+│ 2. Compute Target Chunk SHA-256 Hashes  │
+│ 3. Execute Outlier Vector Detection     │
 └────────────────────────────────────────┘
-│
-├─── [Anomaly Detected] ──> [RAISE TRAP / HALT PIPELINE]
-│
-▼ [Validation Cleared]
+                │
+                ├─── [Anomaly Detected] ──> [RAISE TRAP / HALT PIPELINE]
+                │
+                ▼ [Validation Cleared]
+[Verified Data Ledger] ──> (Passes to Phase 3)
+```
 
 Sector: Supply Chain Security // Focus: MLOps Data Poisoning Interception
 
-1. MISSION STATEMENT
-   To enforce immutable supply chain chain-of-custody by mathematically verifying the origins, timestamps, and hash structures of pipeline data packets, checking for adversarial data poisoning markers before processing.
+### 3. CRYPTOGRAPHIC DATA MONITORING (IMPLEMENTATION ENGINE)
 
-2. CRYPTOGRAPHIC DATA MONITORING
-   The agent executes automated cryptographic envelope confirmation:
+The agent enforces immutable supply-chain chain-of-custody by mathematically verifying the origin, timestamps, and hash structure of every pipeline data packet, checking for adversarial data-poisoning markers before processing.
 
-Python
+```python
 import hashlib
 
+
 def verify_data_packet(envelope: dict, expected_origin: str) -> bool:
-if envelope.get("metadata", {}).get("origin") != expected_origin:
-return False
-raw_payload = str(envelope.get("payload", "")).encode('utf-8')
-computed_hash = hashlib.sha256(raw_payload).hexdigest()
-return computed_hash == envelope.get("signature", {}).get("hash") 3. OUTPUT PIPELINE RECORD
-Output Artifact: VERIFIED_DATA_LEDGER
+    """Confirms a packet's declared origin and validates its SHA-256 signature."""
+    if envelope.get("metadata", {}).get("origin") != expected_origin:
+        return False
+    raw_payload = str(envelope.get("payload", "")).encode("utf-8")
+    computed_hash = hashlib.sha256(raw_payload).hexdigest()
+    return computed_hash == envelope.get("signature", {}).get("hash")
+```
 
-Sign-Off Verification: Appends independent public-key infrastructure (PKI) signatures to cleared records, validating the ingestion tier.
-"""
+### 4. OUTPUT PIPELINE RECORD
 
-log_auditor = """# Analytical Agent: Intermediate Exploit Log Auditor
+- **Output Artifact:** `VERIFIED_DATA_LEDGER`
+- **Sign-Off Verification:** Appends independent public-key infrastructure (PKI) signatures to cleared records, validating the ingestion tier before handoff to AGENT-03-MCP-AUDIT.

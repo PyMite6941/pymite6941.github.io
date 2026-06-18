@@ -73,6 +73,20 @@ at the bottom of `<body>`, and must load `site-style.js` in `<head>`:
 
 `site-style.js` reads `data-depth` from `<html>` and resolves all paths automatically. Do not duplicate nav or footer links manually — edit `site-style.js` if the nav or footer content needs to change.
 
+### Scripts injected by `site-style.js`
+
+Pages only ever load `site-style.js`. It injects the rest at runtime (path-depth resolved), so do **not** add these to page `<head>`s individually:
+
+| Script | Purpose |
+|---|---|
+| `easter-eggs.js` | Misc easter eggs |
+| `chatbot.js` | Floating portfolio chatbot (calls the Cloudflare worker) |
+| `seo-schema.js` | Injects the canonical link + JSON-LD structured data (see SEO section) |
+| `analytics.js` | GA4 provider bootstrap — **injected before `metrics.js` on purpose** so `window.gtag` exists first |
+| `metrics.js` | Event layer — forwards `page_view` / click events to whatever provider is present |
+
+The `analytics.js` → `metrics.js` order is load-bearing; keep `analytics` appended first in `site-style.js`.
+
 ## AI Lab — External Next.js Project
 
 The AI Lab lives at `../ai-lab/` (Next.js project) and deploys to `https://ai-lab-bice.vercel.app`.
@@ -81,6 +95,21 @@ The AI Lab lives at `../ai-lab/` (Next.js project) and deploys to `https://ai-la
 - The nav bar in the portfolio links to the AI Lab via `site-style.js` (`ailab` path key)
 - Do NOT create local project pages in `pages/project-pages/` for AI Lab projects — put them in the `ai-lab/` Next.js app instead
 - AI Lab project pages should link back to the portfolio when referencing hackathons (use full URL: `https://pymite6941.is-a.dev/pages/...`)
+
+The `agents/` directory holds the markdown phase prompts for the multi-agent pipelines. The **Network Defense Agents** files are fetched live by the AI Lab's network-defense demo (`agents/Network%20Defense%20Agents/Phase%20N.md`), so each must keep its `## AGENT DIRECTIVE` header (the system prompt) and valid markdown. The **Cryptography Data Agents** files are standalone docs (not consumed by any demo). Keep code fences balanced and any embedded Python syntactically valid.
+
+## SEO, Structured Data & Analytics
+
+Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves the root files automatically. Live domain is `https://pymite6941.is-a.dev` (see `CNAME`).
+
+- **`sitemap.xml`** (root) — lists the main public pages, substantive project pages, hackathon pages, and useful dev-docs. Every `<loc>` must resolve to a real file on the live domain. Do **not** list thin/duplicate pages (e.g. daily-prompt pages) or private/hidden ones.
+- **`robots.txt`** (root) — allows all, points to the sitemap URL.
+- **`assets/js/seo-schema.js`** — on every page, upserts exactly one `<link rel="canonical">` and injects a JSON-LD `@graph` (`Person` + `WebSite` + `WebPage`, plus `SoftwareApplication`/`CreativeWork` for project pages). Per-page facts come from the `PAGE_META` map. **When you add a substantive project page, add a `PAGE_META` entry** (accurate name, description, type, and `programmingLanguage`/`applicationCategory` when it's software) — don't leave Finance Kit as the only enriched page.
+- **Static canonical tags** — the highest-priority pages (`index.html`, `pages/projects.html`, `pages/about-me.html`, and strong project pages) also carry a static `<link rel="canonical">` in the HTML head as a safety net. `seo-schema.js` updates the same single tag, so there is never a duplicate. Use **one** canonical per page and **never** an absolute internal nav link.
+- **Analytics + consent (live)** — `analytics.js` is consent-gated. It (1) sets Google **Consent Mode v2** defaults to *denied*, (2) loads the **Cookiebot** CMP (the consent banner, `data-cbid` in the `COOKIEBOT_CBID` constant), (3) bridges the user's Cookiebot choice to a `gtag('consent','update')` itself (so it does not depend on Cookiebot's dashboard consent-mode toggle), and (4) loads **GA4** (`GA4_MEASUREMENT_ID`, currently `G-WLJ6YMX87M`). GA4 runs cookieless until `analytics_storage` is granted. Both IDs are public, not secrets. Set either constant to `''` to disable that piece. `metrics.js` (the event layer) forwards `page_view`/click events to `window.gtag`; while consent is denied those are cookieless pings. It no-ops with zero console errors when no provider is present; set `localStorage.siteMetricsDebug = "1"` to log events locally. Event names are stable — see the schema doc at the top of `metrics.js`; do not rename them.
+- **Search Console verification** — must be a **static** `<meta name="google-site-verification">` in `index.html` (Google reads raw HTML and does not run the JS-injected head). A commented placeholder slot is already in `index.html`.
+
+**Hidden-project rule (important):** projects listed in `HIDDEN_PROJECTS.md` (currently Connect 4 Bot and ForgeOS) must stay out of **every** discovery surface — no card or link, **and no `sitemap.xml` entry and no `seo-schema.js` `PAGE_META` entry**. The SEO scaffold has previously re-exposed `connect4.html` here by accident; check both files whenever editing them.
 
 ## PyScript Usage
 
@@ -134,12 +163,12 @@ Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language 
 
 Read `LOCAL_LLM_WEBSITE_BRIEF.md` before improving the site. It is the current implementation brief for local coding models.
 
-That brief covers three active improvements:
-- Improve the existing About page at `pages/about-me.html`. Do not create a duplicate About page.
-- Add safe page-level visitor metrics that no-op when GA4 or PostHog is absent.
-- Improve the existing Finance Kit page at `pages/project-pages/finance_kit.html` so it reads like stronger project proof.
+That brief covers three improvements — current status:
+- **Done** — About page (`pages/about-me.html`): top-section proof list + primary links (Projects / Resume / Contact). Do not create a duplicate About page.
+- **Done** — page-level visitor metrics: `analytics.js` (GA4 `G-WLJ6YMX87M` + Cookiebot consent banner + Consent Mode v2) and `metrics.js` (event layer) are built and wired. See the SEO section above.
+- **Done** — Finance Kit page (`pages/project-pages/finance_kit.html`): breadcrumb + "what to inspect next" with internal links back to Projects and About.
 
-For the SEO crawl-signal scaffold, also read `todo.md`. It explains the sitemap, robots, canonical URL, structured data, and hosting follow-up work.
+For the SEO crawl-signal scaffold, also read `todo.md`. It explains the sitemap, robots, canonical URL, structured data, and hosting follow-up work. **Still pending (needs Matt, in Search Console after deploy):** paste the Search Console verification token into the placeholder in `index.html`, then verify the property and submit the sitemap. GA4 + the consent banner are already wired.
 
 Treat the individual project pages under `pages/project-pages/` as first-class proof pages, just as important as `pages/about-me.html` for crawling, indexing, and AI answers. Do not make Finance Kit the only project page with strong metadata, internal links, or structured data. When improving crawl signals, cover all substantive project detail pages with accurate static canonical tags, unique page titles, concise meta descriptions, and conservative `SoftwareApplication` or `CreativeWork` JSON-LD when the page facts support it.
 

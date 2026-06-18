@@ -30,14 +30,6 @@
 			applicationCategory: 'FinanceApplication',
 			programmingLanguage: ['Python'],
 		},
-		'/pages/project-pages/connect4.html': {
-			name: 'Connect 4 Bot',
-			description:
-				'Connect 4 bot by Matt Gresham using search algorithms, minimax, alpha-beta pruning, and board-state evaluation.',
-			type: 'SoftwareApplication',
-			applicationCategory: 'GameApplication',
-			programmingLanguage: ['Python'],
-		},
 		'/pages/project-pages/study_stuff.html': {
 			name: 'Study Tools',
 			description:
@@ -53,6 +45,52 @@
 			type: 'SoftwareApplication',
 			applicationCategory: 'DeveloperApplication',
 			programmingLanguage: ['Go'],
+		},
+		'/pages/project-pages/stock-analysis-engine.html': {
+			name: 'Stock Analysis Engine',
+			description:
+				'Full-stack stock analysis tool by Matt Gresham: live data, computed metrics and technical indicators, candlestick charts, and a data-grounded AI analyst, plus an offline Streamlit mode that uses no AI. Built with FastAPI and React.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'FinanceApplication',
+			programmingLanguage: ['Python', 'JavaScript'],
+		},
+		'/pages/project-pages/magellan.html': {
+			name: 'Magellan',
+			description:
+				'Magellan by Matt Gresham is a search engine that pairs a Go web spider with a React frontend, deployed on Vercel.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'WebApplication',
+			programmingLanguage: ['Go', 'JavaScript'],
+		},
+		'/pages/project-pages/markdown-previewer.html': {
+			name: 'Markdown Previewer',
+			description:
+				'Markdown Previewer by Matt Gresham is a React app that renders Markdown to HTML in real time with GitHub-flavored Markdown support.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'DeveloperApplication',
+			programmingLanguage: ['JavaScript'],
+		},
+		'/pages/project-pages/pixelcode.html': {
+			name: 'PixelCode',
+			description:
+				'PixelCode by Matt Gresham is a self-hosted AI coding assistant built on FastAPI and Ollama, designed to run on your own infrastructure.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'DeveloperApplication',
+			programmingLanguage: ['Python'],
+		},
+		'/pages/project-pages/fitness-ai-agents.html': {
+			name: 'Fitness AI Agents',
+			description:
+				'Fitness AI Agents by Matt Gresham is a multi-agent coaching system that reasons over your own Strava data using ChromaDB and local LLMs.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'HealthApplication',
+			programmingLanguage: ['Python'],
+		},
+		'/pages/project-pages/cyberdeck.html': {
+			name: 'Cyberdeck',
+			description:
+				'A custom portable computer built by Matt Gresham — a modular Raspberry Pi cyberdeck with a sliding touchscreen, mechanical keyboard, trackball, and a custom OS layer.',
+			type: 'CreativeWork',
 		},
 	};
 

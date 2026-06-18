@@ -34,7 +34,7 @@ When AGENT-01 hands off the target map to AGENT-02, it must populate the followi
 
 ```yaml
 target_vector:
-  endpoint_url: '[https://api.target-sys.internal/v1/chat](https://api.target-sys.internal/v1/chat)'
+  endpoint_url: 'https://api.target-sys.internal/v1/chat'
   context_window_tokens: 128000
   orchestration_framework: 'LangChain-v0.3 / MCP-Host'
   discovered_tools:
@@ -48,5 +48,5 @@ target_vector:
     - type: 'regex_input_filter'
       active: true
     - type: 'llama_guard_v3'
-      endpoint: '[http://guardrail-mesh.internal](http://guardrail-mesh.internal)'
+      endpoint: 'http://guardrail-mesh.internal'
 ```

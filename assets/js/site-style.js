@@ -125,6 +125,19 @@
 	seo.defer = true;
 	document.head.appendChild(seo);
 
+	// analytics.js (provider bootstrap) must load before metrics.js (event layer)
+	// so window.gtag exists when the first page_view fires. Deferred scripts run
+	// in insertion order, so appending analytics first guarantees that.
+	var analytics = document.createElement('script');
+	analytics.src = base + 'assets/js/analytics.js';
+	analytics.defer = true;
+	document.head.appendChild(analytics);
+
+	var metrics = document.createElement('script');
+	metrics.src = base + 'assets/js/metrics.js';
+	metrics.defer = true;
+	document.head.appendChild(metrics);
+
 	document.querySelectorAll('.code-segment pre code').forEach(function (block) {
 		var lines = block.innerHTML.split('\n');
 		if (lines.length && lines[lines.length - 1].trim() === '') lines.pop();

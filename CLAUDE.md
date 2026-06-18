@@ -143,4 +143,12 @@ For the SEO crawl-signal scaffold, also read `todo.md`. It explains the sitemap,
 
 Treat the individual project pages under `pages/project-pages/` as first-class proof pages, just as important as `pages/about-me.html` for crawling, indexing, and AI answers. Do not make Finance Kit the only project page with strong metadata, internal links, or structured data. When improving crawl signals, cover all substantive project detail pages with accurate static canonical tags, unique page titles, concise meta descriptions, and conservative `SoftwareApplication` or `CreativeWork` JSON-LD when the page facts support it.
 
+Before treating any public page as crawl-ready, check:
+- It has exactly one static canonical URL.
+- It has one unique, accurate `<title>` and one concise meta description.
+- It has one clear `<h1>` that matches the page topic.
+- It links back to Projects, About, or a closely related proof page.
+- It belongs in `sitemap.xml` only if it is useful as a search landing page.
+- It uses structured data only for claims the visible page actually supports.
+
 Keep those changes review-sized, use only facts already on the site or supplied by Matt, and preserve the static-site rules above.

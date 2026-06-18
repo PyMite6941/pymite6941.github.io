@@ -74,6 +74,20 @@ Acceptance:
 - Local relative links still work.
 - No absolute internal navigation links are introduced.
 
+## Crawl-ready checklist for every public page
+
+Before treating any page as ready for Google or AI crawlers, make sure it has:
+
+- Exactly one static canonical URL.
+- One unique, accurate `<title>`.
+- One concise meta description based on the visible page content.
+- One clear `<h1>` that matches the page topic.
+- At least one link back to Projects, About, or a closely related proof page.
+- A sitemap entry only if the page is useful as a search landing page.
+- Structured data only when the visible page supports the claim.
+
+Do not mark a page crawl-ready if its metadata describes a stronger page than the one visitors can actually read.
+
 ## Phase 3: expand structured data carefully
 
 Use only facts already present on the site or supplied by Matt.

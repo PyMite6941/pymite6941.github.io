@@ -1,6 +1,6 @@
-# Website SEO scaffold todo
+# Website SEO scaffold status
 
-This file is for local coding models working on the website. Read `CLAUDE.md` first, then `LOCAL_LLM_WEBSITE_BRIEF.md`, then this file.
+This file records the SEO scaffold status. It is not a queue for local models. Make concrete repo changes directly, then update this file only when the status or guardrails change.
 
 ## Goal
 
@@ -35,6 +35,8 @@ After Google Search Console is connected, submit the sitemap URL there.
 
 ## Phase 1: verify the scaffold
 
+Status: Done.
+
 Check these before adding more content:
 
 - Open `sitemap.xml` and confirm the listed pages are real public pages.
@@ -51,6 +53,8 @@ Acceptance:
 - The site still works if JavaScript loads slowly or fails.
 
 ## Phase 2: make the important canonical tags static
+
+Status: Done. The original four pages are covered, and the current PR also covers the substantive project pages.
 
 The shared JS scaffold is useful because it gives every page a safety net. For the highest-priority pages, static canonical tags in the HTML head are better.
 
@@ -90,6 +94,8 @@ Do not mark a page crawl-ready if its metadata describes a stronger page than th
 
 ## Phase 3: expand structured data carefully
 
+Status: Done for the strongest current proof pages. Keep extending it only when a page has visible facts that support the schema.
+
 Use only facts already present on the site or supplied by Matt.
 
 Good structured data candidates:
@@ -115,6 +121,8 @@ Acceptance:
 - The same `Person` identity is reused across pages with the same `@id`.
 
 ## Phase 4: decide what belongs in the sitemap
+
+Status: Done for the current public sitemap. Daily prompt pages are still intentionally excluded unless a future pass makes them useful search landing pages.
 
 The starter sitemap lists the main public pages, project pages, hackathon pages, and dev-doc pages. It does not list every daily prompt page yet.
 
@@ -144,7 +152,9 @@ Acceptance:
 
 ## Phase 5: connect this to the traffic goal
 
-This scaffold does not create traffic by itself. It makes the site easier to crawl and understand. The next model should connect it to the other active work:
+Status: Repo-side work is done. Search Console setup still needs Matt's Google account.
+
+This scaffold does not create traffic by itself. It makes the site easier to crawl and understand. Future repo changes should connect it to the other active work:
 
 - About page: make Matt Gresham and his proof points clearer.
 - Finance Kit page: make one strong case-study page.

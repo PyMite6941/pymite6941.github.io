@@ -49,7 +49,7 @@
 		'/pages/project-pages/stock-analysis-engine.html': {
 			name: 'Stock Analysis Engine',
 			description:
-				'Full-stack stock analysis tool by Matt Gresham: live data, computed metrics and technical indicators, candlestick charts, and a data-grounded AI analyst, plus an offline Streamlit mode that uses no AI. Built with FastAPI and React.',
+				'Stock Analysis Engine is Matt Gresham\'s FastAPI and React stock analysis tool with computed metrics, technical indicators, AI chat, and an offline Streamlit mode.',
 			type: 'SoftwareApplication',
 			applicationCategory: 'FinanceApplication',
 			programmingLanguage: ['Python', 'JavaScript'],

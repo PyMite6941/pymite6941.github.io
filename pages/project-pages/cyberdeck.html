@@ -10,7 +10,7 @@
 		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
 		<meta
 			name="description"
-			content="Matt Gresham's custom cyberdeck build ΓÇö a modular Raspberry Pi 5 portable computer with a sliding touchscreen, mechanical keyboard, trackball, and custom OS layer." />
+			content="Matt Gresham's custom cyberdeck build: a modular Raspberry Pi 5 portable computer with a sliding touchscreen, mechanical keyboard, trackball, and custom OS layer." />
 		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/cyberdeck.html" />
 		<link
 			rel="stylesheet"
@@ -73,7 +73,7 @@
 			<div id="top"></div>
 			<h2 style="text-align: center; font-size: 30px">The Build</h2>
 			<p style="color: #8b949e; font-size: 0.95rem; max-width: 680px">
-				Based on the open-source DFCD (DesignatedFreeCadDevice) ΓÇö a modular
+				Based on the open-source DFCD (DesignatedFreeCadDevice), a modular
 				Raspberry Pi 5 cyberdeck with a sliding 10.1" touchscreen, hidden
 				mechanical keyboard, trackball, and NP-F battery. Every part is either
 				3D-printed or off-the-shelf. This is an in-progress hardware build.
@@ -253,45 +253,45 @@
 			<h2 style="text-align: center">Hardware</h2>
 			<br />
 			<div class="ascii-diagram">  Core Components
-  ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  ------------------------------------------
 
   Brain       Raspberry Pi 5 8GB
   Display     10.1" IPS touch LCD (sliding)
   Keyboard    NOS C-450 TKL (hidden under screen)
   Input       Trackball (Logitech Marble donor)
-  Power       NP-F battery ΓåÆ 7.2V ΓåÆ 5.1V regulated
+  Power       NP-F battery -> 7.2V -> 5.1V regulated
   Scroll      Rotary encoder handle
 
   Custom 3D-Printed Parts
-  ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  ------------------------------------------
 
   Raised GFPIO lid    +12mm headroom for RTC/cabling over GPIO header
-  Screen frame        Modified ΓÇö status LED between front buttons (GPIO26)
+  Screen frame        Modified with status LED between front buttons (GPIO26)
   Comms module        Clamp-on enclosure: Pico USB bridge + NFC + LoRa (AS923)
 
-<span class="diagram-caption">Upstream hardware design: DFCD by ArcticEnrichmentCenter. Custom parts kept separate ΓÇö upstream files never modified.</span></div>
+<span class="diagram-caption">Upstream hardware design: DFCD by ArcticEnrichmentCenter. Custom parts kept separate; upstream files were never modified.</span></div>
 			<br />
 			<h2 style="text-align: center">Software</h2>
 			<br />
 			<div class="ascii-diagram">  OS Layer (Raspberry Pi OS 64-bit)
-  ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  ------------------------------------------
 
   setup.sh              one-shot idempotent installer
-  Γö£ΓöÇΓöÇ boot/             systemd boot-script system (drop-in /boot.d/)
-  Γö£ΓöÇΓöÇ memory/           zram swap + kernel VM tuning (no SD wear)
-  Γö£ΓöÇΓöÇ theme/            green/cyan prompt, fastfetch banner, tmux, wallpaper
-  Γö£ΓöÇΓöÇ ai/     (opt-in)  Claude Code + Ollama, memory-tuned for Pi 5
-  Γö£ΓöÇΓöÇ extras/ (opt-in)  deck-mode, deck-vault (LUKS2), Conky bar, RTL-SDR
-  ΓööΓöÇΓöÇ upgrades/(opt-in) deck-assistant, USB HID, NAS share, comms module
+  |- boot/             systemd boot-script system (drop-in /boot.d/)
+  |- memory/           zram swap + kernel VM tuning (no SD wear)
+  |- theme/            green/cyan prompt, fastfetch banner, tmux, wallpaper
+  |- ai/     (opt-in)  Claude Code + Ollama, memory-tuned for Pi 5
+  |- extras/ (opt-in)  deck-mode, deck-vault (LUKS2), Conky bar, RTL-SDR
+  `- upgrades/(opt-in) deck-assistant, USB HID, NAS share, comms module
 
   Apps (user workspace, separate from OS layer)
-  ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  ------------------------------------------
 
-  Grimoire        Offline docs search engine ΓÇö SQLite + BM25 FTS5,
+  Grimoire        Offline docs search engine with SQLite + BM25 FTS5,
                   zstandard compression, ingest from DevDocs .zim files
   Security Suite  local tools slot for future security workflows
 
-<span class="diagram-caption">Every piece is a readable text file ΓÇö re-flashable in minutes, editable by hand or by agents.</span></div>
+<span class="diagram-caption">Every piece is a readable text file, re-flashable in minutes and editable by hand or by agents.</span></div>
 			<br />
 			<h2 style="text-align: center">Comms Module</h2>
 			<br />
@@ -299,15 +299,15 @@
 				<strong style="color: var(--text-color)">What it is:</strong> A
 				clamp-on add-on module that attaches to the deck's rail. Houses a
 				Raspberry Pi Pico as a USB bridge between the main Pi and two radios:
-				a PN532 NFC reader and an RFM9x LoRa radio (923 MHz ΓÇö AS923,
+				a PN532 NFC reader and an RFM9x LoRa radio (923 MHz, AS923,
 				Thailand-legal).<br /><br />
 				<strong style="color: var(--text-color)">How it works:</strong> The
 				Pico runs CircuitPython firmware that reads both radios and exposes a
 				simple line protocol over its USB serial port. The host Pi talks to it
-				via <code>deck-comms</code> ΓÇö a shell tool that finds the bridge by
+				via <code>deck-comms</code>, a shell tool that finds the bridge by
 				PINGing serial ports.<br /><br />
 				<strong style="color: var(--text-color)">CAD:</strong> Custom
-				enclosure generated with Python + FreeCAD ΓÇö 82├ù60├ù32 mm body with a
+				enclosure generated with Python + FreeCAD: 82 x 60 x 32 mm body with a
 				1.2 mm NFC read-through window, SMA antenna hole for LoRa, USB exit
 				slot, and M3 floor holes for the rail clamp.
 			</article>
@@ -334,7 +334,7 @@
 							<li>Boot and system behavior are owned in the project instead of hidden behind vendor defaults.</li>
 						</ul>
 					</div>
-					<figcaption>Custom OS ΓÇö boot screen</figcaption>
+					<figcaption>Custom OS boot screen</figcaption>
 				</figure>
 				<figure class="screenshot">
 					<div class="proof-panel">
@@ -353,7 +353,7 @@
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Why Build This</h3>
-					<p>I wanted a computer that was entirely mine ΓÇö not designed around how a manufacturer thinks I should work. A form factor I chose, hardware I can repair, and software I control down to the boot scripts. The DFCD gave me a proven mechanical base so I could focus on the OS and software side.</p>
+					<p>I wanted a computer that was entirely mine, not designed around how a manufacturer thinks I should work. A form factor I chose, hardware I can repair, and software I control down to the boot scripts. The DFCD gave me a proven mechanical base so I could focus on the OS and software side.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Hardest Part So Far</h3>

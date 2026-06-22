@@ -32,7 +32,10 @@
 			<h2 style="text-align: center; font-size: 30px"
 				>Try it in the browser!</h2
 			>
-			<p>The app is linked below — runs fully in the browser.</p>
+			<p>
+				The search frontend is linked below. The project notes show the crawler,
+				indexing path, and React app that feed it.
+			</p>
 			<br />
 			<a
 				class="text-link"
@@ -43,9 +46,27 @@
 			<br />
 			<a
 				class="text-link"
-				href="https://github.com/PyMite6941/magellan-search-engine"
-				>View the GitHub Repo</a
+				href="../30DaysOfAIProgrammingPrompts/Day12.html"
+				>View the React app notes</a
 			>
+			<br />
+			<br />
+			<a
+				class="text-link"
+				href="../30DaysOfAIProgrammingPrompts/Day13.html"
+				>View the Go spider notes</a
+			>
+			<br />
+			<h2 style="text-align: center">What Visitors Can Inspect</h2>
+			<br />
+			<article>
+				<ul>
+					<li>The live Vercel app shows the React search interface and result cards.</li>
+					<li>The project notes show the React frontend, Go spider, SQLite index, and Turso upload path.</li>
+					<li>The diagrams below show how a seed URL becomes indexed rows, then browser-searchable results.</li>
+					<li>The current page does not claim public source repo access, active production crawl coverage, or a maintained public search index.</li>
+				</ul>
+			</article>
 			<br />
 			<h2 style="text-align: center">Description</h2>
 			<br />
@@ -56,14 +77,16 @@
 				understand how web indexing actually works under the hood.<br /><br />
 				<strong style="color: var(--text-color)">Challenges:</strong> Building
 				the Go spider as a standalone CLI first, then designing the data layer
-				so the React frontend could query SQLite efficiently. The main design
-				decision was keeping the spider and frontend completely decoupled — the
-				spider writes to a local database, and the frontend reads from it
-				independently.<br /><br />
+				so the React frontend could query indexed content efficiently. The main
+				design decision was keeping the spider and frontend decoupled: the
+				spider writes crawled pages into a local SQLite database, then the
+				frontend reads the uploaded index through Turso's browser-reachable
+				HTTP API.<br /><br />
 				<strong style="color: var(--text-color)">Result:</strong> A two-part
-				system: a Go spider that crawls from a seed URL and indexes content into
-				SQLite, and a React frontend deployed on Vercel that searches the index
-				in the browser. Both repos are public and independently usable.</article
+				project: a Go spider crawls from a seed URL and indexes page titles,
+				body text, and links into SQLite; a React frontend deployed on Vercel
+				searches that index from the browser. The live app and project notes are
+				linked above so visitors can inspect both sides of the build.</article
 			>
 			<br />
 			<h2 style="text-align: center">How It Works</h2>

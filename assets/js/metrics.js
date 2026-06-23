@@ -24,8 +24,8 @@
  * Tracking uses one delegated click listener so individual pages need no
  * custom JavaScript. Links may opt in explicitly with data-track-event (and
  * optional data-track-* fields); otherwise sensible heuristics classify the
- * nav, footer, resume, contact, AI Lab, and project-card links already on the
- * site.
+ * nav, footer, resume, contact, AI Lab, project-card, proof-strip, and proof
+ * page action links already on the site.
  */
 (function () {
 	'use strict';
@@ -102,15 +102,38 @@
 	}
 
 	// ── Link classification ─────────────────────────────────────────────────
+	function toUrl(href) {
+		try {
+			return new URL(href, window.location.href);
+		} catch (e) {
+			return null;
+		}
+	}
+
 	function isExternal(href) {
-		return /^https?:\/\//i.test(href) && href.indexOf(window.location.host) === -1;
+		var url = toUrl(href);
+		return !!url && /^https?:$/i.test(url.protocol) && url.host !== window.location.host;
+	}
+
+	function isProjectPagePath(path) {
+		return /\/pages\/project-pages\/[^/?#]+\.html$/i.test(path || '');
+	}
+
+	function isProjectPageHref(href) {
+		var url = toUrl(href);
+		return !!url && isProjectPagePath(url.pathname || '');
+	}
+
+	function currentProjectSlug() {
+		var m = currentPath().match(/\/project-pages\/([^/?#]+)\.html$/i);
+		return m ? m[1] : '';
 	}
 
 	function destinationKind(href) {
 		if (!href) return 'external';
+		if (isProjectPageHref(href)) return 'case_study';
 		if (/github\.com/i.test(href)) return 'source';
 		if (/devpost\.com/i.test(href)) return 'external';
-		if (/project-pages\//i.test(href)) return 'case_study';
 		if (/(vercel\.app|streamlit\.app|pages\.dev|onrender\.com|herokuapp\.com|hf\.space|huggingface\.co)/i.test(href)) {
 			return 'live';
 		}
@@ -119,8 +142,10 @@
 	}
 
 	function projectSlug(href) {
-		var m = href && href.match(/project-pages\/([^/?#]+)\.html/i);
+		var url = toUrl(href);
+		var m = url && url.pathname.match(/\/project-pages\/([^/?#]+)\.html$/i);
 		if (m) return m[1];
+		if (currentProjectSlug()) return currentProjectSlug();
 		try {
 			return new URL(href, window.location.href).hostname.replace(/^www\./, '');
 		} catch (e) {
@@ -136,6 +161,35 @@
 		return h ? h.textContent.trim() : '';
 	}
 
+	function proofLinkTitle(el) {
+		var link = el.closest ? el.closest('.proof-link') : null;
+		if (!link) return '';
+		var title = link.querySelector('span');
+		return title ? title.textContent.trim() : link.textContent.trim();
+	}
+
+	function currentProjectTitle() {
+		if (!currentProjectSlug()) return '';
+		var h = document.querySelector('main h1, h1');
+		return h ? h.textContent.trim() : '';
+	}
+
+	function projectTitle(anchor) {
+		var title = cardTitle(anchor) || proofLinkTitle(anchor);
+		if (title) return title;
+		if (isProjectPageHref(anchor.getAttribute('href') || '')) {
+			return anchor.textContent ? anchor.textContent.trim() : '';
+		}
+		return currentProjectTitle();
+	}
+
+	function isProofPageAction(href) {
+		if (!currentProjectSlug()) return false;
+		if (!href || href.charAt(0) === '#') return false;
+		var kind = destinationKind(href);
+		return kind === 'live' || kind === 'source' || kind === 'external';
+	}
+
 	function projectClickParams(anchor, href) {
 		var from = currentPath();
 		var dest = anchor.href || href;
@@ -144,7 +198,7 @@
 		var slug =
 			anchor.getAttribute('data-track-slug') || projectSlug(href);
 		var title =
-			anchor.getAttribute('data-track-title') || cardTitle(anchor);
+			anchor.getAttribute('data-track-title') || projectTitle(anchor);
 		var project = title || slug;
 
 		return {
@@ -191,8 +245,9 @@
 		if (/ai-lab-bice\.vercel\.app/.test(lower)) {
 			return { name: 'ai_lab_click', params: { from_path: from, destination_url: dest } };
 		}
-		// Project links — either an internal detail page or a card's outbound link
-		if (/project-pages\//.test(lower) || cardTitle(anchor)) {
+		// Project links — internal proof pages, card links, proof-strip links, or
+		// live/source actions from a project proof page.
+		if (isProjectPageHref(href) || cardTitle(anchor) || proofLinkTitle(anchor) || isProofPageAction(href)) {
 			return {
 				name: 'project_link_click',
 				params: projectClickParams(anchor, href),

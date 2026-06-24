@@ -1,0 +1,297 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Matt Gresham's hands-on cybersecurity lab — DVWA web exploitation, OSINT, a Raspberry Pi home lab, LLM security tooling, and interactive in-browser security demos." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/cybersecurity-lab.html" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+		<link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
+		<script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+		<title>Cybersecurity Lab | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+		<style>
+			.lab-demo {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				padding: 16px;
+				margin-top: 12px;
+			}
+			.lab-demo py-terminal,
+			.lab-demo .py-terminal {
+				min-height: 220px;
+			}
+			.placeholder {
+				border: 1px dashed var(--border-color);
+				border-radius: 8px;
+				padding: 14px;
+				color: #8b949e;
+				font-style: italic;
+				background: rgba(137, 87, 229, 0.05);
+			}
+			.ctf-box {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				padding: 16px;
+				margin-top: 12px;
+			}
+			.ctf-box input {
+				padding: 9px;
+				border: 1px solid var(--border-color);
+				border-radius: 6px;
+				background: var(--bg-color);
+				color: var(--text-color);
+				width: 100%;
+				max-width: 380px;
+				font-family: monospace;
+			}
+			.ctf-box button {
+				padding: 9px 16px;
+				background: var(--button-color);
+				color: #fff;
+				border: none;
+				border-radius: 6px;
+				cursor: pointer;
+				margin-top: 8px;
+			}
+			#ctf-result { margin-top: 10px; font-weight: bold; }
+			.sev-warn {
+				color: #ff9800;
+				border-left: 3px solid #ff9800;
+				padding-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Cybersecurity Lab</h1>
+			<p class="hero-copy">
+				Hands-on offensive and defensive security in a self-built home lab —
+				with live, in-browser demos you can run right now.
+			</p>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<article>
+				This page collects the security work I do outside the classroom: exploiting
+				deliberately-vulnerable web apps, practicing OSINT, running a Raspberry Pi lab,
+				and building security tooling (including
+				<a class="text-link" href="https://llm-protector.vercel.app" target="_blank" rel="noreferrer">LLM Protector</a>,
+				my LLM prompt-injection scanner). As a US citizen I'm building toward the
+				federal cybersecurity field, and everything below is meant to be inspected, not
+				just read.
+			</article>
+
+			<p class="sev-warn">
+				Ethics: every technique here was practiced against systems I own or against
+				intentionally-vulnerable training apps (DVWA). Nothing on this page attacks a
+				real target, and no exploit tools are hosted live.
+			</p>
+			<br />
+
+			<h2 style="text-align: center">Home Lab</h2>
+			<br />
+			<article>
+				A self-contained lab built around a Raspberry Pi running
+				<span class="code-segment">DVWA</span> (Damn Vulnerable Web Application) as a
+				safe target, with an attacker box on the same isolated network.
+			</article>
+			<div class="ascii-diagram">
+ ┌──────────────┐        ┌─────────────────────┐
+ │ Attacker box │ ─────▶ │ Raspberry Pi         │
+ │ (Kali/Linux) │  HTTP  │  • DVWA (PHP/MySQL)  │
+ │ Burp, nmap   │ ◀───── │  • isolated subnet   │
+ └──────────────┘        └─────────────────────┘
+            (no route to the public internet)
+			</div>
+			<div class="placeholder">
+				[Add a photo of the physical Pi lab here →
+				<span class="code-segment">../../assets/img/cyber/lab-setup.jpg</span>]
+			</div>
+			<br />
+
+			<h2 style="text-align: center">Web App Exploitation</h2>
+			<br />
+			<article>
+				Walkthroughs of the core web vulnerability classes, practiced against DVWA and
+				captured below. Requests were intercepted and modified with Burp Suite.
+			</article>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>SQL Injection</h3>
+					<p>
+						Bypassing authentication and dumping the user table with classic
+						<span class="code-segment">' OR '1'='1</span> and UNION-based payloads.
+					</p>
+					<div class="placeholder">[Screenshot → ../../assets/img/cyber/dvwa-sqli.png]</div>
+				</div>
+				<div class="dev-note">
+					<h3>Cross-Site Scripting (XSS)</h3>
+					<p>Stored and reflected XSS — injecting script that runs in another user's session.</p>
+					<div class="placeholder">[Screenshot → ../../assets/img/cyber/dvwa-xss.png]</div>
+				</div>
+				<div class="dev-note">
+					<h3>Command Injection</h3>
+					<p>Chaining OS commands through an unsanitized input field to read server files.</p>
+					<div class="placeholder">[Screenshot → ../../assets/img/cyber/dvwa-cmdi.png]</div>
+				</div>
+			</div>
+			<br />
+
+			<h2 style="text-align: center">OSINT</h2>
+			<br />
+			<article>
+				Open-source intelligence methodology — footprinting and reconnaissance using only
+				publicly available information. Practiced on consenting targets and my own
+				infrastructure.
+			</article>
+			<div class="placeholder">
+				[Add an OSINT methodology write-up / redacted tooling screenshot here]
+			</div>
+			<br />
+
+			<h2 style="text-align: center">Defensive / Blue Team</h2>
+			<br />
+			<article>
+				The defensive counterpart to the offensive work: a Windows USB watchdog that
+				monitors for unauthorized removable-storage events, plus log analysis for
+				brute-force and failed-login patterns.
+			</article>
+			<br />
+
+			<h2 style="text-align: center">LLM Security</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">LLM Protector</strong> is my own security
+				tool: it scans a local LLM for prompt-injection and jailbreak vulnerabilities,
+				running 50 attacks across 11 categories and grading each model with a
+				severity-weighted risk score. It's where my AI and security work meet.
+			</article>
+			<br />
+			<div style="text-align: center">
+				<a class="nav-btn" href="https://llm-protector.vercel.app" target="_blank" rel="noreferrer"
+					style="display:inline-block">Try the LLM Protector live demo</a>
+			</div>
+			<br />
+
+			<h2 style="text-align: center">Interactive Demos</h2>
+			<br />
+			<article>
+				These run entirely in your browser — no server, nothing sent anywhere. Open your
+				DevTools and dig in.
+			</article>
+
+			<h3>1. Hash + Dictionary Cracker</h3>
+			<article>
+				Type a password to see its MD5/SHA-256 hash, then watch a dictionary attack crack a
+				weak hash against a 20-word list. Real attackers use lists of millions — this is why
+				weak passwords fall instantly.
+			</article>
+			<div class="lab-demo">
+				<py-terminal></py-terminal>
+				<!-- prettier-ignore -->
+				<script type="py" terminal>
+import hashlib
+
+WORDLIST = ["123456", "password", "qwerty", "letmein", "admin", "dragon",
+            "monkey", "football", "iloveyou", "abc123", "sunshine", "master",
+            "welcome", "shadow", "ninja", "mustang", "password1", "trustno1",
+            "hunter2", "superman"]
+
+print("=== Hash + Dictionary Cracker ===")
+pw = input("Enter a password to hash: ")
+print("MD5:    " + hashlib.md5(pw.encode()).hexdigest())
+print("SHA256: " + hashlib.sha256(pw.encode()).hexdigest())
+print()
+target = input("Enter an MD5 hash to crack (blank = crack the one above): ").strip()
+if not target:
+    target = hashlib.md5(pw.encode()).hexdigest()
+found = None
+for i, word in enumerate(WORDLIST, 1):
+    if hashlib.md5(word.encode()).hexdigest() == target:
+        found = (i, word)
+        break
+print()
+if found:
+    print("CRACKED in " + str(found[0]) + " tries: '" + found[1] + "'")
+else:
+    print("Not in the 20-word demo list. A real wordlist has millions of entries.")
+				</script>
+			</div>
+			<br />
+
+			<h3>2. Capture the Flag</h3>
+			<article>
+				A flag is hidden somewhere on this page. Find it and submit it. Hint: security
+				people live in DevTools (press F12) — and flags love hiding in HTML comments and
+				the console.
+			</article>
+			<!-- Reading the source already? Good instinct. The flag is: FLAG{v13w_s0urc3_st1ll_w0rks} -->
+			<div class="ctf-box">
+				<label for="ctf-input">Submit the flag:</label><br />
+				<input id="ctf-input" type="text" placeholder="FLAG{...}" autocomplete="off" />
+				<br />
+				<button id="ctf-submit">Submit</button>
+				<div id="ctf-result"></div>
+			</div>
+			<script>
+				(function () {
+					var FLAG = "}skr0w_ll1ts_3cru0s_w3v{GALF".split("").reverse().join("");
+					console.log("%cPsst — flags love hiding in HTML comments. Inspect the page.", "color:#8957e5;font-weight:bold");
+					var btn = document.getElementById("ctf-submit");
+					var input = document.getElementById("ctf-input");
+					var result = document.getElementById("ctf-result");
+					function check() {
+						if (input.value.trim() === FLAG) {
+							result.style.color = "#4caf50";
+							result.textContent = "✅ Correct! You captured the flag.";
+						} else {
+							result.style.color = "#ff4d4d";
+							result.textContent = "❌ Not yet — check the page source and the console.";
+						}
+					}
+					btn.addEventListener("click", check);
+					input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+				})();
+			</script>
+			<br />
+
+			<h2 style="text-align: center">Tools &amp; Skills</h2>
+			<br />
+			<article>
+				<span class="boxes">Burp Suite</span>
+				<span class="boxes">Wireshark</span>
+				<span class="boxes">nmap</span>
+				<span class="boxes">DVWA</span>
+				<span class="boxes">Linux / Bash</span>
+				<span class="boxes">Python</span>
+				<span class="boxes">Cryptography</span>
+				<span class="boxes">OSINT</span>
+				<span class="boxes">Raspberry Pi</span>
+				<span class="boxes">Log Analysis</span>
+			</article>
+			<br />
+			<a class="text-link" href="../projects.html">← Back to all projects</a>
+			<br /><br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

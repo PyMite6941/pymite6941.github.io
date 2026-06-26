@@ -11,8 +11,10 @@
  * Event schema (names are stable — do not rename after release):
  *   page_view          { path, title, referrer, utm_source, utm_medium,
  *                        utm_campaign, timestamp }
- *   project_link_click { from_path, project_slug, project_title,
- *                        destination_url, destination_kind }
+ *   project_link_click { from_path, source_page, project, project_slug,
+ *                        project_title, destination_url, clicked_url,
+ *                        clicked_web_address, destination_kind,
+ *                        destination_type }
  *   resume_click       { from_path, destination_url }
  *   contact_click      { from_path, destination_url }
  *   ai_lab_click       { from_path, destination_url }
@@ -22,8 +24,8 @@
  * Tracking uses one delegated click listener so individual pages need no
  * custom JavaScript. Links may opt in explicitly with data-track-event (and
  * optional data-track-* fields); otherwise sensible heuristics classify the
- * nav, footer, resume, contact, AI Lab, and project-card links already on the
- * site.
+ * nav, footer, resume, contact, AI Lab, project-card, proof-strip, and proof
+ * page action links already on the site.
  */
 (function () {
 	'use strict';
@@ -42,36 +44,53 @@
 		return path;
 	}
 
-	// Dispatch one event to every provider that happens to be present.
-	function emit(name, params) {
-		if (debugOn()) {
-			// eslint-disable-next-line no-console
-			console.log('[site-metrics]', name, params);
-		}
+	function sendToGtag(name, params) {
 		try {
 			if (typeof window.gtag === 'function') {
 				window.gtag('event', name, params);
+				return true;
 			}
 		} catch (e) {
 			/* never let analytics break the page */
 		}
+		return false;
+	}
+
+	function sendToPostHog(name, params) {
 		try {
 			if (window.posthog && typeof window.posthog.capture === 'function') {
 				window.posthog.capture(name, params);
+				return true;
 			}
 		} catch (e) {
 			/* no-op */
 		}
+		return false;
 	}
 
-	function pageView() {
+	// Dispatch one event to every provider that happens to be present.
+	function emit(name, params, options) {
+		var providers = (options && options.providers) || {};
+		var allowGtag = providers.gtag !== false;
+		var allowPostHog = providers.posthog !== false;
+		var sent = { gtag: false, posthog: false };
+		if (debugOn()) {
+			// eslint-disable-next-line no-console
+			console.log('[site-metrics]', name, params);
+		}
+		if (allowGtag) sent.gtag = sendToGtag(name, params);
+		if (allowPostHog) sent.posthog = sendToPostHog(name, params);
+		return sent;
+	}
+
+	function pageView(options) {
 		var qs;
 		try {
 			qs = new URLSearchParams(window.location.search);
 		} catch (e) {
 			qs = { get: function () { return null; } };
 		}
-		emit('page_view', {
+		return emit('page_view', {
 			path: currentPath(),
 			title: document.title || '',
 			referrer: document.referrer || '',
@@ -79,19 +98,42 @@
 			utm_medium: qs.get('utm_medium') || '',
 			utm_campaign: qs.get('utm_campaign') || '',
 			timestamp: new Date().toISOString(),
-		});
+		}, options);
 	}
 
 	// ── Link classification ─────────────────────────────────────────────────
+	function toUrl(href) {
+		try {
+			return new URL(href, window.location.href);
+		} catch (e) {
+			return null;
+		}
+	}
+
 	function isExternal(href) {
-		return /^https?:\/\//i.test(href) && href.indexOf(window.location.host) === -1;
+		var url = toUrl(href);
+		return !!url && /^https?:$/i.test(url.protocol) && url.host !== window.location.host;
+	}
+
+	function isProjectPagePath(path) {
+		return /\/pages\/project-pages\/[^/?#]+\.html$/i.test(path || '');
+	}
+
+	function isProjectPageHref(href) {
+		var url = toUrl(href);
+		return !!url && isProjectPagePath(url.pathname || '');
+	}
+
+	function currentProjectSlug() {
+		var m = currentPath().match(/\/project-pages\/([^/?#]+)\.html$/i);
+		return m ? m[1] : '';
 	}
 
 	function destinationKind(href) {
 		if (!href) return 'external';
+		if (isProjectPageHref(href)) return 'case_study';
 		if (/github\.com/i.test(href)) return 'source';
 		if (/devpost\.com/i.test(href)) return 'external';
-		if (/project-pages\//i.test(href)) return 'case_study';
 		if (/(vercel\.app|streamlit\.app|pages\.dev|onrender\.com|herokuapp\.com|hf\.space|huggingface\.co)/i.test(href)) {
 			return 'live';
 		}
@@ -100,8 +142,10 @@
 	}
 
 	function projectSlug(href) {
-		var m = href && href.match(/project-pages\/([^/?#]+)\.html/i);
+		var url = toUrl(href);
+		var m = url && url.pathname.match(/\/project-pages\/([^/?#]+)\.html$/i);
 		if (m) return m[1];
+		if (currentProjectSlug()) return currentProjectSlug();
 		try {
 			return new URL(href, window.location.href).hostname.replace(/^www\./, '');
 		} catch (e) {
@@ -117,6 +161,60 @@
 		return h ? h.textContent.trim() : '';
 	}
 
+	function proofLinkTitle(el) {
+		var link = el.closest ? el.closest('.proof-link') : null;
+		if (!link) return '';
+		var title = link.querySelector('span');
+		return title ? title.textContent.trim() : link.textContent.trim();
+	}
+
+	function currentProjectTitle() {
+		if (!currentProjectSlug()) return '';
+		var h = document.querySelector('main h1, h1');
+		return h ? h.textContent.trim() : '';
+	}
+
+	function projectTitle(anchor) {
+		var title = cardTitle(anchor) || proofLinkTitle(anchor);
+		if (title) return title;
+		if (isProjectPageHref(anchor.getAttribute('href') || '')) {
+			return anchor.textContent ? anchor.textContent.trim() : '';
+		}
+		return currentProjectTitle();
+	}
+
+	function isProofPageAction(href) {
+		if (!currentProjectSlug()) return false;
+		if (!href || href.charAt(0) === '#') return false;
+		var kind = destinationKind(href);
+		return kind === 'live' || kind === 'source' || kind === 'external';
+	}
+
+	function projectClickParams(anchor, href) {
+		var from = currentPath();
+		var dest = anchor.href || href;
+		var kind =
+			anchor.getAttribute('data-track-kind') || destinationKind(href);
+		var slug =
+			anchor.getAttribute('data-track-slug') || projectSlug(href);
+		var title =
+			anchor.getAttribute('data-track-title') || projectTitle(anchor);
+		var project = title || slug;
+
+		return {
+			from_path: from,
+			source_page: from,
+			project: project,
+			project_slug: slug,
+			project_title: title,
+			destination_url: dest,
+			clicked_url: dest,
+			clicked_web_address: dest,
+			destination_kind: kind,
+			destination_type: kind,
+		};
+	}
+
 	function classify(anchor) {
 		// Explicit opt-in always wins.
 		var explicit = anchor.getAttribute('data-track-event');
@@ -125,15 +223,7 @@
 		if (explicit) {
 			return {
 				name: explicit,
-				params: {
-					from_path: currentPath(),
-					destination_url: anchor.href || href,
-					destination_kind:
-						anchor.getAttribute('data-track-kind') || destinationKind(href),
-					project_slug: anchor.getAttribute('data-track-slug') || projectSlug(href),
-					project_title:
-						anchor.getAttribute('data-track-title') || cardTitle(anchor),
-				},
+				params: projectClickParams(anchor, href),
 			};
 		}
 
@@ -155,17 +245,12 @@
 		if (/ai-lab-bice\.vercel\.app/.test(lower)) {
 			return { name: 'ai_lab_click', params: { from_path: from, destination_url: dest } };
 		}
-		// Project links — either an internal detail page or a card's outbound link
-		if (/project-pages\//.test(lower) || cardTitle(anchor)) {
+		// Project links — internal proof pages, card links, proof-strip links, or
+		// live/source actions from a project proof page.
+		if (isProjectPageHref(href) || cardTitle(anchor) || proofLinkTitle(anchor) || isProofPageAction(href)) {
 			return {
 				name: 'project_link_click',
-				params: {
-					from_path: from,
-					project_slug: projectSlug(href),
-					project_title: cardTitle(anchor),
-					destination_url: dest,
-					destination_kind: destinationKind(href),
-				},
+				params: projectClickParams(anchor, href),
 			};
 		}
 		return null;
@@ -180,7 +265,29 @@
 	}
 
 	function init() {
-		pageView();
+		var sent = pageView();
+		var postHogPageViewSent = !!sent.posthog;
+
+		function sendPostHogPageViewOnce() {
+			if (postHogPageViewSent) return;
+			var result = pageView({
+				providers: { gtag: false, posthog: true },
+			});
+			postHogPageViewSent = !!result.posthog;
+		}
+
+		if (window.siteAnalyticsPostHogReady) {
+			sendPostHogPageViewOnce();
+		}
+		window.addEventListener(
+			'siteAnalyticsPostHogReady',
+			sendPostHogPageViewOnce
+		);
+
+		window.siteMetrics = window.siteMetrics || {};
+		window.siteMetrics.track = emit;
+		window.siteMetrics.pageView = pageView;
+
 		document.addEventListener('click', onClick, true);
 	}
 

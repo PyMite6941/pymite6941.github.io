@@ -12,13 +12,15 @@
  *      on the "Google Consent Mode" toggle in the Cookiebot dashboard.
  *   4. The GA4 tag (gtag.js) + config. GA4 loads but runs in cookieless mode
  *      until analytics_storage is granted, so it is safe even pre-consent.
+ *   5. A Tin-managed PostHog source, loaded only after statistics consent.
  *
- * metrics.js (the event layer) forwards page_view / click events to window.gtag;
- * while consent is denied those are consent-aware cookieless pings — no leakage.
+ * metrics.js (the event layer) forwards page_view / click events to window.gtag
+ * and window.posthog. GA4 receives consent-aware cookieless pings while consent
+ * is denied; PostHog is not loaded until statistics consent is granted.
  *
- * The IDs below are PUBLIC identifiers (a GA4 Measurement ID and a Cookiebot
- * domain-group ID), not secrets — safe to commit. Set GA4_MEASUREMENT_ID to ''
- * to disable GA4, or COOKIEBOT_CBID to '' to disable the banner.
+ * The IDs below are PUBLIC identifiers (GA4 Measurement ID, Cookiebot
+ * domain-group ID, PostHog browser key, and PostHog ingest host), not secrets —
+ * safe to commit. Set any provider ID to '' to disable that provider.
  */
 (function () {
 	'use strict';
@@ -26,6 +28,10 @@
 	// ── CONFIG ────────────────────────────────────────────────────────────────
 	var GA4_MEASUREMENT_ID = 'G-WLJ6YMX87M';
 	var COOKIEBOT_CBID = '1bd5c90b-8a8f-47e0-a9e4-803f7f8d229e';
+	var POSTHOG_PUBLIC_KEY =
+		'phc_wYpdw7DywuL54A92Jsvvi88tYynUeSkwF4q98J8eDo8a';
+	var POSTHOG_INGEST_HOST = 'https://us.i.posthog.com';
+	var POSTHOG_UI_HOST = 'https://us.posthog.com';
 	// ──────────────────────────────────────────────────────────────────────────
 
 	// Always define the gtag stub + dataLayer so calls queue safely in order.
@@ -51,6 +57,121 @@
 	window.gtag('set', 'ads_data_redaction', true);
 	window.gtag('set', 'url_passthrough', true);
 
+	function statisticsConsentGranted() {
+		if (!COOKIEBOT_CBID) return true;
+		var c = (window.Cookiebot && window.Cookiebot.consent) || {};
+		return !!c.statistics;
+	}
+
+	function notifyPostHogReady() {
+		window.siteAnalyticsPostHogReady = true;
+		try {
+			window.dispatchEvent(new Event('siteAnalyticsPostHogReady'));
+		} catch (e) {
+			/* older browsers can ignore this */
+		}
+	}
+
+	function loadPostHog() {
+		if (!POSTHOG_PUBLIC_KEY || !statisticsConsentGranted()) return;
+		if (window.siteAnalyticsPostHogLoading) return;
+		window.siteAnalyticsPostHogLoading = true;
+
+		/* Standard PostHog snippet, kept local so metrics.js can queue captures. */
+		(function (d, p) {
+			var s;
+			var x;
+			var y;
+			var z;
+			if (p.__SV) return;
+			window.posthog = p;
+			p._i = [];
+			p.init = function (token, config, name) {
+				function stub(target, method) {
+					var parts = method.split('.');
+					if (parts.length === 2) {
+						target = target[parts[0]];
+						method = parts[1];
+					}
+					target[method] = function () {
+						target.push(
+							[method].concat(Array.prototype.slice.call(arguments, 0))
+						);
+					};
+				}
+				y = d.createElement('script');
+				y.type = 'text/javascript';
+				y.crossOrigin = 'anonymous';
+				y.async = true;
+				y.src =
+					(config.api_host || 'https://us.i.posthog.com').replace(
+						'.i.posthog.com',
+						'-assets.i.posthog.com'
+					) + '/static/array.js';
+				z = d.getElementsByTagName('script')[0];
+				z.parentNode.insertBefore(y, z);
+				var target = p;
+				if (name !== undefined) {
+					target = p[name] = [];
+				} else {
+					name = 'posthog';
+				}
+				target.people = target.people || [];
+				target.toString = function (ready) {
+					var label = 'posthog';
+					if (name !== 'posthog') label += '.' + name;
+					if (!ready) label += ' (stub)';
+					return label;
+				};
+				target.people.toString = function () {
+					return target.toString(1) + '.people (stub)';
+				};
+				s =
+					'capture identify alias people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove register register_once unregister reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing'.split(
+						' '
+					);
+				for (x = 0; x < s.length; x += 1) {
+					stub(target, s[x]);
+				}
+				p._i.push([token, config, name]);
+			};
+			p.__SV = 1;
+		})(document, window.posthog || []);
+
+		window.posthog.init(POSTHOG_PUBLIC_KEY, {
+			api_host: POSTHOG_INGEST_HOST,
+			ui_host: POSTHOG_UI_HOST,
+			autocapture: false,
+			capture_pageview: false,
+			capture_pageleave: false,
+			disable_session_recording: true,
+			person_profiles: 'identified_only',
+			persistence: 'memory',
+			opt_out_capturing_by_default: !statisticsConsentGranted(),
+			loaded: function (posthog) {
+				if (statisticsConsentGranted()) {
+					posthog.opt_in_capturing();
+				} else {
+					posthog.opt_out_capturing();
+				}
+				notifyPostHogReady();
+			},
+		});
+	}
+
+	function syncPostHogConsent() {
+		if (statisticsConsentGranted()) {
+			loadPostHog();
+			if (window.posthog && typeof window.posthog.opt_in_capturing === 'function') {
+				window.posthog.opt_in_capturing();
+			}
+			return;
+		}
+		if (window.posthog && typeof window.posthog.opt_out_capturing === 'function') {
+			window.posthog.opt_out_capturing();
+		}
+	}
+
 	// 2. Cookiebot CMP — renders the consent banner.
 	if (COOKIEBOT_CBID) {
 		var cb = document.createElement('script');
@@ -72,10 +193,13 @@
 				functionality_storage: c.preferences ? 'granted' : 'denied',
 				personalization_storage: c.preferences ? 'granted' : 'denied',
 			});
+			syncPostHogConsent();
 		};
 		window.addEventListener('CookiebotOnConsentReady', pushUpdate);
 		window.addEventListener('CookiebotOnAccept', pushUpdate);
 		window.addEventListener('CookiebotOnDecline', pushUpdate);
+	} else {
+		loadPostHog();
 	}
 
 	// 4. GA4 tag — loads but stays consent-gated by the defaults above.

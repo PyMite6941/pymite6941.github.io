@@ -1,6 +1,8 @@
-# Local LLM website improvement brief
+# Website improvement status and guardrails
 
-This file is for local coding models working in this repository. It is not public website content.
+This file is not public website content. It records the website improvement direction and the work that has already been implemented so future changes do not restart the same checklist.
+
+Do the work directly in the repo. Do not leave website improvements as instructions for another local model to interpret.
 
 ## Repo rules
 
@@ -18,6 +20,8 @@ The website should read as Matt Gresham's personal product and project site. The
 The main growth goal is monthly organic visitors, 10x in 6 months. Website changes should make the site easier for people and search engines to understand.
 
 ## Work 1: Improve the existing About page
+
+Status: Done.
 
 Target file: `pages/about-me.html`
 
@@ -59,6 +63,8 @@ Do not create a new About page. `pages/about-me.html` is the canonical About Mat
 - All links work from a depth-1 page.
 
 ## Work 2: Add page-level visitor metrics
+
+Status: Done.
 
 Goal: make the monthly organic visitor goal measurable once an analytics provider is connected.
 
@@ -124,6 +130,8 @@ Use these names consistently:
 
 ## Work 3: Improve the Finance Kit proof page
 
+Status: Done.
+
 Target file: `pages/project-pages/finance_kit.html`
 
 The Finance Kit page already exists. Improve that page or turn it into a clearer case-study style page. Do not create a duplicate Finance Kit page unless Matt explicitly asks for one.
@@ -149,7 +157,17 @@ The Finance Kit page already exists. Improve that page or turn it into a clearer
 - A non-technical visitor can still understand why the project matters.
 - All links work from a depth-2 page.
 
-## Suggested implementation order
+## Current remaining manual step
+
+Search Console still needs Matt's Google account:
+
+1. Paste the Search Console verification token into the commented placeholder in `index.html`.
+2. Verify `https://pymite6941.is-a.dev/` in Search Console.
+3. Submit `https://pymite6941.is-a.dev/sitemap.xml`.
+
+Do not invent or commit a fake verification token.
+
+## Completed implementation order
 
 1. Improve `pages/about-me.html`.
 2. Add `assets/js/metrics.js` and wire it into the main pages.

@@ -109,7 +109,7 @@ Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves 
 - **Analytics + consent (live)** — `analytics.js` is consent-gated. It (1) sets Google **Consent Mode v2** defaults to *denied*, (2) loads the **Cookiebot** CMP (the consent banner, `data-cbid` in the `COOKIEBOT_CBID` constant), (3) bridges the user's Cookiebot choice to a `gtag('consent','update')` itself (so it does not depend on Cookiebot's dashboard consent-mode toggle), and (4) loads **GA4** (`GA4_MEASUREMENT_ID`, currently `G-WLJ6YMX87M`). GA4 runs cookieless until `analytics_storage` is granted. Both IDs are public, not secrets. Set either constant to `''` to disable that piece. `metrics.js` (the event layer) forwards `page_view`/click events to `window.gtag`; while consent is denied those are cookieless pings. It no-ops with zero console errors when no provider is present; set `localStorage.siteMetricsDebug = "1"` to log events locally. Event names are stable — see the schema doc at the top of `metrics.js`; do not rename them.
 - **Search Console verification** — must be a **static** `<meta name="google-site-verification">` in `index.html` (Google reads raw HTML and does not run the JS-injected head). A commented placeholder slot is already in `index.html`.
 
-**Hidden-project rule (important):** projects listed in `HIDDEN_PROJECTS.md` (currently Connect 4 Bot and ForgeOS) must stay out of **every** discovery surface — no card or link, **and no `sitemap.xml` entry and no `seo-schema.js` `PAGE_META` entry**. The SEO scaffold has previously re-exposed `connect4.html` here by accident; check both files whenever editing them.
+**Hidden-project rule (important):** there is currently no `HIDDEN_PROJECTS.md` file in this repo. If Matt adds one later, projects listed there must stay out of every discovery surface: no card or link, no `sitemap.xml` entry, and no `seo-schema.js` `PAGE_META` entry. Until that file exists, treat the substantive project pages in `pages/project-pages/` as public proof pages.
 
 ## PyScript Usage
 
@@ -159,16 +159,18 @@ Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language 
 - `.sidenav` is not responsive — on mobile it takes fixed width and can overflow. Pages with sidebars should use `flex-direction: column` on mobile
 - The hackathons page uses inline `style="margin-left: 240px"` on `.card-grid` to clear the sidebar — this breaks below 768px
 
-## Current Website Improvement Brief
+## Current Website Improvement Status
 
-Read `LOCAL_LLM_WEBSITE_BRIEF.md` before improving the site. It is the current implementation brief for local coding models.
+`LOCAL_LLM_WEBSITE_BRIEF.md` and `todo.md` are status and guardrail documents, not a queue for another model. Do the work directly in the repo, then keep those files current when the guidance changes.
 
-That brief covers three improvements — current status:
+Current status:
 - **Done** — About page (`pages/about-me.html`): top-section proof list + primary links (Projects / Resume / Contact). Do not create a duplicate About page.
 - **Done** — page-level visitor metrics: `analytics.js` (GA4 `G-WLJ6YMX87M` + Cookiebot consent banner + Consent Mode v2) and `metrics.js` (event layer) are built and wired. See the SEO section above.
 - **Done** — Finance Kit page (`pages/project-pages/finance_kit.html`): breadcrumb + "what to inspect next" with internal links back to Projects and About.
-
-For the SEO crawl-signal scaffold, also read `todo.md`. It explains the sitemap, robots, canonical URL, structured data, and hosting follow-up work. **Still pending (needs Matt, in Search Console after deploy):** paste the Search Console verification token into the placeholder in `index.html`, then verify the property and submit the sitemap. GA4 + the consent banner are already wired.
+- **Done** — static crawl metadata for all substantive project pages, including canonical tags and conservative structured-data entries where the visible page supports them.
+- **Done** — visible proof placeholders on public project pages have been replaced with factual proof panels instead of fake screenshots.
+- **Done** — hero subtitles use paragraph text instead of skipped `h3` headings.
+- **Still pending, needs Matt in Search Console after deploy** — paste the Search Console verification token into the placeholder in `index.html`, then verify the property and submit the sitemap. GA4 + the consent banner are already wired.
 
 Treat the individual project pages under `pages/project-pages/` as first-class proof pages, just as important as `pages/about-me.html` for crawling, indexing, and AI answers. Do not make Finance Kit the only project page with strong metadata, internal links, or structured data. When improving crawl signals, cover all substantive project detail pages with accurate static canonical tags, unique page titles, concise meta descriptions, and conservative `SoftwareApplication` or `CreativeWork` JSON-LD when the page facts support it.
 

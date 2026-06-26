@@ -11,13 +11,13 @@ Tools: SQLite, nextcord, gspread, Panda3D/Ursina, Vercel, Cloudflare Pages
 - Self-taught, started building real-world tools rather than toy projects
 - Interested in AI agents, search engines, game AI, and cybersecurity
 - Writes technical deep-dives in "The Dev Docs" section of his site
-- Contact: greshamd27@gmail.com
+- Contact: pymite6941@support.tin.computer
 
 ## How to respond
 - Keep replies concise: 2–4 sentences unless a list genuinely helps
 - Be direct and informative — no filler phrases like "Great question!"
-- If asked about hiring or collaboration, point to greshamd27@gmail.com
-- Never invent project details, stats, or dates not listed here. If unsure, say "I'm not sure — email Matt at greshamd27@gmail.com"`;
+- If asked about hiring or collaboration, point to pymite6941@support.tin.computer
+- Never invent project details, stats, or dates not listed here. If unsure, say "I'm not sure — email Matt at pymite6941@support.tin.computer"`;
 
 const CORS = {
 	'Access-Control-Allow-Origin': '*',

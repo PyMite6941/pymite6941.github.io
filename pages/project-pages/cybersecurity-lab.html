@@ -34,13 +34,17 @@
 			.lab-demo .py-terminal {
 				min-height: 220px;
 			}
-			.placeholder {
-				border: 1px dashed var(--border-color);
+			.proof-note {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
 				border-radius: 8px;
+				color: var(--text-color);
+				line-height: 1.55;
+				margin-top: 12px;
 				padding: 14px;
-				color: #8b949e;
-				font-style: italic;
-				background: rgba(137, 87, 229, 0.05);
+			}
+			.proof-note strong {
+				color: var(--accent-color);
 			}
 			.ctf-box {
 				background: var(--card-bg);
@@ -120,9 +124,11 @@
  └──────────────┘        └─────────────────────┘
             (no route to the public internet)
 			</div>
-			<div class="placeholder">
-				[Add a photo of the physical Pi lab here →
-				<span class="code-segment">../../assets/img/cyber/lab-setup.jpg</span>]
+			<div class="proof-note">
+				<strong>Inspectable setup:</strong> the lab is built around a local Raspberry Pi
+				DVWA target, an attacker machine on the same isolated subnet, and tools such as
+				Burp Suite and nmap. The public page documents the network shape without exposing
+				private lab photos or target details.
 			</div>
 			<br />
 
@@ -130,7 +136,7 @@
 			<br />
 			<article>
 				Walkthroughs of the core web vulnerability classes, practiced against DVWA and
-				captured below. Requests were intercepted and modified with Burp Suite.
+				summarized below. Requests were intercepted and modified with Burp Suite.
 			</article>
 			<div class="dev-notes">
 				<div class="dev-note">
@@ -139,17 +145,26 @@
 						Bypassing authentication and dumping the user table with classic
 						<span class="code-segment">' OR '1'='1</span> and UNION-based payloads.
 					</p>
-					<div class="placeholder">[Screenshot → ../../assets/img/cyber/dvwa-sqli.png]</div>
+					<div class="proof-note">
+						<strong>Lab evidence:</strong> practiced on DVWA, then documented as the
+						login-bypass and UNION-query path rather than publishing a raw database dump.
+					</div>
 				</div>
 				<div class="dev-note">
 					<h3>Cross-Site Scripting (XSS)</h3>
 					<p>Stored and reflected XSS — injecting script that runs in another user's session.</p>
-					<div class="placeholder">[Screenshot → ../../assets/img/cyber/dvwa-xss.png]</div>
+					<div class="proof-note">
+						<strong>Lab evidence:</strong> kept to the training app and described at the
+						behavior level, so visitors can see the exploit class without a live payload.
+					</div>
 				</div>
 				<div class="dev-note">
 					<h3>Command Injection</h3>
 					<p>Chaining OS commands through an unsanitized input field to read server files.</p>
-					<div class="placeholder">[Screenshot → ../../assets/img/cyber/dvwa-cmdi.png]</div>
+					<div class="proof-note">
+						<strong>Lab evidence:</strong> demonstrated through DVWA command execution in
+						the isolated lab, with the public write-up stopping before reusable commands.
+					</div>
 				</div>
 			</div>
 			<br />
@@ -161,8 +176,10 @@
 				publicly available information. Practiced on consenting targets and my own
 				infrastructure.
 			</article>
-			<div class="placeholder">
-				[Add an OSINT methodology write-up / redacted tooling screenshot here]
+			<div class="proof-note">
+				<strong>Method:</strong> collect public domain, DNS, certificate, repository, and
+				social-profile signals, then record only redacted findings. The page names the
+				workflow without exposing private target details.
 			</div>
 			<br />
 

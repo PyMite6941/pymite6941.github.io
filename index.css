@@ -13,21 +13,6 @@
 	box-sizing: border-box;
 }
 
-@media (min-width: 1101px) {
-	.nav-list {
-		display: inline-flex;
-	}
-	.nav-btn {
-		display: inline-block;
-	}
-}
-
-@media (min-width: 481px) and (max-width: 1024px) {
-	.card-grid {
-		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-	}
-}
-
 /* Hamburger button — hidden on desktop */
 .hamburger {
 	display: none;
@@ -64,93 +49,6 @@
 	display: none;
 }
 
-@media (max-width: 1100px) {
-	.hamburger {
-		display: flex;
-	}
-	.nav-btn {
-		display: none;
-	}
-	.nav-item--mobile-only {
-		display: list-item;
-	}
-
-	/* Nav list becomes animated dropdown */
-	.nav-list {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		top: 100%;
-		left: 0;
-		right: 0;
-		background: var(--card-bg);
-		border-bottom: 1px solid var(--border-color);
-		padding: 4px 0 8px;
-		margin: 0;
-		z-index: 99;
-		transform: translateY(-6px);
-		opacity: 0;
-		pointer-events: none;
-		transition: transform 0.25s ease, opacity 0.2s ease;
-	}
-	.nav-list.nav-open {
-		transform: translateY(0);
-		opacity: 1;
-		pointer-events: all;
-	}
-	.nav-item {
-		padding: 0;
-	}
-	.nav-link {
-		display: block;
-		padding: 11px 20px;
-	}
-}
-
-@media (max-width: 480px) {
-	.hero-section {
-		margin-top: 0;
-		margin-bottom: 0;
-		font-size: 25px;
-		min-height: 240px;
-		padding: 32px 16px;
-	}
-
-	.card-grid {
-		grid-template-columns: 1fr;
-	}
-
-	.sidenav {
-		position: static;
-		width: 100%;
-		min-width: unset;
-		top: unset;
-		overflow: visible;
-		padding: 8px 16px;
-		margin-bottom: 8px;
-	}
-
-	main {
-		padding-left: 12px;
-		padding-right: 12px;
-	}
-}
-
-@media (max-width: 768px) {
-	main[style*="flex-direction: row"] {
-		flex-direction: column !important;
-	}
-
-	.projects-main {
-		flex-direction: column;
-	}
-
-	.sidenav + .card-grid,
-	.card-grid[style*="margin-left"] {
-		margin-left: 0 !important;
-	}
-}
-
 html,
 body {
 	margin: 0px;
@@ -170,7 +68,9 @@ img, iframe, video, embed {
 	width: 100%;
 	margin: 0px;
 	padding: 0 16px;
+	min-height: 56px;
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	background-color: rgba(30, 33, 39, 0.82);
 	-webkit-backdrop-filter: blur(12px);
@@ -235,8 +135,8 @@ img, iframe, video, embed {
 
 .sidenav {
 	margin-top: 0;
-	width: 200px;
-	min-width: 200px;
+	width: 240px;
+	min-width: 240px;
 	position: sticky;
 	top: 140px;
 	left: 0px;
@@ -339,24 +239,96 @@ img, iframe, video, embed {
 .filter-fieldset {
 	border: 1px solid var(--border-color);
 	border-radius: 10px;
-	padding: 12px;
+	padding: 14px 12px;
 	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
 }
 
 .filter-fieldset legend {
+	width: 100%;
 	color: var(--text-color);
 	font-weight: 700;
 	padding: 0 4px;
+	margin-bottom: 4px;
 }
 
+/* Chip-style filter toggles (replaces plain checkbox rows) */
 .filter-option {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
+	margin: 0;
+	padding: 7px 12px;
 	color: #8b949e;
-	line-height: 1.4;
-	margin: 8px 0;
+	line-height: 1.2;
+	font-size: 0.85rem;
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
+	background: var(--card-bg);
 	cursor: pointer;
+	user-select: none;
+	transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.filter-option:hover {
+	border-color: var(--link-color);
+	color: var(--text-color);
+}
+
+.filter-option .checkbox {
+	appearance: none;
+	-webkit-appearance: none;
+	position: absolute;
+	width: 0;
+	height: 0;
+	margin: 0;
+	border: 0;
+	opacity: 0;
+}
+
+.filter-option:has(.checkbox:checked) {
+	border-color: var(--button-color);
+	background: rgba(137, 87, 229, 0.18);
+	color: var(--text-color);
+	font-weight: 600;
+}
+
+.filter-option:has(.checkbox:focus-visible) {
+	outline: 2px solid var(--link-color);
+	outline-offset: 2px;
+}
+
+/* Collapsible filter trigger — only shown on mobile (see media query) */
+.filter-toggle {
+	display: none;
+	width: 100%;
+	align-items: center;
+	gap: 10px;
+	padding: 11px 14px;
+	background: var(--card-bg);
+	color: var(--text-color);
+	border: 1px solid var(--border-color);
+	border-radius: 10px;
+	font-size: 0.95rem;
+	font-weight: 700;
+	cursor: pointer;
+	text-align: left;
+}
+
+.filter-toggle:hover {
+	border-color: var(--link-color);
+}
+
+.filter-toggle-icon {
+	margin-left: auto;
+	color: #8b949e;
+	transition: transform 0.2s ease;
+}
+
+.filter-toggle[aria-expanded='true'] .filter-toggle-icon {
+	transform: rotate(180deg);
 }
 
 .github-activity {
@@ -607,7 +579,7 @@ main article {
 
 .foot {
 	margin: 0px;
-	padding: 20px;
+	padding: 32px 20px 24px;
 }
 
 .foot p {
@@ -615,6 +587,49 @@ main article {
 	font-size: 0.9rem;
 	line-height: 1.4;
 	text-align: center;
+}
+
+.foot-cols {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 28px 56px;
+	justify-content: center;
+	max-width: 760px;
+	margin: 0 auto 24px;
+}
+
+.foot-col {
+	display: flex;
+	flex-direction: column;
+	gap: 9px;
+	min-width: 140px;
+}
+
+.foot-col h4 {
+	margin: 0 0 4px;
+	font-size: 0.78rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.7px;
+	color: var(--text-color);
+}
+
+.foot-col a {
+	color: #8b949e;
+	text-decoration: none;
+	font-size: 0.92rem;
+	line-height: 1.3;
+}
+
+.foot-col a:hover,
+.foot-col a:focus {
+	color: var(--link-color);
+}
+
+.foot .foot-copy {
+	border-top: 1px solid var(--border-color);
+	padding-top: 18px;
+	margin: 0;
 }
 
 .article-stuff {
@@ -784,6 +799,163 @@ main article {
 .pdf-btn:hover {
 	background: var(--button-color);
 	color: #fff;
+}
+
+/* ───────────────────────────────────────────────
+   Responsive overrides — kept after the base rules
+   on purpose so they win the cascade at equal
+   specificity (media queries do not add specificity).
+   ─────────────────────────────────────────────── */
+
+@media (min-width: 1101px) {
+	.nav-list {
+		display: inline-flex;
+	}
+	.nav-btn {
+		display: inline-block;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+	.card-grid {
+		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+	}
+}
+
+/* Tablet / mobile nav becomes a hamburger dropdown */
+@media (max-width: 1100px) {
+	.hamburger {
+		display: flex;
+	}
+	.nav-btn {
+		display: none;
+	}
+	.nav-item--mobile-only {
+		display: list-item;
+	}
+
+	.nav-list {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: var(--card-bg);
+		border-bottom: 1px solid var(--border-color);
+		padding: 4px 0 8px;
+		margin: 0;
+		z-index: 99;
+		transform: translateY(-6px);
+		opacity: 0;
+		pointer-events: none;
+		transition: transform 0.25s ease, opacity 0.2s ease;
+	}
+	.nav-list.nav-open {
+		transform: translateY(0);
+		opacity: 1;
+		pointer-events: all;
+	}
+	.nav-item {
+		padding: 0;
+	}
+	.nav-link {
+		display: block;
+		padding: 11px 20px;
+	}
+}
+
+/* Stack the projects/hackathons sidebar + grid on tablets and phones */
+@media (max-width: 768px) {
+	main[style*="flex-direction: row"] {
+		flex-direction: column !important;
+	}
+
+	.projects-main {
+		flex-direction: column;
+	}
+
+	/* Filter panel becomes a full-width, collapsible bar above the cards */
+	.sidenav {
+		position: static;
+		top: auto;
+		left: auto;
+		width: 100%;
+		min-width: 0;
+		overflow: visible;
+		padding: 0 16px;
+		margin-bottom: 12px;
+	}
+
+	/* Collapsed by default on mobile so it doesn't push the cards off-screen */
+	.filter-toggle {
+		display: flex;
+	}
+
+	#filter-panel .filter-fieldset {
+		display: none;
+	}
+
+	#filter-panel.is-open .filter-fieldset {
+		display: flex;
+		margin-top: 8px;
+	}
+
+	/* Toggle button already labels the group on mobile */
+	#filter-panel .filter-fieldset legend {
+		display: none;
+	}
+
+	.sidenav + .card-grid,
+	.card-grid[style*="margin-left"] {
+		margin-left: 0 !important;
+	}
+
+	.card-grid {
+		padding: 16px 0;
+	}
+}
+
+@media (max-width: 480px) {
+	.hero-section {
+		margin-top: 0;
+		margin-bottom: 0;
+		font-size: 25px;
+		min-height: 240px;
+		padding: 32px 16px;
+	}
+
+	.hero-section h1 {
+		font-size: 2rem;
+		margin: 0 0 4px;
+	}
+
+	.hero-section h2 {
+		font-size: 1.15rem;
+	}
+
+	.hero-copy {
+		font-size: 1rem;
+	}
+
+	.card-grid {
+		grid-template-columns: 1fr;
+	}
+
+	main {
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	.foot-cols {
+		gap: 26px 36px;
+		text-align: center;
+	}
+
+	.foot-col {
+		align-items: center;
+		min-width: 120px;
+	}
 }
 
 /* Print layout */

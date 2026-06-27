@@ -95,18 +95,30 @@
 	inject(
 		'site-footer',
 		`<footer class="foot">
-            <p>
-                <a class="text-link" href="https://github.com/PyMite6941">My GitHub</a>
-                <br /><br />
-                <a class="text-link" href="https://www.youtube.com/@MattGresham-e9z">My YouTube</a>
-                <br /><br />
-                <a class="text-link" href="${p.devdocs}">The Dev Docs</a>
-                <br /><br />
-                <a class="text-link" href="${p.resume}">View my resume</a>
-				<br /><br />
-				<a class="text-link" href="${p.store}">Visit my Store</a>
-            </p>
-            <p style="text-align: center; font-size: 14px">&copy; 2026 Matt Gresham. All rights reserved.</p>
+            <div class="foot-cols">
+                <div class="foot-col">
+                    <h4>Explore</h4>
+                    <a href="${p.home}">Home</a>
+                    <a href="${p.projects}">Projects</a>
+                    <a href="${p.hackathons}">Hackathons</a>
+                    <a href="${p.ailab}">AI Lab</a>
+                    <a href="${p.devdocs}">The Dev Docs</a>
+                </div>
+                <div class="foot-col">
+                    <h4>Profiles</h4>
+                    <a href="https://github.com/PyMite6941" target="_blank" rel="noreferrer">GitHub</a>
+                    <a href="https://devpost.com/PyMite6941" target="_blank" rel="noreferrer">Devpost</a>
+                    <a href="https://www.youtube.com/@MattGresham-e9z" target="_blank" rel="noreferrer">YouTube</a>
+                </div>
+                <div class="foot-col">
+                    <h4>More</h4>
+                    <a href="${p.about}">About Me</a>
+                    <a href="${p.resume}">Résumé</a>
+                    <a href="${p.store}">My Store</a>
+                    <a href="${p.contact}">Contact me</a>
+                </div>
+            </div>
+            <p class="foot-copy">&copy; 2026 Matt Gresham. All rights reserved.</p>
         </footer>`,
 	);
 

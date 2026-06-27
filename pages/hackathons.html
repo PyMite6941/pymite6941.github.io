@@ -34,66 +34,59 @@
 			<p class="hero-copy">My Hackathon Submissions</p>
 		</header>
 		<main class="projects-main">
-			<div
+			<aside
 				class="sidenav"
-				id="filter-panel">
-				<article
-					>Hack America:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Hack America"
-						onclick="filterProjects()" /><br />
-					PhysTech:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="PhysTech"
-						onclick="filterProjects()" /><br />
-					USAII:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="USAII"
-						onclick="filterProjects()" /><br />
-					AI Agents:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="AI Agents"
-						onclick="filterProjects()" /><br />
-					Python:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Python"
-						onclick="filterProjects()" /><br />
-					AI:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="AI"
-						onclick="filterProjects()" /><br />
-					HackMars:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="HackMars"
-						onclick="filterProjects()" /><br />
-					Ongoing:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="Ongoing"
-						onclick="filterProjects()" /><br />
-					2026:
-					<input
-						type="checkbox"
-						class="checkbox"
-						data-filter="2026"
-						onclick="filterProjects()" />
-				</article>
-			</div>
+				id="filter-panel"
+				aria-label="Filter hackathons">
+				<button
+					type="button"
+					class="filter-toggle"
+					id="filter-toggle"
+					aria-expanded="false"
+					aria-controls="filter-fields">
+					<span id="filter-toggle-label">Filter submissions</span>
+					<span class="filter-toggle-icon" aria-hidden="true">▾</span>
+				</button>
+				<fieldset class="filter-fieldset" id="filter-fields">
+					<legend>Filter submissions</legend>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="Hack America" onclick="filterProjects()" />
+						Hack America
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="PhysTech" onclick="filterProjects()" />
+						PhysTech
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="USAII" onclick="filterProjects()" />
+						USAII
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="AI Agents" onclick="filterProjects()" />
+						AI Agents
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="Python" onclick="filterProjects()" />
+						Python
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="AI" onclick="filterProjects()" />
+						AI
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="HackMars" onclick="filterProjects()" />
+						HackMars
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="Ongoing" onclick="filterProjects()" />
+						Ongoing
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" class="checkbox" data-filter="2026" onclick="filterProjects()" />
+						2026
+					</label>
+				</fieldset>
+			</aside>
 			<div id="top"></div>
 			<section class="card-grid">
 				<div

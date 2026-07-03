@@ -106,6 +106,12 @@
 				'A custom portable computer built by Matt Gresham — a modular Raspberry Pi cyberdeck with a sliding touchscreen, mechanical keyboard, trackball, and a custom OS layer.',
 			type: 'CreativeWork',
 		},
+		'/pages/project-pages/cybersecurity-lab.html': {
+			name: 'Cybersecurity Lab',
+			description:
+				"Matt Gresham's hands-on cybersecurity lab: DVWA web exploitation write-ups, OSINT methodology, a Raspberry Pi home lab, LLM security tooling, and interactive in-browser security demos.",
+			type: 'CreativeWork',
+		},
 	};
 
 	function normalizedPath() {

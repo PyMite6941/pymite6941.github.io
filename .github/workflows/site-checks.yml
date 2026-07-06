@@ -1,0 +1,112 @@
+name: Site checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: JS syntax check (assets/js)
+        run: |
+          set -e
+          for f in assets/js/*.js; do
+            echo "Checking $f"
+            node --check "$f"
+          done
+
+      - name: sitemap.xml is valid XML
+        run: |
+          python3 - <<'PY'
+          from xml.etree import ElementTree as ET
+          ET.parse("sitemap.xml")
+          print("sitemap.xml parses")
+          PY
+
+      - name: sitemap.xml URLs resolve to real files
+        run: |
+          python3 - <<'PY'
+          import sys
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+
+          ORIGIN = "https://pymite6941.is-a.dev"
+          ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          tree = ET.parse("sitemap.xml")
+          missing = []
+          for loc in tree.getroot().findall("s:url/s:loc", ns):
+              url = loc.text.strip()
+              if not url.startswith(ORIGIN):
+                  missing.append((url, "does not start with site origin"))
+                  continue
+              path = url[len(ORIGIN):]
+              if path in ("", "/"):
+                  path = "/index.html"
+              candidate = Path("." + path)
+              if not candidate.is_file():
+                  missing.append((url, f"no file at {candidate}"))
+          if missing:
+              print("sitemap.xml references missing files:")
+              for url, reason in missing:
+                  print(f"  {url}: {reason}")
+              sys.exit(1)
+          print(f"All {len(tree.getroot().findall('s:url', ns))} sitemap URLs resolve to real files")
+          PY
+
+      - name: No absolute internal paths (href="/..." or src="/...")
+        run: |
+          set -e
+          if grep -rnP '(href|src)="/(?!/)' --include="*.html" --include="*.js" \
+              --exclude-dir=ai-lab --exclude-dir=node_modules .; then
+            echo "Found absolute internal paths above — use relative paths per CLAUDE.md path rules."
+            exit 1
+          fi
+          echo "No absolute internal paths found"
+
+      - name: No hardcoded nav/footer markup
+        run: |
+          set -e
+          fail=0
+          if grep -rn '<footer' --include="*.html" \
+              --exclude-dir=ai-lab --exclude-dir=assets .; then
+            echo "Found a hardcoded <footer> tag — footer must come from assets/js/site-style.js only."
+            fail=1
+          fi
+          if grep -rn 'class="nav"' --include="*.html" \
+              --exclude-dir=ai-lab --exclude-dir=assets .; then
+            echo 'Found a hardcoded <div class="nav"> — nav must come from assets/js/site-style.js only.'
+            fail=1
+          fi
+          exit $fail
+
+      - name: Public pages have nav/footer placeholders and site-style.js
+        run: |
+          set -e
+          fail=0
+          while IFS= read -r -d '' f; do
+            missing=""
+            grep -q 'id="site-nav"' "$f" || missing="$missing site-nav"
+            grep -q 'id="site-footer"' "$f" || missing="$missing site-footer"
+            grep -q 'site-style.js' "$f" || missing="$missing site-style.js"
+            if [ -n "$missing" ]; then
+              echo "$f is missing:$missing"
+              fail=1
+            fi
+          done < <(find . -name "*.html" -not -path "./ai-lab/*" -not -path "./assets/*" -print0)
+          exit $fail

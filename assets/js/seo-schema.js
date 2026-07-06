@@ -118,6 +118,30 @@
 				"Matt Gresham's Testing Lead work at Polaris Student — manual QA, bug tracking, and a running testing log across signup, the AI assistant, calculator tools, and account settings.",
 			type: 'CreativeWork',
 		},
+		'/pages/project-pages/diverselearning.html': {
+			name: 'DiverseLearning',
+			description:
+				'DiverseLearning by Matt Gresham is an AI tutor that turns any topic into an interactive 3D course you can rotate, explode, and take apart, built with Next.js and React Three Fiber for neurodiverse learners.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'EducationalApplication',
+			programmingLanguage: ['TypeScript', 'JavaScript'],
+		},
+		'/pages/project-pages/marketing-ai.html': {
+			name: 'Marketing-AI',
+			description:
+				'Marketing-AI by Matt Gresham is a human-in-the-loop Reddit growth console that finds threads, scores them with an LLM, and drafts tone-matched replies for a human to approve, built with FastAPI and React.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'BusinessApplication',
+			programmingLanguage: ['Python', 'JavaScript'],
+		},
+		'/pages/project-pages/church-connect.html': {
+			name: 'Church Connect',
+			description:
+				'Church Connect by Matt Gresham is an embeddable, multi-tenant church engagement tool built with React and Vite that serves any church from its own subdomain with per-tenant branding and features.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'WebApplication',
+			programmingLanguage: ['JavaScript'],
+		},
 	};
 
 	function normalizedPath() {

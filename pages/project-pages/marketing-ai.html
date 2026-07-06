@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Marketing-AI — a human-in-the-loop Reddit growth console that finds relevant threads, scores them with an LLM, and drafts tone-matched replies for a human to approve." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/marketing-ai.html" />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>Marketing-AI | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Marketing-AI</h1>
+			<p class="hero-copy">A Reddit growth console that keeps a human in the loop before anything is posted</p>
+		</header>
+		<main>
+			<div id="top"></div>
+			<p class="project-page-nav">
+				<a class="text-link" href="../projects.html">All projects</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="../about-me.html">About Matt</a>
+			</p>
+			<p style="color: #8b949e; font-size: 0.95rem">
+				Live on Vercel. Built with AI-assisted development &mdash; designed and directed by me, implemented with AI pair programming.
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it does:</strong> An AI
+				marketing agent for Reddit. It scans subreddits for relevant threads,
+				scores each one with an LLM (1&ndash;10 relevance plus inferred intent
+				and reasoning), and drafts a tone-matched reply — then hands it to a
+				human to edit, approve, or reject before anything goes live. A separate
+				Content Studio turns a single topic into native content for Reddit, X,
+				LinkedIn, or a blog.
+				<br /><br />
+				<strong style="color: var(--text-color)">Why human-in-the-loop:</strong>
+				Reddit's culture and spam filters are strict, and fully automated posting
+				from new accounts gets banned. So the AI does discovery and drafting, but
+				the publish call is gated on both explicit human approval <em>and</em>
+				full credentials. It's a growth tool that respects the community instead
+				of spamming it.
+				<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				FastAPI backend with SQLite, PRAW for Reddit access, and a
+				provider-agnostic LLM failover chain (OpenAI &rarr; Groq &rarr;
+				OpenRouter) over httpx. React 18 + Vite dark-console frontend. It boots
+				in a zero-key <em>demo mode</em> — sample posts, a transparent heuristic
+				scorer, and templated content — so the entire pipeline is explorable
+				offline; add keys to go live.
+			</article>
+			<br />
+			<h2 style="text-align: center">Architecture</h2>
+			<br />
+			<div class="ascii-diagram">  Marketing-AI — Discovery to Publish Pipeline
+  ══════════════════════════════════════════════
+
+  Campaign          Reddit (PRAW)
+  (product +   ──►  subreddit scan  ──►  keyword + pain-phrase match
+   subreddits)                                    │
+                                          LLM scoring (1–10)
+                                          intent + reasoning
+                                                  │
+                                          Tone-matched draft
+                                                  │
+                                     ┌─────────────────────────┐
+                                     │   Human Review Queue    │
+                                     │  edit · approve · reject│
+                                     └─────────────────────────┘
+                                                  │  (approved + full creds)
+                                                  ▼
+                                          Guarded Reddit publish
+
+  Content Studio:  one topic ──►  Reddit post · X thread · LinkedIn · blog</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Finding the right Reddit threads to genuinely contribute to is slow
+					manual work, and automating it naively gets you banned. Marketing-AI
+					does the scanning and drafting but keeps a person in control of every
+					reply.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>A provider-agnostic LLM chain (OpenAI &rarr; Groq &rarr; OpenRouter)
+					survives outages and rate limits on free tiers. The whole app runs
+					with zero API keys in demo mode, and ships to Vercel as a single
+					project — Vite static frontend plus FastAPI as a Python function.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>Swap ephemeral SQLite for Postgres/Turso for real persistence in
+					production, richer campaign analytics, and more publish targets beyond
+					Reddit.</p>
+				</div>
+			</div>
+			<br />
+			<p>
+				<a class="text-link" href="https://marketing-ai-chi.vercel.app" target="_blank" rel="noreferrer">Try the live demo</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="https://github.com/PyMite6941/Marketing-AI" target="_blank" rel="noreferrer">View source on GitHub</a>
+			</p>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

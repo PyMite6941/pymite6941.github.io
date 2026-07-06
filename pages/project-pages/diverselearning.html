@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="DiverseLearning — an AI tutor that turns any topic into an interactive 3D course you can rotate, explode, and take apart, built for neurodiverse learners." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/diverselearning.html" />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>DiverseLearning | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>DiverseLearning</h1>
+			<p class="hero-copy">Your personal, interactive 3D classroom — AI turns any topic into a course you can take apart</p>
+		</header>
+		<main>
+			<div id="top"></div>
+			<p class="project-page-nav">
+				<a class="text-link" href="../projects.html">All projects</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="../about-me.html">About Matt</a>
+			</p>
+			<p style="color: #8b949e; font-size: 0.95rem">
+				Live on Vercel. Built with AI-assisted development &mdash; designed and directed by me, implemented with AI pair programming.
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it does:</strong> Tell it
+				anything you're curious about and it generates a course built just for
+				you. Instead of a wall of text, each lesson concept is rendered as a
+				labeled 3D model you can rotate and zoom. Hit <em>Break apart</em> to
+				explode the model into its parts and click any piece for a
+				plain-language explanation of what it does.
+				<br /><br />
+				<strong style="color: var(--text-color)">Why I built it:</strong> I was
+				asked to think about how neurodiverse learners actually want to learn,
+				and I realized <em>modeled</em> learning is powerful — it strips out
+				unnecessary words and shows what each part does. The whole design goal
+				is to reduce reading load and let the model do the teaching, with
+				text-to-speech and accessibility settings for the writing that remains.
+				<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Next.js 14 + React 18 frontend with React Three Fiber / drei for the 3D
+				scene. Courses are data-driven JSON — a free-model chain (Groq &rarr;
+				OpenRouter failover) writes a 4-lesson course, and each lesson ships a
+				labeled primitive model spec that the viewer renders with no code
+				change. Supabase stores each learner's preferences and their saved
+				course/model data.
+			</article>
+			<br />
+			<h2 style="text-align: center">Architecture</h2>
+			<br />
+			<div class="ascii-diagram">  DiverseLearning — Course Generation Flow
+  ═════════════════════════════════════════
+
+  "Teach me about       Groq  ──►  OpenRouter
+   volcanoes"           (free model, failover chain)
+        │                        │
+        └──────────►  Course Generator  ──►  Course JSON
+                      (4 lessons +              ├─ lesson text
+                       ModelSpec each)          └─ labeled 3D parts
+                                                        │
+                                                 Supabase (per user)
+                                                        │
+                                                 React Three Fiber
+                                                        │
+                                         ┌────────────────────────────┐
+                                         │  Rotate · Zoom             │
+                                         │  Break apart (explode)     │
+                                         │  Click a part → explain    │
+                                         │  Text-to-speech + a11y     │
+                                         └────────────────────────────┘</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Textbooks aren't the best fit for everyone, but almost anyone can
+					learn from a model of the thing they're studying. DiverseLearning
+					makes that the default: every concept becomes something you can see,
+					rotate, and pull apart instead of just read.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>Courses are fully data-driven — the AI outputs a model spec of
+					labeled primitives and the viewer renders it with no bespoke code per
+					topic. A Groq &rarr; OpenRouter failover chain keeps generation on
+					free models, and Supabase gives each learner accounts plus cloud-saved
+					courses.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>Better 3D model quality (free models still struggle with complex
+					shapes), AI-generated explainer videos, and adapting to each learner's
+					most successful learning method automatically.</p>
+				</div>
+			</div>
+			<br />
+			<p>
+				<a class="text-link" href="https://diverselearning.vercel.app" target="_blank" rel="noreferrer">Try the live demo</a>
+			</p>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

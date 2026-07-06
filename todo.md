@@ -167,6 +167,11 @@ Acceptance:
 - The first measurement target is not rankings. It is getting from 0 visible clicks and 0 visible impressions to a real baseline.
 - No new page is added unless it has a clear purpose and a real proof point.
 
+## Follow-up action items
+
+- Update `pages/hackathons/phystech-2026.html` (and its hackathons.html card) with the final PhysTech 2026 placement once results are announced — currently marked "submitted, results pending."
+- Revisit `pages/work-experience/polaris-student.html` once more Testing Lead metrics are available (dates/duration, team size, bug counts) and fold them into the About page Work Experience entry.
+
 ## Final check before opening a PR
 
 Run:

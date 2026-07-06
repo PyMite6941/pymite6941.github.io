@@ -112,6 +112,12 @@
 				"Matt Gresham's hands-on cybersecurity lab: DVWA web exploitation write-ups, OSINT methodology, a Raspberry Pi home lab, LLM security tooling, and interactive in-browser security demos.",
 			type: 'CreativeWork',
 		},
+		'/pages/work-experience/polaris-student.html': {
+			name: 'Polaris Student — Testing Lead',
+			description:
+				"Matt Gresham's Testing Lead work at Polaris Student — manual QA, bug tracking, and a running testing log across signup, the AI assistant, calculator tools, and account settings.",
+			type: 'CreativeWork',
+		},
 	};
 
 	function normalizedPath() {

@@ -1,0 +1,139 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Matt Gresham's Testing Lead work at Polaris Student — manual QA, bug tracking, and a running testing log across signup, the AI assistant, calculator tools, and account settings." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/work-experience/polaris-student.html" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>Polaris Student — Testing Lead | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>Polaris Student</h1>
+			<p class="hero-copy">Testing Lead — QA and bug tracking for an academic platform used by high schoolers</p>
+		</header>
+		<main>
+			<div id="top"></div>
+			<p class="project-page-nav">
+				<a class="text-link" href="../about-me.html">About Matt</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="../projects.html">All projects</a>
+			</p>
+			<h2 style="text-align: center; font-size: 30px">The Role</h2>
+			<br />
+			<article
+				><strong style="color: var(--text-color)">What Polaris Student is:</strong>
+				an all-in-one academic platform for high school students — grade
+				tracking, an AI-powered study assistant (Polly AI) that turns notes into
+				study guides and quizzes, college and acceptance-chance planning, and a
+				FAFSA deadline tracker.<br /><br />
+				<strong style="color: var(--text-color)">What I do:</strong> run manual
+				QA passes across new and existing features, file and triage bugs before
+				releases, and write lightweight automated checks to catch regressions on
+				core flows. I keep a running testing log — bugs, UX friction points, and
+				feature suggestions found while actually using the product.
+				<br /><br />
+				<a
+					class="text-link"
+					href="https://polarisstudent.com"
+					target="_blank"
+					>View Polaris Student</a
+				>
+			</article>
+			<br />
+			<h2 style="text-align: center">Testing Log</h2>
+			<br />
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Day 1 — June 28, 2026</h3>
+					<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+						<li>The signup map doesn't support anything other than the American curriculum yet — it shows "coming soon." Asked whether that lands in the next update.</li>
+						<li>The signup page's "Start exploring" button had a scrollbar that shouldn't be there. Marked fixed by Willy.</li>
+						<li>On mobile, the placement of the Polaris Student AI button (bottom right) blocks access to another button underneath it.</li>
+						<li>The navigation bar stays visible behind the green banner while talking to the AI assistant, when it shouldn't be.</li>
+						<li>The AI assistant doesn't show chat history for a user's own past messages. Marked as a one-time bug — follow up if it's reported again.</li>
+						<li>Typing in the mobile view breaks the layout of the AI assistant's chat window.</li>
+						<li>Some settings data points are hidden behind the save bar in the mobile view.</li>
+						<li>Suggested adding an onboarding tutorial for new accounts — the current experience is a lot for a beginner to grasp.</li>
+					</ul>
+				</div>
+				<div class="dev-note">
+					<h3>Day 2 — June 29, 2026</h3>
+					<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+						<li>Got the AI agent's MD (system prompt) file, which means it can now be inspected and probed more directly.</li>
+						<li>The calculator doesn't surface a specific error for 0/0 (a math error). Separately, 1/0 returns Infinity instead of an error — flagged as incorrect. Also, log(5) doesn't error even though log() behaves like log10(); asked whether there should be a way to change the log base.</li>
+						<li>Asked whether adding inverse tangent (arctan) would be a useful addition.</li>
+					</ul>
+				</div>
+				<div class="dev-note">
+					<h3>Day 3 — June 30, 2026</h3>
+					<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+						<li>Suggested the CV builder could use an AI that pulls from past classes, location (already available from the weather feature), and email/phone if already entered.</li>
+					</ul>
+				</div>
+				<div class="dev-note">
+					<h3>Day 4 — July 1, 2026</h3>
+					<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+						<li>Liked the rotating/changing token approach — smart and innovative.</li>
+					</ul>
+				</div>
+				<div class="dev-note">
+					<h3>Day 5 — July 2, 2026</h3>
+					<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+						<li>For the physics equations reference: add gravitational potential energy, elastic potential energy, and elementary formulas for spring period, pendulum period, and conservation of momentum.</li>
+						<li>Many schools' lunch menus don't repeat on a fixed weekly cycle — the menu feature should account for that.</li>
+						<li>Suggested adding a text tool to the drawing board feature.</li>
+					</ul>
+				</div>
+				<div class="dev-note">
+					<h3>Additional Navigation Bugs</h3>
+					<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+						<li>On mobile, the nav bar doesn't collapse back to the hamburger menu correctly after returning from the AI assistant view.</li>
+						<li>Clicking a nav link while the AI assistant panel is open sometimes leaves the panel open over the new page instead of closing it.</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<h2 style="text-align: center">Status</h2>
+			<br />
+			<article
+				>Most of the bugs filed so far have been fixed — the majority were
+				styling issues, with a smaller share being functional bugs. This log
+				will keep getting updated as testing continues.</article
+			>
+			<br />
+			<a
+				class="text-link"
+				href="../about-me.html"
+				>← Back to About</a
+			>
+			&nbsp;&nbsp;
+			<a
+				class="text-link"
+				href="#top"
+				>Back to top</a
+			>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

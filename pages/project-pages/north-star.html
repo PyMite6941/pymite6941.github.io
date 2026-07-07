@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="North Star (Polaris) — offline-first, local-LLM study and fitness agents built on LangGraph and Ollama that run entirely on your own device with no API keys." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/north-star.html" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Matt Gresham" />
+		<meta property="og:title" content="North Star (Polaris): Offline Local-LLM Study Agents | Matt Gresham" />
+		<meta
+			property="og:description"
+			content="North Star (Polaris) — offline-first, local-LLM study and fitness agents built on LangGraph and Ollama that run entirely on your own device with no API keys." />
+		<meta property="og:url" content="https://pymite6941.is-a.dev/pages/project-pages/north-star.html" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="North Star (Polaris): Offline Local-LLM Study Agents | Matt Gresham" />
+		<meta
+			name="twitter:description"
+			content="North Star (Polaris) — offline-first, local-LLM study and fitness agents built on LangGraph and Ollama that run entirely on your own device with no API keys." />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>North Star (Polaris) | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>North Star <span style="color: var(--text-color)">(Polaris)</span></h1>
+			<p class="hero-copy">Offline-first, local-LLM study and fitness agents that run entirely on your own device — no API keys, no account</p>
+		</header>
+		<main>
+			<div id="top"></div>
+			<p class="project-page-nav">
+				<a class="text-link" href="../projects.html">All projects</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="../about-me.html">About Matt</a>
+			</p>
+			<p style="color: #8b949e; font-size: 0.95rem">
+				A submission to the North Star Challenge (Access &amp; Equity track). Built with AI-assisted development &mdash; designed and directed by me, implemented with AI pair programming.
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it does:</strong> North Star
+				is a set of downloadable, privacy-preserving AI components that run entirely
+				on a user's own device — no API keys, no account, no internet required.
+				Everything is orchestrated with LangGraph state machines and powered by a
+				local LLM through Ollama, so a student with a laptop and no data plan still
+				gets a full study and fitness toolkit.
+				<br /><br />
+				<strong style="color: var(--text-color)">Why it matters:</strong> The whole
+				project is built around access and equity. It's designed for a group of
+				students in one room with no internet — often sharing one device — so it
+				ships features like <em>Study Packs</em> (bundle decks and quizzes into a
+				portable file, shared by USB or messaging, no server) and a <em>Group
+				Quiz</em> mode for studying together offline.
+				<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong> A Python
+				monorepo with a shared <code>polaris_core</code> (LLM, embeddings, config,
+				memory) and four installable packages. LangGraph routes each request to the
+				right specialist; Chroma stores notes locally for cited retrieval; the
+				fitness pipeline is defined by editable markdown agent files. A serverless
+				hosted version also exists (React SPA + FastAPI on Cloud Run with a Groq
+				fallback) for people who can't run a model locally.
+			</article>
+			<br />
+			<h2 style="text-align: center">The four components</h2>
+			<br />
+			<div class="ascii-diagram">  North Star (Polaris) — Four Offline Components
+  ═════════════════════════════════════════════════
+
+  ┌──────────────┬────────────────┬────────────────┬────────────────┐
+  │  Study LLM   │   Study RAG    │ Fitness Agents │ College Planner│
+  │  (6 areas)   │ (vector notes) │ (MD-defined)   │ (app tracker)  │
+  │              │                │                │                │
+  │ Flashcards   │ ingest → embed │ parse .fit /   │ deadlines /    │
+  │ Quizzing     │ → store →      │ .tcx / .gpx    │ status / notes │
+  │ CV Builder   │ retrieve →     │ → metrics →    │ 4-year credit  │
+  │ Advisor      │ grade →        │ growth plan →  │ map            │
+  │ Citations    │ cited answer   │ review         │ export → .ics  │
+  │ Essay Helper │ (Chroma, disk) │ (agent mds/)   │                │
+  └──────────────┴────────────────┴────────────────┴────────────────┘
+       shared core: polaris_core  (LLM · embeddings · config · memory)
+                       LangGraph  +  Ollama  (all local)</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Most study AI assumes reliable internet, an account, and money for API
+					calls. North Star removes all three — it downloads once and runs on the
+					device, so cost and connectivity stop being barriers to good study tools.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>Four LangGraph-orchestrated components share one local core. The Study
+					LLM routes across the six Polaris areas; Study RAG gives cited answers
+					from a local Chroma DB; fitness agents are pure markdown you can edit
+					without touching code; and Study Packs make everything shareable offline.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>Native Android and iOS wrappers (scaffolds are in the repo), a smoother
+					one-command installer, and expanding the College Planner's 4-year
+					credit-mapping.</p>
+				</div>
+			</div>
+			<br />
+			<p>
+				<a class="text-link" href="https://github.com/PyMite6941/North-Star-Submission" target="_blank" rel="noreferrer">View the submission on GitHub</a>
+			</p>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

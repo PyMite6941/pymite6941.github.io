@@ -142,6 +142,14 @@
 			applicationCategory: 'WebApplication',
 			programmingLanguage: ['JavaScript'],
 		},
+		'/pages/project-pages/north-star.html': {
+			name: 'North Star (Polaris)',
+			description:
+				'North Star by Matt Gresham is an offline-first suite of local-LLM study and fitness agents built on LangGraph and Ollama that run entirely on-device with no API keys, using Chroma for cited note retrieval.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'EducationalApplication',
+			programmingLanguage: ['Python'],
+		},
 	};
 
 	function normalizedPath() {

@@ -6,6 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Pure static site — no build step, no bundler, no package manager. Open `index.html` directly in a browser to run. All styling lives in a single `index.css` at the root.
 
+## RULE: Ask Matt before adding or updating pages (this repo AND the AI Lab)
+
+**Matt's standing rule:** Never create, add, or materially update a project page, hackathon page, or project/hackathon card — in **this repo** or in the **AI Lab** (`../ai-lab/`) — without first checking with Matt and getting his explicit go-ahead. This applies even when a new project or a completed hackathon is clearly "ready" to add.
+
+- Before adding anything: survey what exists (Devpost, the workspace projects, the AI Lab), then **present the candidates and ask Matt which to add/update**. Wait for his answer before writing pages.
+- This covers new project pages, new hackathon pages, new cards on `projects.html` / `hackathons.html`, and AI Lab project pages under `ai-lab/app/projects/`.
+- Small, non-content fixes Matt has already asked for (broken-link fixes, path/SEO corrections, typo fixes) do not need a fresh ask — but anything that adds or reframes a project/hackathon does.
+- Respect the exclusions in `HIDDEN_PROJECTS.md` regardless of any request to "add everything."
+
 ## File Structure & Path Depth Rules
 
 This is the most important thing to get right. Relative paths must match the file's depth:

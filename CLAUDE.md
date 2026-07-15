@@ -107,18 +107,67 @@ The AI Lab lives at `../ai-lab/` (Next.js project) and deploys to `https://ai-la
 
 The `agents/` directory holds the markdown phase prompts for the multi-agent pipelines. The **Network Defense Agents** files are fetched live by the AI Lab's network-defense demo (`agents/Network%20Defense%20Agents/Phase%20N.md`), so each must keep its `## AGENT DIRECTIVE` header (the system prompt) and valid markdown. The **Cryptography Data Agents** files are standalone docs (not consumed by any demo). Keep code fences balanced and any embedded Python syntactically valid.
 
+## Chatbot Worker — a Discovery Surface
+
+The floating chatbot is a Cloudflare Worker: source `worker/worker.js`, deployed as
+`portfolio-chat` to `https://portfolio-chat.greshamd27.workers.dev`, called by
+`assets/js/chatbot.js` (`WORKER_URL`). The `OPENROUTER_API_KEY` secret is already set on the
+worker; `wrangler deploy` does not disturb it.
+
+**Deploy with `cd worker && npx wrangler deploy`. Git push does NOT deploy it.** Production
+silently sat 3+ weeks behind HEAD because of this — handing out a stale contact email — while
+the source looked perfectly fine. If you change `worker.js`, deploy it or the change is
+fiction.
+
+**RULE: keep `## His Public Projects` in the SYSTEM_PROMPT in sync with `pages/projects.html`.**
+The bot knows projects from that block plus a live fetch of public GitHub repos. It has a guard
+that refuses to discuss any project not in one of those two places, so:
+- Add a project to `projects.html` but not the prompt → the bot **refuses** a real project.
+- The guard is what keeps `HIDDEN_PROJECTS.md` projects out of the bot. **Never add a hidden
+  project to the prompt**, and never weaken the guard.
+
+The block includes site-name → repo-name mappings (e.g. "The Finance Kit" is the
+`Expense-tracker` repo) because the site's display names differ from GitHub's. Keep those
+mappings accurate or the bot won't resolve a project asked about by either name.
+
+Two things that bit hard (2026-07-15) — don't undo them:
+- The prompt originally had **no project list at all**, so the bot invented project
+  descriptions to fill the gap. That is how it came to describe the hidden Connect 4 Bot. A
+  "never invent" instruction alone did not stop it; only a real list plus the refusal guard did.
+- The contact address is **pinned** ("never output any other email"). The model hallucinated
+  the old `greshamd27@gmail.com` — which appears nowhere in the source, almost certainly picked
+  up from public GitHub commit metadata — whenever it improvised an unscripted line.
+
+**Testing it:** `POST` `{"message":"..."}` (not `{"messages":[...]}`, which returns "Missing
+message"). Replies are **nondeterministic** — the free-model chain varies. One bad answer
+proves nothing; run the same query ~5x before concluding there's a bug.
+
 ## SEO, Structured Data & Analytics
 
 Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves the root files automatically. Live domain is `https://pymite6941.is-a.dev` (see `CNAME`).
 
 - **`sitemap.xml`** (root) — lists the main public pages, substantive project pages, hackathon pages, and useful dev-docs. Every `<loc>` must resolve to a real file on the live domain. Do **not** list thin/duplicate pages (e.g. daily-prompt pages) or private/hidden ones.
-- **`robots.txt`** (root) — allows all, points to the sitemap URL.
+- **`robots.txt`** (root) — allows all, points to the sitemap URL. **Exception:** 13 AI crawlers (GPTBot, ClaudeBot, CCBot, Google-Extended, PerplexityBot, Bytespider, etc.) are disallowed from `/pages/college-essay.html` **only** — deliberately path-scoped, not site-wide, so project pages still get picked up by AI answer engines. Don't "simplify" these rules away.
+- **`pages/college-essay.html`** (Matt's Common App essay) has a deliberate, unusual combination: **`index, follow, nosnippet, noarchive, noimageindex, max-snippet:0`**. Matt's requirement is that the page be *findable* but its text only readable by actually opening it — so it is indexed by title/URL while snippet and cache are suppressed. **Do not "fix" this to a plain `index, follow`,** and keep the `seo-schema.js` description naming the essay without quoting it. The essay text is Matt's own writing, reproduced verbatim — never edit or reword it. Note these are honor-system directives; the text is plain HTML and `curl` still returns it.
 - **`assets/js/seo-schema.js`** — on every page, upserts exactly one `<link rel="canonical">` and injects a JSON-LD `@graph` (`Person` + `WebSite` + `WebPage`, plus `SoftwareApplication`/`CreativeWork` for project pages). Per-page facts come from the `PAGE_META` map. **When you add a substantive project page, add a `PAGE_META` entry** (accurate name, description, type, and `programmingLanguage`/`applicationCategory` when it's software) — don't leave Finance Kit as the only enriched page.
 - **Static canonical tags** — the highest-priority pages (`index.html`, `pages/projects.html`, `pages/about-me.html`, and strong project pages) also carry a static `<link rel="canonical">` in the HTML head as a safety net. `seo-schema.js` updates the same single tag, so there is never a duplicate. Use **one** canonical per page and **never** an absolute internal nav link.
 - **Analytics + consent (live)** — `analytics.js` is consent-gated. It (1) sets Google **Consent Mode v2** defaults to *denied*, (2) loads the **Cookiebot** CMP (the consent banner, `data-cbid` in the `COOKIEBOT_CBID` constant), (3) bridges the user's Cookiebot choice to a `gtag('consent','update')` itself (so it does not depend on Cookiebot's dashboard consent-mode toggle), and (4) loads **GA4** (`GA4_MEASUREMENT_ID`, currently `G-WLJ6YMX87M`). GA4 runs cookieless until `analytics_storage` is granted. Both IDs are public, not secrets. Set either constant to `''` to disable that piece. `metrics.js` (the event layer) forwards `page_view`/click events to `window.gtag`; while consent is denied those are cookieless pings. It no-ops with zero console errors when no provider is present; set `localStorage.siteMetricsDebug = "1"` to log events locally. Event names are stable — see the schema doc at the top of `metrics.js`; do not rename them.
 - **Search Console verification** — must be a **static** `<meta name="google-site-verification">` in `index.html` (Google reads raw HTML and does not run the JS-injected head). A commented placeholder slot is already in `index.html`.
 
-**Hidden-project rule (important):** there is currently no `HIDDEN_PROJECTS.md` file in this repo. If Matt adds one later, projects listed there must stay out of every discovery surface: no card or link, no `sitemap.xml` entry, and no `seo-schema.js` `PAGE_META` entry. Until that file exists, treat the substantive project pages in `pages/project-pages/` as public proof pages.
+**Hidden-project rule (important):** `HIDDEN_PROJECTS.md` **exists** at the repo root — it is gitignored and local-only, so it will not show up in the committed tree. **Read it before touching any discovery surface.** It currently lists Connect 4 Bot, ForgeOS, and VORTEX.
+
+Projects listed there must stay out of **every** discovery surface. That means all of:
+- no card or link on `projects.html` (or any other page)
+- no `sitemap.xml` entry
+- no `seo-schema.js` `PAGE_META` entry
+- no mention in `easter-eggs.js` (the terminal `projects` listing)
+- no mention in the **chatbot worker** prompt — see the Chatbot Worker section above
+
+An audit on 2026-07-15 found Connect 4 had crept back into the first four of those *and* was being described by the live chatbot, despite having been removed in June. Grep for a project's name across `--include=*.html --include=*.js --include=*.xml` before assuming it's gone; a card can be re-added by a later edit long after the removal.
+
+Hidden pages that still exist on disk (e.g. `pages/project-pages/connect4.html`) carry `<meta name="robots" content="noindex, nofollow">`. Orphaning a page does **not** remove it from search — crawlers that already know the URL keep it indexed until told otherwise. Keep the tag.
+
+Everything else in `pages/project-pages/` is a public proof page.
 
 ## PyScript Usage
 

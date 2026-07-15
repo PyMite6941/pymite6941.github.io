@@ -163,7 +163,6 @@
       return [
         '<span class="mg-t-hi">Finance Kit</span>       — full-stack finance tracker (Python + Streamlit)',
         '<span class="mg-t-hi">Magellan</span>           — Go spider + React search engine',
-        '<span class="mg-t-hi">Connect 4 Bot</span>      — minimax AI with pixel board reading',
         '<span class="mg-t-hi">Chess Site</span>         — React + Vite chess game (Vercel)',
         '<span class="mg-t-hi">MD→HTML</span>            — Go CLI Markdown converter',
         '<span class="mg-t-hi">Markdown Previewer</span> — live split-pane editor (React)',

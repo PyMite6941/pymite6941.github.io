@@ -1,4 +1,50 @@
 User-agent: *
 Allow: /
 
+# The Common Application essay is findable by title, but its text should only be
+# readable by actually opening the page. The page itself carries
+# "nosnippet, noarchive, max-snippet:0" so search engines index it without
+# surfacing the content. The rules below keep AI crawlers from ingesting the
+# essay and reproducing it without anyone visiting the page. The rest of the site
+# stays open to them so the project work still gets picked up.
+
+User-agent: GPTBot
+Disallow: /pages/college-essay.html
+
+User-agent: OAI-SearchBot
+Disallow: /pages/college-essay.html
+
+User-agent: ChatGPT-User
+Disallow: /pages/college-essay.html
+
+User-agent: ClaudeBot
+Disallow: /pages/college-essay.html
+
+User-agent: anthropic-ai
+Disallow: /pages/college-essay.html
+
+User-agent: Claude-Web
+Disallow: /pages/college-essay.html
+
+User-agent: CCBot
+Disallow: /pages/college-essay.html
+
+User-agent: Google-Extended
+Disallow: /pages/college-essay.html
+
+User-agent: PerplexityBot
+Disallow: /pages/college-essay.html
+
+User-agent: Applebot-Extended
+Disallow: /pages/college-essay.html
+
+User-agent: Bytespider
+Disallow: /pages/college-essay.html
+
+User-agent: meta-externalagent
+Disallow: /pages/college-essay.html
+
+User-agent: Amazonbot
+Disallow: /pages/college-essay.html
+
 Sitemap: https://pymite6941.is-a.dev/sitemap.xml

@@ -22,6 +22,12 @@
 				'About Matt Gresham, a self-taught developer building projects across AI/ML, cybersecurity, software engineering, algorithms, and embedded systems.',
 			type: 'AboutPage',
 		},
+		'/pages/college-essay.html': {
+			name: 'Common Application Essay',
+			description:
+				'The Common Application personal statement of Matt Gresham, Class of 2027, written for his US university applications in computer science.',
+			type: 'CreativeWork',
+		},
 		'/pages/project-pages/finance_kit.html': {
 			name: 'The Finance Kit',
 			description:

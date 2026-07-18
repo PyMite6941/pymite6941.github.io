@@ -111,9 +111,9 @@
 			type: 'CreativeWork',
 		},
 		'/pages/work-experience/polaris-student.html': {
-			name: 'Polaris Student — Testing Lead',
+			name: 'Polaris Student — Head of Testing',
 			description:
-				"Matt Gresham's Testing Lead work at Polaris Student — manual QA, bug tracking, and a running testing log across signup, the AI assistant, calculator tools, and account settings.",
+				"Matt Gresham's Head of Testing work at Polaris Student — manual QA, bug tracking, and a running testing log across signup, the AI assistant, calculator tools, and account settings.",
 			type: 'CreativeWork',
 		},
 		'/pages/project-pages/diverselearning.html': {

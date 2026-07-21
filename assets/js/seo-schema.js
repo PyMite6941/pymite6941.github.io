@@ -124,6 +124,14 @@
 			applicationCategory: 'EducationalApplication',
 			programmingLanguage: ['TypeScript', 'JavaScript'],
 		},
+		'/pages/project-pages/ctf-flashcards.html': {
+			name: 'CTF Flashcards',
+			description:
+				'CTF Flashcards by Matt Gresham is a cybersecurity active-recall app where solving HackTheBox-style CTF puzzles unlocks FSRS spaced-repetition flashcards, built with React and a Cloudflare Worker on D1 with an AI Learn tutor.',
+			type: 'SoftwareApplication',
+			applicationCategory: 'EducationalApplication',
+			programmingLanguage: ['JavaScript', 'Python'],
+		},
 		'/pages/project-pages/marketing-ai.html': {
 			name: 'Marketing-AI',
 			description:

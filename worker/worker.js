@@ -29,6 +29,7 @@ is the Expense-tracker repo) — treat them as the same project.
 - Villages: AI community learning platform where learners form small study cohorts
 - LLM Protector: security scanner probing a local LLM for prompt-injection and jailbreak flaws
 - Cybersecurity Lab: hands-on offensive/defensive security — DVWA web exploitation, OSINT
+- CTF Flashcards: cybersecurity active-recall app — solve CTF puzzles to unlock FSRS spaced-repetition flashcards, with an AI Learn tutor; React + Cloudflare Worker on D1
 - DiverseLearning: AI tutor turning any topic into an interactive 3D course
 - Marketing-AI: human-in-the-loop Reddit growth console — scans subreddits, scores threads with an LLM
 - Church Connect: embeddable multi-tenant church engagement tool

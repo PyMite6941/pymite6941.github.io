@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="CTF Flashcards — a cybersecurity active-recall app where solving HackTheBox-style CTF puzzles unlocks FSRS spaced-repetition flashcards, built on React, a Cloudflare Worker + D1, and an AI Learn tutor." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/ctf-flashcards.html" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Matt Gresham" />
+		<meta property="og:title" content="CTF Flashcards: Learn Security by Doing | Matt Gresham" />
+		<meta
+			property="og:description"
+			content="CTF Flashcards — solve self-contained CTF puzzles to unlock spaced-repetition flashcards scheduled by FSRS, with an AI Learn tab that teaches any security topic then tests it." />
+		<meta property="og:url" content="https://pymite6941.is-a.dev/pages/project-pages/ctf-flashcards.html" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="CTF Flashcards: Learn Security by Doing | Matt Gresham" />
+		<meta
+			name="twitter:description"
+			content="CTF Flashcards — solve self-contained CTF puzzles to unlock spaced-repetition flashcards scheduled by FSRS, with an AI Learn tab that teaches any security topic then tests it." />
+		<link rel="stylesheet" type="text/css" href="../../index.css" />
+		<title>CTF Flashcards | Matt G</title>
+		<script src="../../assets/js/site-style.js" defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>CTF Flashcards</h1>
+			<p class="hero-copy">Learn cybersecurity by doing — solve CTF puzzles to unlock spaced-repetition flashcards</p>
+		</header>
+		<main>
+			<div id="top"></div>
+			<p class="project-page-nav">
+				<a class="text-link" href="../projects.html">All projects</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="cybersecurity-lab.html">Cybersecurity Lab</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="../about-me.html">About Matt</a>
+			</p>
+			<p style="color: #8b949e; font-size: 0.95rem">
+				Live on Cloudflare. Built for RevenueCat's Shipaton 2026 hackathon (Next Gen student award). Designed and directed by me, implemented with AI pair programming.
+			</p>
+			<br />
+			<h2 style="text-align: center">Description</h2>
+			<br />
+			<article>
+				<strong style="color: var(--text-color)">What it does:</strong> A
+				cybersecurity active-recall app built around a single idea — <em>the
+				puzzles fuel the questions.</em> You solve HackTheBox-style CTF puzzles
+				(decode a cipher, crack a hash, spot the bug), and each flag you capture
+				drops the concepts behind it into your review deck as flashcards. Every
+				review is free recall — you type your answer before seeing it, self-rate
+				Again / Hard / Good / Easy, and the card is rescheduled by
+				<strong>FSRS</strong>, the modern successor to Anki's SM-2, so cards you
+				struggle with come back in minutes and easy ones in weeks.
+				<br /><br />
+				<strong style="color: var(--text-color)">The AI Learn tab:</strong> Name
+				any topic — SQL injection, JWT attacks, buffer overflows — and an AI tutor
+				writes flashcards for it, generates practice challenges, and produces a
+				downloadable lab kit. The challenges stay <em>locked until you've reviewed
+				every flashcard</em> for that topic: learn first, then prove it. Puzzle
+				solvability is guaranteed because the Worker renders the challenge artifact
+				deterministically (base64 / hex / XOR / Caesar / binary / reverse) rather
+				than trusting the model to be consistent.
+				<br /><br />
+				<strong style="color: var(--text-color)">How it was built:</strong>
+				Production is entirely on Cloudflare — a React + Vite frontend on Pages,
+				and a backend Worker on D1 that runs the FSRS scheduler (<code>ts-fsrs</code>)
+				and renders puzzles. A FastAPI + Python backend is kept as a 1:1 local-dev
+				twin of the Worker. The catalog is shared across a web build and Capacitor
+				mobile shells. Free tier is 3 puzzle solves a day; Pro ($8/mo, paid as USDC
+				on Base) is sold through my existing GRID Store billing worker. An optional,
+				opt-in local Python monitor can turn things you look up into review cards.
+			</article>
+			<br />
+			<h2 style="text-align: center">Architecture</h2>
+			<br />
+			<div class="ascii-diagram">  CTF Flashcards — Solve → Unlock → Recall
+  ═══════════════════════════════════════════
+
+  Solve a CTF puzzle          AI Learn tab (Groq)
+  (base64 · XOR · JWT     ──► name a topic ──► AI writes cards
+   alg:none · hash · SQLi)                     + practice challenges
+        │                                      (locked until cards reviewed)
+        │  capture the flag                         │
+        ▼                                           ▼
+  concept cards drop into  ◄───────────────  deterministic puzzle
+  your review deck                            render (Worker)
+        │
+        ▼
+  ┌─────────────────────────────┐
+  │  FSRS scheduler (ts-fsrs)   │   free recall: type answer,
+  │  Again · Hard · Good · Easy │   self-rate, reschedule
+  └─────────────────────────────┘
+        │  filter reviews by topic (crypto · web · forensics · hashes)
+        ▼
+  Cloudflare: Pages (React) + Worker on D1 · billing via GRID Store
+  Python/FastAPI backend kept as a 1:1 local-dev twin</div>
+			<br />
+			<h2 style="text-align: center">Dev Notes</h2>
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>Problem Solved</h3>
+					<p>Security concepts don't stick from reading alone. This closes the
+					loop: you earn a flashcard by actually solving the thing it describes,
+					then spaced repetition makes sure you keep it.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Technical Highlights</h3>
+					<p>FSRS scheduling in a Cloudflare Worker on D1, with a FastAPI Python
+					twin kept 1:1 for local dev. AI-generated challenges are made
+					<em>guaranteed-solvable</em> by having the Worker render the artifact
+					deterministically instead of trusting the model's output.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What's Next</h3>
+					<p>More puzzle categories, richer per-topic analytics, and polishing the
+					Capacitor mobile shells that share the web catalog.</p>
+				</div>
+			</div>
+			<br />
+			<p>
+				<a class="text-link" href="https://ctf-flashcards.pages.dev" target="_blank" rel="noreferrer">Try the live app</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="https://github.com/PyMite6941/ctf-flashcards" target="_blank" rel="noreferrer">View source on GitHub</a>
+			</p>
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

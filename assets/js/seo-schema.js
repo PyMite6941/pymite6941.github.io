@@ -22,6 +22,12 @@
 				'About Matt Gresham, a self-taught developer building projects across AI/ML, cybersecurity, software engineering, algorithms, and embedded systems.',
 			type: 'AboutPage',
 		},
+		'/pages/client-work.html': {
+			name: 'Client work by Matt Gresham',
+			description:
+				'Freelance and client work by Matt Gresham, including a neuroscience education site, a Stripe and crypto subscription billing layer, and authorised web application security and QA testing.',
+			type: 'CollectionPage',
+		},
 		'/pages/college-essay.html': {
 			name: 'Common Application Essay',
 			description:

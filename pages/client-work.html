@@ -6,7 +6,8 @@
 		<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
 		<meta
 			name="description"
-			content="Matt Gresham — freelance and client work. Custom tools, bots, dashboards, and web apps built for individuals and small teams." />
+			content="Matt Gresham — freelance and client work. Custom tools, bots, dashboards, web apps, and authorised security and QA testing for individuals and small teams." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/client-work.html" />
 		<link rel="stylesheet" type="text/css" href="../index.css" />
 		<title>Matt G | Built for Others</title>
 		<script src="../assets/js/site-style.js" defer></script>
@@ -179,6 +180,20 @@
 				gap: 6px;
 				margin-top: 4px;
 			}
+			.example-role {
+				color: var(--text-color);
+				font-size: 13px;
+				margin: 0;
+				padding: 8px 12px;
+				background: #0d111780;
+				border-left: 2px solid var(--button-color);
+				border-radius: 0 6px 6px 0;
+				line-height: 1.5;
+			}
+			.example-role strong {
+				color: var(--button-color);
+				font-weight: 600;
+			}
 		</style>
 	</head>
 	<body>
@@ -227,8 +242,8 @@
 				</div>
 				<div class="work-type-card">
 					<span class="work-icon">&#128274;</span>
-					<h3>Security Utilities</h3>
-					<p>Password tools, USB watchdogs, small security scripts. Practical utilities for personal or small-team use — not enterprise pentesting.</p>
+					<h3>Security &amp; QA</h3>
+					<p>Authorised security assessments and functional QA on web apps and APIs — auth, access control, and LLM prompt-injection testing — plus small security utilities like password tools and USB watchdogs.</p>
 				</div>
 			</div>
 			<br /><br />
@@ -247,6 +262,9 @@
 						A fully realised alternate reality game built as a satirical "official government portal." The site maintains a deadpan bureaucratic fiction across 10+ interconnected pages — complete with a suppressed research library, intercepted transmissions, a staff document archive, and a fake internal terminal.<br /><br />
 						Beyond the surface, there are multiple puzzle layers and a hidden narrative thread running through the site. Built to be explored, not explained.
 					</p>
+					<p class="example-role">
+						<strong>My role:</strong> Sole build &mdash; design and code. Wrote the narrative, designed the puzzle layers, and built every page.
+					</p>
 					<div class="example-stack">
 						<span class="boxes">HTML / CSS / JS</span>
 						<span class="boxes">Cloudflare Pages</span>
@@ -254,6 +272,70 @@
 						<span class="boxes">Puzzle Design</span>
 					</div>
 					<a class="text-link" href="https://infant-cultivation.pages.dev" target="_blank" rel="noopener">Visit the site &rarr;</a>
+				</div>
+				<div class="example-card">
+					<div class="example-card-header">
+						<h3>Neurole</h3>
+						<span class="example-tag">Education</span>
+					</div>
+					<p>
+						A neuroscience education site built around two daily games: <strong>The Daily Case</strong>, a clinical diagnosis puzzle where you work from a set of symptoms to a diagnosis, and <strong>Map the Brain</strong>, a region-identification quiz with an AI Q&amp;A panel that explains what each region actually does.<br /><br />
+						All game content is authored by the client in Google Sheets and pulled in as published CSV, so new cases and questions go live without a deploy, with a built-in sample set as fallback if a sheet is ever unreachable.
+					</p>
+					<p class="example-role">
+						<strong>My role:</strong> I did not build Neurole. I was brought on after launch to modernise an existing site &mdash; refreshing the visual design and front-end look and feel, porting it to React, and fixing the archive so past cases replay correctly.
+					</p>
+					<div class="example-stack">
+						<span class="boxes">HTML / CSS / JS</span>
+						<span class="boxes">Google Sheets CSV</span>
+						<span class="boxes">Cloudflare Worker</span>
+						<span class="boxes">LLM API</span>
+					</div>
+					<a class="text-link" href="https://neurole.org" target="_blank" rel="noopener">Visit the site &rarr;</a>
+				</div>
+				<div class="example-card">
+					<div class="example-card-header">
+						<h3>Dream Team Tech</h3>
+						<span class="example-tag">Payments</span>
+					</div>
+					<p>
+						A subscription billing and paywall layer serving two separate products from one account. Customers buy a plan on the billing site; the purchase unlocks gated features inside each product without either product having to know anything about payments.
+					</p>
+					<p>
+						Card subscriptions run through Stripe, crypto through Coinbase Commerce, with a card&rarr;crypto onramp for customers who want it. No card or wallet data touches the application &mdash; checkout is hosted, and every webhook is signature-verified before it is trusted. An hourly scheduled worker re-checks each active subscription and automatically reverts lapsed accounts to free, so a missed webhook can't leave a plan unlocked indefinitely.
+					</p>
+					<p class="example-role">
+						<strong>My role:</strong> Sole developer. Scoped the requirements from client Q&amp;A, chose the payment architecture, and built both the frontend and the Workers handling checkout, webhooks, entitlement sync, and reconciliation.
+					</p>
+					<div class="example-stack">
+						<span class="boxes">React / Vite</span>
+						<span class="boxes">Cloudflare Pages</span>
+						<span class="boxes">Cloudflare Workers</span>
+						<span class="boxes">Stripe</span>
+						<span class="boxes">Coinbase Commerce</span>
+						<span class="boxes">Supabase</span>
+					</div>
+				</div>
+				<div class="example-card">
+					<div class="example-card-header">
+						<h3>Polaris Student</h3>
+						<span class="example-tag">Security &amp; QA</span>
+					</div>
+					<p>
+						Authorised security and QA testing for Polaris Scholar, LLC, on their student college-readiness platform &mdash; a single-page app spanning thirteen modules, several education systems, and eight languages.
+					</p>
+					<p>
+						The engagement covered authentication and session handling, cross-origin policy, write authorisation, stored-input handling, and prompt-injection resistance on the platform's AI assistant, alongside feature-by-feature functional QA across education systems and languages. Delivered as a written assessment with reproduction steps, severity ratings, and remediation guidance. Findings remain confidential to the client.
+					</p>
+					<p class="example-role">
+						<strong>My role:</strong> Security contractor, working to an authorised testing scope agreed with the client. Ran the assessment and wrote the report; also served as one of the platform's functional QA testers during a multi&#8209;education&#8209;system rollout.
+					</p>
+					<div class="example-stack">
+						<span class="boxes">Web App Security</span>
+						<span class="boxes">API Testing</span>
+						<span class="boxes">LLM Red-Teaming</span>
+						<span class="boxes">QA</span>
+					</div>
 				</div>
 			</div>
 			<br /><br />

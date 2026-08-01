@@ -26,11 +26,8 @@ pages/
   about-me.html                                   ← depth 1 — recruiter-facing
   academics.html                                  ← depth 1 — counselor-facing
   projects.html                                   ← depth 1
-  the-dev-docs.html                               ← depth 1 — HIDDEN, see below
   100DaysOfAIProgrammingPrompts.html              ← depth 1
   hackathons.html                                 ← depth 1
-  dev-docs/
-    learn-programming2026.html                    ← depth 2
   project-pages/
     finance_kit.html                              ← depth 2
     connect4.html                                 ← depth 2
@@ -101,7 +98,6 @@ either**:
 | `index.html` | `../index.html` | `../../index.html` |
 | `pages/about-me.html` | `about-me.html` | `../about-me.html` |
 | `pages/projects.html` | `projects.html` | `../projects.html` |
-| `pages/the-dev-docs.html` | `the-dev-docs.html` | `../the-dev-docs.html` |
 | `pages/academics.html` | `academics.html` | `../academics.html` |
 | `assets/documents/matt_gresham_resume.html` | `../assets/documents/...` | `../../assets/documents/...` |
 
@@ -205,7 +201,7 @@ proves nothing; run the same query ~5x before concluding there's a bug.
 
 Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves the root files automatically. Live domain is `https://pymite6941.is-a.dev` (see `CNAME`).
 
-- **`sitemap.xml`** (root) — lists the main public pages, substantive project pages, hackathon pages, and useful dev-docs. Every `<loc>` must resolve to a real file on the live domain. Do **not** list thin/duplicate pages (e.g. daily-prompt pages) or private/hidden ones.
+- **`sitemap.xml`** (root) — lists the main public pages, substantive project pages, hackathon pages, and work-experience pages. Every `<loc>` must resolve to a real file on the live domain. Do **not** list thin/duplicate pages (e.g. daily-prompt pages) or private/hidden ones.
 - **`robots.txt`** (root) — allows all, points to the sitemap URL. **Exception:** 13 AI crawlers (GPTBot, ClaudeBot, CCBot, Google-Extended, PerplexityBot, Bytespider, etc.) are disallowed from `/pages/college-essay.html` **only** — deliberately path-scoped, not site-wide, so project pages still get picked up by AI answer engines. Don't "simplify" these rules away.
 - **`pages/college-essay.html`** (Matt's Common App essay) has a deliberate, unusual combination: **`index, follow, nosnippet, noarchive, noimageindex, max-snippet:0`**. Matt's requirement is that the page be *findable* but its text only readable by actually opening it — so it is indexed by title/URL while snippet and cache are suppressed. **Do not "fix" this to a plain `index, follow`,** and keep the `seo-schema.js` description naming the essay without quoting it. The essay text is Matt's own writing, reproduced verbatim — never edit or reword it. Note these are honor-system directives; the text is plain HTML and `curl` still returns it.
 - **`assets/js/seo-schema.js`** — on every page, upserts exactly one `<link rel="canonical">` and injects a JSON-LD `@graph` (`Person` + `WebSite` + `WebPage`, plus `SoftwareApplication`/`CreativeWork` for project pages). Per-page facts come from the `PAGE_META` map. **When you add a substantive project page, add a `PAGE_META` entry** (accurate name, description, type, and `programmingLanguage`/`applicationCategory` when it's software) — don't leave Finance Kit as the only enriched page.
@@ -213,35 +209,19 @@ Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves 
 - **Analytics + consent (live)** — `analytics.js` is consent-gated. It (1) sets Google **Consent Mode v2** defaults to *denied*, (2) loads the **Cookiebot** CMP (the consent banner, `data-cbid` in the `COOKIEBOT_CBID` constant), (3) bridges the user's Cookiebot choice to a `gtag('consent','update')` itself (so it does not depend on Cookiebot's dashboard consent-mode toggle), and (4) loads **GA4** (`GA4_MEASUREMENT_ID`, currently `G-WLJ6YMX87M`). GA4 runs cookieless until `analytics_storage` is granted. Both IDs are public, not secrets. Set either constant to `''` to disable that piece. `metrics.js` (the event layer) forwards `page_view`/click events to `window.gtag`; while consent is denied those are cookieless pings. It no-ops with zero console errors when no provider is present; set `localStorage.siteMetricsDebug = "1"` to log events locally. Event names are stable — see the schema doc at the top of `metrics.js`; do not rename them.
 - **Search Console verification** — must be a **static** `<meta name="google-site-verification">` in `index.html` (Google reads raw HTML and does not run the JS-injected head). A commented placeholder slot is already in `index.html`.
 
-**The Dev Docs is hidden (2026-07-31).** Matt asked for it to be hidden "for now" because two
-of its posts are opinion pieces about Anthropic that recruiters at AI companies would find.
-It is removed from the nav, the footer, `sitemap.xml`, the homepage body copy, and the chatbot
-worker prompt. The `devdocs` path key is deliberately **left in `site-style.js`** so restoring
-it is a one-line change. The pages themselves are untouched and still live on disk.
+**The Dev Docs section was REMOVED (2026-08-02).** Matt moved this content to a separate
+GitHub Pages project of his own. Deleted: `pages/the-dev-docs.html` and all of `pages/dev-docs/`
+(four articles, an OpenCode draft, and the picoCTF evaluation + solve log), the `devdocs` path
+key in `site-style.js`, the `dev_docs` easter-egg achievement, and the `.eval-*` / `.solve-*`
+styles in `index.css`.
 
-**Restructured 2026-08-01 into an evaluations hub** (still hidden — Matt's call was "build it
-but keep it hidden for now"). `the-dev-docs.html` now has two sections: **Evaluations** of
-tools/platforms he actually uses, and **Articles** (the original four posts, preserved).
+Everything is recoverable from git — the last commit containing it is `412d9b9`. Do **not**
+recreate a Dev Docs section on this site; the CTF/tooling writeups live on the separate project
+and the portfolio should link out to it.
 
-`pages/dev-docs/picoctf.html` is the first evaluation and the template for the rest. It has:
-- a factual "what it is" section (safe as written),
-- a verdict block with visible `TODO` markers — **Matt's own opinion, do not write it for him**,
-- a **solve log** driven by a `SOLVES` array at the bottom of the page. He adds one object per
-  challenge; the page derives the counts, points total, and category chips itself. Adding an
-  entry requires no other edit. Instructions are in a comment directly above the array.
-
-Flags are published in full, by Matt's explicit decision. That is fine for retired practice
-challenges; if this section is ever unhidden, check picoCTF's rules for anything still in an
-active competition.
-
-Do **not** invent solved challenges, points, or ratings to fill the page out — same rule as the
-résumé placeholders. An empty solve log renders a clean empty state on purpose.
-
-All pages (`the-dev-docs.html` + those under `dev-docs/`) carry
-`<meta name="robots" content="noindex, nofollow">`. Orphaning alone does **not** de-index —
-Google keeps crawling URLs it already knows — so the tag is what actually removes them.
-Keep `robots.txt` allowing this path: a blocked page can never be crawled, so Google would
-never see the `noindex` and the URLs would linger in the index indefinitely.
+Unrelated, do not "clean up": `dream-projects.html` and `project-pages/cyberdeck.html` mention
+**DevDocs `.zim` files**, which is the offline-documentation archive format, nothing to do with
+this section.
 
 **Hidden-project rule (important):** `HIDDEN_PROJECTS.md` **exists** at the repo root — it is gitignored and local-only, so it will not show up in the committed tree. **Read it before touching any discovery surface.** It currently lists Connect 4 Bot, ForgeOS, and VORTEX.
 

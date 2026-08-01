@@ -4,7 +4,6 @@
     { id: 'first_visit',     name: 'First Step',       desc: 'Visited the portfolio for the first time.' },
     { id: 'about_me',        name: "Who's Matt?",       desc: 'Checked out the About Me page.' },
     { id: 'projects_page',   name: 'Window Shopping',   desc: 'Browsed the Projects page.' },
-    { id: 'dev_docs',        name: 'Dev Docs Reader',   desc: 'Opened the Dev Docs.' },
     { id: 'explorer_3',      name: 'Explorer',          desc: 'Visited 3 different pages.' },
     { id: 'explorer_5',      name: 'Globe Trotter',     desc: 'Visited 5 different pages.' },
     { id: 'explorer_10',     name: 'Completionist',     desc: 'Visited 10 or more different pages.' },
@@ -71,7 +70,6 @@
 
     if (/about-me\.html/.test(path))    unlockAchievement('about_me');
     if (/\/projects\.html/.test(path))  unlockAchievement('projects_page');
-    if (/the-dev-docs/.test(path))      unlockAchievement('dev_docs');
     if (s.visited.length >= 3)          unlockAchievement('explorer_3');
     if (s.visited.length >= 5)          unlockAchievement('explorer_5');
     if (s.visited.length >= 10)         unlockAchievement('explorer_10');

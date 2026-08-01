@@ -1,0 +1,232 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="Matt Gresham's evaluation of picoCTF as a cybersecurity learning platform, plus a running log of solved challenges with full writeups." />
+		<meta
+			name="robots"
+			content="noindex, nofollow" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css" />
+
+		<title>picoCTF — Evaluation &amp; Solve Log | Matt G</title>
+		<script
+			src="../../assets/js/site-style.js"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>picoCTF</h1>
+			<p class="hero-copy">
+				Platform evaluation and a running solve log with full writeups.
+			</p>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<p class="eval-breadcrumb">
+				<a class="text-link" href="../the-dev-docs.html">&larr; The Dev Docs</a>
+			</p>
+
+			<!-- ───────────────────────────────────────────────────────────────
+			     EVALUATION
+			     The factual "what it is" below is safe to leave as-is.
+			     The verdict block is YOUR opinion — fill it in before this
+			     section is ever unhidden. See TODO markers.
+			     ─────────────────────────────────────────────────────────── -->
+
+			<h2>What it is</h2>
+			<article>
+				picoCTF is a free capture-the-flag platform run by Carnegie Mellon
+				University, originally built as a security competition for middle and
+				high school students. Challenges are grouped by category — web
+				exploitation, cryptography, reverse engineering, forensics, binary
+				exploitation, and general skills — and each is worth points scaled to
+				difficulty. Alongside the annual timed competition, picoCTF keeps a
+				permanently open practice gym of retired challenges, which is what the
+				solve log below draws from.
+			</article>
+			<br />
+
+			<h2>My evaluation</h2>
+			<div class="eval-card">
+				<div class="eval-verdict">
+					<span class="eval-todo">TODO</span>
+					<p>
+						Write the one-paragraph verdict here: is picoCTF worth the time, who
+						is it actually for, and where does it stop being useful? This is the
+						part a recruiter or a counsellor will actually read, so it should be
+						your own judgement rather than a description.
+					</p>
+				</div>
+				<dl class="eval-facts">
+					<div>
+						<dt>Best for</dt>
+						<dd><span class="eval-todo">TODO</span> — e.g. absolute beginners, general-skills grounding</dd>
+					</div>
+					<div>
+						<dt>Weakest at</dt>
+						<dd><span class="eval-todo">TODO</span> — where it under-delivers</dd>
+					</div>
+					<div>
+						<dt>Compared to</dt>
+						<dd><span class="eval-todo">TODO</span> — PortSwigger Academy, HackTheBox, TryHackMe</dd>
+					</div>
+					<div>
+						<dt>Would I recommend it</dt>
+						<dd><span class="eval-todo">TODO</span> — yes / no, and to whom</dd>
+					</div>
+				</dl>
+			</div>
+			<br />
+
+			<h2>Solve log</h2>
+			<article>
+				Every challenge I have solved, with the full approach and the flag.
+				Click a challenge to expand its writeup.
+			</article>
+			<br />
+
+			<div
+				class="solve-summary"
+				id="solve-summary"></div>
+			<div
+				class="solve-log"
+				id="solve-log"></div>
+
+			<br />
+			<a class="text-link" href="#top">Back to top</a>
+			<br />
+		</main>
+		<div id="site-footer"></div>
+
+		<script>
+			/* ═══════════════════════════════════════════════════════════════════
+			 * HOW TO ADD A CHALLENGE
+			 *
+			 * Copy one block below, paste it at the TOP of the SOLVES array, and
+			 * fill it in. Nothing else needs changing — the page counts, groups
+			 * and renders everything itself.
+			 *
+			 *   {
+			 *     name:       'Challenge name',
+			 *     category:   'Web Exploitation',   // see CATEGORY_COLORS below
+			 *     points:     100,
+			 *     difficulty: 'Easy',               // Easy | Medium | Hard
+			 *     solved:     '2026-08-01',         // YYYY-MM-DD
+			 *     tools:      ['Burp Suite', 'curl'],
+			 *     approach:   `Multi-line writeup goes here.
+			 *                  Backticks let you write as many lines as you want.`,
+			 *     flag:       'picoCTF{...}',
+			 *     takeaway:   'The one thing this challenge actually taught you.',
+			 *   },
+			 *
+			 * NOTE: flags are published in full here by choice. This page is
+			 * noindexed and unlinked from the nav; if it is ever made public,
+			 * check picoCTF's rules on publishing solutions for any challenge
+			 * that is still part of an active competition.
+			 * ═══════════════════════════════════════════════════════════════════ */
+
+			var SOLVES = [
+				// ── Add your solved challenges here. Newest first. ──
+			];
+
+			var CATEGORY_COLORS = {
+				'Web Exploitation': '#11d978',
+				Cryptography: '#58a6ff',
+				'Reverse Engineering': '#e2490d',
+				Forensics: '#8957e5',
+				'Binary Exploitation': '#e20d0d',
+				'General Skills': '#e8b428',
+			};
+
+			(function () {
+				var log = document.getElementById('solve-log');
+				var summary = document.getElementById('solve-summary');
+
+				function esc(s) {
+					return String(s).replace(/[&<>"]/g, function (c) {
+						return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+					});
+				}
+
+				if (!SOLVES.length) {
+					summary.innerHTML =
+						'<p class="solve-empty">No writeups published yet. Add entries to the ' +
+						'<code>SOLVES</code> array in this page&rsquo;s source — the instructions ' +
+						'are in the comment directly above it.</p>';
+					return;
+				}
+
+				var total = SOLVES.reduce(function (n, s) {
+					return n + (s.points || 0);
+				}, 0);
+				var cats = {};
+				SOLVES.forEach(function (s) {
+					cats[s.category] = (cats[s.category] || 0) + 1;
+				});
+
+				var chips = Object.keys(cats)
+					.sort()
+					.map(function (c) {
+						return (
+							'<span class="boxes" style="color:' +
+							(CATEGORY_COLORS[c] || '#8b949e') +
+							'">' +
+							esc(c) +
+							' &middot; ' +
+							cats[c] +
+							'</span>'
+						);
+					})
+					.join('');
+
+				summary.innerHTML =
+					'<div class="solve-stats">' +
+					'<span><strong>' + SOLVES.length + '</strong> solved</span>' +
+					'<span><strong>' + total + '</strong> points</span>' +
+					'<span><strong>' + Object.keys(cats).length + '</strong> categories</span>' +
+					'</div><div class="solve-chips">' + chips + '</div>';
+
+				log.innerHTML = SOLVES.map(function (s) {
+					var color = CATEGORY_COLORS[s.category] || '#8b949e';
+					var tools = (s.tools || [])
+						.map(function (t) {
+							return '<span class="boxes">' + esc(t) + '</span>';
+						})
+						.join('');
+					return (
+						'<details class="solve">' +
+						'<summary>' +
+						'<span class="solve-name">' + esc(s.name) + '</span>' +
+						'<span class="solve-meta">' +
+						'<span class="tag" style="color:' + color + '">' + esc(s.category) + '</span>' +
+						(s.difficulty ? '<span class="tag" style="color:#8b949e">' + esc(s.difficulty) + '</span>' : '') +
+						(s.points ? '<span class="solve-pts">' + esc(s.points) + ' pts</span>' : '') +
+						'</span>' +
+						'</summary>' +
+						'<div class="solve-body">' +
+						(s.solved ? '<p class="solve-date">Solved ' + esc(s.solved) + '</p>' : '') +
+						(tools ? '<p class="solve-tools"><strong>Tools:</strong> ' + tools + '</p>' : '') +
+						(s.approach ? '<h4>Approach</h4><pre class="solve-approach">' + esc(s.approach) + '</pre>' : '') +
+						(s.takeaway ? '<h4>Takeaway</h4><p>' + esc(s.takeaway) + '</p>' : '') +
+						(s.flag ? '<h4>Flag</h4><code class="solve-flag">' + esc(s.flag) + '</code>' : '') +
+						'</div>' +
+						'</details>'
+					);
+				}).join('');
+			})();
+		</script>
+	</body>
+</html>

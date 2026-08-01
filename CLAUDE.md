@@ -219,7 +219,25 @@ It is removed from the nav, the footer, `sitemap.xml`, the homepage body copy, a
 worker prompt. The `devdocs` path key is deliberately **left in `site-style.js`** so restoring
 it is a one-line change. The pages themselves are untouched and still live on disk.
 
-All six pages (`the-dev-docs.html` + the five under `dev-docs/`) now carry
+**Restructured 2026-08-01 into an evaluations hub** (still hidden — Matt's call was "build it
+but keep it hidden for now"). `the-dev-docs.html` now has two sections: **Evaluations** of
+tools/platforms he actually uses, and **Articles** (the original four posts, preserved).
+
+`pages/dev-docs/picoctf.html` is the first evaluation and the template for the rest. It has:
+- a factual "what it is" section (safe as written),
+- a verdict block with visible `TODO` markers — **Matt's own opinion, do not write it for him**,
+- a **solve log** driven by a `SOLVES` array at the bottom of the page. He adds one object per
+  challenge; the page derives the counts, points total, and category chips itself. Adding an
+  entry requires no other edit. Instructions are in a comment directly above the array.
+
+Flags are published in full, by Matt's explicit decision. That is fine for retired practice
+challenges; if this section is ever unhidden, check picoCTF's rules for anything still in an
+active competition.
+
+Do **not** invent solved challenges, points, or ratings to fill the page out — same rule as the
+résumé placeholders. An empty solve log renders a clean empty state on purpose.
+
+All pages (`the-dev-docs.html` + those under `dev-docs/`) carry
 `<meta name="robots" content="noindex, nofollow">`. Orphaning alone does **not** de-index —
 Google keeps crawling URLs it already knows — so the tag is what actually removes them.
 Keep `robots.txt` allowing this path: a blocked page can never be crawled, so Google would

@@ -161,6 +161,21 @@
 			messages.scrollTop = messages.scrollHeight;
 			return msg;
 		}
+
+		// Public API so other page features (e.g. the homepage audience router)
+		// can open the assistant and optionally ask a question straight away.
+		window.portfolioChat = {
+			open: function (prefill) {
+				panel.classList.add('open');
+				if (prefill) input.value = prefill;
+				input.focus();
+			},
+			ask: function (question) {
+				panel.classList.add('open');
+				input.value = question;
+				sendMessage();
+			},
+		};
 	}
 
 	function init() {

@@ -22,6 +22,12 @@
 				'About Matt Gresham, a self-taught developer building projects across AI/ML, cybersecurity, software engineering, algorithms, and embedded systems.',
 			type: 'AboutPage',
 		},
+		'/pages/academics.html': {
+			name: 'Academics — Matt Gresham',
+			description:
+				'Academic profile for Matt Gresham, Class of 2027 at International Community School Bangkok — coursework, awards, competitions, leadership, community service, and college plans in computer science.',
+			type: 'AboutPage',
+		},
 		'/pages/client-work.html': {
 			name: 'Client work by Matt Gresham',
 			description:

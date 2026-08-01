@@ -37,10 +37,10 @@
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://pymite6941.is-a.dev/pages/the-dev-docs.html</loc>
-		<lastmod>2026-06-18</lastmod>
+		<loc>https://pymite6941.is-a.dev/pages/academics.html</loc>
+		<lastmod>2026-07-31</lastmod>
 		<changefreq>monthly</changefreq>
-		<priority>0.7</priority>
+		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>https://pymite6941.is-a.dev/pages/client-work.html</loc>
@@ -179,18 +179,6 @@
 		<lastmod>2026-06-18</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://pymite6941.is-a.dev/pages/dev-docs/learn-programming2026.html</loc>
-		<lastmod>2026-06-18</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://pymite6941.is-a.dev/pages/dev-docs/how-I-learn-from-claude.html</loc>
-		<lastmod>2026-06-18</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.5</priority>
 	</url>
 	<url>
 		<loc>https://pymite6941.is-a.dev/pages/work-experience/polaris-student.html</loc>

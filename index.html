@@ -28,6 +28,10 @@
 		<script
 			src="assets/js/site-style.js"
 			defer></script>
+		<!-- homepage-only feature (like filter-mechanics.js on projects.html) -->
+		<script
+			src="assets/js/audience-router.js"
+			defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -39,6 +43,27 @@
 			<p style="color: #8b949e; font-size: 1.1rem; margin-top: 12px; max-width: 600px; margin-left: auto; margin-right: auto;">
 				I build real-world tools that solve real problems — AI agents, search engines, finance trackers, and more.
 			</p>
+			<div class="audience-router">
+				<p class="audience-router-label">Here for something specific? Press a button.</p>
+				<div class="audience-buttons">
+					<button
+						type="button"
+						class="audience-btn"
+						data-audience="counselor">
+						<span class="audience-btn-icon" aria-hidden="true">&#127891;</span>
+						<span class="audience-btn-title">I'm a College Counselor</span>
+						<span class="audience-btn-sub">Academics, awards, activities, essay</span>
+					</button>
+					<button
+						type="button"
+						class="audience-btn"
+						data-audience="recruiter">
+						<span class="audience-btn-icon" aria-hidden="true">&#128188;</span>
+						<span class="audience-btn-title">I'm a Recruiter or Employer</span>
+						<span class="audience-btn-sub">Experience, shipped work, r&eacute;sum&eacute;</span>
+					</button>
+				</div>
+			</div>
 		</header>
 		<main>
 			<h2 style="text-align: center">Featured Projects</h2>
@@ -269,17 +294,15 @@
 					href="pages/projects.html"
 					>full project list</a
 				>,
-				read the
-				<a
-					class="text-link"
-					href="pages/the-dev-docs.html"
-					>Dev Docs</a
-				>
-				where I write technical deep-dives, or
 				<a
 					class="text-link"
 					href="pages/about-me.html"
-					>learn more about me</a
+					>learn more about me and my work experience</a
+				>, or see my
+				<a
+					class="text-link"
+					href="pages/academics.html"
+					>academic record</a
 				>.</article
 			>
 		</main>

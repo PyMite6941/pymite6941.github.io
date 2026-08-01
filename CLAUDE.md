@@ -23,9 +23,10 @@ This is the most important thing to get right. Relative paths must match the fil
 index.html                                        ← depth 0 (root)
 index.css                                         ← shared stylesheet
 pages/
-  about-me.html                                   ← depth 1
+  about-me.html                                   ← depth 1 — recruiter-facing
+  academics.html                                  ← depth 1 — counselor-facing
   projects.html                                   ← depth 1
-  the-dev-docs.html                               ← depth 1
+  the-dev-docs.html                               ← depth 1 — HIDDEN, see below
   100DaysOfAIProgrammingPrompts.html              ← depth 1
   hackathons.html                                 ← depth 1
   dev-docs/
@@ -41,9 +42,56 @@ pages/
  100DaysOfAIProgrammingPrompts/
     Day1.html                                     ← depth 2
 assets/
-  documents/                                      ← resume PDF lives here
+  documents/                                      ← matt_gresham_resume.html lives here
   js/                                             ← JS injection scripts
 ```
+
+## Audience split: About vs Academics
+
+Two audiences read this site and they want different things. Keep them separated:
+
+- **`pages/about-me.html` — recruiters.** Bio, then **Work Experience first**, then proof
+  projects, skills, hackathons, current work. No college/admissions content beyond a pointer.
+- **`pages/academics.html` — college counselors and admissions readers.** Education and
+  coursework, honors/awards, competitions, leadership, community service, college plans,
+  career goals. Links out to About for work-experience detail.
+
+Do not merge these back into one page, and do not re-add a target/reach/dream **school list**
+to either — Matt had it public and it told each named school exactly how he ranked them.
+
+## Homepage audience router
+
+`assets/js/audience-router.js` powers the two raised "press me" buttons in the homepage hero —
+**I'm a College Counselor** and **I'm a Recruiter or Employer**. Each opens a modal with a
+tailored brief, direct links, and buttons that hand off to the site chatbot.
+
+- **Homepage only.** `index.html` loads it directly (same precedent as `filter-mechanics.js`
+  on `projects.html`). It no-ops on any page without `.audience-btn`, so it is safe if copied.
+- **Link paths inside it are depth-0 relative** (`pages/academics.html`). If this is ever
+  reused on a deeper page, those paths must change.
+- **The content is duplicated prose.** Every fact in the `AUDIENCES` object must match
+  `pages/academics.html` and `pages/about-me.html`. Change one, change the other — a stale
+  GPA or job title in the modal is worse than not having the modal.
+- Styles live at the bottom of `index.css` under the audience-router comment banner.
+
+**Chatbot handoff:** `chatbot.js` exposes `window.portfolioChat` (`.open(prefill)` and
+`.ask(question)`) from inside `wireEvents()`. That is the only public surface of an otherwise
+fully IIFE-scoped file — don't remove it. The router degrades to the contact page if the
+chatbot is absent or blocked.
+
+## Résumé: one file, hand-maintained
+
+`assets/documents/matt_gresham_resume.html` is the **single** résumé and it is **Matt's own
+file** — he keeps it current by hand. There is no PDF (deleted 2026-07-31; it had gone stale
+against the HTML) and no separate NSA Stokes variant (merged in 2026-07-31 — it was a superset,
+not a filtered version). Visitors save a copy with the browser's Print to PDF.
+
+Two things that were live on the public Stokes résumé before the merge — **never reintroduce
+either**:
+- Matt's **home street address and phone number**. He is a high-school student and these pages
+  are publicly crawlable. City/country only.
+- Unfilled `.todo` placeholders (`[add: number of labs completed…]`) rendering in yellow
+  highlight. If a stat isn't known, **write the claim without the number** — do not invent one.
 
 **Correct relative paths by depth:**
 
@@ -54,7 +102,8 @@ assets/
 | `pages/about-me.html` | `about-me.html` | `../about-me.html` |
 | `pages/projects.html` | `projects.html` | `../projects.html` |
 | `pages/the-dev-docs.html` | `the-dev-docs.html` | `../the-dev-docs.html` |
-| `assets/documents/resume.pdf` | `../assets/documents/...` | `../../assets/documents/...` |
+| `pages/academics.html` | `academics.html` | `../academics.html` |
+| `assets/documents/matt_gresham_resume.html` | `../assets/documents/...` | `../../assets/documents/...` |
 
 **Never use absolute paths** like `/pages/...` or `/assets/...` — the site is not served from a root domain in all environments.
 
@@ -134,9 +183,19 @@ Two things that bit hard (2026-07-15) — don't undo them:
 - The prompt originally had **no project list at all**, so the bot invented project
   descriptions to fill the gap. That is how it came to describe the hidden Connect 4 Bot. A
   "never invent" instruction alone did not stop it; only a real list plus the refusal guard did.
-- The contact address is **pinned** ("never output any other email"). The model hallucinated
-  the old `greshamd27@gmail.com` — which appears nowhere in the source, almost certainly picked
-  up from public GitHub commit metadata — whenever it improvised an unscripted line.
+- The contact address is **pinned** ("never output any other email"), because the model
+  improvises one whenever a line is unscripted.
+
+**Current contact address: `greshamd27@gmail.com`** (changed 2026-08-01). The previous
+`pymite6941@support.tin.computer` is dead — Matt lost that account. It was replaced in
+`contact-me.html`, the `client-work.html` CTA, and six places in the worker prompt.
+
+**Negation gotcha — cost a deploy cycle, don't repeat it.** The first rewrite pinned the new
+address *by naming the old one to forbid it* ("the old pymite6941@… address is DEAD and must
+never be given out"). Probing live, **2 of 5 replies handed out the dead address** — writing
+the string into the prompt is what made it available to emit, forbidding frame and all. The
+fix was to delete every occurrence of the dead address and pin only the correct one positively.
+8/8 clean after that. **Never write an incorrect value into this prompt in order to ban it.**
 
 **Testing it:** `POST` `{"message":"..."}` (not `{"messages":[...]}`, which returns "Missing
 message"). Replies are **nondeterministic** — the free-model chain varies. One bad answer
@@ -153,6 +212,18 @@ Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves 
 - **Static canonical tags** — the highest-priority pages (`index.html`, `pages/projects.html`, `pages/about-me.html`, and strong project pages) also carry a static `<link rel="canonical">` in the HTML head as a safety net. `seo-schema.js` updates the same single tag, so there is never a duplicate. Use **one** canonical per page and **never** an absolute internal nav link.
 - **Analytics + consent (live)** — `analytics.js` is consent-gated. It (1) sets Google **Consent Mode v2** defaults to *denied*, (2) loads the **Cookiebot** CMP (the consent banner, `data-cbid` in the `COOKIEBOT_CBID` constant), (3) bridges the user's Cookiebot choice to a `gtag('consent','update')` itself (so it does not depend on Cookiebot's dashboard consent-mode toggle), and (4) loads **GA4** (`GA4_MEASUREMENT_ID`, currently `G-WLJ6YMX87M`). GA4 runs cookieless until `analytics_storage` is granted. Both IDs are public, not secrets. Set either constant to `''` to disable that piece. `metrics.js` (the event layer) forwards `page_view`/click events to `window.gtag`; while consent is denied those are cookieless pings. It no-ops with zero console errors when no provider is present; set `localStorage.siteMetricsDebug = "1"` to log events locally. Event names are stable — see the schema doc at the top of `metrics.js`; do not rename them.
 - **Search Console verification** — must be a **static** `<meta name="google-site-verification">` in `index.html` (Google reads raw HTML and does not run the JS-injected head). A commented placeholder slot is already in `index.html`.
+
+**The Dev Docs is hidden (2026-07-31).** Matt asked for it to be hidden "for now" because two
+of its posts are opinion pieces about Anthropic that recruiters at AI companies would find.
+It is removed from the nav, the footer, `sitemap.xml`, the homepage body copy, and the chatbot
+worker prompt. The `devdocs` path key is deliberately **left in `site-style.js`** so restoring
+it is a one-line change. The pages themselves are untouched and still live on disk.
+
+All six pages (`the-dev-docs.html` + the five under `dev-docs/`) now carry
+`<meta name="robots" content="noindex, nofollow">`. Orphaning alone does **not** de-index —
+Google keeps crawling URLs it already knows — so the tag is what actually removes them.
+Keep `robots.txt` allowing this path: a blocked page can never be crawled, so Google would
+never see the `noindex` and the URLs would linger in the index indefinitely.
 
 **Hidden-project rule (important):** `HIDDEN_PROJECTS.md` **exists** at the repo root — it is gitignored and local-only, so it will not show up in the committed tree. **Read it before touching any discovery surface.** It currently lists Connect 4 Bot, ForgeOS, and VORTEX.
 
@@ -211,6 +282,9 @@ Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language 
 
 ## Known Issues / Watch Out For
 
+- `main` is `display:flex; flex-direction:column; align-items:flex-start`, so a child div with
+  `justify-content:center` will **not** appear centred — it shrinks to its content and sits
+  left. Give the row `width:100%` (this is why the About/Academics button rows have it)
 - `font-weight` in `.article` and `.article-stuff` uses invalid `px` values — should be unitless (e.g. `400`)
 - Card hover `transition` is missing the `s` unit (`0.2` → `0.2s`)
 - The `pyscript.toml` at the root is an old-style config file; current pages use inline PyScript config instead

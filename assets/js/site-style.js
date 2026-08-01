@@ -5,6 +5,7 @@
 			// depth 0 — root (index.html)
 			home: 'index.html',
 			about: 'pages/about-me.html',
+			academics: 'pages/academics.html',
 			projects: 'pages/projects.html',
 			hackathons: 'pages/hackathons.html',
 			ailab: 'https://ai-lab-bice.vercel.app',
@@ -19,6 +20,7 @@
 			// depth 1 — pages/*.html
 			home: '../index.html',
 			about: 'about-me.html',
+			academics: 'academics.html',
 			projects: 'projects.html',
 			hackathons: 'hackathons.html',
 			ailab: 'https://ai-lab-bice.vercel.app',
@@ -33,6 +35,7 @@
 			// depth 2 — pages/*/*.html
 			home: '../../index.html',
 			about: '../about-me.html',
+			academics: '../academics.html',
 			projects: '../projects.html',
 			hackathons: '../hackathons.html',
 			ailab: 'https://ai-lab-bice.vercel.app',
@@ -56,13 +59,14 @@
 		`<div class="nav">
             <ul class="nav-list" id="nav-list">
                 <li class="nav-item"><a class="nav-link" href="${p.home}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.projects}">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.about}">About Me</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.academics}">Academics</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.forothers}">Built for Others</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.hackathons}">Hackathons</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.ailab}">AI Lab</a></li>
-                <li class="nav-item"><a class="nav-link" href="${p.forothers}">Built for Others</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.resume}">Résumé</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.dreamprojects}">Dream Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="${p.devdocs}">The Dev Docs</a></li>
 				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
                 <li class="nav-item nav-item--mobile-only"><a class="nav-link" href="${p.contact}">Contact me</a></li>
             </ul>
@@ -100,9 +104,9 @@
                     <h4>Explore</h4>
                     <a href="${p.home}">Home</a>
                     <a href="${p.projects}">Projects</a>
+                    <a href="${p.forothers}">Built for Others</a>
                     <a href="${p.hackathons}">Hackathons</a>
                     <a href="${p.ailab}">AI Lab</a>
-                    <a href="${p.devdocs}">The Dev Docs</a>
                 </div>
                 <div class="foot-col">
                     <h4>Profiles</h4>
@@ -113,12 +117,13 @@
                 <div class="foot-col">
                     <h4>More</h4>
                     <a href="${p.about}">About Me</a>
+                    <a href="${p.academics}">Academics</a>
                     <a href="${p.resume}">Résumé</a>
                     <a href="${p.store}">My Store</a>
                     <a href="${p.contact}">Contact me</a>
                 </div>
             </div>
-            <p class="foot-copy">&copy; 2026 Matt Gresham. All rights reserved. <a href="https://tin.computer" target="_blank" rel="noreferrer">Growth by Tin</a></p>
+            <p class="foot-copy">&copy; 2026 Matt Gresham. All rights reserved.</p>
         </footer>`,
 	);
 

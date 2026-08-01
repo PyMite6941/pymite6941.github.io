@@ -18,7 +18,8 @@
 				{
 					heading: 'Academic snapshot',
 					items: [
-						'GPA 3.88 / 4.0 · SAT 1240 · Expected graduation May 2027',
+						'GPA 3.88 / 4.0 · Expected graduation May 2027',
+						'SAT 1250 superscore (650 Math / 600 Reading &amp; Writing) · 1240 highest single sitting',
 						'AP Computer Science Principles (A+), AP English Language &amp; Composition',
 						'AP Computer Science A and AP Cybersecurity currently in progress',
 						'Honors: HS Band, Tech Theatre · Also Pre-Calculus, Physics, Philosophy &amp; Worldview',

@@ -14,6 +14,7 @@
 			contact: 'pages/contact-me.html',
 			resume: 'assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
+			ctf: 'https://pymite6941.is-a.dev/ctf-writeups/',
 		},
 		{
 			// depth 1 — pages/*.html
@@ -28,6 +29,7 @@
 			contact: 'contact-me.html',
 			resume: '../assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
+			ctf: 'https://pymite6941.is-a.dev/ctf-writeups/',
 		},
 		{
 			// depth 2 — pages/*/*.html
@@ -42,6 +44,7 @@
 			contact: '../contact-me.html',
 			resume: '../../assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
+			ctf: 'https://pymite6941.is-a.dev/ctf-writeups/',
 		},
 	];
 	const p = PATHS[Math.min(depth, 2)];
@@ -104,6 +107,7 @@
                     <a href="${p.forothers}">Built for Others</a>
                     <a href="${p.hackathons}">Hackathons</a>
                     <a href="${p.ailab}">AI Lab</a>
+                    <a href="${p.ctf}">CTF Writeups</a>
                 </div>
                 <div class="foot-col">
                     <h4>Profiles</h4>

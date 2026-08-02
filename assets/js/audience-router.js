@@ -91,6 +91,7 @@
 				{ href: 'pages/about-me.html', label: 'Experience &amp; skills' },
 				{ href: 'assets/documents/matt_gresham_resume.html', label: 'R&eacute;sum&eacute;', blank: true },
 				{ href: 'pages/client-work.html', label: 'Built for others' },
+				{ href: 'https://pymite6941.is-a.dev/ctf-writeups/', label: 'CTF writeups', blank: true },
 				{ href: 'https://github.com/PyMite6941', label: 'GitHub', blank: true },
 				{ href: 'pages/contact-me.html', label: 'Contact' },
 			],

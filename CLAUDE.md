@@ -209,6 +209,25 @@ Crawl/entity scaffolding lives in a few coordinated places. GitHub Pages serves 
 - **Analytics + consent (live)** — `analytics.js` is consent-gated. It (1) sets Google **Consent Mode v2** defaults to *denied*, (2) loads the **Cookiebot** CMP (the consent banner, `data-cbid` in the `COOKIEBOT_CBID` constant), (3) bridges the user's Cookiebot choice to a `gtag('consent','update')` itself (so it does not depend on Cookiebot's dashboard consent-mode toggle), and (4) loads **GA4** (`GA4_MEASUREMENT_ID`, currently `G-WLJ6YMX87M`). GA4 runs cookieless until `analytics_storage` is granted. Both IDs are public, not secrets. Set either constant to `''` to disable that piece. `metrics.js` (the event layer) forwards `page_view`/click events to `window.gtag`; while consent is denied those are cookieless pings. It no-ops with zero console errors when no provider is present; set `localStorage.siteMetricsDebug = "1"` to log events locally. Event names are stable — see the schema doc at the top of `metrics.js`; do not rename them.
 - **Search Console verification** — must be a **static** `<meta name="google-site-verification">` in `index.html` (Google reads raw HTML and does not run the JS-injected head). A commented placeholder slot is already in `index.html`.
 
+## CTF Writeups — separate site
+
+Matt's capture-the-flag and security-lab writeups live in a **separate repo**, not this one:
+`https://pymite6941.is-a.dev/ctf-writeups/` (a GitHub Pages project site, served under the
+portfolio's custom domain because project sites inherit the user site's CNAME).
+
+The portfolio only **links out** to it. Do not recreate the writeups, a solve log, or a
+picoCTF page in this repo. Linked from:
+- the footer Explore column (`ctf` key in `site-style.js`, absolute URL, same at all depths)
+- the recruiter modal's link row in `audience-router.js`
+- the "Proof to inspect first" list on `about-me.html`
+- the CTF & Security Training section of the résumé
+
+Always link it as **https://** — the site is served over HTTPS and linking `http://` from an
+HTTPS page is a needless downgrade.
+
+There is deliberately **no card on `projects.html`** — that needs Matt's explicit go-ahead per
+the standing rule at the top of this file.
+
 **The Dev Docs section was REMOVED (2026-08-02).** Matt moved this content to a separate
 GitHub Pages project of his own. Deleted: `pages/the-dev-docs.html` and all of `pages/dev-docs/`
 (four articles, an OpenCode draft, and the picoCTF evaluation + solve log), the `devdocs` path

@@ -43,6 +43,33 @@ assets/
   js/                                             ← JS injection scripts
 ```
 
+## Asset cache stamping — run this after ANY css/js edit
+
+Every reference to `index.css` and to anything in `assets/js/` carries a `?v=<hash>` content
+stamp. **After editing any CSS or JS file, run:**
+
+```bash
+python3 tools/stamp-assets.py
+```
+
+Then commit the re-stamped files along with your change. CI runs `--check` and **fails the
+build** if you forget, so a stale stamp can never reach production.
+
+Why it exists: GitHub Pages serves everything `Cache-Control: max-age=600`, and HTML and assets
+expire *independently*. Without stamping, for up to 10 minutes after a deploy a visitor can hold
+new HTML alongside a cached old `index.css` — the page renders half-broken. The stamp makes the
+pair atomic: new HTML requests a URL the browser has never seen.
+
+- The hash covers `index.css` plus every `assets/js/*.js`, so any edit changes it everywhere.
+- `site-style.js` holds `var ASSET_V = '<hash>'` and appends the same stamp to the five scripts
+  it injects. **Do not hand-edit that line** — the script maintains it.
+- This is not a build step: the stamped files are the files that ship, and `?v=` is inert when
+  opening `index.html` straight off disk.
+
+**This does not fix your own browser during testing.** Editing CSS locally without re-stamping
+means your browser keeps the cached copy — that is what made a fixed mobile layout still read
+260px, and made `window.portfolioChat` look undefined. Hard-refresh, or re-stamp.
+
 ## Audience split: About vs Academics
 
 Two audiences read this site and they want different things. Keep them separated:

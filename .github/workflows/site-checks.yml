@@ -31,6 +31,9 @@ jobs:
             node --check "$f"
           done
 
+      - name: Asset cache stamps are current
+        run: python3 tools/stamp-assets.py --check
+
       - name: sitemap.xml is valid XML
         run: |
           python3 - <<'PY'

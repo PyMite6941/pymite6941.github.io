@@ -1,4 +1,7 @@
 (function () {
+	// Content stamp for the scripts injected below. Maintained by
+	// tools/stamp-assets.py — do not edit by hand; run that script instead.
+	var ASSET_V = 'a20b1b77ce';
 	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{
@@ -129,17 +132,20 @@
 	);
 
 	var base = depth === 0 ? '' : depth === 1 ? '../' : '../../';
+	// same content stamp the HTML uses, so an injected script can never be
+	// served from cache while the page around it is new
+	var v = ASSET_V ? '?v=' + ASSET_V : '';
 	var ee = document.createElement('script');
-	ee.src = base + 'assets/js/easter-eggs.js';
+	ee.src = base + 'assets/js/easter-eggs.js' + v;
 	document.head.appendChild(ee);
 
 	var chat = document.createElement('script');
-	chat.src = base + 'assets/js/chatbot.js';
+	chat.src = base + 'assets/js/chatbot.js' + v;
 	chat.defer = true;
 	document.head.appendChild(chat);
 
 	var seo = document.createElement('script');
-	seo.src = base + 'assets/js/seo-schema.js';
+	seo.src = base + 'assets/js/seo-schema.js' + v;
 	seo.defer = true;
 	document.head.appendChild(seo);
 
@@ -147,12 +153,12 @@
 	// so window.gtag exists when the first page_view fires. Deferred scripts run
 	// in insertion order, so appending analytics first guarantees that.
 	var analytics = document.createElement('script');
-	analytics.src = base + 'assets/js/analytics.js';
+	analytics.src = base + 'assets/js/analytics.js' + v;
 	analytics.defer = true;
 	document.head.appendChild(analytics);
 
 	var metrics = document.createElement('script');
-	metrics.src = base + 'assets/js/metrics.js';
+	metrics.src = base + 'assets/js/metrics.js' + v;
 	metrics.defer = true;
 	document.head.appendChild(metrics);
 

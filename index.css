@@ -1287,6 +1287,9 @@ main article {
 
 	.audience-btn {
 		max-width: none;
+		/* the column switch turns flex-basis into a HEIGHT — without this the
+		   260px basis makes each button 260px tall on a phone */
+		flex: 0 0 auto;
 	}
 
 	.audience-modal {

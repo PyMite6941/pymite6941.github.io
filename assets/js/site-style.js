@@ -1,7 +1,7 @@
 (function () {
 	// Content stamp for the scripts injected below. Maintained by
 	// tools/stamp-assets.py — do not edit by hand; run that script instead.
-	var ASSET_V = 'a20b1b77ce';
+	var ASSET_V = '3ee97cae4f';
 	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{
@@ -18,6 +18,7 @@
 			resume: 'assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
 			ctf: 'https://pymite6941.is-a.dev/ctf-writeups/',
+			bait: 'https://pymite6941.is-a.dev/dont-take-the-bait/',
 		},
 		{
 			// depth 1 — pages/*.html
@@ -33,6 +34,7 @@
 			resume: '../assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
 			ctf: 'https://pymite6941.is-a.dev/ctf-writeups/',
+			bait: 'https://pymite6941.is-a.dev/dont-take-the-bait/',
 		},
 		{
 			// depth 2 — pages/*/*.html
@@ -48,6 +50,7 @@
 			resume: '../../assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
 			ctf: 'https://pymite6941.is-a.dev/ctf-writeups/',
+			bait: 'https://pymite6941.is-a.dev/dont-take-the-bait/',
 		},
 	];
 	const p = PATHS[Math.min(depth, 2)];
@@ -111,6 +114,7 @@
                     <a href="${p.hackathons}">Hackathons</a>
                     <a href="${p.ailab}">AI Lab</a>
                     <a href="${p.ctf}">CTF Writeups</a>
+                    <a href="${p.bait}">Phishing Guide</a>
                 </div>
                 <div class="foot-col">
                     <h4>Profiles</h4>

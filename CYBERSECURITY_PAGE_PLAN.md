@@ -103,8 +103,10 @@ network. Demos must be pure computation on pasted/typed input. Use `<py-terminal
     description, `.boxes` for the stack, and a `<a class="text-link"
     href="./project-pages/cybersecurity-lab.html">View the lab</a>`.
 
-- [ ] **6. Link LLM Protector's live demo** from section 6 once it's deployed (URL is in the
-  LLM Protector README DEPLOY/TODO section).
+- [x] **6. Link LLM Protector's live demo** from section 6 — DONE. The live demo at
+  https://llm-protector.vercel.app is wired into `cybersecurity-lab.html` twice: an inline
+  `.text-link` in the intro and the `.nav-btn` "Try the LLM Protector live demo" button in
+  the LLM Security section. Verified 2026-08-19.
 
 - [ ] **7. (Optional) Add a nav link.** If it should appear in the top nav, edit
   `assets/js/site-style.js` (do NOT hardcode nav in the page).

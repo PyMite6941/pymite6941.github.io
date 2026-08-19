@@ -40,6 +40,12 @@
 				'The Common Application personal statement of Matt Gresham, Class of 2027, written for his US university applications in computer science.',
 			type: 'CreativeWork',
 		},
+		'/pages/scholarships.html': {
+			name: 'Federal Cybersecurity Scholarships',
+			description:
+				'Federal scholarship-for-service programs Matt Gresham is targeting as a Class of 2027 applicant — NSA Stokes, CIA Undergraduate Scholarship, DoD SMART, DoD CySP, and CyberCorps SFS — with eligibility, service commitments, and how his college list maps to them.',
+			type: 'WebPage',
+		},
 		'/pages/project-pages/finance_kit.html': {
 			name: 'The Finance Kit',
 			description:

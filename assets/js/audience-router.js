@@ -46,6 +46,7 @@
 			],
 			links: [
 				{ href: 'pages/academics.html', label: 'Full academic record', primary: true },
+				{ href: 'pages/college-tracker.html', label: 'College application tracker' },
 				{ href: 'pages/college-essay.html', label: 'Common App essay' },
 				{ href: 'assets/documents/matt_gresham_resume.html', label: 'R&eacute;sum&eacute;', blank: true },
 				{ href: 'pages/contact-me.html', label: 'Contact' },
@@ -92,6 +93,7 @@
 				{ href: 'assets/documents/matt_gresham_resume.html', label: 'R&eacute;sum&eacute;', blank: true },
 				{ href: 'pages/client-work.html', label: 'Built for others' },
 				{ href: 'https://pymite6941.is-a.dev/ctf-writeups/', label: 'CTF writeups', blank: true },
+				{ href: 'https://pymite6941.is-a.dev/dont-take-the-bait/', label: 'Phishing guide', blank: true },
 				{ href: 'https://github.com/PyMite6941', label: 'GitHub', blank: true },
 				{ href: 'pages/contact-me.html', label: 'Contact' },
 			],

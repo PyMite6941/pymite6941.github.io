@@ -22,7 +22,7 @@ is the Expense-tracker repo) — treat them as the same project.
 - Study Assistant: RAG study tool in Python + ChromaDB + Ollama, ingests your own notes
 - Data Processing AI Agents: multi-agent data processing system, International AI Agents Hackathon entry
 - PixelCode: self-hosted AI coding assistant on FastAPI + Ollama with a provider fallback chain
-- Pixel / Pixel Assistant: modular AI assistant and code engine (repos: pixel, Pixel-Assistant)
+- Pixel / Pixel Assistant: autonomous terminal assistant that spawns its own sub-agents and writes its own skills — 17 domains, IoT control, image generation, P2P mesh, BLE scanning (repos: pixel, Pixel-Assistant)
 - Fitness AI Agents: multi-agent fitness coaching with ChromaDB vector memory and Strava data
 - Cyberdeck: custom portable computer based on the open-source DFCD, Raspberry Pi + sliding touchscreen
 - Calendar AI Assistant: 4-agent CrewAI system over Google Calendar and Gmail via OAuth
@@ -34,7 +34,15 @@ is the Expense-tracker repo) — treat them as the same project.
 - Marketing-AI: human-in-the-loop Reddit growth console — scans subreddits, scores threads with an LLM
 - Church Connect: embeddable multi-tenant church engagement tool
 - North Star: offline-first local-LLM study and fitness agents on LangGraph + Ollama
-- Bible Searcher, Note-taking, Study-Material, squint, grandpas-mariadb-terminal: smaller public repos
+- Red Team Agent: 5-phase agent pipeline that hunts vulnerabilities in AI systems; each phase prompt is a Markdown file hosted on the portfolio site and fetched at runtime, results stream back as NDJSON
+- tinyGPT: from-scratch CPU-first GPT in PyTorch — every layer hand-written, built to run offline with no network and no GPU
+- MedicalAI — Lightweight: offline low-footprint diagnostic model for rural care; frozen CLIP + Bio_ClinicalBERT encoders feeding one small trained head, abstains below a confidence threshold. A research project, NOT a medical device
+- MNIST Digit Classifier: CNN trained on MNIST and run live in the browser; the training script auto-detects Colab GPU or TPU
+- Perceptron: the simplest neural network, trained live in the browser to show it learning step by step
+- Squint: screenshot-to-code app — CrewAI agents over Groq Llama 4 Scout vision return React + Tailwind; Vite/TypeScript front end, FastAPI backend, Supabase and Upstash Redis
+- Project ASAP: disaster-relief front end connecting survivors with first responders, volunteers, and resources; React 18 + Vite on Cloudflare Pages
+- Don't Take the Bait (repo: dont-take-the-bait): free plain-English guide to spotting phishing emails, scam texts, and fraud calls, written for non-technical readers. Live at https://pymite6941.is-a.dev/dont-take-the-bait/ — no framework, no build step, no data collection, works with JavaScript disabled
+- Bible Searcher, Note-taking, Study-Material, grandpas-mariadb-terminal, git-assistor: smaller public repos
 
 ## His Client Work
 This list mirrors pymite6941.is-a.dev/pages/client-work.html. These are paid engagements built

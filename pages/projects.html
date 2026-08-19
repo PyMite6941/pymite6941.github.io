@@ -18,14 +18,17 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../index.css?v=a20b1b77ce" />
+			href="../index.css?v=3ee97cae4f" />
 
 		<title>Products and Projects by Matt Gresham</title>
 		<script
-			src="../assets/js/site-style.js?v=a20b1b77ce"
+			src="../assets/js/site-style.js?v=3ee97cae4f"
 			defer></script>
 		<script
-			src="../assets/js/filter-mechanics.js?v=a20b1b77ce"
+			src="../assets/js/filter-mechanics.js?v=3ee97cae4f"
+			defer></script>
+		<script
+			src="../assets/js/github-activity.js?v=3ee97cae4f"
 			defer></script>
 	</head>
 	<body>
@@ -136,7 +139,7 @@
 						aria-labelledby="proof-link-heading">
 						<h2 id="proof-link-heading">Start with the strongest proof pages</h2>
 						<p>These pages have the clearest product, demo, or source-code detail.</p>
-						<nav
+						<div
 							class="proof-link-list"
 							aria-label="Priority project proof pages">
 							<a
@@ -187,7 +190,7 @@
 								<span>30 Days of AI Prompts</span>
 								<small>Daily coding challenge</small>
 							</a>
-						</nav>
+						</div>
 					</section>
 				<section class="card-grid">
 				<div
@@ -1031,36 +1034,341 @@
 						>View Source Code and Project</a
 					>
 				</div>
-					<div
-						class="card-container"
-						data-tags="Python|AI">
-						<div class="card-header">
-							<span class="tag" style="color: #431da2">Python</span>
-							<span class="tag" style="color: #8957e5">AI</span>
-							<span class="tag" style="color: #43bda2">Offline</span>
-							<h3>North Star <span class="ai-badge">🤖 AI-Assisted</span></h3>
-						</div>
-						<p
-							>Offline-first, local-LLM study and fitness agents built on LangGraph
-							and Ollama — everything runs on your own device with no API keys or
-							account. Four components: a Study LLM (6 areas), cited note RAG over a
-							local Chroma DB, markdown-defined fitness agents, and an offline college
-							planner. Includes shareable Study Packs for group study with no
-							internet. A submission to the North Star Challenge.</p
-						>
-						<p>Created: June 2026</p>
-						<span class="boxes">Python</span>
-						<span class="boxes">LangGraph</span>
-						<span class="boxes">Ollama</span>
-						<span class="boxes">ChromaDB</span>
-						<br />
-						<a
-							class="text-link"
-							href="./project-pages/north-star.html"
-							>View Source Code and Project</a
-						>
+				<div
+					class="card-container"
+					data-tags="Python|AI">
+					<div class="card-header">
+						<span class="tag" style="color: #431da2">Python</span>
+						<span class="tag" style="color: #8957e5">AI</span>
+						<span class="tag" style="color: #43bda2">Offline</span>
+						<h3>North Star <span class="ai-badge">🤖 AI-Assisted</span></h3>
 					</div>
-</section>
+					<p
+						>Offline-first, local-LLM study and fitness agents built on LangGraph
+						and Ollama — everything runs on your own device with no API keys or
+						account. Four components: a Study LLM (6 areas), cited note RAG over a
+						local Chroma DB, markdown-defined fitness agents, and an offline college
+						planner. Includes shareable Study Packs for group study with no
+						internet. A submission to the North Star Challenge.</p
+					>
+					<p>Created: June 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">LangGraph</span>
+					<span class="boxes">Ollama</span>
+					<span class="boxes">ChromaDB</span>
+					<br />
+					<a
+						class="text-link"
+						href="./project-pages/north-star.html"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="Python|AI|Cybersecurity">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #e2490d"
+							>Cybersecurity</span
+						>
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>Red Team Agent</h3>
+					</div>
+					<p
+						>A five-phase agent pipeline that hunts vulnerabilities in AI systems.
+						Each agent receives the previous agent’s full output as its input, so
+						later phases build on earlier findings instead of starting cold. Every
+						phase’s system prompt is a Markdown file hosted on this site and fetched
+						at runtime — agent behaviour changes by editing a file, with no
+						redeploy. Results stream back as NDJSON so each phase card renders the
+						moment it lands.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">NDJSON streaming</span>
+					<span class="boxes">Markdown-defined agents</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://ai-lab-bice.vercel.app/projects/red-team-agent"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="Python|AI">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>tinyGPT</h3>
+					</div>
+					<p
+						>A from-scratch, CPU-first GPT built to work as an offline AI lab
+						assistant. Every layer is hand-written in PyTorch — attention maths,
+						causal masking, positional encoding, and the training and validation
+						loop — rather than calling a library abstraction. Built for a research
+						project that needed a usable assistant on a plane: no network, no GPU,
+						no API.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">PyTorch</span>
+					<span class="boxes">Transformers</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://ai-lab-bice.vercel.app/projects/tinygpt"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="Python|AI">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>MedicalAI — Lightweight</h3>
+					</div>
+					<p
+						>An offline, low-footprint diagnostic model built for rural care, where
+						there is no connectivity, no specialist, and no powerful machine. A
+						frozen CLIP image encoder and a frozen Bio_ClinicalBERT clinical-text
+						encoder feed one small trained head, keeping compute and memory low
+						enough to run offline. It abstains below a confidence threshold rather
+						than over-committing. A research and learning project — not a medical
+						device.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">PyTorch</span>
+					<span class="boxes">CLIP</span>
+					<span class="boxes">Bio_ClinicalBERT</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://ai-lab-bice.vercel.app/projects/medical-ai-lightweight"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="Python|AI">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>MNIST Digit Classifier</h3>
+					</div>
+					<p
+						>A convolutional network trained on MNIST and then run live in the
+						browser. The training script auto-detects whichever accelerator Google
+						Colab hands it — GPU or TPU — and adapts, then exports the weights so
+						the finished model runs client-side with nothing to install.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">CNN</span>
+					<span class="boxes">Colab</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://ai-lab-bice.vercel.app/projects/mnist"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="Python|AI">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>Perceptron</h3>
+					</div>
+					<p
+						>The simplest neural network there is, trained live in your browser so
+						you can watch it learn step by step. Built as the ground floor of the
+						from-scratch ML work — the thing every later model on this list is an
+						elaboration of.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">JavaScript</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://ai-lab-bice.vercel.app/projects/perceptron"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="Python|AI">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>Pixel Assistant</h3>
+					</div>
+					<p
+						>An autonomous terminal assistant that spawns its own sub-agents and
+						writes its own skills. Covers seventeen domains, with IoT control, image
+						generation, a peer-to-peer mesh, and BLE scanning — a TUI rather than a
+						web app, meant to sit in a terminal and stay there.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">Python</span>
+					<span class="boxes">Textual</span>
+					<span class="boxes">Agents</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://ai-lab-bice.vercel.app/projects/pixel-assistant"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="React|Python|AI|Full Stack Development">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #58a6ff"
+							>React</span
+						>
+						<span
+							class="tag"
+							style="color: #431da2"
+							>Python</span
+						>
+						<span
+							class="tag"
+							style="color: #8957e5"
+							>AI</span
+						>
+						<h3>Squint</h3>
+					</div>
+					<p
+						>Upload a screenshot of any interface and get clean React and Tailwind
+						code back in seconds. CrewAI agents drive Groq’s Llama 4 Scout vision
+						model, with a live preview so the output is rendered before you copy it.
+						Vite and TypeScript on the front, FastAPI behind it, Supabase and
+						Upstash Redis for state and rate limiting.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">React</span>
+					<span class="boxes">TypeScript</span>
+					<span class="boxes">FastAPI</span>
+					<span class="boxes">CrewAI</span>
+					<span class="boxes">Groq</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://github.com/PyMite6941/squint"
+						target="_blank"
+						rel="noreferrer"
+						>View Source Code and Project</a
+					>
+				</div>
+				<div
+					class="card-container"
+					data-tags="React|Web Development">
+					<div class="card-header">
+						<span
+							class="tag"
+							style="color: #58a6ff"
+							>React</span
+						>
+						<span
+							class="tag"
+							style="color: #11d978"
+							>Web Development</span
+						>
+						<h3>Project ASAP</h3>
+					</div>
+					<p
+						>Immediate Project Recovery For All — a disaster-relief front end
+						connecting survivors of natural disasters with first responders,
+						volunteers, and resources. Missing-persons listings with last known
+						location, a donation flow, and direct contact routes into relief
+						programmes. Composed from a single layout primitive rather than
+						hand-laid-out page by page, and shipped to Cloudflare Pages by GitHub
+						Actions on every push.</p
+					>
+					<p>Created: 2026</p>
+					<span class="boxes">React</span>
+					<span class="boxes">Vite</span>
+					<span class="boxes">CSS Modules</span>
+					<span class="boxes">Cloudflare Pages</span>
+					<br />
+					<a
+						class="text-link"
+						href="https://project-asap.pages.dev/"
+						target="_blank"
+						rel="noreferrer"
+						>View the live site</a
+					>
+				</div>
+				</section>
 				<section class="github-activity">
 					<h2>GitHub Activity</h2>
 					<a
@@ -1071,8 +1379,11 @@
 							src="https://ghchart.rshah.org/8957e5/pymite6941"
 							alt="Matt Gresham's GitHub contribution chart"
 							style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color)" />
-				</a>
-			</section>
+					</a>
+					<div id="gh-activity">
+						<p class="ct-muted">Loading recent GitHub activity…</p>
+					</div>
+				</section>
 			</div>
 		</main>
 		<div id="site-footer"></div>

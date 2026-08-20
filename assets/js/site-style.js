@@ -1,7 +1,7 @@
 (function () {
 	// Content stamp for the scripts injected below. Maintained by
 	// tools/stamp-assets.py — do not edit by hand; run that script instead.
-	var ASSET_V = '3ee97cae4f';
+	var ASSET_V = '58fbbc4287';
 	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{

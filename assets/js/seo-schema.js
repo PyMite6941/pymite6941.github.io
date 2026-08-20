@@ -46,6 +46,13 @@
 				'Federal scholarship-for-service programs Matt Gresham is targeting as a Class of 2027 applicant — NSA Stokes, CIA Undergraduate Scholarship, DoD SMART, DoD CySP, and CyberCorps SFS — with eligibility, service commitments, and how his college list maps to them.',
 			type: 'WebPage',
 		},
+		'/pages/project-pages/fitness-watch.html': {
+			name: 'FitnessAI Watch',
+			description:
+				'An open-hardware ESP32-C3 smartwatch by Matt Gresham that tracks heart rate, steps, and GPS on-device and syncs workouts to the Fitness AI Agents platform.',
+			type: 'CreativeWork',
+			programmingLanguage: ['C++'],
+		},
 		'/pages/project-pages/finance_kit.html': {
 			name: 'The Finance Kit',
 			description:

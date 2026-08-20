@@ -169,7 +169,7 @@ Acceptance:
 
 ## Follow-up action items
 
-- Update `pages/hackathons/phystech-2026.html` (and its hackathons.html card) with the final PhysTech 2026 placement once results are announced — currently marked "submitted, results pending."
+- ~~Update `pages/hackathons/phystech-2026.html` with the final PhysTech 2026 placement.~~ Closed 2026-08-19: Matt confirmed the competition never announced results. All four "results pending" spots on the page now say so; there is nothing further to wait for.
 - Revisit `pages/work-experience/polaris-student.html` once more Testing Lead metrics are available (dates/duration, team size, bug counts) and fold them into the About page Work Experience entry.
 
 ## Final check before opening a PR

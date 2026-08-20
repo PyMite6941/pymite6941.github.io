@@ -1,0 +1,200 @@
+<!doctype html>
+<html
+	lang="en"
+	data-depth="2">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+		<meta
+			name="description"
+			content="FitnessAI Watch proof page — Matt Gresham's open-hardware ESP32-C3 smartwatch that tracks heart rate, steps, and GPS on-device and syncs to the Fitness AI Agents platform. Firmware, KiCad board, and the bring-up bugs that cost the most time." />
+		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/project-pages/fitness-watch.html" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Matt Gresham" />
+		<meta property="og:title" content="FitnessAI Watch: Open-Hardware ESP32-C3 Smartwatch | Matt Gresham" />
+		<meta
+			property="og:description"
+			content="FitnessAI Watch proof page — Matt Gresham's open-hardware ESP32-C3 smartwatch that tracks heart rate, steps, and GPS on-device and syncs to the Fitness AI Agents platform." />
+		<meta property="og:url" content="https://pymite6941.is-a.dev/pages/project-pages/fitness-watch.html" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="FitnessAI Watch: Open-Hardware ESP32-C3 Smartwatch | Matt Gresham" />
+		<meta
+			name="twitter:description"
+			content="FitnessAI Watch proof page — Matt Gresham's open-hardware ESP32-C3 smartwatch that tracks heart rate, steps, and GPS on-device and syncs to the Fitness AI Agents platform." />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../index.css?v=58fbbc4287" />
+		<title>FitnessAI Watch: Open-Hardware ESP32-C3 Smartwatch | Matt Gresham</title>
+		<script
+			src="../../assets/js/site-style.js?v=58fbbc4287"
+			defer></script>
+	</head>
+	<body>
+		<div id="site-nav"></div>
+		<header class="hero-section">
+			<h1>FitnessAI Watch</h1>
+			<p class="hero-copy">
+				An open-hardware smartwatch on a $3 ESP32-C3 — heart rate, steps, and GPS
+				tracked on-device, then synced to the Fitness AI Agents platform for
+				analysis. No proprietary ecosystem.
+			</p>
+		</header>
+		<main>
+			<div id="top"></div>
+
+			<p style="color: #8b949e; font-size: 0.9rem">
+				<a class="text-link" href="../projects.html">Projects</a>
+				&nbsp;·&nbsp;
+				<a class="text-link" href="./fitness-ai-agents.html">Fitness AI Agents</a>
+				&nbsp;·&nbsp;
+				<span>FitnessAI Watch</span>
+			</p>
+			<br />
+
+			<h2 style="text-align: center">The Build</h2>
+			<br />
+			<article
+				>Most wearables lock your own vitals inside someone else&rsquo;s app. This one
+				does the opposite: a hand-wired watch built from commodity I2C modules around
+				an <strong style="color: var(--text-color)">ESP32-C3 SuperMini</strong>,
+				running firmware written in C/C++ against the Arduino framework. It counts
+				steps and beats on-device, keeps its own clock over NTP, and uploads workouts
+				straight to the same <span class="code-segment">/ingest</span> endpoint the
+				phone app uses &mdash; so the AI analysis on the platform works on data the
+				watch itself produced.<br /><br />
+				It is also the second life of a competition entry. The first version was built
+				for <a class="text-link" href="../hackathons/phystech-2026.html">PhysTech 2026</a>
+				and was the first hardware Matt had ever built. After that submission the
+				surrounding project pivoted to a multi-source data platform, and the firmware
+				was restarted from scratch in June 2026 on the lessons from the first
+				build.</article
+			>
+			<br />
+
+			<h2 style="text-align: center">Hardware</h2>
+			<br />
+			<article
+				>Everything shares one I2C bus, which is what makes the wiring tractable and
+				also what caused the worst bugs.</article
+			>
+			<br />
+			<div class="dev-notes">
+				<div class="dev-note">
+					<h3>ESP32-C3 SuperMini</h3>
+					<p>MCU and Wi-Fi radio on one ~$3 board. Chosen because it has Wi-Fi built in, so the watch needs no phone to reach the internet.</p>
+				</div>
+				<div class="dev-note">
+					<h3>SSD1306 128&times;64 OLED</h3>
+					<p>Shared I2C bus at address <span class="code-segment">0x3C</span>. An LCD1602 with a PCF8574 backpack is supported as an alternative panel on the same pins.</p>
+				</div>
+				<div class="dev-note">
+					<h3>MPU6050</h3>
+					<p>Accelerometer and gyroscope at <span class="code-segment">0x68</span>. Drives step counting and, in the current firmware, auto-rotates the display so it stays upright.</p>
+				</div>
+				<div class="dev-note">
+					<h3>MAX30102</h3>
+					<p>Heart rate and SpO&#8322; at <span class="code-segment">0x57</span>, plus a die-temperature reading. Polled every loop rather than using its interrupt line.</p>
+				</div>
+				<div class="dev-note">
+					<h3>NEO-6M GPS (optional)</h3>
+					<p>Route tracking over UART1. Optional &mdash; the watch is fully functional without it.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Board</h3>
+					<p>A KiCad schematic and PCB layout exist in the repo alongside the firmware, so the hand-wired prototype has a route to a real board.</p>
+				</div>
+			</div>
+			<br />
+
+			<h2 style="text-align: center">What Works Today</h2>
+			<br />
+			<article
+				>Milestones 1&ndash;5 plus auto-orientation are done, and the firmware compiles
+				clean for <span class="code-segment">esp32:esp32:esp32c3</span> at 46% flash
+				and 14% RAM. On the device that means:</article
+			>
+			<br />
+			<article>
+				<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+					<li>Five button-navigable screens &mdash; Home, Heart Rate, Steps, Sync, and sensor status.</li>
+					<li>On-device BPM and step counting from the MAX30102 and MPU6050.</li>
+					<li>A real clock synchronised over NTP &mdash; there is no RTC module in the design.</li>
+					<li>Direct Wi-Fi upload to the backend <span class="code-segment">/ingest</span> endpoint.</li>
+					<li>Two ways to pair from a phone: a self-hosted Wi-Fi captive portal, and a Bluetooth LE control peripheral that appears as &ldquo;FitnessAI Watch&rdquo; in any BLE scanner.</li>
+					<li>Display auto-rotation driven by the accelerometer and gyro.</li>
+				</ul>
+			</article>
+			<br />
+
+			<h2 style="text-align: center">Not Built Yet</h2>
+			<br />
+			<article
+				>The battery and power stage is designed and the firmware side
+				(<span class="code-segment">power.h</span> / <span class="code-segment">power.cpp</span>)
+				is written and compiling, but <strong style="color: var(--text-color)">the
+				hardware is not built</strong>. Until the divider is soldered,
+				<span class="code-segment">PIN_BATT_ADC</span> ships as
+				<span class="code-segment">-1</span> so an unwired pin cannot float and report a
+				fictional battery percentage; the status bar keeps reading
+				<span class="code-segment">USB</span>. The watch currently runs from USB
+				power.<br /><br />
+				The power design does have one genuinely non-obvious trap already worked out on
+				paper: on the SuperMini the <span class="code-segment">5V</span> pin
+				<em>is</em> USB VBUS, so tying a TP4056 charger input to it while injecting a
+				boost converter creates a loop that charges the battery from itself. It never
+				terminates, the cell drains faster than with no charger at all, and nothing
+				visibly fails &mdash; which is what makes it worth documenting before building
+				it.</article
+			>
+			<br />
+
+			<h2 style="text-align: center">Bugs Worth Keeping</h2>
+			<br />
+			<article
+				>Two bring-up failures cost more time than the rest of the firmware combined,
+				and both are recorded in the repo so they are not rediscovered:<br /><br />
+				<strong style="color: var(--text-color)">The display driver.</strong> The
+				0.96&Prime; SSD1306 must be initialised as
+				<span class="code-segment">NONAME</span>, not <span class="code-segment">ALT0</span>.
+				The ALT0 init makes a sparse test pattern look completely fine, then interleaves
+				the rows with real text so every UI line is squashed on top of the next &mdash;
+				a fault that only appears once you draw something realistic.<br /><br />
+				<strong style="color: var(--text-color)">The bus clock.</strong> The shared I2C
+				bus has to run at 100&nbsp;kHz, but
+				<span class="code-segment">MAX30105.begin(Wire, I2C_SPEED_FAST, ...)</span>
+				silently raises it back to 400&nbsp;kHz. The OLED then flickers or blanks for
+				reasons that look nothing like a clock-speed problem. The clock is now
+				re-asserted after the sensor init block.</article
+			>
+			<br />
+
+			<h2 style="text-align: center">What to Inspect Next</h2>
+			<br />
+			<article>
+				<ul style="margin: 8px 0 0; padding-left: 20px; line-height: 1.8">
+					<li><a class="text-link" href="./fitness-ai-agents.html">Fitness AI Agents</a> &mdash; the platform this watch feeds, and where the analysis happens.</li>
+					<li><a class="text-link" href="../hackathons/phystech-2026.html">PhysTech 2026</a> &mdash; the competition entry this build grew out of.</li>
+					<li><a class="text-link" href="./cyberdeck.html">Cyberdeck</a> &mdash; the other hardware project, a Raspberry Pi portable computer.</li>
+					<li><a class="text-link" href="../projects.html">All projects</a> and <a class="text-link" href="../about-me.html">About</a>.</li>
+				</ul>
+			</article>
+			<br />
+
+			<a
+				class="nav-btn"
+				href="https://github.com/PyMite6941/Fitness-AI-Agents"
+				target="_blank"
+				rel="noreferrer"
+				style="display: inline-block"
+				>View the firmware on GitHub</a
+			>
+			<br />
+			<br />
+		</main>
+		<div id="site-footer"></div>
+	</body>
+</html>

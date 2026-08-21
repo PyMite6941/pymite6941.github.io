@@ -1,2 +1,22 @@
 CLAUDE.md
 HIDDEN_PROJECTS.md
+# --- Source documents with PII: never commit these -------------------------
+# Official records (transcripts, report cards) carry a student ID, date of
+# birth, parent names, and ethnicity/gender fields. This repo is PUBLIC and is
+# the live site, so none of that can land here — not even in a branch, since
+# git history is permanent. Keep the real files outside the repo folder; these
+# patterns are the backstop against an accidental `git add -A`.
+*transcript*
+*Transcript*
+*report-card*
+*report_card*
+*ReportCard*
+
+# Loose scans and photos dropped at the repo ROOT. Leading slash = root only,
+# so genuine site assets under assets/img/ and assets/documents/ stay tracked.
+/*.pdf
+/*.jpg
+/*.jpeg
+/*.png
+/*.heic
+/*.webp

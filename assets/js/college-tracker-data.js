@@ -53,7 +53,7 @@ window.CollegeTrackerData = {
 		classYear: 'Class of 2027',
 		school: 'International Community School Bangkok (ICS)',
 		grad: 'Expected graduation May 2027',
-		gpa: '3.88 / 4.0',
+		gpa: '3.73 weighted / 3.54 unweighted',
 		sat: 'SAT 1250 superscore (650 M / 600 R&W)',
 		appSystem: 'Common App',
 	},
@@ -109,7 +109,7 @@ window.CollegeTrackerData = {
 			interview: 'TODO',
 			hasCSS: false,
 			essays: ['Essay / supplement: TODO'],
-			notes: 'Honors College asks a 3.5+ unweighted GPA — a 3.88 clears it. Test-optional, so the 1250 is not a gate (their admitted average has run near 1400, so apply without scores). You hear from Honors only after UMBC admits you. Best-value cyber; Cyber Scholars; SFS-eligible.',
+			notes: 'Honors College asks a 3.5+ unweighted GPA — the 3.54 unweighted on the August 2026 transcript clears it, but only just. Test-optional, so the 1250 is not a gate (their admitted average has run near 1400, so apply without scores). You hear from Honors only after UMBC admits you. Best-value cyber; Cyber Scholars; SFS-eligible.',
 		},
 		{
 			id: 'drexel',
@@ -130,7 +130,7 @@ window.CollegeTrackerData = {
 			interview: 'TODO',
 			hasCSS: false,
 			essays: ['Honors supplement (in portal): TODO'],
-			notes: 'Pennoni asks a 3.2+ cumulative GPA — a 3.88 clears it comfortably. NOT automatic: it is a separate application after Drexel admits you. Co-op earnings are the draw; calendar moves quarter to semester in 2027.',
+			notes: 'Pennoni asks a 3.2+ cumulative GPA — a 3.73 cumulative clears it comfortably. NOT automatic: it is a separate application after Drexel admits you. Co-op earnings are the draw; calendar moves quarter to semester in 2027.',
 		},
 		{
 			id: 'rit',
@@ -181,7 +181,7 @@ window.CollegeTrackerData = {
 			interview: 'TODO',
 			hasCSS: false,
 			essays: ['TODO: supplemental essay prompt'],
-			notes: 'CHECK THIS ONE: the Honors Program asks a 3.8+ UNWEIGHTED high-school GPA. A 3.88 clears it only if that figure is unweighted — confirm which yours is before counting on it. Invitations to apply go out starting in November. Rosie supercomputer (NVIDIA GPU cluster); small classes.',
+			notes: 'PROBLEM: the Honors Program asks a 3.8+ UNWEIGHTED high-school GPA, and the August 2026 transcript settles which figure is which — cumulative unweighted is 3.54 (3.73 weighted), so this does NOT meet the stated bar. Admission to MSOE itself is a separate question; just do not count on the Honors Program invitation. Invitations to apply go out starting in November. Rosie supercomputer (NVIDIA GPU cluster); small classes.',
 		},
 		{
 			id: 'clark',

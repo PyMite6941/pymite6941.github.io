@@ -18,11 +18,12 @@
 				{
 					heading: 'Academic snapshot',
 					items: [
-						'GPA 3.88 / 4.0 · Expected graduation May 2027',
+						'Cumulative GPA 3.73 weighted / 3.54 unweighted (4.0 scale) · 92.1 average',
+						'24.5 credits through grade 11 · Expected graduation May 2027',
 						'SAT 1250 superscore (650 Math / 600 Reading &amp; Writing) · 1240 highest single sitting',
-						'AP Computer Science Principles (A+), AP English Language &amp; Composition',
+						'AP World History, AP Computer Science Principles (A+), AP English Language &amp; Composition',
 						'AP Computer Science A and AP Cybersecurity currently in progress',
-						'Honors: HS Band, Tech Theatre · Also Pre-Calculus, Physics, Philosophy &amp; Worldview',
+						'Honors: French 3, HS Band, Tech Theatre · Also Pre-Calculus, Conceptual Physics, Philosophy &amp; Worldview, World Religions',
 					],
 				},
 				{
@@ -41,6 +42,7 @@
 						'Head of Testing at Polaris Student, leading a three-person QA team',
 						'House of Blessings — taught Scratch and Canva to underserved students',
 						'Saphan Siam Foundation — built a non-profit&rsquo;s social presence from zero',
+						'44.5 service hours recorded on his school transcript through grade 11',
 					],
 				},
 			],

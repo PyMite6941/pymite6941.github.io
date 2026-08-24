@@ -165,8 +165,43 @@ Pages only ever load `site-style.js`. It injects the rest at runtime (path-depth
 | `seo-schema.js` | Injects the canonical link + JSON-LD structured data (see SEO section) |
 | `analytics.js` | GA4 provider bootstrap — **injected before `metrics.js` on purpose** so `window.gtag` exists first |
 | `metrics.js` | Event layer — forwards `page_view` / click events to whatever provider is present |
+| `repo-links.js` | Self-updating GitHub links — see below |
 
 The `analytics.js` → `metrics.js` order is load-bearing; keep `analytics` appended first in `site-style.js`.
+
+### Self-updating GitHub links (`repo-links.js`)
+
+Change something on GitHub — publish a demo, rename a repo, move a host — and the link on
+the site follows, with no HTML edit and no re-stamp. Opt an anchor in by naming the repo;
+**the authored `href` stays as the fallback**, so the link still works if the script never runs:
+
+```html
+<a class="text-link"
+   href="https://llm-protector.vercel.app"
+   data-repo="LLM-Protector"
+   data-repo-link="live">Try the live demo</a>
+```
+
+`data-repo-link` picks which URL wins: `auto` (default — the repo's Website field if set,
+else the repo URL), `live` (Website only), `source` (always the repo URL). A
+`<span data-repo-updated="RepoName">` is filled in as "Updated 3 days ago".
+
+**Only public repos resolve.** The GitHub API cannot see private ones, so wiring a private
+repo is a silent no-op that merely looks wired. Currently wired on `projects.html`:
+stock-analysis-engine, Expense-tracker, Data-Processing-AI-Agents, Fitness-AI-Agents,
+LLM-Protector, diverselearning, Project-ASAP, and squint.
+
+**Never put `data-repo` on an anchor that points at one of your own proof pages** — the
+script rewrites `href`, so that would send visitors to GitHub instead of the project page.
+
+Two things to keep intact:
+- It shares the `gh-repos-cache` localStorage entry with `github-activity.js`, so both
+  together cost **one** API request (unauthenticated GitHub allows 60/hour per IP).
+  `github-activity.js` therefore caches the **full** repo list and slices to `MAX_REPOS`
+  only when rendering — truncating the cache silently kills links for older repos.
+- Both scripts filter through `HIDDEN_REPO_SUBSTRINGS` **before writing that cache**. An
+  unfiltered write would put a `HIDDEN_PROJECTS.md` repo on the page through the back door.
+  The list includes `anniversary`, whose repo is private today but must already be guarded.
 
 ## AI Lab — External Next.js Project
 

@@ -32,7 +32,9 @@
 	 * this feed too, even though their GitHub source is live. Substrings are
 	 * matched against lowercase repo names. Do not remove entries.
 	 */
-	var HIDDEN_REPO_SUBSTRINGS = ['connect4', 'connect-4', 'vortex', 'forgeos', 'forge-os'];
+	var HIDDEN_REPO_SUBSTRINGS = [
+		'connect4', 'connect-4', 'vortex', 'forgeos', 'forge-os', 'anniversary',
+	];
 
 	/*
 	 * Curated display names: GitHub repo name -> site project name, kept in sync
@@ -101,15 +103,18 @@
 	}
 	function loadRepos() {
 		var cached = getCache();
+		if (cached) cached = cached.slice(0, MAX_REPOS);
 		return ghFetch('/users/' + GH_USER + '/repos?per_page=100&sort=updated&type=public')
 			.then(function (list) {
 				if (!Array.isArray(list)) throw new Error('Bad payload');
+				// Cache every non-hidden repo, not just the ones this feed draws:
+				// repo-links.js reads the same entry and needs to resolve repos far
+				// down the push order. Truncating here made those links dead.
 				var visible = list
 					.filter(function (r) { return !isHidden(r.name); })
-					.sort(function (a, b) { return new Date(b.updated_at) - new Date(a.updated_at); })
-					.slice(0, MAX_REPOS);
+					.sort(function (a, b) { return new Date(b.updated_at) - new Date(a.updated_at); });
 				setCache(visible);
-				return visible;
+				return visible.slice(0, MAX_REPOS);
 			})
 			.catch(function () { return cached || []; });
 	}

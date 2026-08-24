@@ -1,7 +1,7 @@
 (function () {
 	// Content stamp for the scripts injected below. Maintained by
 	// tools/stamp-assets.py — do not edit by hand; run that script instead.
-	var ASSET_V = '7bc4040d91';
+	var ASSET_V = '2cd21e3716';
 	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{
@@ -147,6 +147,13 @@
 	chat.src = base + 'assets/js/chatbot.js' + v;
 	chat.defer = true;
 	document.head.appendChild(chat);
+
+	// Self-updating GitHub links. No-ops on pages with no [data-repo], and
+	// shares github-activity.js's repo cache so both together cost one request.
+	var repoLinks = document.createElement('script');
+	repoLinks.src = base + 'assets/js/repo-links.js' + v;
+	repoLinks.defer = true;
+	document.head.appendChild(repoLinks);
 
 	var seo = document.createElement('script');
 	seo.src = base + 'assets/js/seo-schema.js' + v;

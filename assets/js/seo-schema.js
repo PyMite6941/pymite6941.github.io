@@ -40,6 +40,12 @@
 				'The Common Application personal statement of Matt Gresham, Class of 2027, written for his US university applications in computer science.',
 			type: 'CreativeWork',
 		},
+		'/pages/educational-tools.html': {
+			name: 'Educational Tools',
+			description:
+				'Free learning tools built by Matt Gresham — a plain-English phishing and fraud guide, a CTF flashcard trainer, a hands-on IDOR practice lab, AI-generated 3D courses, AI study cohorts, and browser-playable study tools.',
+			type: 'CollectionPage',
+		},
 		'/pages/scholarships.html': {
 			name: 'Federal Cybersecurity Scholarships',
 			description:

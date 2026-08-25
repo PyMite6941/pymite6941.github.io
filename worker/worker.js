@@ -43,6 +43,8 @@ is the Expense-tracker repo) — treat them as the same project.
 - Project ASAP: disaster-relief front end connecting survivors with first responders, volunteers, and resources; React 18 + Vite on Cloudflare Pages
 - FitnessAI Watch: open-hardware smartwatch on a $3 ESP32-C3 SuperMini that tracks heart rate, steps and GPS on-device and uploads workouts to the Fitness AI Agents backend. SSD1306 OLED + MPU6050 + MAX30102 on one I2C bus, NTP clock, WiFi captive portal and BLE pairing, KiCad board. Grew out of the PhysTech 2026 entry. Battery stage designed but NOT built yet, so it runs on USB power
 - Don't Take the Bait (repo: dont-take-the-bait): free plain-English guide to spotting phishing emails, scam texts, and fraud calls, written for non-technical readers. Live at https://pymite6941.is-a.dev/dont-take-the-bait/ — no framework, no build step, no data collection, works with JavaScript disabled
+- IDOR Lockbox: a deliberately vulnerable practice lab at https://idor-lockbox.vercel.app — a notes app that authenticates you but never checks the note you request belongs to you, so changing the id reaches other users' notes. Teaching tool for Insecure Direct Object Reference / broken access control. It is Matt's own target, built to be attacked; never suggest testing anyone else's systems
+- Educational Tools page (https://pymite6941.is-a.dev/pages/educational-tools.html): the index of the free things Matt built for people to learn from — Don't Take the Bait, CTF Flashcards, IDOR Lockbox, DiverseLearning, Villages, and the browser Study Tools
 - Bible Searcher, Note-taking, Study-Material, grandpas-mariadb-terminal, git-assistor: smaller public repos
 
 ## His Client Work

@@ -1,7 +1,7 @@
 (function () {
 	// Content stamp for the scripts injected below. Maintained by
 	// tools/stamp-assets.py — do not edit by hand; run that script instead.
-	var ASSET_V = '2cd21e3716';
+	var ASSET_V = '5b261423ba';
 	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{
@@ -14,6 +14,7 @@
 			ailab: 'https://ai-lab-bice.vercel.app',
 			forothers: 'pages/client-work.html',
 			dreamprojects: 'pages/dream-projects.html',
+			educational: 'pages/educational-tools.html',
 			contact: 'pages/contact-me.html',
 			resume: 'assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
@@ -30,6 +31,7 @@
 			ailab: 'https://ai-lab-bice.vercel.app',
 			forothers: 'client-work.html',
 			dreamprojects: 'dream-projects.html',
+			educational: 'educational-tools.html',
 			contact: 'contact-me.html',
 			resume: '../assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
@@ -46,6 +48,7 @@
 			ailab: 'https://ai-lab-bice.vercel.app',
 			forothers: '../client-work.html',
 			dreamprojects: '../dream-projects.html',
+			educational: '../educational-tools.html',
 			contact: '../contact-me.html',
 			resume: '../../assets/documents/matt_gresham_resume.html',
 			store: 'https://grid-store.pages.dev',
@@ -71,6 +74,7 @@
                 <li class="nav-item"><a class="nav-link" href="${p.forothers}">Built for Others</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.hackathons}">Hackathons</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.ailab}">AI Lab</a></li>
+                <li class="nav-item"><a class="nav-link" href="${p.educational}">Learn</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.resume}">Résumé</a></li>
                 <li class="nav-item"><a class="nav-link" href="${p.dreamprojects}">Dream Projects</a></li>
 				<li class="nav-item"><a class="nav-link" href="${p.store}">My Store</a></li>
@@ -113,6 +117,7 @@
                     <a href="${p.forothers}">Built for Others</a>
                     <a href="${p.hackathons}">Hackathons</a>
                     <a href="${p.ailab}">AI Lab</a>
+                    <a href="${p.educational}">Educational Tools</a>
                     <a href="${p.ctf}">CTF Writeups</a>
                     <a href="${p.bait}">Phishing Guide</a>
                 </div>

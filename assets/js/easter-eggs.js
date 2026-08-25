@@ -165,7 +165,7 @@
         '<span class="mg-t-hi">MD→HTML</span>            — Go CLI Markdown converter',
         '<span class="mg-t-hi">Markdown Previewer</span> — live split-pane editor (React)',
         '<span class="mg-t-hi">Study Tools</span>        — browser-playable PyScript tools',
-        '<span class="mg-t-hi">30 Days Challenge</span>  — daily prompts across Python, Go, Rust',
+        '<span class="mg-t-hi">30 Days Challenge</span>  — daily prompts across Python, Go, Rust, Bash',
       ].join('\n');
     },
 

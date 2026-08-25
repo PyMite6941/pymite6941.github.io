@@ -23,7 +23,10 @@
 
 	var GH_USER = 'PyMite6941';
 	var GH_ROOT = 'https://api.github.com';
-	var MAX_REPOS = 8;
+	// High enough that nothing is truncated: the feed is meant to account for
+	// every repo the site is built on, not just the few pushed most recently.
+	// Raising this costs no extra API calls -- file trees load only on click.
+	var MAX_REPOS = 60;
 	var CACHE_TTL_MS = 10 * 60 * 1000;
 
 	/*
@@ -43,12 +46,37 @@
 	 * the actual safety boundary.
 	 */
 	var REPO_ALIASES = {
+		// Keys MUST be the real lowercased GitHub repo name. Three of the original
+		// entries ('magellan-search-engine', 'md-to-html-converter', '30-days-of-ai')
+		// matched no repo that exists, so those projects rendered under their raw
+		// GitHub names. Check a key against `gh repo list` before adding it.
 		'expense-tracker': 'The Finance Kit',
 		'stock-analysis-engine': 'Stock Analysis Engine',
-		'magellan-search-engine': 'Magellan Search Engine',
-		'markdown-previewer': 'Markdown Previewer',
-		'md-to-html-converter': 'Markdown to HTML Converter',
-		'30-days-of-ai': '30 Days of AI Programming Prompts',
+		'magellan-spider': 'Magellan Search Engine',
+		'create-html-with-an-md-file': 'Markdown to HTML Converter',
+		'study-material': 'Study Tools',
+		'pixel': 'PixelCode',
+		'pixel-assistant': 'Pixel Assistant',
+		'north-star-submission': 'North Star',
+		'medicalai-light-weight': 'MedicalAI \u2014 Lightweight',
+		'dont-take-the-bait': "Don't Take the Bait",
+		'project-asap': 'Project ASAP',
+		'data-processing-ai-agents': 'Data Processing AI Agents',
+		'llm-protector': 'LLM Protector',
+		'calendar-ai-assistant': 'Calendar AI Assistant',
+		'study-assistant': 'Study Assistant',
+		'church-connect': 'Church Connect',
+		'fitness-ai-agents': 'Fitness AI Agents',
+		'chess-ai': 'Chess AI',
+		'ctf-writeups': 'CTF Writeups',
+		'diverselearning': 'DiverseLearning',
+		'cyberdeck': 'Cyberdeck',
+		'squint': 'Squint',
+		'grimoire': 'Grimoire',
+		'reconkit': 'ReconKit',
+		'git-assistor': 'Git Assistor',
+		'grandpas-mariadb-terminal': "Grandpa's MariaDB Terminal",
+		'pymite6941.github.io': 'This Portfolio Site',
 	};
 
 	var mount = document.getElementById('gh-activity');
@@ -112,6 +140,9 @@
 				// down the push order. Truncating here made those links dead.
 				var visible = list
 					.filter(function (r) { return !isHidden(r.name); })
+					// Forks are not Matt's projects. `register` is the is-a.dev registry,
+					// forked only to claim the subdomain, and it was eating a feed slot.
+					.filter(function (r) { return !r.fork; })
 					.sort(function (a, b) { return new Date(b.updated_at) - new Date(a.updated_at); });
 				setCache(visible);
 				return visible.slice(0, MAX_REPOS);

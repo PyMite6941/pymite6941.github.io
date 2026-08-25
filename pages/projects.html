@@ -18,17 +18,17 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../index.css?v=5b261423ba" />
+			href="../index.css?v=07c3279e3e" />
 
 		<title>Products and Projects by Matt Gresham</title>
 		<script
-			src="../assets/js/site-style.js?v=5b261423ba"
+			src="../assets/js/site-style.js?v=07c3279e3e"
 			defer></script>
 		<script
-			src="../assets/js/filter-mechanics.js?v=5b261423ba"
+			src="../assets/js/filter-mechanics.js?v=07c3279e3e"
 			defer></script>
 		<script
-			src="../assets/js/github-activity.js?v=5b261423ba"
+			src="../assets/js/github-activity.js?v=07c3279e3e"
 			defer></script>
 	</head>
 	<body>
@@ -56,6 +56,30 @@
 						<span id="filter-toggle-label">Filter by tech</span>
 						<span class="filter-toggle-icon" aria-hidden="true">▾</span>
 					</button>
+					<div class="filter-search">
+						<label
+							class="filter-search-label"
+							for="project-search"
+							>Search projects</label
+						>
+						<input
+							type="search"
+							id="project-search"
+							class="filter-search-input"
+							placeholder="name, tech, or idea"
+							autocomplete="off" />
+						<button
+							type="button"
+							class="filter-clear"
+							id="filter-clear"
+							>Clear all</button
+						>
+						<p
+							class="filter-status"
+							id="filter-status"
+							role="status"
+							aria-live="polite"></p>
+					</div>
 					<fieldset class="filter-fieldset" id="filter-fields">
 						<legend>Filter by tech</legend>
 						<label class="filter-option">
@@ -192,6 +216,13 @@
 							</a>
 						</div>
 					</section>
+				<p
+					class="filter-empty"
+					id="filter-empty"
+					hidden
+					>Nothing matched that search. Try a broader word &mdash; or
+					<button type="button" class="filter-empty-clear" onclick="document.getElementById('filter-clear').click()">clear the filters</button>.</p
+				>
 				<section class="card-grid">
 				<div
 					class="card-container"
@@ -535,7 +566,7 @@
 					</div>
 					<p
 						>A 30-day coding challenge using AI-generated prompts. Each day
-						produces a new program across Python, Go, and Rust — from algorithms
+						produces a new program across Python, Go, Rust, and Bash — from algorithms
 						to games to utilities — with interactive browser demos.</p
 					>
 					<p>Started: April 2nd, 2026<br />Finished: May 1st, 2026</p>

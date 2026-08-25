@@ -17,7 +17,7 @@ is the Expense-tracker repo) — treat them as the same project.
 - Markdown to HTML Converter: Go CLI that converts Markdown into styled HTML pages
 - Chess AI: chess engine in Python — minimax with alpha-beta pruning, plus a trained neural net played in-browser
 - Magellan Search Engine: Go web spider that crawls from a seed URL and indexes into SQLite, with a React front end
-- 30 Days of AI-Generated Programming Prompts: 30-day challenge, a new program each day across Python, Go, and Rust
+- 30 Days of AI-Generated Programming Prompts: 30-day challenge, a new program each day across Python, Go, Rust, and Bash
 - Markdown Previewer: live split-pane Markdown editor in React + Vite
 - Study Assistant: RAG study tool in Python + ChromaDB + Ollama, ingests your own notes
 - Data Processing AI Agents: multi-agent data processing system, International AI Agents Hackathon entry

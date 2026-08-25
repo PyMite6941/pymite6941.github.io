@@ -20,3 +20,18 @@ HIDDEN_PROJECTS.md
 /*.png
 /*.heic
 /*.webp
+
+# --- Markdown: local-only working notes -------------------------------------
+# Planning docs, briefs and TODO lists are internal notes, and this repo is
+# public and IS the live site. Ignore markdown by default, with two exceptions.
+*.md
+
+# CLAUDE.md is the contributor guide and belongs in the repo.
+!CLAUDE.md
+
+# LOAD-BEARING — DO NOT REMOVE. The AI Lab's network-defense demo fetches these
+# five phase prompts at RUNTIME from the live site
+# (https://pymite6941.is-a.dev/agents/Network%20Defense%20Agents/Phase%20N.md).
+# Untracking them stops GitHub Pages serving them and the Red Team Agent demo
+# breaks. They are deployed content, not notes.
+!agents/Network Defense Agents/*.md

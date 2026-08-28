@@ -829,8 +829,13 @@ main article {
 }
 
 @media (min-width: 481px) and (max-width: 1024px) {
+	/* 400px was too high a floor here: with auto-fill, a ~700px tablet column
+	   could not fit two 400px tracks, so 768-1024px collapsed to ONE card per
+	   row at ~700px wide -- a 110-character measure and half the viewport
+	   wasted, while 1100px jumped straight to two. 320px lets tablets pair up
+	   and still keeps a single column at 481-560px where two would be cramped. */
 	.card-grid {
-		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 	}
 }
 
@@ -878,7 +883,11 @@ main article {
 }
 
 /* Stack the projects/hackathons sidebar + grid on tablets and phones */
-@media (max-width: 768px) {
+/* Stacked layout. Raised from 768px to 900px: between those widths the 240px
+   filter sidebar left under ~560px for cards, which forced a single ~700px
+   card per row. Stacking the filter into its collapsible bar frees the full
+   width and lets that range show two cards like every other size does. */
+@media (max-width: 900px) {
 	main[style*="flex-direction: row"] {
 		flex-direction: column !important;
 	}

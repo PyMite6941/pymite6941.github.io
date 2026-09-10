@@ -20,9 +20,10 @@
 					items: [
 						'Cumulative GPA 3.73 weighted / 3.54 unweighted (4.0 scale) · 92.1 average',
 						'24.5 credits through grade 11 · Expected graduation May 2027',
+						'Annual GPA 3.50 (grade 9) → 3.81 (grade 10) → 3.88 (grade 11)',
 						'SAT 1250 superscore (650 Math / 600 Reading &amp; Writing) · 1240 highest single sitting',
 						'AP World History, AP Computer Science Principles (A+), AP English Language &amp; Composition',
-						'AP Computer Science A and AP Cybersecurity currently in progress',
+						'In progress 2026–27: AP Computer Science A (Java), AP Cyber Security, AP English Literature &amp; Composition, AP Statistics',
 						'Honors: French 3, HS Band, Tech Theatre · Also Pre-Calculus, Conceptual Physics, Philosophy &amp; Worldview, World Religions',
 					],
 				},

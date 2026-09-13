@@ -43,7 +43,7 @@
 import re
 from pyodide.http import open_url
 
-URL = "https://pymite6941.github.io/portfolio-website/assets/test-data/server.log"
+URL = "https://pymite6941.is-a.dev/assets/test-data/server.log"
 PATTERN = r'(?P<ip>\S+) - - \[(?P<date>\S+) (?P<time>\S+)\] "(?P<method>\S+) (?P<endpoint>\S+) (?P<protocol>\S+)" (?P<status>\d{3}) (?P<size>\d+)'
 
 try:
@@ -107,7 +107,7 @@ while lines:
 					(?P&lt;protocol&gt;\S+)" (?P&lt;status&gt;\d{3})
 					(?P&lt;size&gt;\d+)'<br />
 					url =
-					"https://pymite6941.github.io/portfolio-website/assets/test-data/server.log"<br />
+					"https://pymite6941.is-a.dev/assets/test-data/server.log"<br />
 					response = requests.get(url)<br />
 					def check_pattern(key:str,value:str):<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;for line in response.text.splitlines():<br />

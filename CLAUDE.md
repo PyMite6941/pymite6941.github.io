@@ -189,7 +189,8 @@ else the repo URL), `live` (Website only), `source` (always the repo URL). A
 **Only public repos resolve.** The GitHub API cannot see private ones, so wiring a private
 repo is a silent no-op that merely looks wired. Currently wired on `projects.html`:
 stock-analysis-engine, Expense-tracker, Data-Processing-AI-Agents, Fitness-AI-Agents,
-LLM-Protector, diverselearning, Project-ASAP, and squint.
+LLM-Protector, diverselearning, Project-ASAP, Villages, and squint — plus `petri` on
+`dream-projects.html`.
 
 **Never put `data-repo` on an anchor that points at one of your own proof pages** — the
 script rewrites `href`, so that would send visitors to GitHub instead of the project page.
@@ -364,11 +365,20 @@ Key classes: `.card-grid` / `.card-container` (project cards), `.tag` (language 
 - `main` is `display:flex; flex-direction:column; align-items:flex-start`, so a child div with
   `justify-content:center` will **not** appear centred — it shrinks to its content and sits
   left. Give the row `width:100%` (this is why the About/Academics button rows have it)
-- `font-weight` in `.article` and `.article-stuff` uses invalid `px` values — should be unitless (e.g. `400`)
-- Card hover `transition` is missing the `s` unit (`0.2` → `0.2s`)
-- The `pyscript.toml` at the root is an old-style config file; current pages use inline PyScript config instead
-- `.sidenav` is not responsive — on mobile it takes fixed width and can overflow. Pages with sidebars should use `flex-direction: column` on mobile
-- The hackathons page uses inline `style="margin-left: 240px"` on `.card-grid` to clear the sidebar — this breaks below 768px
+- **This repo is the *user* site, served from the domain root.** It is not
+  `pymite6941.github.io/portfolio-website/` any more, and that path 404s. Two PyScript demos
+  (`Day7.html`, `Day11.html`) silently broke because they hardcoded it to fetch their sample
+  data. Absolute self-references must use `https://pymite6941.is-a.dev/…`; prefer a
+  depth-correct relative path where the fetch allows one.
+- **The `ctf-flashcards` repo is private**, so a "View source on GitHub" link to it 404s. The
+  live app (`ctf-flashcards.pages.dev`) is the proof for that project. Same trap as the
+  `data-repo` one below: only public repos resolve, and a private one fails silently or 404s.
+
+Verified fixed 2026-09-13 — do not re-add these to the list: the `font-weight` `px` values,
+the unitless card-hover `transition`, the root `pyscript.toml` (deleted), `.sidenav`
+responsiveness (it now has media-query rules, plus a defensive
+`.card-grid[style*="margin-left"] { margin-left: 0 !important }`), and the hackathons page's
+inline `margin-left: 240px`.
 
 ## Current Website Improvement Status
 

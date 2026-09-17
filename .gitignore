@@ -26,8 +26,11 @@ HIDDEN_PROJECTS.md
 # public and IS the live site. Ignore markdown by default, with two exceptions.
 *.md
 
-# CLAUDE.md is the contributor guide and belongs in the repo.
-!CLAUDE.md
+# CLAUDE.md is NOT excepted any more. GitHub Pages serves this branch root
+# verbatim (.nojekyll, no build step), so a tracked CLAUDE.md was live at
+# https://pymite6941.is-a.dev/CLAUDE.md — where it named every project in
+# HIDDEN_PROJECTS.md and described how the chatbot's refusal guard works.
+# It stays on disk as the contributor guide; it just does not ship.
 
 # LOAD-BEARING — DO NOT REMOVE. The AI Lab's network-defense demo fetches these
 # five phase prompts at RUNTIME from the live site
@@ -35,3 +38,10 @@ HIDDEN_PROJECTS.md
 # Untracking them stops GitHub Pages serving them and the Red Team Agent demo
 # breaks. They are deployed content, not notes.
 !agents/Network Defense Agents/*.md
+
+# --- Not site content: tracked here would mean published ---------------------
+# Same reason as CLAUDE.md. worker/worker.js is the chatbot Cloudflare Worker,
+# and its source is the bot's entire system prompt including the hidden-project
+# refusal guard. It was readable at /worker/worker.js. Deploy it with
+# `cd worker && npx wrangler deploy` from the local copy.
+/worker/

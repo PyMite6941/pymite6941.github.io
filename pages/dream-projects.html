@@ -157,6 +157,7 @@
 			<div class="dev-notes">
 				<div
 					class="dev-note"
+					id="petri"
 					style="width: 100%; max-width: 100%">
 					<h3
 						>#2 — Petri
@@ -173,17 +174,19 @@
 						></h3
 					>
 					<p style="color: #8b949e; font-size: 0.9rem; margin-bottom: 12px">
-						Rust · egui · Linux
+						Rust · egui · Docker · Linux
 					</p>
 					<p>
 						This one started with Rubber Ducky USB attacks — I wanted somewhere
 						to run something sketchy without handing it my actual laptop. What
-						it turned into is a desktop app for running
-						<strong style="color: var(--text-color)">benign, simulated</strong>
-						malware specimens: small programs I write myself that mimic a
-						malware behaviour, so I can take them apart and watch what they do
-						without any of it being real. You create a named sandbox, hand it an
-						explicit set of permissions, drop a specimen in, and read the log.
+						it turned into is a
+						<strong style="color: var(--text-color)"
+							>defensive Linux sandbox manager</strong
+						>: a desktop app where you create a named sandbox, choose exactly
+						what it's allowed to do, run a program inside it, and watch it. If
+						something looks wrong, the plan is for Petri to isolate the sandbox
+						immediately, record what happened, and let you decide whether to
+						keep it locked down or destroy it.
 					</p>
 					<br />
 					<p
@@ -193,19 +196,26 @@
 					>
 					<br />
 					<p style="color: #8b949e; font-size: 0.9rem; line-height: 1.8">
-						✓ Sandbox lifecycle as a real state machine — Created → Starting →
-						Running → Stopping → Stopped → Destroyed, with illegal transitions
-						refused instead of tolerated<br />
-						✓ Opt-in permissions — ReadFiles, WriteFiles, ExecutePrograms,
-						NetworkAccess; a new sandbox starts with none of them<br />
-						✓ Isolation tracked as its own axis, separate from run state, so a
-						sandbox can only be isolated from Running or Stopped<br />
-						✓ Per-sandbox storage — everything lives under
-						<code>sandboxes/sandbox-&lt;id&gt;/</code> with
-						<code>files/</code> and <code>logs/</code>, thrown away
-						afterwards<br />
-						✓ egui desktop shell, written from scratch with no framework
-						underneath it
+						✓ Full lifecycle from the GUI — create, run, stop and destroy a
+						sandbox, driven by a real state machine (Created → Starting →
+						Running → Stopping → Stopped / Ran → Destroyed) that refuses illegal
+						transitions instead of tolerating them<br />
+						✓ Every sandbox is a real Docker container — built on create,
+						started on run, paused on isolate, removed on destroy<br />
+						✓ Locked down by default — all Linux capabilities dropped,
+						no-new-privileges, a 256 MB memory cap and a 128-process limit, and
+						nothing runs as root inside the container<br />
+						✓ Permissions actually enforce something — no NetworkAccess means
+						no network at all, no WriteFiles means a read-only filesystem; a new
+						sandbox starts with none of them<br />
+						✓ Per-sandbox storage under
+						<code>sandboxes/sandbox-&lt;id&gt;/</code> — a saved
+						<code>config.toml</code>, a <code>files/</code> folder mounted into
+						the container, and a <code>logs/</code> folder<br />
+						✓ Live status — the app polls Docker, notices when a program exits
+						on its own, and warns you if the Docker daemon isn't reachable<br />
+						✓ egui desktop app, one card per sandbox, with the buttons driven by
+						the state machine so only legal actions are ever offered
 					</p>
 					<br />
 					<p
@@ -215,14 +225,16 @@
 					>
 					<br />
 					<p style="color: #8b949e; font-size: 0.9rem">
-						The containment is designed, not implemented.
-						<code>isolate_sandbox()</code> flips an enum and returns Ok — there
-						is no namespace, jail, seccomp or container behind it yet, there are
-						no specimens to detonate, and the crate does not compile clean right
-						now. Nothing in it is safe to point at anything real. What's blocking
-						it is time, and learning Rust at the rate the problem actually needs
-						— I'd rather say that than ship something that only looks like a
-						sandbox.
+						The watching half. Nothing monitors a running sandbox yet, so
+						isolation is a button you press, not something Petri does on its own
+						when it spots trouble — and the event and security logs aren't
+						written yet either. The container flags are a solid first layer, but
+						the seccomp, AppArmor and fanotify policies that would make it a
+						real boundary aren't in, and it's only been tested under WSL2. So
+						it's not a detonation environment: nothing real goes in it. What's
+						left is time, and learning Rust at the rate the problem actually
+						needs — I'd rather say that than ship something that only looks
+						like a sandbox.
 					</p>
 					<br />
 					<a

@@ -37,6 +37,7 @@
 	 */
 	var HIDDEN_REPO_SUBSTRINGS = [
 		'connect4', 'connect-4', 'vortex', 'forgeos', 'forge-os', 'anniversary',
+		'reconkit', 'recon-kit',
 	];
 
 	/*
@@ -72,8 +73,8 @@
 		'diverselearning': 'DiverseLearning',
 		'cyberdeck': 'Cyberdeck',
 		'squint': 'Squint',
+		'petri': 'Petri',
 		'grimoire': 'Grimoire',
-		'reconkit': 'ReconKit',
 		'git-assistor': 'Git Assistor',
 		'grandpas-mariadb-terminal': "Grandpa's MariaDB Terminal",
 		'pymite6941.github.io': 'This Portfolio Site',

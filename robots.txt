@@ -1,50 +1,141 @@
+# robots.txt — pymite6941.is-a.dev
+#
+# Two rules govern this file:
+#
+# 1. Search engines stay allowed on every page that carries personal detail.
+#    The pages that should not show up in results control that themselves with
+#    a meta robots tag — college-tracker.html is "noindex, nofollow" and
+#    college-essay.html is "nosnippet, noarchive, max-snippet:0". A crawler has
+#    to fetch a page to read that tag, so disallowing a search engine here
+#    would break the very thing it is meant to enforce. Nothing below blocks a
+#    search engine from one of those pages.
+#
+# 2. AI training crawlers and commercial scrapers are blocked from every file
+#    that carries personal information: the resume (email, GPA, SAT scores,
+#    school, citizenship), the academic record, the college tracker, the
+#    scholarship plans, the contact page, and the whole documents folder. The
+#    rest of the site stays open to them so the project work still gets picked
+#    up.
+#
+# Two JavaScript files are named below, which is easy to miss: a page's meta
+# robots tag protects the page, not the data file it loads. Both of these are
+# separate fetchable URLs carrying the same personal detail as the pages —
+# college-tracker-data.js holds the name, school, GPA, SAT and the full
+# school-by-school application strategy, and audience-router.js holds the
+# academic snapshot shown in the homepage modal.
+#
+# robots.txt is voluntary, so it is not the only control. The resume carries
+# "noindex, noarchive, nosnippet"; academics.html carries "nosnippet,
+# noarchive, max-snippet:0"; and every published email address is HTML
+# entity-encoded so a source-scraping harvester finds no address to match.
+
+# ---------------------------------------------------------------------------
+# Everyone
+# ---------------------------------------------------------------------------
+# Repo files that are not site content. CLAUDE.md and worker/ have since been
+# untracked so they stop shipping at all; these lines stay as a backstop for
+# crawlers that already hold the URLs. tools/ has to stay tracked because CI
+# runs tools/stamp-assets.py, so for that one this rule is the only control.
+#
+# Note what is NOT here: agents/Network Defense Agents/*.md is load-bearing —
+# the AI Lab red-team demo fetches those five files from the live site at
+# runtime. A browser fetch ignores robots.txt, but they are deployed content
+# and are left alone deliberately.
+
 User-agent: *
 Allow: /
+Disallow: /CLAUDE.md
+Disallow: /worker/
+Disallow: /tools/
+Disallow: /assets/js/college-tracker-data.js
 
-# The Common Application essay is findable by title, but its text should only be
-# readable by actually opening the page. The page itself carries
-# "nosnippet, noarchive, max-snippet:0" so search engines index it without
-# surfacing the content. The rules below keep AI crawlers from ingesting the
-# essay and reproducing it without anyone visiting the page. The rest of the site
-# stays open to them so the project work still gets picked up.
+# ---------------------------------------------------------------------------
+# AI / LLM crawlers — no personal files
+# ---------------------------------------------------------------------------
+# Multiple user-agent lines followed by one rule set is a single group (RFC
+# 9309). Every agent listed here gets the same deny list.
 
 User-agent: GPTBot
-Disallow: /pages/college-essay.html
-
 User-agent: OAI-SearchBot
-Disallow: /pages/college-essay.html
-
 User-agent: ChatGPT-User
-Disallow: /pages/college-essay.html
-
+User-agent: Operator
 User-agent: ClaudeBot
-Disallow: /pages/college-essay.html
-
-User-agent: anthropic-ai
-Disallow: /pages/college-essay.html
-
 User-agent: Claude-Web
-Disallow: /pages/college-essay.html
-
-User-agent: CCBot
-Disallow: /pages/college-essay.html
-
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: anthropic-ai
 User-agent: Google-Extended
-Disallow: /pages/college-essay.html
-
-User-agent: PerplexityBot
-Disallow: /pages/college-essay.html
-
+User-agent: GoogleOther
+User-agent: Google-CloudVertexBot
 User-agent: Applebot-Extended
-Disallow: /pages/college-essay.html
-
-User-agent: Bytespider
-Disallow: /pages/college-essay.html
-
-User-agent: meta-externalagent
-Disallow: /pages/college-essay.html
-
 User-agent: Amazonbot
+User-agent: Meta-ExternalAgent
+User-agent: meta-externalagent
+User-agent: Meta-ExternalFetcher
+User-agent: FacebookBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: TikTokSpider
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: MistralAI-User
+User-agent: DuckAssistBot
+User-agent: YouBot
+User-agent: AI2Bot
+User-agent: Ai2Bot-Dolma
+User-agent: Diffbot
+User-agent: FirecrawlAgent
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: omgili
+User-agent: omgilibot
+User-agent: Webzio-Extended
+User-agent: Timpibot
+User-agent: PanguBot
+User-agent: PetalBot
+User-agent: Kangaroo Bot
+User-agent: VelenPublicWebCrawler
+User-agent: FriendlyCrawler
+User-agent: ICC-Crawler
+User-agent: ISSCyberRiskCrawler
+User-agent: Sidetrade indexer bot
+User-agent: Meltwater
+User-agent: Seekr
+User-agent: Scrapy
+Disallow: /assets/documents/
+Disallow: /assets/js/college-tracker-data.js
+Disallow: /assets/js/audience-router.js
+Disallow: /pages/academics.html
 Disallow: /pages/college-essay.html
+Disallow: /pages/college-tracker.html
+Disallow: /pages/scholarships.html
+Disallow: /pages/contact-me.html
+Disallow: /CLAUDE.md
+Disallow: /worker/
+Disallow: /tools/
+
+# ---------------------------------------------------------------------------
+# SEO / data-resale crawlers — nothing
+# ---------------------------------------------------------------------------
+# These index the site to sell the contents back as a dataset. They bring no
+# traffic, so they get no pages at all.
+
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: SemrushBot-OCOB
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: DataForSeoBot
+User-agent: BLEXBot
+User-agent: Barkrowler
+User-agent: serpstatbot
+User-agent: SeekportBot
+User-agent: magpie-crawler
+User-agent: ZoominfoBot
+User-agent: LinkpadBot
+User-agent: trendictionbot
+Disallow: /
 
 Sitemap: https://pymite6941.is-a.dev/sitemap.xml

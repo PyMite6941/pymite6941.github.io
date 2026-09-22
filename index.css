@@ -2073,3 +2073,106 @@ main article {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
+/* ---------------------------------------------------------------------------
+   Commits & files panel on project cards (assets/js/repo-explorer.js).
+   Collapsed by default; the body is built from the GitHub API on first open.
+   --------------------------------------------------------------------------- */
+.repo-explorer {
+	margin-top: 14px;
+	border-top: 1px solid var(--border-color);
+	padding-top: 10px;
+	font-size: 0.85rem;
+}
+
+.repo-explorer > summary {
+	cursor: pointer;
+	color: var(--link-color);
+	font-weight: 600;
+	list-style-position: inside;
+}
+
+.repo-explorer-body {
+	margin-top: 10px;
+	max-height: 360px;
+	overflow: auto;
+	overscroll-behavior: contain;
+	padding-right: 4px;
+}
+
+.repo-explorer-head {
+	margin: 8px 0 6px;
+	color: var(--text-color) !important;
+	font-weight: 600;
+	font-size: 0.8rem !important;
+	text-transform: uppercase;
+	letter-spacing: 0.75px;
+}
+
+.repo-explorer-note,
+.repo-explorer-foot {
+	font-size: 0.82rem !important;
+	margin: 6px 0;
+}
+
+.repo-commits,
+.repo-tree {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.repo-commits li {
+	display: flex;
+	gap: 8px;
+	align-items: baseline;
+	padding: 3px 0;
+	min-width: 0;
+}
+
+.repo-sha {
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	flex-shrink: 0;
+}
+
+.repo-msg {
+	color: #c9d1d9;
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.repo-when {
+	color: #8b949e;
+	flex-shrink: 0;
+	font-size: 0.78rem;
+}
+
+.repo-tree .repo-tree {
+	padding-left: 14px;
+	border-left: 1px solid var(--border-color);
+	margin-left: 4px;
+}
+
+.repo-tree li {
+	padding: 1px 0;
+	overflow-wrap: anywhere;
+}
+
+.repo-dir {
+	cursor: pointer;
+	color: #c9d1d9;
+}
+
+.repo-file {
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	font-size: 0.8rem;
+}
+
+@media print {
+	.repo-explorer {
+		display: none;
+	}
+}

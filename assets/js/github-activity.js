@@ -33,7 +33,8 @@
 	 * Deny-list pulled from HIDDEN_PROJECTS.md. These projects must never
 	 * surface anywhere on the site, so their public repos are excluded from
 	 * this feed too, even though their GitHub source is live. Substrings are
-	 * matched against lowercase repo names. Do not remove entries.
+	 * matched against lowercase repo names. Do not remove entries. The same
+	 * list lives in repo-links.js and repo-explorer.js — change all three.
 	 */
 	var HIDDEN_REPO_SUBSTRINGS = [
 		'connect4', 'connect-4', 'vortex', 'forgeos', 'forge-os', 'anniversary',

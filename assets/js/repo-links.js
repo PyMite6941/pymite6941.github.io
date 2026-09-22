@@ -53,8 +53,8 @@
 	var CACHE_TTL_MS = 10 * 60 * 1000;
 
 	/*
-	 * Deny-list from HIDDEN_PROJECTS.md. Kept identical to the one in
-	 * github-activity.js — if you add a project there, add it in both places.
+	 * Deny-list from HIDDEN_PROJECTS.md. Kept identical to the ones in
+	 * github-activity.js and repo-explorer.js — change all three together.
 	 * 'anniversary' is included because that repo is private *today*; the guard
 	 * has to already be in place for the day it is not.
 	 */

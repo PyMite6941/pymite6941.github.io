@@ -103,6 +103,21 @@
 		}
 		var empty = document.getElementById('filter-empty');
 		if (empty) empty.hidden = shown !== 0;
+
+		// The same message again, right above the cards. On phones the filter
+		// panel sits far above the grid, so without this a reader who jumped
+		// down from a skill chip can't see that a filter is on.
+		var bar = document.getElementById('filter-results');
+		var barText = document.getElementById('filter-results-text');
+		if (bar && barText) {
+			bar.hidden = !filtering || shown === 0;
+			barText.textContent = status.textContent;
+		}
+
+		// Let other scripts (skill-map.js) show which filter is on.
+		document.dispatchEvent(new CustomEvent('projectfilterchange', {
+			detail: { skill: skillLabel, tags: activeTags(), search: searchTerm },
+		}));
 	}
 
 	// `quiet` skips focusing the search box, for when a skill chip (not the
@@ -142,6 +157,7 @@
 		if (box) {
 			box.addEventListener('input', function () {
 				searchTerm = box.value.trim().toLowerCase();
+				dropSkillFilter();
 				filterProjects();
 			});
 			// Escape clears, which is what people expect from a search field.
@@ -153,7 +169,30 @@
 		var clear = document.getElementById('filter-clear');
 		if (clear) clear.addEventListener('click', clearAll);
 
+		var barClear = document.getElementById('filter-results-clear');
+		if (barClear) barClear.addEventListener('click', function () { clearAll(true); });
+
+		// Ticking a box by hand means the reader has moved on from the skill
+		// chip they pressed, so drop it rather than leave an invisible filter.
+		// (The inline onclick already re-filtered; this runs just after it.)
+		Array.prototype.forEach.call(
+			panel.querySelectorAll('.checkbox'),
+			function (cb) {
+				cb.addEventListener('change', function () {
+					if (dropSkillFilter()) filterProjects();
+				});
+			}
+		);
+
 		filterProjects();
+	}
+
+	// Returns true if a skill filter was on and has now been turned off.
+	function dropSkillFilter() {
+		if (!skillFilter) return false;
+		skillFilter = '';
+		skillLabel = '';
+		return true;
 	}
 
 	// Show only cards that list this exact skill. Clears the other filters

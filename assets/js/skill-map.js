@@ -106,8 +106,13 @@
 		return b.count - a.count || a.name.localeCompare(b.name);
 	}
 
-	function applyFilter(skill, checkboxes) {
+	function applyFilter(skill, checkboxes, chip) {
 		if (typeof window.filterBySkill !== 'function') return;
+		// Pressing the chip that's already on turns it off again.
+		if (chip.getAttribute('aria-pressed') === 'true') {
+			window.filterBySkill('');
+			return;
+		}
 		if (skill.byCheckbox) {
 			window.filterBySkill('');                // clears everything, no skill set
 			checkboxes[skill.key].checked = true;
@@ -116,8 +121,11 @@
 			window.filterBySkill(skill.name);
 		}
 
-		var grid = document.querySelector('.projects-content .card-grid');
-		if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		var target = document.getElementById('filter-results') ||
+			document.querySelector('.projects-content .card-grid');
+		var calm = window.matchMedia &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (target) target.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
 	}
 
 	function el(tag, className, content) {
@@ -145,9 +153,12 @@
 				'aria-label',
 				'Show the ' + s.count + ' project' + (s.count === 1 ? '' : 's') + ' using ' + s.name
 			);
+			chip.setAttribute('aria-pressed', 'false');
+			chip.dataset.skill = s.name;
+			chip.dataset.byCheckbox = s.byCheckbox ? '1' : '';
 			chip.appendChild(el('span', 'skill-chip-name', s.name));
 			chip.appendChild(el('span', 'skill-chip-count', String(s.count)));
-			chip.addEventListener('click', function () { applyFilter(s, checkboxes); });
+			chip.addEventListener('click', function () { applyFilter(s, checkboxes, chip); });
 			list.appendChild(chip);
 		});
 		row.appendChild(list);
@@ -192,6 +203,20 @@
 
 		mount.hidden = false;
 	}
+
+	// Highlight the chip whose filter is the only one on, so the reader can
+	// see what they pressed (and press something else to switch).
+	function markActive(e) {
+		var d = e.detail || {};
+		var onlyTag = d.tags && d.tags.length === 1 && !d.search && !d.skill ? d.tags[0] : '';
+		document.querySelectorAll('#skill-map .skill-chip').forEach(function (chip) {
+			var on = chip.dataset.byCheckbox
+				? chip.dataset.skill === onlyTag
+				: !!d.skill && chip.dataset.skill === d.skill && !(d.tags || []).length && !d.search;
+			chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+		});
+	}
+	document.addEventListener('projectfilterchange', markActive);
 
 	// Run after filter-mechanics.js has wired up the search box and checkboxes.
 	// Both are deferred, so their DOMContentLoaded handlers run in script order.

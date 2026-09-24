@@ -323,6 +323,21 @@ img, iframe, video, embed {
 	background: var(--card-bg-hover);
 }
 
+/* The chip whose filter is on right now. Border + weight, not colour alone. */
+.skill-chip[aria-pressed='true'] {
+	border-color: var(--link-color);
+	background: var(--card-bg-hover);
+	font-weight: 700;
+	box-shadow: inset 0 0 0 1px var(--link-color);
+}
+
+@media print {
+	.skill-map,
+	.filter-results {
+		display: none !important;
+	}
+}
+
 .skill-chip-count {
 	min-width: 26px;
 	padding: 2px 8px;
@@ -2168,6 +2183,28 @@ main article {
 	line-height: 1.6;
 }
 
+/* "Showing 11 of 32 projects using React" bar just above the cards, so the
+   active filter stays visible after a skill chip scrolls the page down. */
+.filter-results {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 14px;
+	margin: 0 20px 8px;
+	padding: 10px 14px;
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-left: 3px solid var(--link-color);
+	border-radius: 8px;
+	color: var(--text-color);
+	scroll-margin-top: 16px;
+}
+
+.filter-results[hidden] {
+	display: none;
+}
+
+.filter-results-clear,
 .filter-empty-clear {
 	background: none;
 	border: 0;

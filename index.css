@@ -231,6 +231,110 @@ img, iframe, video, embed {
 	line-height: 1.35;
 }
 
+/* Projects page "Skills, backed by proof" panel — filled in by skill-map.js */
+.skill-map {
+	width: 100%;
+	max-width: 980px;
+	margin: 8px auto 0;
+	padding: 16px 20px 4px;
+}
+
+.skill-map h2 {
+	margin: 0 0 8px;
+	color: var(--text-color);
+	font-size: 1.35rem;
+	text-align: left;
+}
+
+.skill-map > p,
+.skill-map-note {
+	margin: 0 0 14px;
+	color: #8b949e;
+	line-height: 1.6;
+}
+
+.skill-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.skill-stat {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 10px 12px;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background: var(--card-bg);
+}
+
+.skill-stat-value {
+	color: var(--text-color);
+	font-size: 1.6rem;
+	font-weight: 700;
+	line-height: 1.1;
+	font-variant-numeric: tabular-nums;
+}
+
+.skill-stat-label {
+	color: #8b949e;
+	font-size: 0.9rem;
+}
+
+.skill-group {
+	margin-bottom: 12px;
+}
+
+.skill-group-title {
+	margin: 0 0 6px;
+	color: #8b949e;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.skill-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.skill-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 36px;
+	padding: 4px 6px 4px 12px;
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
+	background: var(--card-bg);
+	color: var(--text-color);
+	font: inherit;
+	font-size: 0.92rem;
+	cursor: pointer;
+}
+
+.skill-chip:hover,
+.skill-chip:focus-visible {
+	border-color: var(--link-color);
+	background: var(--card-bg-hover);
+}
+
+.skill-chip-count {
+	min-width: 26px;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--border-color);
+	color: var(--text-color);
+	font-size: 0.82rem;
+	font-weight: 700;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}
+
 .project-page-nav {
 	margin: 0 0 22px;
 	text-align: center;

@@ -19,6 +19,10 @@
 
 	var filterBaseLabel = 'Filter';
 	var searchTerm = '';
+	// Set by the "Skills, backed by proof" panel (skill-map.js). An exact,
+	// whole-name match on a card's tech pills, so "BLE" doesn't match "possible".
+	var skillFilter = '';
+	var skillLabel = '';
 
 	// Cache each card's searchable text once. Re-reading textContent for every
 	// keystroke across 30+ cards is the kind of thing that makes typing feel laggy.
@@ -31,6 +35,7 @@
 				return {
 					el: card,
 					tags: (card.dataset.tags || '').split('|'),
+					skills: cardSkills(card),
 					title: title ? title.textContent.trim() : '',
 					haystack: (
 						(card.textContent || '') + ' ' + (card.dataset.tags || '')
@@ -39,6 +44,14 @@
 						.toLowerCase(),
 				};
 			}
+		);
+	}
+
+	// Lower-cased names of a card's tech pills and header labels.
+	function cardSkills(card) {
+		return Array.prototype.map.call(
+			card.querySelectorAll('.boxes, .card-header .tag'),
+			function (el) { return el.textContent.replace(/\s+/g, ' ').trim().toLowerCase(); }
 		);
 	}
 
@@ -61,13 +74,14 @@
 				return c.tags.indexOf(f) !== -1;
 			});
 			var textOk = words.every(function (w) { return c.haystack.indexOf(w) !== -1; });
-			var show = tagOk && textOk;
+			var skillOk = !skillFilter || c.skills.indexOf(skillFilter) !== -1;
+			var show = tagOk && textOk && skillOk;
 			c.el.style.display = show ? '' : 'none';
 			if (show) shown++;
 		});
 
 		updateFilterCount(active.length);
-		updateStatus(shown, cards.length, active.length, words.length);
+		updateStatus(shown, cards.length, active.length + (skillFilter ? 1 : 0), words.length);
 	}
 
 	function updateFilterCount(n) {
@@ -84,22 +98,27 @@
 		} else if (shown === 0) {
 			status.textContent = 'No projects match. Try a different word, or clear the filters.';
 		} else {
-			status.textContent = 'Showing ' + shown + ' of ' + total + ' projects';
+			status.textContent = 'Showing ' + shown + ' of ' + total + ' projects' +
+				(skillLabel ? ' using ' + skillLabel : '');
 		}
 		var empty = document.getElementById('filter-empty');
 		if (empty) empty.hidden = shown !== 0;
 	}
 
-	function clearAll() {
+	// `quiet` skips focusing the search box, for when a skill chip (not the
+	// Clear button) triggered this — no need to pop up a phone keyboard.
+	function clearAll(quiet) {
 		var box = document.getElementById('project-search');
 		if (box) box.value = '';
 		searchTerm = '';
+		skillFilter = '';
+		skillLabel = '';
 		Array.prototype.forEach.call(
 			document.querySelectorAll('#filter-panel .checkbox'),
 			function (cb) { cb.checked = false; }
 		);
 		filterProjects();
-		if (box) box.focus();
+		if (box && quiet !== true) box.focus();
 	}
 
 	function init() {
@@ -137,6 +156,16 @@
 		filterProjects();
 	}
 
+	// Show only cards that list this exact skill. Clears the other filters
+	// first so the result is exactly the count the skill chip promised.
+	function filterBySkill(name) {
+		clearAll(true);
+		skillFilter = String(name).toLowerCase();
+		skillLabel = String(name);
+		filterProjects();
+	}
+
 	window.filterProjects = filterProjects;
+	window.filterBySkill = filterBySkill;
 	document.addEventListener('DOMContentLoaded', init);
 })();

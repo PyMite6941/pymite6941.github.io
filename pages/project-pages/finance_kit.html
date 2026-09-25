@@ -30,11 +30,11 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../../index.css?v=632b9c515b" />
+			href="../../index.css?v=a3f4185df7" />
 
 		<title>Finance Kit: Python Expense Tracker | Matt Gresham</title>
 		<script
-			src="../../assets/js/site-style.js?v=632b9c515b"
+			src="../../assets/js/site-style.js?v=a3f4185df7"
 			defer></script>
 	</head>
 	<body>
@@ -163,11 +163,15 @@
 				</figure>
 			</div>
 			<br />
-			<h2 style="text-align: center">Dev Notes</h2>
+			<h2 id="dev-notes" style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problems Solved</h3>
 					<p>Most finance apps are overkill or locked behind subscriptions. I needed a single tool that tracked expenses, income, subscriptions, and estimated taxes — and that I'd actually use daily without paying a monthly fee.</p>
+				</div>
+				<div class="dev-note decision-box">
+					<h3><span class="decision-label">Key decision</span>A separate frontend and backend repo</h3>
+					<p>Splitting the Streamlit UI from the data layer means the finance logic can be reused outside the UI.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Errors &amp; Fixes</h3>

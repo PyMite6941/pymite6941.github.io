@@ -20,9 +20,9 @@
 		<meta
 			name="twitter:description"
 			content="CTF Flashcards — solve self-contained CTF puzzles to unlock spaced-repetition flashcards scheduled by FSRS, with an AI Learn tab that teaches any security topic then tests it." />
-		<link rel="stylesheet" type="text/css" href="../../index.css?v=632b9c515b" />
+		<link rel="stylesheet" type="text/css" href="../../index.css?v=a3f4185df7" />
 		<title>CTF Flashcards | Matt G</title>
-		<script src="../../assets/js/site-style.js?v=632b9c515b" defer></script>
+		<script src="../../assets/js/site-style.js?v=a3f4185df7" defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -99,13 +99,17 @@
   Cloudflare: Pages (React) + Worker on D1 · billing via GRID Store
   Python/FastAPI backend kept as a 1:1 local-dev twin</div>
 			<br />
-			<h2 style="text-align: center">Dev Notes</h2>
+			<h2 id="dev-notes" style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problem Solved</h3>
 					<p>Security concepts don't stick from reading alone. This closes the
 					loop: you earn a flashcard by actually solving the thing it describes,
 					then spaced repetition makes sure you keep it.</p>
+				</div>
+				<div class="dev-note decision-box">
+					<h3><span class="decision-label">Key decision</span>The Worker draws each puzzle itself instead of trusting the AI&rsquo;s output</h3>
+					<p>An AI model can&rsquo;t be counted on to stay consistent. Rendering the base64, hex, XOR, Caesar, binary or reverse artifact in code guarantees every AI-made challenge can actually be solved.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Technical Highlights</h3>

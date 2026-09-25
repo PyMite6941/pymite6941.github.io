@@ -203,14 +203,32 @@
 	}
 
 	// 4. GA4 tag — loads but stays consent-gated by the defaults above.
+	//    The config calls queue in dataLayer right away (so no page_view is
+	//    lost), but the large gtag.js download waits until the page has
+	//    finished loading and the browser is idle, so it never competes with
+	//    the page's own CSS, text and images.
 	if (GA4_MEASUREMENT_ID) {
-		var ga = document.createElement('script');
-		ga.async = true;
-		ga.src =
-			'https://www.googletagmanager.com/gtag/js?id=' +
-			encodeURIComponent(GA4_MEASUREMENT_ID);
-		document.head.appendChild(ga);
 		window.gtag('js', new Date());
 		window.gtag('config', GA4_MEASUREMENT_ID);
+		var loadGa = function () {
+			var ga = document.createElement('script');
+			ga.async = true;
+			ga.src =
+				'https://www.googletagmanager.com/gtag/js?id=' +
+				encodeURIComponent(GA4_MEASUREMENT_ID);
+			document.head.appendChild(ga);
+		};
+		var whenIdle = function () {
+			if ('requestIdleCallback' in window) {
+				window.requestIdleCallback(loadGa, { timeout: 3000 });
+			} else {
+				setTimeout(loadGa, 1);
+			}
+		};
+		if (document.readyState === 'complete') {
+			whenIdle();
+		} else {
+			window.addEventListener('load', whenIdle);
+		}
 	}
 })();

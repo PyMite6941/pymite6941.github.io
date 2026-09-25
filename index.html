@@ -22,22 +22,22 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="index.css?v=632b9c515b" />
+			href="index.css?v=a3f4185df7" />
 
 		<title>Matt Gresham | Self-Created Product Showcase</title>
 		<script
-			src="assets/js/site-style.js?v=632b9c515b"
+			src="assets/js/site-style.js?v=a3f4185df7"
 			defer></script>
 		<!-- homepage-only feature (like filter-mechanics.js on projects.html) -->
 		<script
-			src="assets/js/audience-router.js?v=632b9c515b"
+			src="assets/js/audience-router.js?v=a3f4185df7"
 			defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
 		<header class="hero-section">
 			<h1>Matt G</h1>
-			<p style="color: var(--text-color); font-size: 1.35rem; margin: 8px 0 0;">
+			<p class="hero-roles" style="color: var(--text-color); font-size: 1.35rem; margin: 8px 0 0;">
 				Software Developer &nbsp;·&nbsp; AI/ML &nbsp;·&nbsp; Cybersecurity
 			</p>
 			<p style="color: #8b949e; font-size: 1.1rem; margin-top: 12px; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -64,6 +64,13 @@
 					</button>
 				</div>
 			</div>
+			<!-- Numbers are counted from the real pages. CI (site-checks.yml)
+			     fails if they drift, so update them when you add a project. -->
+			<ul class="proof-strip">
+				<li><a href="pages/projects.html"><strong data-count-of="projects">32</strong> projects</a></li>
+				<li><a href="pages/hackathons.html"><strong data-count-of="hackathons">5</strong> hackathons</a></li>
+				<li><a href="pages/hackathons/usaii-2026.html"><strong>Finalist</strong> USAII Global AI Hackathon 2026</a></li>
+			</ul>
 		</header>
 		<main>
 			<h2 style="text-align: center">Featured Projects</h2>
@@ -95,11 +102,10 @@
 					<span class="boxes">Cybersecurity</span>
 					<br />
 					<a
-						class="text-link"
+						class="card-cta"
 						href="https://llm-protector.vercel.app"
 						target="_blank"
-						rel="noreferrer"
-						>Try the live demo</a
+						rel="noreferrer">&#9654; Try the live demo</a
 					>
 					&nbsp;·&nbsp;
 					<a
@@ -140,6 +146,15 @@
 					<p
 						>Full-stack finance tracker built with Python and Streamlit. Tracks expenses, income, and budgets — and estimates taxes. Architected with a separate frontend and backend repo, deployed on Streamlit Cloud.</p
 					>
+					<img
+						class="card-shot"
+						src="assets/img/proof/finance-kit-dashboard.webp"
+						alt="Finance Kit dashboard with expense and income tracking tabs."
+						width="1439"
+						height="792"
+						loading="lazy" />
+					<p class="card-insight"><span class="card-insight-label">The hard part</span>Streamlit Cloud deploys kept failing because dependencies of my dependencies weren&rsquo;t pinned. I fixed it by pinning every version in requirements.txt.</p>
+					<a class="text-link card-insight-link" href="./pages/project-pages/finance_kit.html#dev-notes">Read how I solved it &rarr;</a>
 					<p>Created: Jan. 3rd, 2026<br />Last Updated: April 21st, 2026</p>
 					<span class="boxes">Python</span>
 					<span class="boxes">Streamlit</span>
@@ -147,11 +162,10 @@
 					<span class="boxes">Finance</span>
 					<br />
 					<a
-						class="text-link"
+						class="card-cta"
 						href="https://expense-tracker-jgg6gpgpgs89hpzjunkkfd.streamlit.app/"
 						target="_blank"
-						rel="noreferrer"
-						>Try the live demo</a
+						rel="noreferrer">&#9654; Try the live demo</a
 					>
 					&nbsp;·&nbsp;
 					<a
@@ -177,6 +191,8 @@
 					<p
 						>CLI tool written in Go that converts Markdown files into styled HTML pages. Handles headings, code blocks, links, and lists — a practical entry into Go's standard library.</p
 					>
+					<p class="card-insight"><span class="card-insight-label">The hard part</span>Nested lists and code blocks with blank lines broke my line-by-line parser. I rewrote it as a state machine that remembers which block is still open.</p>
+					<a class="text-link card-insight-link" href="./pages/project-pages/mdToHTMLConverter.html#dev-notes">Read how I solved it &rarr;</a>
 					<p>Created: March 3rd, 2026<br />Last Updated: March 20th, 2026</p>
 					<span class="boxes">Go</span>
 					<span class="boxes">Web Development</span>
@@ -228,6 +244,8 @@
 						<h3>Magellan Search Engine</h3>
 					</div>
 					<p>Built a Go web spider that crawls pages from a seed URL and indexes content into SQLite, then wired a React frontend to search the results in the browser. Deployed on Vercel.</p>
+					<p class="card-insight"><span class="card-insight-label">The hard part</span>The spider got stuck in redirect loops, and the browser couldn&rsquo;t reach a local SQLite file. A visited-URL set fixed the loops, and moving the index to Turso over HTTP fixed the database.</p>
+					<a class="text-link card-insight-link" href="./pages/project-pages/magellan.html#dev-notes">Read how I solved it &rarr;</a>
 					<p>Created: April 13th, 2026<br />Last Updated: May 4th, 2026</p>
 					<span class="boxes">React</span>
 					<span class="boxes">Go</span>
@@ -235,11 +253,10 @@
 					<span class="boxes">Web Development</span>
 					<br />
 					<a
-						class="text-link"
+						class="card-cta"
 						href="https://magellan-search-engine.vercel.app/"
 						target="_blank"
-						rel="noreferrer"
-						>Try the live demo</a
+						rel="noreferrer">&#9654; Try the live demo</a
 					>
 					&nbsp;·&nbsp;
 					<a
@@ -261,6 +278,8 @@
 						<h3>Hack America 2026</h3>
 					</div>
 					<p>Submitted Study Assistant — an AI-powered RAG tool that ingests your own notes (Markdown, PDFs, images) into ChromaDB and lets you query them conversationally. Local Ollama or cloud models. CLI + Streamlit UI.</p>
+					<p class="card-insight"><span class="card-insight-label">The hard part</span>Staying motivated past the first week, and not letting AI write it for me. I used AI only for debugging and for learning how ChromaDB works.</p>
+					<a class="text-link card-insight-link" href="pages/hackathons/hack-america-2026.html#about-the-project">Read how I solved it &rarr;</a>
 					<span class="boxes">Python</span>
 					<span class="boxes">ChromaDB</span>
 					<span class="boxes">Ollama</span>
@@ -275,11 +294,13 @@
 						<h3>International AI Agents Hackathon 2026</h3>
 					</div>
 					<p>Built a multi-agent AI system for automated data processing. Agents coordinate to ingest, analyse, and output structured results. Core logic in <code>backend/bots.py</code>, deployed live on Vercel.</p>
+					<p class="card-insight"><span class="card-insight-label">The hard part</span>Writing prompts precise enough that four agents in a row stayed on track, while free-tier rate limits kept breaking runs. I added a model-rotation fallback in bots.py.</p>
+					<a class="text-link card-insight-link" href="pages/hackathons/international-ai-agents-2026.html#dev-notes">Read how I solved it &rarr;</a>
 					<span class="boxes">Python</span>
 					<span class="boxes">AI Agents</span>
 					<span class="boxes">Vercel</span>
 					<br /><br />
-					<a class="text-link" href="https://data-processing-ai-agents.vercel.app/" target="_blank" rel="noreferrer">Try the live demo</a>
+					<a class="card-cta" href="https://data-processing-ai-agents.vercel.app/" target="_blank" rel="noreferrer">&#9654; Try the live demo</a>
 					&nbsp;·&nbsp;
 					<a class="text-link" href="pages/hackathons/international-ai-agents-2026.html">View submission →</a>
 				</div>

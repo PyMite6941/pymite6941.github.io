@@ -27,11 +27,11 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../../index.css?v=632b9c515b" />
+			href="../../index.css?v=a3f4185df7" />
 
 		<title>Markdown to HTML Converter: Go CLI | Matt Gresham</title>
 		<script
-			src="../../assets/js/site-style.js?v=632b9c515b"
+			src="../../assets/js/site-style.js?v=a3f4185df7"
 			defer></script>
 	</head>
 	<body>
@@ -159,11 +159,15 @@
 				</figure>
 			</div>
 			<br />
-			<h2 style="text-align: center">Dev Notes</h2>
+			<h2 id="dev-notes" style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problems Solved</h3>
 					<p>Writing raw HTML for documentation by hand was tedious and error-prone. I needed a CLI that accepted Markdown as input and output styled HTML pages — and building it in Go was a chance to learn the standard library on a real task.</p>
+				</div>
+				<div class="dev-note decision-box">
+					<h3><span class="decision-label">Key decision</span>A state machine instead of reading one line at a time</h3>
+					<p>Handling each line on its own closed nested lists and code blocks too early. Tracking which block is still open across lines fixed the broken HTML.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Errors &amp; Fixes</h3>

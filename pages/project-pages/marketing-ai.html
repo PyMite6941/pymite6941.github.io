@@ -20,9 +20,9 @@
 		<meta
 			name="twitter:description"
 			content="Marketing-AI — a human-in-the-loop Reddit growth console that finds relevant threads, scores them with an LLM, and drafts tone-matched replies for a human to approve." />
-		<link rel="stylesheet" type="text/css" href="../../index.css?v=632b9c515b" />
+		<link rel="stylesheet" type="text/css" href="../../index.css?v=a3f4185df7" />
 		<title>Marketing-AI | Matt G</title>
-		<script src="../../assets/js/site-style.js?v=632b9c515b" defer></script>
+		<script src="../../assets/js/site-style.js?v=a3f4185df7" defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -91,7 +91,7 @@
 
   Content Studio:  one topic ──►  Reddit post · X thread · LinkedIn · blog</div>
 			<br />
-			<h2 style="text-align: center">Dev Notes</h2>
+			<h2 id="dev-notes" style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problem Solved</h3>
@@ -99,6 +99,10 @@
 					manual work, and automating it naively gets you banned. Marketing-AI
 					does the scanning and drafting but keeps a person in control of every
 					reply.</p>
+				</div>
+				<div class="dev-note decision-box">
+					<h3><span class="decision-label">Key decision</span>A person approves every reply instead of posting automatically</h3>
+					<p>Reddit&rsquo;s culture and spam filters are strict, and fully automated posting from new accounts gets banned. The AI finds threads and drafts replies; publishing needs explicit human approval.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Technical Highlights</h3>

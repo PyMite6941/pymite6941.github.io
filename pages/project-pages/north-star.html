@@ -20,9 +20,9 @@
 		<meta
 			name="twitter:description"
 			content="North Star (Polaris) — offline-first, local-LLM study and fitness agents built on LangGraph and Ollama that run entirely on your own device with no API keys." />
-		<link rel="stylesheet" type="text/css" href="../../index.css?v=632b9c515b" />
+		<link rel="stylesheet" type="text/css" href="../../index.css?v=a3f4185df7" />
 		<title>North Star (Polaris) | Matt G</title>
-		<script src="../../assets/js/site-style.js?v=632b9c515b" defer></script>
+		<script src="../../assets/js/site-style.js?v=a3f4185df7" defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -86,13 +86,17 @@
        shared core: polaris_core  (LLM · embeddings · config · memory)
                        LangGraph  +  Ollama  (all local)</div>
 			<br />
-			<h2 style="text-align: center">Dev Notes</h2>
+			<h2 id="dev-notes" style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problem Solved</h3>
 					<p>Most study AI assumes reliable internet, an account, and money for API
 					calls. North Star removes all three — it downloads once and runs on the
 					device, so cost and connectivity stop being barriers to good study tools.</p>
+				</div>
+				<div class="dev-note decision-box">
+					<h3><span class="decision-label">Key decision</span>Everything runs on the device instead of in the cloud</h3>
+					<p>Most study AI assumes reliable internet, an account and money for API calls. Running locally with Ollama removes all three, so a room of students with no data plan can still use it.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Technical Highlights</h3>

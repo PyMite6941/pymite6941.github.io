@@ -45,7 +45,7 @@
       'pointer-events:none',
     ].join(';');
     toast.innerHTML =
-      '<div style="font-size:0.68rem;color:#8957e5;text-transform:uppercase;letter-spacing:1px;font-weight:bold;">Achievement Unlocked</div>' +
+      '<div style="font-size:0.68rem;color:#b392f0;text-transform:uppercase;letter-spacing:1px;font-weight:bold;">Achievement Unlocked</div>' +
       '<div style="font-size:0.98rem;font-weight:bold;margin:4px 0;">' + ach.name + '</div>' +
       '<div style="font-size:0.8rem;color:#8b949e;">' + ach.desc + '</div>';
     document.body.appendChild(toast);

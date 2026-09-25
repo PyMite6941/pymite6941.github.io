@@ -231,6 +231,125 @@ img, iframe, video, embed {
 	line-height: 1.35;
 }
 
+/* Projects page "Skills, backed by proof" panel — filled in by skill-map.js */
+.skill-map {
+	width: 100%;
+	max-width: 980px;
+	margin: 8px auto 0;
+	padding: 16px 20px 4px;
+}
+
+.skill-map h2 {
+	margin: 0 0 8px;
+	color: var(--text-color);
+	font-size: 1.35rem;
+	text-align: left;
+}
+
+.skill-map > p,
+.skill-map-note {
+	margin: 0 0 14px;
+	color: #8b949e;
+	line-height: 1.6;
+}
+
+.skill-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.skill-stat {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 10px 12px;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background: var(--card-bg);
+}
+
+.skill-stat-value {
+	color: var(--text-color);
+	font-size: 1.6rem;
+	font-weight: 700;
+	line-height: 1.1;
+	font-variant-numeric: tabular-nums;
+}
+
+.skill-stat-label {
+	color: #8b949e;
+	font-size: 0.9rem;
+}
+
+.skill-group {
+	margin-bottom: 12px;
+}
+
+.skill-group-title {
+	margin: 0 0 6px;
+	color: #8b949e;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.skill-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.skill-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 36px;
+	padding: 4px 6px 4px 12px;
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
+	background: var(--card-bg);
+	color: var(--text-color);
+	font: inherit;
+	font-size: 0.92rem;
+	cursor: pointer;
+}
+
+.skill-chip:hover,
+.skill-chip:focus-visible {
+	border-color: var(--link-color);
+	background: var(--card-bg-hover);
+}
+
+/* The chip whose filter is on right now. Border + weight, not colour alone. */
+.skill-chip[aria-pressed='true'] {
+	border-color: var(--link-color);
+	background: var(--card-bg-hover);
+	font-weight: 700;
+	box-shadow: inset 0 0 0 1px var(--link-color);
+}
+
+@media print {
+	.skill-map,
+	.filter-results {
+		display: none !important;
+	}
+}
+
+.skill-chip-count {
+	min-width: 26px;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--border-color);
+	color: var(--text-color);
+	font-size: 0.82rem;
+	font-weight: 700;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}
+
 .project-page-nav {
 	margin: 0 0 22px;
 	text-align: center;
@@ -512,6 +631,19 @@ main article {
 	box-sizing: border-box;
 	align-self: stretch;
 	overflow-x: auto;
+}
+
+/* Inline use (<span class="code-segment">core/</span> inside a sentence):
+   the block padding above spilled over the neighbouring lines of text. */
+span.code-segment {
+	display: inline;
+	padding: 1px 6px;
+	border-radius: 4px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.9em;
+	overflow-wrap: anywhere;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
 }
 
 .code-segment pre {
@@ -2064,6 +2196,28 @@ main article {
 	line-height: 1.6;
 }
 
+/* "Showing 11 of 32 projects using React" bar just above the cards, so the
+   active filter stays visible after a skill chip scrolls the page down. */
+.filter-results {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 14px;
+	margin: 0 20px 8px;
+	padding: 10px 14px;
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-left: 3px solid var(--link-color);
+	border-radius: 8px;
+	color: var(--text-color);
+	scroll-margin-top: 16px;
+}
+
+.filter-results[hidden] {
+	display: none;
+}
+
+.filter-results-clear,
 .filter-empty-clear {
 	background: none;
 	border: 0;
@@ -2175,4 +2329,66 @@ main article {
 	.repo-explorer {
 		display: none;
 	}
+}
+
+/* Live GitHub Actions badge on project cards that have automated tests/CI.
+   The badge image is served by GitHub, so pass/fail is always current. */
+.ci-proof {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 10px;
+	margin: 12px 0 0;
+	font-size: 0.85rem;
+	color: #8b949e;
+}
+
+.ci-proof img {
+	display: block;
+	height: 20px;
+	width: auto;
+}
+
+/* About Me "What I'm Learning Now": each skill paired with its proof project */
+.learning-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 10px;
+}
+
+.learning-list li {
+	padding: 12px 14px;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background: var(--card-bg);
+}
+
+.learning-list strong {
+	color: var(--text-color);
+}
+
+.learning-list p {
+	margin: 6px 0 0;
+	color: #8b949e;
+	line-height: 1.6;
+}
+
+.learning-status {
+	margin-left: 8px;
+	padding: 2px 8px;
+	border: 1px solid #58a6ff;
+	border-radius: 999px;
+	color: #58a6ff;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	vertical-align: 2px;
+}
+
+.learning-status--next {
+	border-color: var(--border-color);
+	color: #8b949e;
 }

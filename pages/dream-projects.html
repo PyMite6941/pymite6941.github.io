@@ -20,10 +20,10 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../index.css?v=0627d5f8dc" />
+			href="../index.css?v=632b9c515b" />
 		<title>Dream Projects | Matt G</title>
 		<script
-			src="../assets/js/site-style.js?v=0627d5f8dc"
+			src="../assets/js/site-style.js?v=632b9c515b"
 			defer></script>
 	</head>
 	<body>
@@ -244,6 +244,77 @@
 						data-repo-link="source"
 						>Read the source and the build log →</a
 					>
+				</div>
+			</div>
+
+			<div class="dev-notes">
+				<div
+					class="dev-note"
+					id="pi-kubernetes-cluster"
+					style="width: 100%; max-width: 100%">
+					<h3
+						>#3 — Raspberry Pi Kubernetes Cluster
+						<span
+							style="
+								color: #8b949e;
+								font-size: 0.75rem;
+								font-weight: bold;
+								letter-spacing: 0.75px;
+								text-transform: uppercase;
+								margin-left: 10px;
+							"
+							>Planned</span
+						></h3
+					>
+					<p style="color: #8b949e; font-size: 0.9rem; margin-bottom: 12px">
+						Raspberry Pi · Kubernetes (k3s) · Docker · Linux · Networking
+					</p>
+					<p>
+						A small stack of Raspberry Pis wired together into one
+						<strong style="color: var(--text-color)">Kubernetes cluster</strong>
+						that I own end to end. Most of my projects are deployed on someone
+						else's platform — Vercel, Streamlit Cloud, Cloudflare. This is about
+						learning what those platforms do for me: scheduling containers
+						across machines, restarting them when they crash, routing traffic
+						to them, and keeping the whole thing running when one board is
+						unplugged.
+					</p>
+					<br />
+					<p
+						><strong style="color: var(--text-color)"
+							>The plan:</strong
+						></p
+					>
+					<br />
+					<p style="color: #8b949e; font-size: 0.9rem; line-height: 1.8">
+						○ Hardware — several Raspberry Pis on a shared network switch, one
+						as the control plane and the rest as workers<br />
+						○ k3s — a lightweight Kubernetes that runs on ARM boards like the
+						Pi<br />
+						○ Host my own projects on it — take things I've already built and
+						run them as containers on the cluster instead of a cloud host<br />
+						○ Break it on purpose — pull a node's power mid-request and watch
+						Kubernetes move the work to the boards still running<br />
+						○ Monitoring — dashboards for CPU, memory and temperature on every
+						node<br />
+						○ Security — lock the cluster down with the same "nothing allowed
+						until granted" thinking behind Petri
+					</p>
+					<br />
+					<p
+						><strong style="color: var(--text-color)"
+							>What I want to learn from it:</strong
+						></p
+					>
+					<br />
+					<p style="color: #8b949e; font-size: 0.9rem">
+						How real infrastructure works underneath the "deploy" button:
+						containers, orchestration, networking between machines, and what
+						"high availability" actually means when a machine dies. It also
+						builds on what's already here — Petri already runs everything as
+						locked-down Docker containers, and the Cyberdeck is already a
+						Raspberry Pi build.
+					</p>
 				</div>
 			</div>
 			<br />

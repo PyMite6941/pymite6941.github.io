@@ -27,12 +27,12 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../../index.css?v=0627d5f8dc" />
+			href="../../index.css?v=632b9c515b" />
 		<link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
 		<script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
 		<title>Cybersecurity Lab | Matt G</title>
 		<script
-			src="../../assets/js/site-style.js?v=0627d5f8dc"
+			src="../../assets/js/site-style.js?v=632b9c515b"
 			defer></script>
 		<style>
 			.lab-demo {
@@ -235,7 +235,7 @@
 			<div class="lab-demo">
 				<py-terminal></py-terminal>
 				<!-- prettier-ignore -->
-				<script type="py" terminal>
+				<script type="py" terminal worker service-worker="../../pyscript-sw.js">
 import hashlib
 
 WORDLIST = ["123456", "password", "qwerty", "letmein", "admin", "dragon",
@@ -281,7 +281,7 @@ else:
 			</div>
 			<script>
 				(function () {
-					var FLAG = "}skr0w_ll1ts_3cru0s_w3v{GALF".split("").reverse().join("");
+					var FLAG = "}skr0w_ll1ts_3cru0s_w31v{GALF".split("").reverse().join("");
 					console.log("%cPsst — flags love hiding in HTML comments. Inspect the page.", "color:#8957e5;font-weight:bold");
 					var btn = document.getElementById("ctf-submit");
 					var input = document.getElementById("ctf-input");

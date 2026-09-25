@@ -18,20 +18,23 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="../index.css?v=0627d5f8dc" />
+			href="../index.css?v=632b9c515b" />
 
 		<title>Products and Projects by Matt Gresham</title>
 		<script
-			src="../assets/js/site-style.js?v=0627d5f8dc"
+			src="../assets/js/site-style.js?v=632b9c515b"
 			defer></script>
 		<script
-			src="../assets/js/filter-mechanics.js?v=0627d5f8dc"
+			src="../assets/js/filter-mechanics.js?v=632b9c515b"
 			defer></script>
 		<script
-			src="../assets/js/github-activity.js?v=0627d5f8dc"
+			src="../assets/js/skill-map.js?v=632b9c515b"
 			defer></script>
 		<script
-			src="../assets/js/repo-explorer.js?v=0627d5f8dc"
+			src="../assets/js/github-activity.js?v=632b9c515b"
+			defer></script>
+		<script
+			src="../assets/js/repo-explorer.js?v=632b9c515b"
 			defer></script>
 	</head>
 	<body>
@@ -219,6 +222,23 @@
 							</a>
 						</div>
 					</section>
+					<section
+						class="skill-map"
+						id="skill-map"
+						aria-labelledby="skill-map-heading"
+						hidden>
+						<h2 id="skill-map-heading">Skills, backed by proof</h2>
+						<p>
+							Every number here is counted from the project cards below, so each
+							skill points to real work you can open. Press a skill to see those
+							projects.
+						</p>
+						<div class="skill-map-body"></div>
+					</section>
+				<p class="filter-results" id="filter-results" hidden>
+					<span id="filter-results-text"></span>
+					<button type="button" class="filter-results-clear" id="filter-results-clear">Show all projects</button>
+				</p>
 				<p
 					class="filter-empty"
 					id="filter-empty"
@@ -294,7 +314,7 @@
 						>Full-stack tool that turns live stock data into computed metrics,
 						candlestick charts, and technical indicators — then lets you chat with
 						an AI analyst grounded in those exact numbers. Shared
-						<span class="code-segment">core/</span> math powers both the online
+						<code>core/</code> math powers both the online
 						FastAPI + React app and an offline Streamlit mode that needs no AI or
 						API keys. Inspired by my grandfather, who got me into stocks and
 						investing from a young age.</p
@@ -321,6 +341,20 @@
 						href="./project-pages/stock-analysis-engine.html"
 						>View Source Code and Project</a
 					>
+					<p class="ci-proof">
+						<a
+							href="https://github.com/PyMite6941/stock-analysis-engine/actions/workflows/test.yml"
+							target="_blank"
+							rel="noreferrer"
+							><img
+								src="https://github.com/PyMite6941/stock-analysis-engine/actions/workflows/test.yml/badge.svg"
+								alt="Automated checks status for Stock Analysis Engine"
+								height="20"
+								loading="lazy"
+								onerror="this.replaceWith(document.createTextNode('Automated checks ↗'))"
+						/></a>
+						<span>18 Python + 9 JavaScript test files run on every push</span>
+					</p>
 					<details class="repo-explorer" data-repo-explore="stock-analysis-engine">
 						<summary>Commits &amp; files</summary>
 					</details>
@@ -766,6 +800,20 @@
 						href="./project-pages/pixelcode.html"
 						>View Source Code and Project</a
 					>
+					<p class="ci-proof">
+						<a
+							href="https://github.com/PyMite6941/pixel/actions/workflows/ci.yml"
+							target="_blank"
+							rel="noreferrer"
+							><img
+								src="https://github.com/PyMite6941/pixel/actions/workflows/ci.yml/badge.svg"
+								alt="Automated checks status for PixelCode"
+								height="20"
+								loading="lazy"
+								onerror="this.replaceWith(document.createTextNode('Automated checks ↗'))"
+						/></a>
+						<span>pytest suite runs on every push</span>
+					</p>
 					<details class="repo-explorer" data-repo-explore="pixel">
 						<summary>Commits &amp; files</summary>
 					</details>
@@ -851,7 +899,7 @@
 					<p>Started: June 11th, 2026<br /><span data-repo-updated="cyberdeck"></span></p>
 					<span class="boxes">Raspberry Pi</span>
 					<span class="boxes">Python</span>
-					<span class="boxes">Shell</span>
+					<span class="boxes">Bash</span>
 					<span class="boxes">Hardware</span>
 					<br />
 					<a
@@ -998,6 +1046,20 @@
 							rel="noreferrer"
 							>View Source Code and Project</a
 						>
+					<p class="ci-proof">
+						<a
+							href="https://github.com/PyMite6941/Villages/actions/workflows/ci.yml"
+							target="_blank"
+							rel="noreferrer"
+							><img
+								src="https://github.com/PyMite6941/Villages/actions/workflows/ci.yml/badge.svg"
+								alt="Automated checks status for Villages"
+								height="20"
+								loading="lazy"
+								onerror="this.replaceWith(document.createTextNode('Automated checks ↗'))"
+						/></a>
+						<span>Lint, TypeScript typecheck and build run on every push</span>
+					</p>
 					<details class="repo-explorer" data-repo-explore="Villages">
 						<summary>Commits &amp; files</summary>
 					</details>
@@ -1041,6 +1103,20 @@
 						href="./project-pages/cybersecurity-lab.html#llm-protector"
 						>See it in the Cybersecurity Lab</a
 					>
+					<p class="ci-proof">
+						<a
+							href="https://github.com/PyMite6941/LLM-Protector/actions/workflows/ci.yml"
+							target="_blank"
+							rel="noreferrer"
+							><img
+								src="https://github.com/PyMite6941/LLM-Protector/actions/workflows/ci.yml/badge.svg"
+								alt="Automated checks status for LLM Protector"
+								height="20"
+								loading="lazy"
+								onerror="this.replaceWith(document.createTextNode('Automated checks ↗'))"
+						/></a>
+						<span>Lint, pytest and an import smoke test run on every push</span>
+					</p>
 					<details class="repo-explorer" data-repo-explore="LLM-Protector">
 						<summary>Commits &amp; files</summary>
 					</details>
@@ -1213,6 +1289,20 @@
 						href="./project-pages/north-star.html"
 						>View Source Code and Project</a
 					>
+					<p class="ci-proof">
+						<a
+							href="https://github.com/PyMite6941/North-Star-Submission/actions/workflows/ci.yml"
+							target="_blank"
+							rel="noreferrer"
+							><img
+								src="https://github.com/PyMite6941/North-Star-Submission/actions/workflows/ci.yml/badge.svg"
+								alt="Automated checks status for North Star"
+								height="20"
+								loading="lazy"
+								onerror="this.replaceWith(document.createTextNode('Automated checks ↗'))"
+						/></a>
+						<span>Lint, pytest and an Android build run on every push</span>
+					</p>
 					<details class="repo-explorer" data-repo-explore="North-Star-Submission">
 						<summary>Commits &amp; files</summary>
 					</details>

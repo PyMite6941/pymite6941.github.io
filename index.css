@@ -633,6 +633,19 @@ main article {
 	overflow-x: auto;
 }
 
+/* Inline use (<span class="code-segment">core/</span> inside a sentence):
+   the block padding above spilled over the neighbouring lines of text. */
+span.code-segment {
+	display: inline;
+	padding: 1px 6px;
+	border-radius: 4px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.9em;
+	overflow-wrap: anywhere;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
 .code-segment pre {
 	counter-reset: line-number;
 	margin: 0;
@@ -2316,4 +2329,66 @@ main article {
 	.repo-explorer {
 		display: none;
 	}
+}
+
+/* Live GitHub Actions badge on project cards that have automated tests/CI.
+   The badge image is served by GitHub, so pass/fail is always current. */
+.ci-proof {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 10px;
+	margin: 12px 0 0;
+	font-size: 0.85rem;
+	color: #8b949e;
+}
+
+.ci-proof img {
+	display: block;
+	height: 20px;
+	width: auto;
+}
+
+/* About Me "What I'm Learning Now": each skill paired with its proof project */
+.learning-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 10px;
+}
+
+.learning-list li {
+	padding: 12px 14px;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background: var(--card-bg);
+}
+
+.learning-list strong {
+	color: var(--text-color);
+}
+
+.learning-list p {
+	margin: 6px 0 0;
+	color: #8b949e;
+	line-height: 1.6;
+}
+
+.learning-status {
+	margin-left: 8px;
+	padding: 2px 8px;
+	border: 1px solid #58a6ff;
+	border-radius: 999px;
+	color: #58a6ff;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	vertical-align: 2px;
+}
+
+.learning-status--next {
+	border-color: var(--border-color);
+	color: #8b949e;
 }

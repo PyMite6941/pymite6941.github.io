@@ -44,7 +44,7 @@
 			<br />
 			<py-terminal></py-terminal>
 			<!-- prettier-ignore -->
-			<script type="py" terminal>
+			<script type="py" terminal worker service-worker="../../pyscript-sw.js">
 def evaluate_rpn(expression):
     stack = []
     tokens = expression.split()

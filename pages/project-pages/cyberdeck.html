@@ -275,6 +275,8 @@
 					tab.addEventListener('click', function() {
 						tabs.forEach(function(t) { t.classList.remove('active'); });
 						tab.classList.add('active');
+						// No scene means init() showed the fallback; keep its message.
+						if (!scene) return;
 						loadModels(models[tab.getAttribute('data-model')]);
 					});
 				});

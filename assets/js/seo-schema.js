@@ -7,13 +7,13 @@
 		'/': {
 			name: 'Matt Gresham | Portfolio Website',
 			description:
-				'Portfolio of Matt Gresham, a self-taught developer building finance tools, AI agents, search projects, study tools, and browser demos.',
+				'Portfolio of Matt Gresham, a self-taught developer building finance tools, AI agents, search projects, and browser demos.',
 			type: 'WebPage',
 		},
 		'/pages/projects.html': {
 			name: 'Products and projects by Matt Gresham',
 			description:
-				'Products and projects built by Matt Gresham, including finance tools, AI agents, search projects, study tools, and browser-playable demos.',
+				'Products and projects built by Matt Gresham, including finance tools, AI agents, search projects, and browser-playable demos.',
 			type: 'CollectionPage',
 		},
 		'/pages/about-me.html': {
@@ -43,7 +43,7 @@
 		'/pages/educational-tools.html': {
 			name: 'Educational Tools',
 			description:
-				'Free learning tools built by Matt Gresham — a plain-English phishing and fraud guide, a CTF flashcard trainer, a hands-on IDOR practice lab, AI-generated 3D courses, AI study cohorts, and browser-playable study tools.',
+				'Free learning tools built by Matt Gresham — a plain-English phishing and fraud guide, a CTF flashcard trainer, a hands-on IDOR practice lab, AI-generated 3D courses, and AI study cohorts.',
 			type: 'CollectionPage',
 		},
 		'/pages/scholarships.html': {
@@ -65,14 +65,6 @@
 				'The Finance Kit is a Python and Streamlit finance tracker by Matt Gresham for expenses, income, budgets, and tax estimates.',
 			type: 'SoftwareApplication',
 			applicationCategory: 'FinanceApplication',
-			programmingLanguage: ['Python'],
-		},
-		'/pages/project-pages/study_stuff.html': {
-			name: 'Study Tools',
-			description:
-				'Browser-playable study tools by Matt Gresham, including calculators, solvers, and flashcards built with Python and PyScript.',
-			type: 'SoftwareApplication',
-			applicationCategory: 'EducationalApplication',
 			programmingLanguage: ['Python'],
 		},
 		'/pages/project-pages/mdToHTMLConverter.html': {

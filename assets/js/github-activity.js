@@ -56,7 +56,6 @@
 		'stock-analysis-engine': 'Stock Analysis Engine',
 		'magellan-spider': 'Magellan Search Engine',
 		'create-html-with-an-md-file': 'Markdown to HTML Converter',
-		'study-material': 'Study Tools',
 		'pixel': 'PixelCode',
 		'pixel-assistant': 'Pixel Assistant',
 		'north-star-submission': 'North Star',

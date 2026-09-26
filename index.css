@@ -570,9 +570,10 @@ main article {
 	transition:
 		transform 0.2s ease,
 		box-shadow 0.2s ease;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	/* Plain block flow: tech pills sit side by side and "·" separators stay
+	   between their links. (A flex column stacked every pill on its own row
+	   and pushed short cards' content far apart.) */
+	display: block;
 }
 
 .card-container:hover {
@@ -2594,4 +2595,23 @@ span.code-segment {
 
 .dev-note.decision-box p {
 	color: #c9d1d9;
+}
+
+/* Buttons inside cards: ".card-container a" would otherwise turn their text
+   link-blue on purple, and the card's flex column would stretch them wide. */
+.card-container a.nav-btn {
+	color: #fff;
+	align-self: flex-start;
+	padding: 7px 14px;
+}
+
+/* The "Key decision" box reads first in Dev Notes, and the rest of the notes
+   fill the rows under it instead of leaving one note stranded above it. */
+.dev-note.decision-box {
+	order: -1;
+}
+
+/* Tech pills inside cards: a little room when they wrap onto a second line. */
+.card-container > .boxes {
+	margin-bottom: 6px;
 }

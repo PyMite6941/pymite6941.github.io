@@ -79,12 +79,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://pymite6941.is-a.dev/pages/project-pages/study_stuff.html</loc>
-		<lastmod>2026-06-18</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.7</priority>
-	</url>
-	<url>
 		<loc>https://pymite6941.is-a.dev/pages/project-pages/mdToHTMLConverter.html</loc>
 		<lastmod>2026-06-18</lastmod>
 		<changefreq>monthly</changefreq>
@@ -151,20 +145,8 @@
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://pymite6941.is-a.dev/pages/project-pages/marketing-ai.html</loc>
-		<lastmod>2026-07-06</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.7</priority>
-	</url>
-	<url>
 		<loc>https://pymite6941.is-a.dev/pages/project-pages/church-connect.html</loc>
 		<lastmod>2026-07-06</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.7</priority>
-	</url>
-	<url>
-		<loc>https://pymite6941.is-a.dev/pages/project-pages/north-star.html</loc>
-		<lastmod>2026-07-07</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.7</priority>
 	</url>

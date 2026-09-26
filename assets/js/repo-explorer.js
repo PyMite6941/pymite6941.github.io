@@ -53,6 +53,7 @@
 	var HIDDEN_REPO_SUBSTRINGS = [
 		'connect4', 'connect-4', 'vortex', 'forgeos', 'forge-os', 'anniversary',
 		'reconkit', 'recon-kit',
+		'marketing-ai', 'study-material', 'north-star',
 	];
 
 	function isHidden(name) {

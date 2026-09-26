@@ -39,6 +39,7 @@
 	var HIDDEN_REPO_SUBSTRINGS = [
 		'connect4', 'connect-4', 'vortex', 'forgeos', 'forge-os', 'anniversary',
 		'reconkit', 'recon-kit',
+		'marketing-ai', 'study-material', 'north-star',
 	];
 
 	/*
@@ -56,10 +57,8 @@
 		'stock-analysis-engine': 'Stock Analysis Engine',
 		'magellan-spider': 'Magellan Search Engine',
 		'create-html-with-an-md-file': 'Markdown to HTML Converter',
-		'study-material': 'Study Tools',
 		'pixel': 'PixelCode',
 		'pixel-assistant': 'Pixel Assistant',
-		'north-star-submission': 'North Star',
 		'medicalai-light-weight': 'MedicalAI \u2014 Lightweight',
 		'dont-take-the-bait': "Don't Take the Bait",
 		'project-asap': 'Project ASAP',

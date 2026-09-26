@@ -20,9 +20,9 @@
 		<meta
 			name="twitter:description"
 			content="CTF Flashcards — solve self-contained CTF puzzles to unlock spaced-repetition flashcards scheduled by FSRS, with an AI Learn tab that teaches any security topic then tests it." />
-		<link rel="stylesheet" type="text/css" href="../../index.css?v=a3f4185df7" />
+		<link rel="stylesheet" type="text/css" href="../../index.css?v=96ca42241f" />
 		<title>CTF Flashcards | Matt G</title>
-		<script src="../../assets/js/site-style.js?v=a3f4185df7" defer></script>
+		<script src="../../assets/js/site-style.js?v=96ca42241f" defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -110,6 +110,10 @@
 				<div class="dev-note decision-box">
 					<h3><span class="decision-label">Key decision</span>The Worker draws each puzzle itself instead of trusting the AI&rsquo;s output</h3>
 					<p>An AI model can&rsquo;t be counted on to stay consistent. Rendering the base64, hex, XOR, Caesar, binary or reverse artifact in code guarantees every AI-made challenge can actually be solved.</p>
+				</div>
+				<div class="dev-note">
+					<h3>Hardest Part</h3>
+					<p>The opt-in scanner was very difficult to get right. It couldn&rsquo;t take in every command, and it couldn&rsquo;t assume someone was practicing CTF skills in the terminal when they were just editing <code>visudo</code> or sending a file with netcat.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Technical Highlights</h3>

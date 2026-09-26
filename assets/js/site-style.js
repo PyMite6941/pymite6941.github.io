@@ -1,7 +1,7 @@
 (function () {
 	// Content stamp for the scripts injected below. Maintained by
 	// tools/stamp-assets.py — do not edit by hand; run that script instead.
-	var ASSET_V = '632b9c515b';
+	var ASSET_V = '96ca42241f';
 	const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
 	const PATHS = [
 		{
@@ -111,7 +111,7 @@
 		`<footer class="foot">
             <div class="foot-cols">
                 <div class="foot-col">
-                    <h4>Explore</h4>
+                    <h2>Explore</h2>
                     <a href="${p.home}">Home</a>
                     <a href="${p.projects}">Projects</a>
                     <a href="${p.forothers}">Built for Others</a>
@@ -122,13 +122,13 @@
                     <a href="${p.bait}">Phishing Guide</a>
                 </div>
                 <div class="foot-col">
-                    <h4>Profiles</h4>
+                    <h2>Profiles</h2>
                     <a href="https://github.com/PyMite6941" target="_blank" rel="noreferrer">GitHub</a>
                     <a href="https://devpost.com/PyMite6941" target="_blank" rel="noreferrer">Devpost</a>
                     <a href="https://www.youtube.com/@MattGresham-e9z" target="_blank" rel="noreferrer">YouTube</a>
                 </div>
                 <div class="foot-col">
-                    <h4>More</h4>
+                    <h2>More</h2>
                     <a href="${p.about}">About Me</a>
                     <a href="${p.academics}">Academics</a>
                     <a href="${p.resume}">Résumé</a>
@@ -159,6 +159,13 @@
 	repoLinks.src = base + 'assets/js/repo-links.js' + v;
 	repoLinks.defer = true;
 	document.head.appendChild(repoLinks);
+
+	// Scroll-reveal and hero typing animations. Skips itself for visitors
+	// who asked their device for reduced motion.
+	var motion = document.createElement('script');
+	motion.src = base + 'assets/js/motion.js' + v;
+	motion.defer = true;
+	document.head.appendChild(motion);
 
 	var seo = document.createElement('script');
 	seo.src = base + 'assets/js/seo-schema.js' + v;

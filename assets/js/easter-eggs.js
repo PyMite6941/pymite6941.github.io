@@ -45,7 +45,7 @@
       'pointer-events:none',
     ].join(';');
     toast.innerHTML =
-      '<div style="font-size:0.68rem;color:#8957e5;text-transform:uppercase;letter-spacing:1px;font-weight:bold;">Achievement Unlocked</div>' +
+      '<div style="font-size:0.68rem;color:#b392f0;text-transform:uppercase;letter-spacing:1px;font-weight:bold;">Achievement Unlocked</div>' +
       '<div style="font-size:0.98rem;font-weight:bold;margin:4px 0;">' + ach.name + '</div>' +
       '<div style="font-size:0.8rem;color:#8b949e;">' + ach.desc + '</div>';
     document.body.appendChild(toast);
@@ -164,7 +164,6 @@
         '<span class="mg-t-hi">Chess Site</span>         — React + Vite chess game (Vercel)',
         '<span class="mg-t-hi">MD→HTML</span>            — Go CLI Markdown converter',
         '<span class="mg-t-hi">Markdown Previewer</span> — live split-pane editor (React)',
-        '<span class="mg-t-hi">Study Tools</span>        — browser-playable PyScript tools',
         '<span class="mg-t-hi">30 Days Challenge</span>  — daily prompts across Python, Go, Rust, Bash',
       ].join('\n');
     },

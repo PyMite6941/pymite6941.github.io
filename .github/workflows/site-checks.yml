@@ -113,3 +113,28 @@ jobs:
             fi
           done < <(find . -name "*.html" -not -path "./ai-lab/*" -not -path "./assets/*" -print0)
           exit $fail
+
+      - name: Homepage proof-strip numbers match the real pages
+        run: |
+          python3 - <<'PY'
+          import re, sys
+          from pathlib import Path
+
+          # data-count-of="projects" must equal the cards on projects.html, etc.
+          sources = {
+              "projects": "pages/projects.html",
+              "hackathons": "pages/hackathons.html",
+          }
+          home = Path("index.html").read_text(encoding="utf-8")
+          fail = False
+          for key, page in sources.items():
+              m = re.search(r'data-count-of="%s">(\d+)<' % key, home)
+              if not m:
+                  continue
+              shown = int(m.group(1))
+              actual = len(re.findall(r'class="card-container[\s"]', Path(page).read_text(encoding="utf-8")))
+              status = "ok" if shown == actual else "MISMATCH"
+              print(f"{key}: homepage says {shown}, {page} has {actual} cards ({status})")
+              fail |= shown != actual
+          sys.exit(1 if fail else 0)
+          PY

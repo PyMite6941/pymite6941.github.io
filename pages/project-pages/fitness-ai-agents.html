@@ -20,9 +20,9 @@
 		<meta
 			name="twitter:description"
 			content="Fitness AI Agents - multi-agent coaching system powered by Strava data, ChromaDB, and local LLMs." />
-		<link rel="stylesheet" type="text/css" href="../../index.css?v=632b9c515b" />
+		<link rel="stylesheet" type="text/css" href="../../index.css?v=96ca42241f" />
 		<title>Fitness AI Agents | Matt G</title>
-		<script src="../../assets/js/site-style.js?v=632b9c515b" defer></script>
+		<script src="../../assets/js/site-style.js?v=96ca42241f" defer></script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
@@ -89,13 +89,21 @@
                                          │  (your real data) │
                                          └──────────────────┘</div>
 			<br />
-			<h2 style="text-align: center">Dev Notes</h2>
+			<h2 id="dev-notes" style="text-align: center">Dev Notes</h2>
 			<div class="dev-notes">
 				<div class="dev-note">
 					<h3>Problem Solved</h3>
 					<p>Strava shows your stats but doesn't reason about them. This system
 					treats your training history as a knowledge base and lets you have a
 					genuine conversation about your fitness — not just dashboards.</p>
+				</div>
+				<div class="dev-note decision-box">
+					<h3><span class="decision-label">Key decision</span>A router plus small specialist agents instead of one big agent</h3>
+					<p>A router picks a retrieval, planning or trend agent for each question, so each specialist stays focused and small while they all share one ChromaDB store.</p>
+				</div>
+				<div class="dev-note">
+					<h3>What I Learned</h3>
+					<p>This project grew into a watch (hardware), a React + Vite website (frontend) and a Supabase SQL database (backend). It showed me how amazing full-stack engineering is when it spans hardware and software. It&rsquo;s also how I learned Arduino. Before this, I didn&rsquo;t know any hardware engineering.</p>
 				</div>
 				<div class="dev-note">
 					<h3>Technical Highlights</h3>

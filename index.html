@@ -10,7 +10,7 @@
 		<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
 		<meta
 			name="description"
-			content="Explore Matt Gresham's self-created software products, proof pages, demos, and source code from one personal website." />
+			content="Matt Gresham — self-taught developer building secure AI systems, offline-first tools, and cybersecurity tooling. Polaris Student QA lead, Neurole web developer, Eagle Scout." />
 		<link rel="canonical" href="https://pymite6941.is-a.dev/" />
 		<!--
 			Google Search Console verification (HTML tag method).
@@ -24,7 +24,7 @@
 			type="text/css"
 			href="index.css?v=632b9c515b" />
 
-		<title>Matt Gresham | Self-Created Product Showcase</title>
+		<title>Matt Gresham | Secure AI, Offline-First Tools, Cybersecurity</title>
 		<script
 			src="assets/js/site-style.js?v=632b9c515b"
 			defer></script>
@@ -32,17 +32,51 @@
 		<script
 			src="assets/js/audience-router.js?v=632b9c515b"
 			defer></script>
+		<!-- JSON-LD for SEO -->
+		<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Matt Gresham",
+  "url": "https://pymite6941.is-a.dev/",
+  "sameAs": [
+    "https://github.com/PyMite6941",
+    "https://devpost.com/PyMite6941",
+    "https://www.youtube.com/@MattGresham-e9z"
+  ],
+  "knowsAbout": [
+    "Python", "Go", "Rust", "JavaScript", "React", "FastAPI",
+    "Machine Learning", "Cybersecurity", "LLM Security", "RAG",
+    "Full Stack Development", "Docker", "SQLite"
+  ],
+  "jobTitle": "Software Developer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Polaris Student"
+  },
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "International Community School Bangkok"
+  }
+}
+</script>
 	</head>
 	<body>
 		<div id="site-nav"></div>
 		<header class="hero-section">
-			<h1>Matt G</h1>
-			<p style="color: var(--text-color); font-size: 1.35rem; margin: 8px 0 0;">
-				Software Developer &nbsp;·&nbsp; AI/ML &nbsp;·&nbsp; Cybersecurity
+			<h1>Matt Gresham</h1>
+			<p class="hero-tagline">Self-taught developer building secure AI systems, offline-first tools, and cybersecurity tooling.</p>
+			<p class="hero-copy">
+				I build real-world tools that solve real problems — LLM security scanners, local-first finance trackers, search engines, and hardware cyberdecks. Currently Head of Testing at Polaris Student, web developer for Neurole.
 			</p>
-			<p style="color: #8b949e; font-size: 1.1rem; margin-top: 12px; max-width: 600px; margin-left: auto; margin-right: auto;">
-				I build real-world tools that solve real problems — AI agents, search engines, finance trackers, and more.
-			</p>
+			<div class="hero-links">
+				<a class="nav-btn" href="pages/projects.html">View Projects</a>
+				<a class="text-link" href="pages/about-me.html">About Me</a>
+				<a class="text-link" href="pages/contact-me.html">Contact</a>
+			</div>
+			<div class="hero-illustration" aria-hidden="true">
+				<img src="assets/img/hero-illustration.svg" alt="" width="400" height="200" loading="lazy">
+			</div>
 			<div class="audience-router">
 				<p class="audience-router-label">Here for something specific? Press a button.</p>
 				<div class="audience-buttons">
@@ -62,249 +96,287 @@
 						<span class="audience-btn-title">I'm a Recruiter or Employer</span>
 						<span class="audience-btn-sub">Experience, shipped work, r&eacute;sum&eacute;</span>
 					</button>
+					<button
+						type="button"
+						class="audience-btn"
+						data-audience="client">
+						<span class="audience-btn-icon" aria-hidden="true">&#128295;</span>
+						<span class="audience-btn-title">I Have a Project</span>
+						<span class="audience-btn-sub">Automation, dashboards, AI, security</span>
+					</button>
 				</div>
 			</div>
 		</header>
 		<main>
-			<h2 style="text-align: center">Featured Projects</h2>
-			<br />
-			<h3 style="text-align: center"
-				>A selection of my best Python, Go, and React work</h3
-			>
-			<section class="card-grid">
-				<div class="card-container" data-tags="Python|AI|Cybersecurity">
-					<div class="card-header">
-						<span class="tag" style="color: #431da2">Python</span>
-						<span class="tag" style="color: #8957e5">AI</span>
-						<span class="tag" style="color: #e2490d">Cybersecurity</span>
-						<span class="tag" style="color: #11d978">Live Demo</span>
-						<h3>LLM Protector</h3>
-					</div>
-					<p
-						>Security scanner that probes a local LLM for prompt-injection and
-						jailbreak vulnerabilities — 50 attacks across 11 categories, grading
-						each model with a severity-weighted risk score. A headless benchmark
-						pipeline compares multiple models; the live demo replays a real
-						recorded scan instantly.</p
-					>
-					<p>Created: June 2026</p>
-					<span class="boxes">Python</span>
-					<span class="boxes">FastAPI</span>
-					<span class="boxes">React</span>
-					<span class="boxes">Ollama</span>
-					<span class="boxes">Cybersecurity</span>
-					<br />
-					<a
-						class="text-link"
-						href="https://llm-protector.vercel.app"
-						target="_blank"
-						rel="noreferrer"
-						>Try the live demo</a
-					>
-					&nbsp;·&nbsp;
-					<a
-						class="text-link"
-						href="./pages/project-pages/cybersecurity-lab.html#llm-protector"
-						>See it in the Cybersecurity Lab</a
-					>
+			<section id="flagship-projects" aria-labelledby="flagship-heading">
+				<h2 id="flagship-heading">Flagship Projects</h2>
+				<p class="section-subtitle">The work I'm most proud of — each is deployed, tested, and documented.</p>
+				<div class="card-grid flagship-grid">
+					<article class="card-container flagship" data-tags="Python|AI|Cybersecurity|React|Full Stack Development">
+						<div class="card-header">
+							<span class="tag" style="color: #431da2">Python</span>
+							<span class="tag" style="color: #8957e5">AI</span>
+							<span class="tag" style="color: #e2490d">Cybersecurity</span>
+							<span class="tag" style="color: #11d978">Live Demo</span>
+							<h3>LLM Protector <span class="used-badge">Used by real people</span></h3>
+						</div>
+						<p>Security scanner that probes a local LLM for prompt-injection and jailbreak vulnerabilities — 50 attacks across 11 categories, grading each model with a severity-weighted risk score. Headless benchmark pipeline compares multiple models; live demo replays a real recorded scan instantly.</p>
+						<div class="card-meta">
+							<span class="boxes">Python</span>
+							<span class="boxes">FastAPI</span>
+							<span class="boxes">React</span>
+							<span class="boxes">Ollama</span>
+							<span class="boxes">Cybersecurity</span>
+						</div>
+						<div class="card-links">
+							<a class="text-link" href="https://llm-protector.vercel.app" target="_blank" rel="noreferrer">Try Live Demo</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="pages/project-pages/cybersecurity-lab.html#llm-protector">Project Page</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="https://github.com/PyMite6941/LLM-Protector" target="_blank" rel="noreferrer">Source</a>
+						</div>
+					</article>
+
+					<article class="card-container flagship" data-tags="Python|React|AI|Finance|Full Stack Development">
+						<div class="card-header">
+							<span class="tag" style="color: #431da2">Python</span>
+							<span class="tag" style="color: #e20d0d">React</span>
+							<span class="tag" style="color: #8957e5">AI</span>
+							<span class="tag" style="color: #02a6d0">Finance</span>
+							<span class="tag" style="color: #43bda2">Full Stack</span>
+							<h3>Stock Analysis Engine <span class="used-badge">Used by real people</span></h3>
+						</div>
+						<p>Full-stack tool turning live stock data into computed metrics, candlestick charts, and technical indicators — then chat with an AI analyst grounded in those exact numbers. Shared <code class="code-segment">core/</code> math powers both the online FastAPI + React app and an offline Streamlit mode needing no AI or API keys.</p>
+						<div class="card-meta">
+							<span class="boxes">Python</span>
+							<span class="boxes">FastAPI</span>
+							<span class="boxes">React</span>
+							<span class="boxes">Groq</span>
+							<span class="boxes">Full Stack</span>
+						</div>
+						<div class="card-links">
+							<a class="text-link" href="https://stock-analysis-engine.vercel.app" target="_blank" rel="noreferrer">Try Live Demo</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="pages/project-pages/stock-analysis-engine.html">Project Page</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="https://github.com/PyMite6941/stock-analysis-engine" target="_blank" rel="noreferrer">Source</a>
+						</div>
+						<p class="ci-proof">
+							<a href="https://github.com/PyMite6941/stock-analysis-engine/actions/workflows/test.yml" target="_blank" rel="noreferrer"><img src="https://github.com/PyMite6941/stock-analysis-engine/actions/workflows/test.yml/badge.svg" alt="Automated checks status" height="20" loading="lazy" onerror="this.replaceWith(document.createTextNode('CI ↗'))"/></a>
+							<span>18 Python + 9 JS test files on every push</span>
+						</p>
+					</article>
+
+					<article class="card-container flagship" data-tags="Python|Finance|Streamlit|Full Stack Development">
+						<div class="card-header">
+							<span class="tag" style="color: #431da2">Python</span>
+							<span class="tag" style="color: #58a6ff">Math</span>
+							<span class="tag" style="color: #02a6d0">Finance</span>
+							<span class="tag" style="color: #43bda2">Full Stack</span>
+							<span class="tag" style="color: #11d978">Web Dev</span>
+							<h3>The Finance Kit <span class="used-badge">Used by real people</span></h3>
+						</div>
+						<p>Full-stack finance tracker (Python + Streamlit) tracking expenses, income, subscriptions, budgets, and tax estimates. Clean frontend/backend split with shared data layer — deployed on Streamlit Cloud. Started as a school submission; evolved into a production app I use daily.</p>
+						<div class="card-meta">
+							<span class="boxes">Python</span>
+							<span class="boxes">Streamlit</span>
+							<span class="boxes">Full Stack</span>
+							<span class="boxes">Finance</span>
+						</div>
+						<div class="card-links">
+							<a class="text-link" href="https://expense-tracker-jgg6gpgpgs89hpzjunkkfd.streamlit.app/" target="_blank" rel="noreferrer">Try Live Demo</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="pages/project-pages/finance_kit.html">Project Page</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="https://github.com/PyMite6941/Expense-tracker" target="_blank" rel="noreferrer">Source</a>
+						</div>
+					</article>
+
+					<article class="card-container flagship" data-tags="Go|React|Web Development|SQLite">
+						<div class="card-header">
+							<span class="tag" style="color: #e2490d">Go</span>
+							<span class="tag" style="color: #e20d0d">React</span>
+							<span class="tag" style="color: #11d978">Web Dev</span>
+							<h3>Magellan Search Engine <span class="used-badge">Used by real people</span></h3>
+						</div>
+						<p>Go web spider crawling from a seed URL, indexing content into SQLite, with a React frontend for browser-based search. Deployed on Vercel — a from-scratch search stack to understand how indexing and ranking actually work.</p>
+						<div class="card-meta">
+							<span class="boxes">React</span>
+							<span class="boxes">Go</span>
+							<span class="boxes">SQLite</span>
+							<span class="boxes">Web Dev</span>
+						</div>
+						<div class="card-links">
+							<a class="text-link" href="https://magellan-search-engine.vercel.app/" target="_blank" rel="noreferrer">Try Live Demo</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="pages/project-pages/magellan.html">Project Page</a>
+							<span class="link-sep" aria-hidden="true">·</span>
+							<a class="text-link" href="https://github.com/PyMite6941/magellan-spider" target="_blank" rel="noreferrer">Source</a>
+						</div>
+					</article>
 				</div>
-				<div class="card-container">
-					<div class="card-header">
-						<span
-							class="tag"
-							style="color: #431da2"
-							>Python</span
-						>
-						<span
-							class="tag"
-							style="color: #58a6ff"
-							>Math</span
-						>
-						<span
-							class="tag"
-							style="color: #02a6d0"
-							>Finance</span
-						>
-						<span
-							class="tag"
-							style="color: #43bda2"
-							>Full Stack Development</span
-						>
-						<span
-							class="tag"
-							style="color: #11d978"
-							>Web Development</span
-						>
-						<h3>The Finance Kit</h3>
-					</div>
-					<p
-						>Full-stack finance tracker built with Python and Streamlit. Tracks expenses, income, and budgets — and estimates taxes. Architected with a separate frontend and backend repo, deployed on Streamlit Cloud.</p
-					>
-					<p>Created: Jan. 3rd, 2026<br />Last Updated: April 21st, 2026</p>
-					<span class="boxes">Python</span>
-					<span class="boxes">Streamlit</span>
-					<span class="boxes">Full Stack Development</span>
-					<span class="boxes">Finance</span>
-					<br />
-					<a
-						class="text-link"
-						href="https://expense-tracker-jgg6gpgpgs89hpzjunkkfd.streamlit.app/"
-						target="_blank"
-						rel="noreferrer"
-						>Try the live demo</a
-					>
-					&nbsp;·&nbsp;
-					<a
-						class="text-link"
-						href="./pages/project-pages/finance_kit.html"
-						>View Source Code and Project</a
-					>
-				</div>
-				<div class="card-container">
-					<div class="card-header">
-						<span
-							class="tag"
-							style="color: #e2490d"
-							>Go</span
-						>
-						<span
-							class="tag"
-							style="color: #11d978"
-							>Web Development</span
-						>
-						<h3>Markdown to HTML Converter</h3>
-					</div>
-					<p
-						>CLI tool written in Go that converts Markdown files into styled HTML pages. Handles headings, code blocks, links, and lists — a practical entry into Go's standard library.</p
-					>
-					<p>Created: March 3rd, 2026<br />Last Updated: March 20th, 2026</p>
-					<span class="boxes">Go</span>
-					<span class="boxes">Web Development</span>
-					<span class="boxes">Text Processing</span>
-					<br />
-					<a
-						class="text-link"
-						href="./pages/project-pages/mdToHTMLConverter.html"
-						>View Source Code and Project</a
-					>
-				</div>
-				<div class="card-container">
-					<div class="card-header">
-						<span class="tag" style="color: #431da2">Python</span>
-						<span class="tag" style="color: #8957e5">AI</span>
-						<span class="tag" style="color: #58a6ff">In Progress</span>
-						<h3>Chess AI</h3>
-					</div>
-					<p>Chess engine built in Python — minimax with alpha-beta pruning for classical search, expanding toward a Deep Q-Network trained via self-play.</p>
-					<p>Started: 2026</p>
-					<span class="boxes">Python</span>
-					<span class="boxes">PyTorch</span>
-					<span class="boxes">AI</span>
-					<br />
-					<a
-						class="text-link"
-						href="https://ai-lab-bice.vercel.app/projects/chess-ai"
-						target="_blank"
-						>View Source Code and Project</a
-					>
-				</div>
-				<div class="card-container">
-					<div class="card-header">
-						<span
-							class="tag"
-							style="color: #e20d0d"
-							>React</span
-						>
-						<span
-							class="tag"
-							style="color: #e2490d"
-							>Go</span
-						>
-						<span
-							class="tag"
-							style="color: #11d978"
-							>Web Development</span
-						>
-						<h3>Magellan Search Engine</h3>
-					</div>
-					<p>Built a Go web spider that crawls pages from a seed URL and indexes content into SQLite, then wired a React frontend to search the results in the browser. Deployed on Vercel.</p>
-					<p>Created: April 13th, 2026<br />Last Updated: May 4th, 2026</p>
-					<span class="boxes">React</span>
-					<span class="boxes">Go</span>
-					<span class="boxes">SQLite</span>
-					<span class="boxes">Web Development</span>
-					<br />
-					<a
-						class="text-link"
-						href="https://magellan-search-engine.vercel.app/"
-						target="_blank"
-						rel="noreferrer"
-						>Try the live demo</a
-					>
-					&nbsp;·&nbsp;
-					<a
-						class="text-link"
-						href="./pages/project-pages/magellan.html"
-						>View Source Code and Project</a
-					>
+				<p class="section-cta"><a class="text-link" href="pages/projects.html">View all 30+ projects →</a></p>
+			</section>
+
+			<section id="work-experience" aria-labelledby="work-heading">
+				<h2 id="work-heading">Work Experience</h2>
+				<div class="work-grid">
+					<article class="work-card">
+						<h3>Polaris Student — Head of Testing</h3>
+						<p class="work-meta">2025–present · <a class="text-link" href="https://polarisstudent.com" target="_blank" rel="noreferrer">polarisstudent.com</a></p>
+						<p>Lead QA for an all-in-one academic platform (grade tracking, AI study assistant, college planning, FAFSA deadlines). Own the QA process end-to-end: manual test passes, bug triage, automated regression checks on core flows. Mentor a 3-person testing team.</p>
+						<a class="text-link" href="pages/work-experience/polaris-student.html">View Testing Log →</a>
+					</article>
+					<article class="work-card">
+						<h3>Neurole — Web Developer</h3>
+						<p class="work-meta">2025–present · <a class="text-link" href="https://neurole.org" target="_blank" rel="noreferrer">neurole.org</a></p>
+						<p>Modernizing the neuroscience education platform's frontend — React migration, visual refresh, archive system for daily clinical diagnosis puzzles. Content authored in Google Sheets, pulled as CSV with Cloudflare Worker fallback.</p>
+					</article>
+					<article class="work-card">
+						<h3>Saphan Siam Foundation — Social Media Lead (Eagle Scout Project)</h3>
+						<p class="work-meta">2025–present</p>
+						<p>Sole technical/communications lead building the non-profit's entire social presence from scratch across Line, Facebook, Instagram. Content strategy, platform setup, community growth.</p>
+					</article>
 				</div>
 			</section>
-			<br />
-			<h2 style="text-align: center">Featured Hackathons</h2>
-			<br />
-			<h3 style="text-align: center">Competitions and hackathons I've placed or submitted in</h3>
-			<section class="card-grid">
-				<div class="card-container">
-					<div class="card-header">
-						<span class="tag" style="color: #431da2">Python</span>
-						<span class="tag" style="color: #8957e5">AI</span>
-						<h3>Hack America 2026</h3>
-					</div>
-					<p>Submitted Study Assistant — an AI-powered RAG tool that ingests your own notes (Markdown, PDFs, images) into ChromaDB and lets you query them conversationally. Local Ollama or cloud models. CLI + Streamlit UI.</p>
-					<span class="boxes">Python</span>
-					<span class="boxes">ChromaDB</span>
-					<span class="boxes">Ollama</span>
-					<span class="boxes">Streamlit</span>
-					<br /><br />
-					<a class="text-link" href="pages/hackathons/hack-america-2026.html">View submission →</a>
+
+			<section id="skills-overview" aria-labelledby="skills-heading">
+				<h2 id="skills-heading">Skills, Backed by Proof</h2>
+				<p class="section-subtitle">Every skill below maps to real projects you can inspect. Click a skill to filter the project list.</p>
+				<div id="homepage-skill-map" class="skill-map" hidden>
+					<div class="skill-map-body"></div>
 				</div>
-				<div class="card-container">
-					<div class="card-header">
-						<span class="tag" style="color: #431da2">Python</span>
-						<span class="tag" style="color: #8957e5">AI</span>
-						<h3>International AI Agents Hackathon 2026</h3>
+				<script>
+					// Inline skill map render for homepage (simplified from skill-map.js)
+					document.addEventListener('DOMContentLoaded', function() {
+						var mount = document.getElementById('homepage-skill-map');
+						if (!mount) return;
+						var cards = document.querySelectorAll('#flagship-projects .card-container[data-tags]');
+						if (!cards.length) return;
+						var skills = {};
+						cards.forEach(function(card) {
+							card.querySelectorAll('.boxes, .card-header .tag').forEach(function(el) {
+								var name = (el.textContent || '').replace(/\s+/g, ' ').trim();
+								var lower = name.toLowerCase();
+								if (name && !['live demo','in progress','interactive','offline'].includes(lower)) {
+									skills[lower] = skills[lower] || { name: name, count: 0 };
+									skills[lower].count++;
+								}
+							});
+						});
+						var LANGUAGES = ['Python','Go','Rust','JavaScript','TypeScript','C/C++','Bash','Shell'];
+						var AREAS = ['AI','Cybersecurity','Full Stack Development','Web Development','Finance','Hardware','Math','Physics','Algorithms','3D'];
+						function groupOf(key) {
+							var name = skills[key].name;
+							if (LANGUAGES.some(function(n){return n.toLowerCase()===key;})) return 'languages';
+							if (AREAS.some(function(n){return n.toLowerCase()===key;})) return 'areas';
+							return 'tools';
+						}
+						var sorted = Object.keys(skills).sort(function(a,b){
+							return skills[b].count - skills[a].count || skills[a].name.localeCompare(skills[b].name);
+						});
+						var langs = sorted.filter(function(k){return groupOf(k)==='languages';});
+						var areas = sorted.filter(function(k){return groupOf(k)==='areas';});
+						var tools = sorted.filter(function(k){return groupOf(k)==='tools' && skills[k].count >= 2;});
+						var html = '<div class="skill-stats">';
+						html += '<div class="skill-stat"><span class="skill-stat-value">'+cards.length+'</span><span class="skill-stat-label">flagship projects</span></div>';
+						html += '<div class="skill-stat"><span class="skill-stat-value">'+langs.length+'</span><span class="skill-stat-label">languages</span></div>';
+						html += '<div class="skill-stat"><span class="skill-stat-value">'+areas.length+'</span><span class="skill-stat-label">domains</span></div>';
+						html += '<div class="skill-stat"><span class="skill-stat-value">'+tools.length+'</span><span class="skill-stat-label">frameworks & tools</span></div>';
+						html += '</div>';
+						function chipRow(title, keys) {
+							if (!keys.length) return '';
+							var row = '<div class="skill-group"><h3 class="skill-group-title">'+title+'</h3><div class="skill-chips">';
+							keys.forEach(function(k){
+								var s = skills[k];
+								row += '<button class="skill-chip" data-skill="'+s.name+'" aria-label="Show '+s.count+' project'+(s.count===1?'':'s')+' using '+s.name+'" aria-pressed="false"><span class="skill-chip-name">'+s.name+'</span><span class="skill-chip-count">'+s.count+'</span></button>';
+							});
+							row += '</div></div>';
+							return row;
+						}
+						html += chipRow('Languages', langs);
+						html += chipRow('Domains', areas);
+						html += chipRow('Frameworks & Tools', tools);
+						mount.querySelector('.skill-map-body').innerHTML = html;
+						mount.hidden = false;
+					});
+				</script>
+			</section>
+
+			<section id="hackathons" aria-labelledby="hack-heading">
+				<h2 id="hack-heading">Hackathon Highlights</h2>
+				<p class="section-subtitle">Shipping complete, deployed software under time pressure.</p>
+				<div class="card-grid">
+					<article class="card-container" data-tags="Python|AI|Hack America">
+						<div class="card-header">
+							<span class="tag" style="color: #431da2">Python</span>
+							<span class="tag" style="color: #8957e5">AI</span>
+							<h3>Hack America 2026 — Study Assistant</h3>
+						</div>
+						<p>AI-powered RAG study tool ingesting Markdown, PDFs, and images into ChromaDB for conversational querying. CLI + Streamlit UI. Local Ollama or cloud models.</p>
+						<div class="card-meta"><span class="boxes">Python</span><span class="boxes">ChromaDB</span><span class="boxes">Ollama</span><span class="boxes">Streamlit</span></div>
+						<div class="card-links"><a class="text-link" href="pages/hackathons/hack-america-2026.html">View Submission</a></div>
+					</article>
+					<article class="card-container" data-tags="Python|AI|AI Agents">
+						<div class="card-header">
+							<span class="tag" style="color: #431da2">Python</span>
+							<span class="tag" style="color: #8957e5">AI</span>
+							<h3>International AI Agents 2026 — 6-Agent Pipeline</h3>
+						</div>
+						<p>CrewAI pipeline: context rewriter → data cleaner → prompt engineer → analyst → output formatter → QA critic. Frontend Vercel, backend HuggingFace Spaces. Solo entry.</p>
+						<div class="card-meta"><span class="boxes">Python</span><span class="boxes">AI Agents</span><span class="boxes">Vercel</span></div>
+						<div class="card-links"><a class="text-link" href="https://data-processing-ai-agents.vercel.app/" target="_blank" rel="noreferrer">Live Demo</a><span class="link-sep" aria-hidden="true">·</span><a class="text-link" href="pages/hackathons/international-ai-agents-2026.html">View Submission</a></div>
+					</article>
+					<article class="card-container" data-tags="Python|AI|USAII">
+						<div class="card-header">
+							<span class="tag" style="color: #431da2">Python</span>
+							<span class="tag" style="color: #8957e5">AI</span>
+							<h3>USAII 2026 — Villages</h3>
+						</div>
+						<p>AI-powered community learning platform: study cohorts with AI-driven matching, real-time discussion, AI Village Elder, collaborative challenges, full Study Hub. FastAPI + React + Supabase.</p>
+						<div class="card-meta"><span class="boxes">Python</span><span class="boxes">FastAPI</span><span class="boxes">React</span><span class="boxes">Supabase</span></div>
+						<div class="card-links"><a class="text-link" href="pages/hackathons/usaii-2026.html">View Submission</a></div>
+					</article>
+				</div>
+				<p class="section-cta"><a class="text-link" href="pages/hackathons.html">All 6 hackathon submissions →</a></p>
+			</section>
+
+			<section id="currently" aria-labelledby="currently-heading">
+				<h2 id="currently-heading">Currently Building</h2>
+				<div class="dev-notes">
+					<div class="dev-note">
+						<h3>tinyGPT <span style="color:#58a6ff;font-size:0.75rem;font-weight:bold;text-transform:uppercase;margin-left:8px;">Learning</span></h3>
+						<p>From-scratch character-level GPT in PyTorch — attention, causal masking, positional encoding, training loop all hand-written. Goal: offline AI lab assistant running on CPU (plane-ready).</p>
+						<a class="text-link" href="https://ai-lab-bice.vercel.app/projects/tinygpt" target="_blank" rel="noreferrer">View in AI Lab →</a>
 					</div>
-					<p>Built a multi-agent AI system for automated data processing. Agents coordinate to ingest, analyse, and output structured results. Core logic in <code>backend/bots.py</code>, deployed live on Vercel.</p>
-					<span class="boxes">Python</span>
-					<span class="boxes">AI Agents</span>
-					<span class="boxes">Vercel</span>
-					<br /><br />
-					<a class="text-link" href="https://data-processing-ai-agents.vercel.app/" target="_blank" rel="noreferrer">Try the live demo</a>
-					&nbsp;·&nbsp;
-					<a class="text-link" href="pages/hackathons/international-ai-agents-2026.html">View submission →</a>
+					<div class="dev-note">
+						<h3>MedicalAI — Lightweight <span style="color:#58a6ff;font-size:0.75rem;font-weight:bold;text-transform:uppercase;margin-left:8px;">Learning</span></h3>
+						<p>Fusing frozen CLIP chest X-ray embeddings with Bio_ClinicalBERT symptom text into a lightweight offline diagnosis model for rural care. Research project — not a medical device.</p>
+						<a class="text-link" href="https://ai-lab-bice.vercel.app/projects/medical-ai-lightweight" target="_blank" rel="noreferrer">View in AI Lab →</a>
+					</div>
+					<div class="dev-note">
+						<h3>Petri <span style="color:#58a6ff;font-size:0.75rem;font-weight:bold;text-transform:uppercase;margin-left:8px;">In Progress</span></h3>
+						<p>Defensive Linux sandbox manager in Rust (egui + Docker). Create locked-down containers with capability drops, memory/process caps, network/write access only when granted. State-machine-driven lifecycle. Not a detonation environment yet.</p>
+						<a class="text-link" href="pages/dream-projects.html#petri">Build Log →</a>
+					</div>
+					<div class="dev-note">
+						<h3>Cyberdeck <span style="color:#58a6ff;font-size:0.75rem;font-weight:bold;text-transform:uppercase;margin-left:8px;">In Progress</span></h3>
+						<p>Custom portable computer (DFCD-based): Pi 5, sliding touchscreen, hidden mechanical keyboard, trackball, NP-F battery, rotary encoder. Custom OS layer, offline docs (Grimoire), comms module (NFC+LoRa). Software done; hardware blocked by cost.</p>
+						<a class="text-link" href="pages/project-pages/cyberdeck.html">Project Page →</a>
+					</div>
 				</div>
 			</section>
-			<br />
-			<h2 style="text-align: center">Who am I?</h2>
-			<article
-				>I'm a self-taught developer building toward a career in software development, AI/ML, and cybersecurity. My projects span AI agents, search engines, finance tools, and game bots — all built to solve real problems, not just as practice exercises.<br /><br />
-				Explore my
-				<a
-					class="text-link"
-					href="pages/projects.html"
-					>full project list</a
-				>,
-				<a
-					class="text-link"
-					href="pages/about-me.html"
-					>learn more about me and my work experience</a
-				>, or see my
-				<a
-					class="text-link"
-					href="pages/academics.html"
-					>academic record</a
-				>.</article
-			>
+
+			<section id="cta-section" aria-labelledby="cta-heading">
+				<h2 id="cta-heading" style="text-align:center">Let's Work Together</h2>
+				<p style="text-align:center;color:#8b949e;max-width:600px;margin:0 auto 24px">Open to internships, full-time roles, and freelance projects in AI/ML, cybersecurity, and full-stack development.</p>
+				<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+					<a class="nav-btn" href="pages/contact-me.html">Email Me</a>
+					<a class="text-link" href="https://github.com/PyMite6941" target="_blank" rel="noreferrer">GitHub</a>
+					<a class="text-link" href="https://devpost.com/PyMite6941" target="_blank" rel="noreferrer">Devpost</a>
+					<a class="text-link" href="pages/about-me.html">Full Background</a>
+				</div>
+			</section>
 		</main>
 		<div id="site-footer"></div>
 	</body>

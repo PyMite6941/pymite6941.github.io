@@ -105,6 +105,51 @@
 				"What is Matt's work experience?",
 			],
 		},
+		client: {
+			title: 'For Project Owners',
+			lede: 'I take on freelance projects where the problem is concrete and a well-built tool will actually solve it. No bloated scope, no unnecessary frameworks — just working software that does what you need. Response within 24 hours.',
+			sections: [
+				{
+					heading: 'What I build',
+					items: [
+						'<strong>Automation & Bots</strong> — Discord bots, scheduled scripts, workflow automation, web scrapers, data pipelines',
+						'<strong>Dashboards & Data Tools</strong> — Streamlit dashboards, internal reporting, data visualizations for small teams',
+						'<strong>Web Apps & Sites</strong> — React frontends, static sites, small full-stack apps, clean and fast',
+						'<strong>AI & LLM Integrations</strong> — Chatbots, RAG pipelines, AI tools integrated into existing workflows',
+						'<strong>CLI Tools & Scripts</strong> — Custom command-line utilities in Python or Go',
+						'<strong>Security & QA</strong> — Authorized security assessments, functional QA, LLM prompt-injection testing',
+					],
+				},
+				{
+					heading: 'Selected client work',
+					items: [
+						'<strong>The Infant Cultivation Program</strong> — Fully realized ARG with 10+ interconnected pages, puzzle layers, hidden narrative. Sole build: design, code, narrative.',
+						'<strong>Neurole</strong> — Neuroscience education site modernization: React migration, visual refresh, Google Sheets CSV content pipeline with Cloudflare Worker fallback.',
+						'<strong>Dream Team Tech</strong> — Subscription billing & paywall layer (Stripe + Coinbase Commerce) serving two products from one account. Cloudflare Workers for checkout, webhooks, entitlement sync, hourly reconciliation.',
+						'<strong>Polaris Student</strong> — Authorized security & QA testing: auth/session handling, CORS, write authorization, stored input handling, LLM prompt-injection resistance, multi-system functional QA.',
+					],
+				},
+				{
+					heading: 'Process',
+					items: [
+						'<strong>1. You describe the problem</strong> — Email what you need, constraints, budget, timeline. Plain English is fine.',
+						'<strong>2. I scope it</strong> — Reply with what I can build, what it takes, flat price. No hourly surprises.',
+						'<strong>3. I build it</strong> — Updates as it progresses. No disappearing for two weeks.',
+						'<strong>4. Delivered & working</strong> — Source code, deployment instructions, handoff. First-week fixes included.',
+					],
+				},
+			],
+			links: [
+				{ href: 'pages/client-work.html', label: 'Full client work page', primary: true },
+				{ href: 'mailto:greshamd27@gmail.com?subject=Freelance Project Enquiry', label: 'Email me directly', blank: true },
+				{ href: 'pages/projects.html', label: 'See my personal projects' },
+				{ href: 'pages/about-me.html', label: 'Background & skills' },
+			],
+			questions: [
+				'Can you build a dashboard for my team?',
+				'How do you handle AI integration projects?',
+			],
+		},
 	};
 
 	var overlay, dialog, lastFocused;

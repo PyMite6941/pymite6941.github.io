@@ -6,32 +6,87 @@
 		<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
 		<meta
 			name="description"
-			content="Contact Matt Gresham — send a message directly from the portfolio." />
+			content="Contact Matt Gresham — software engineer, AI/ML researcher, cybersecurity builder. Open to internships, full-time roles, and freelance projects." />
 		<link rel="canonical" href="https://pymite6941.is-a.dev/pages/contact-me.html" />
 		<link rel="stylesheet" type="text/css" href="../index.css?v=632b9c515b" />
 		<script src="../assets/js/site-style.js?v=632b9c515b" defer></script>
-		<title>Matt G | Contact</title>
+		<title>Matt Gresham | Contact</title>
 		<style>
 			.contact-wrapper {
-				max-width: 560px;
+				max-width: 720px;
 				margin: 48px auto;
 				padding: 0 24px;
+			}
+			.contact-header {
+				margin-bottom: 32px;
+			}
+			.contact-header h2 {
+				margin: 0 0 8px 0;
+				font-size: 28px;
+				color: var(--text-color);
+			}
+			.contact-header .subtitle {
+				color: #8b949e;
+				font-size: 15px;
+				margin: 0;
+				line-height: 1.6;
+			}
+			.roles-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 12px;
+				margin: 24px 0;
+			}
+			.role-card {
+				background: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				padding: 16px 20px;
+				cursor: pointer;
+				transition: border-color 0.15s, background 0.15s;
+			}
+			.role-card:hover {
+				border-color: var(--button-color);
+				background: var(--card-bg-hover);
+			}
+			.role-card input {
+				display: none;
+			}
+			.role-card:has(input:checked) {
+				border-color: var(--button-color);
+				background: rgba(137, 87, 229, 0.12);
+			}
+			.role-card label {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+				cursor: pointer;
+			}
+			.role-title {
+				font-weight: 600;
+				color: var(--text-color);
+				font-size: 14px;
+			}
+			.role-desc {
+				color: #8b949e;
+				font-size: 12px;
+				line-height: 1.4;
 			}
 			.contact-card {
 				background: var(--card-bg);
 				border: 1px solid var(--border-color);
 				border-radius: 12px;
-				padding: 36px 40px;
+				padding: 32px 36px;
 			}
-			.contact-card h2 {
+			.contact-card h3 {
 				margin: 0 0 6px 0;
 				font-size: 20px;
 				color: var(--text-color);
 			}
-			.contact-card .subtitle {
+			.contact-card .card-subtitle {
 				color: #8b949e;
 				font-size: 14px;
-				margin: 0 0 28px 0;
+				margin: 0 0 24px 0;
 				line-height: 1.5;
 			}
 			.form-group {
@@ -66,7 +121,7 @@
 			}
 			.form-group textarea {
 				resize: vertical;
-				min-height: 130px;
+				min-height: 140px;
 			}
 			.form-group input::placeholder,
 			.form-group textarea::placeholder {
@@ -91,7 +146,7 @@
 			}
 			.contact-alt {
 				text-align: center;
-				margin-top: 20px;
+				margin-top: 24px;
 				font-size: 13px;
 				color: #8b949e;
 			}
@@ -122,26 +177,83 @@
 				.contact-card {
 					padding: 24px 20px;
 				}
+				.roles-grid {
+					grid-template-columns: 1fr;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<div id="site-nav"></div>
 		<header class="hero-section">
-			<h1>Matt G</h1>
-			<p class="hero-copy">Contact Me</p>
-			<p style="color: #8b949e; max-width: 480px; margin: 8px auto 0; font-size: 15px">
-				Got a project, question, or just want to say hi — I read everything
+			<h1>Matt Gresham</h1>
+			<p class="hero-copy">Contact</p>
+			<p style="color: #8b949e; max-width: 560px; margin: 8px auto 0; font-size: 15px">
+				Open to internships, full-time roles, and freelance projects in AI/ML, cybersecurity, and full-stack development.
 			</p>
 		</header>
 		<main>
 			<div class="contact-wrapper">
+				<div class="contact-header">
+					<h2>Get in Touch</h2>
+					<p class="subtitle">
+						I read every message. Whether you're a recruiter, a college counselor, a potential client, or just curious — pick a path below so I can route you right.
+					</p>
+				</div>
+
+				<fieldset class="roles-grid" aria-label="What brings you here?">
+					<legend style="margin-bottom:8px;font-weight:600;color:var(--text-color)">What brings you here?</legend>
+					<div class="role-card">
+						<input type="radio" name="role" value="recruiter" id="role-recruiter" />
+						<label for="role-recruiter">
+							<span class="role-title">🏢 Recruiter / Hiring Manager</span>
+							<span class="role-desc">Internship, new-grad, or junior SWE role. Resume, projects, GitHub.</span>
+						</label>
+					</div>
+					<div class="role-card">
+						<input type="radio" name="role" value="security" id="role-security" />
+						<label for="role-security">
+							<span class="role-title">🔐 Security Team</span>
+							<span class="role-desc">AppSec, AI/LLM red-teaming, vulnerability research, SecOps.</span>
+						</label>
+					</div>
+					<div class="role-card">
+						<input type="radio" name="role" value="ai-ml" id="role-ai-ml" />
+						<label for="role-ai-ml">
+							<span class="role-title">🤖 AI/ML Engineering</span>
+							<span class="role-desc">From-scratch models, RAG, agents, evals, ML infra, tinyGPT/Clyde work.</span>
+						</label>
+					</div>
+					<div class="role-card">
+						<input type="radio" name="role" value="fullstack" id="role-fullstack" />
+						<label for="role-fullstack">
+							<span class="role-title">⚡ Full-Stack Product</span>
+							<span class="role-desc">React/FastAPI/Go, shared cores, offline-first, FE/BE architecture.</span>
+						</label>
+					</div>
+					<div class="role-card">
+						<input type="radio" name="role" value="client" id="role-client" />
+						<label for="role-client">
+							<span class="role-title">🛠 Freelance / Client Work</span>
+							<span class="role-desc">Automation, dashboards, AI integrations, security audits, QA.</span>
+						</label>
+					</div>
+					<div class="role-card">
+						<input type="radio" name="role" value="counselor" id="role-counselor" />
+						<label for="role-counselor">
+							<span class="role-title">🎓 College Counselor</span>
+							<span class="role-desc">Academics, awards, activities, essay, transcripts, NSA Stokes scholarship.</span>
+						</label>
+					</div>
+				</fieldset>
+
 				<div class="contact-card">
-					<h2>Send a message</h2>
+					<h3>Send a message</h3>
 					<div class="fs-success" data-fs-success>
 						&#10003; Message sent — I'll be in touch soon.
 					</div>
 					<form id="contact-form">
+						<input type="hidden" name="role" id="role-hidden" value="" />
 						<div class="form-group">
 							<label for="name">Name</label>
 							<input type="text" id="name" name="name" placeholder="Your name" data-fs-field required />
@@ -154,7 +266,7 @@
 						</div>
 						<div class="form-group">
 							<label for="message">Message</label>
-							<textarea id="message" name="message" placeholder="What's on your mind?" data-fs-field required></textarea>
+							<textarea id="message" name="message" placeholder="What's on your mind? Include context: role, timeline, stack, constraints..." data-fs-field required></textarea>
 							<span class="fs-field-error" data-fs-error="message"></span>
 						</div>
 						<button type="submit" class="submit-btn" data-fs-submit-btn>Send Message</button>
@@ -163,12 +275,32 @@
 				<p class="contact-alt">
 					Or email directly at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#114;&#101;&#115;&#104;&#97;&#109;&#100;&#50;&#55;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#103;&#114;&#101;&#115;&#104;&#97;&#109;&#100;&#50;&#55;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 				</p>
+
+				<details style="margin-top: 32px; color: #8b949e;">
+					<summary style="cursor: pointer; font-weight: 600;">Quick links for common requests</summary>
+					<div style="margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; font-size: 13px;">
+						<a class="text-link" href="../assets/documents/matt_gresham_resume.html" target="_blank" rel="noreferrer">📄 Résumé (HTML)</a>
+						<a class="text-link" href="https://github.com/PyMite6941" target="_blank" rel="noreferrer">🐙 GitHub (pinned repos)</a>
+						<a class="text-link" href="https://devpost.com/PyMite6941" target="_blank" rel="noreferrer">🏆 Devpost (hackathons)</a>
+						<a class="text-link" href="../pages/ai-lab.html" target="_blank" rel="noreferrer">🤖 AI Lab (from-scratch ML)</a>
+						<a class="text-link" href="../pages/project-pages/cybersecurity-lab.html" target="_blank" rel="noreferrer">🔐 Cybersecurity Lab</a>
+						<a class="text-link" href="../pages/client-work.html">🛠 Client Work / Services</a>
+						<a class="text-link" href="../pages/academics.html">🎓 Academics / Essay</a>
+						<a class="text-link" href="../pages/dream-projects.html">🚀 Dream Projects</a>
+					</div>
+				</details>
 			</div>
 		</main>
 		<div id="site-footer"></div>
 		<script>
 			window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
 			formspree('initForm', { formElement: '#contact-form', formId: 'xqegrqdb' });
+			// Sync role selection to hidden field
+			document.querySelectorAll('input[name="role"]').forEach(function(radio) {
+				radio.addEventListener('change', function() {
+					document.getElementById('role-hidden').value = this.value;
+				});
+			});
 		</script>
 		<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 	</body>
